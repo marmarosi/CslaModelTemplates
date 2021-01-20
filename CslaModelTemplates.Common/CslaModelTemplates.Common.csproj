@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702; CSLA0003; CSLA0010</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CSLA-Core" Version="4.11.2" />
+    <PackageReference Include="System.Text.Json" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Dal\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CslaModelTemplates.Resources\CslaModelTemplates.Resources.csproj" />
+  </ItemGroup>
+
+</Project>

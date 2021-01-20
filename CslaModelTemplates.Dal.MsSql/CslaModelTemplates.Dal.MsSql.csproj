@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CSLA-EntityFrameworkCore" Version="4.11.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Command\" />
+    <Folder Include="ComplexList\" />
+    <Folder Include="ComplexSet\" />
+    <Folder Include="ComplexView\" />
+    <Folder Include="Complex\" />
+    <Folder Include="SimpleList\" />
+    <Folder Include="SimpleSet\" />
+    <Folder Include="SimpleView\" />
+    <Folder Include="Simple\" />
+  </ItemGroup>
+
+</Project>
