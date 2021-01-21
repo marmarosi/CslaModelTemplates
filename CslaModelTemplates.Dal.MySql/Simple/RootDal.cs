@@ -1,6 +1,5 @@
-﻿using Csla.Data.EntityFrameworkCore;
+using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
-using CslaModelTemplates.Common.Dal;
 using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.Dal.MySql;
 using CslaModelTemplates.Dal.MySql.Entities;
@@ -25,7 +24,7 @@ namespace CslaModelTemplates.Dal.MsSql.Simple
             RootCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<ApiDbContext>.GetManager())
+            using (var ctx = DbContextManager<MySqlContext>.GetManager())
             {
                 // Get the specified root.
                 Root root = ctx.DbContext.Roots
@@ -58,7 +57,7 @@ namespace CslaModelTemplates.Dal.MsSql.Simple
             RootDao dao
             )
         {
-            using (var ctx = DbContextManager<ApiDbContext>.GetManager())
+            using (var ctx = DbContextManager<MySqlContext>.GetManager())
             {
                 // Check unique root name.
                 Root root = ctx.DbContext.Roots
@@ -96,7 +95,7 @@ namespace CslaModelTemplates.Dal.MsSql.Simple
             RootDao dao
             )
         {
-            using (var ctx = DbContextManager<ApiDbContext>.GetManager())
+            using (var ctx = DbContextManager<MySqlContext>.GetManager())
             {
                 // Get the specified root.
                 Root root = ctx.DbContext.Roots
@@ -143,7 +142,7 @@ namespace CslaModelTemplates.Dal.MsSql.Simple
             RootCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<ApiDbContext>.GetManager())
+            using (var ctx = DbContextManager<MySqlContext>.GetManager())
             {
                 // Get the specified root.
                 Root root = ctx.DbContext.Roots

@@ -1,5 +1,4 @@
-﻿using Csla.Data.EntityFrameworkCore;
-using CslaModelTemplates.Common.Dal;
+using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Contracts.SimpleView;
 using CslaModelTemplates.Dal.MySql.Entities;
 using CslaModelTemplates.Resources;
@@ -24,7 +23,7 @@ namespace CslaModelTemplates.Dal.MySql.SimpleView
             RootViewCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<ApiDbContext>.GetManager())
+            using (var ctx = DbContextManager<MySqlContext>.GetManager())
             {
                 // Get the specified root.
                 Root root = ctx.DbContext.Roots

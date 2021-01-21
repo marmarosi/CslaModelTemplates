@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// Defines the functionality of the registrar object for a data access layer.

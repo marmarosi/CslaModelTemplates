@@ -1,6 +1,6 @@
 using System;
 
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// Defines the functionality of the manager object for a data access layer.

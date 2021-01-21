@@ -1,4 +1,4 @@
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// Specifies the direction in which to sort a list of items.

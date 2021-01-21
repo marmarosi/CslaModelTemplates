@@ -1,3 +1,4 @@
+using CslaModelTemplates.Common;
 using CslaModelTemplates.Resources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -5,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// Factory of the CSLA data access objects.

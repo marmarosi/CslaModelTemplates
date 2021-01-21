@@ -1,7 +1,6 @@
-using CslaModelTemplates.Common.Dal;
 using System;
 
-namespace CslaModelTemplates.Common
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// Represents an error occurred on the backend.

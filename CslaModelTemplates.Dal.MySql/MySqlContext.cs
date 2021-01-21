@@ -1,4 +1,3 @@
-﻿using CslaModelTemplates.Common.Dal;
 using CslaModelTemplates.Dal.MySql.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,14 +6,14 @@ namespace CslaModelTemplates.Dal.MySql
     /// <summary>
     /// Represents a session with tha database.
     /// </summary>
-    public class ApiDbContext : DbContextBase
+    public class MySqlContext : DbContextBase
     {
         #region Constructors
 
         /// <summary>
         /// Creates a new instance of the class.
         /// </summary>
-        public ApiDbContext() : base()
+        public MySqlContext() : base()
         {
             ConnectionString = DalFactory.GetConnectionString(DAL.MySQL);
         }
@@ -23,7 +22,7 @@ namespace CslaModelTemplates.Dal.MySql
         /// Creates a new instance of the class.
         /// </summary>
         /// <param name="dalName">The name of the data access layer.</param>
-        public ApiDbContext(
+        public MySqlContext(
             string dalName
             ) : base(dalName)
         { }

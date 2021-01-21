@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// Represents an exception when the requested persistent data has ben changed.

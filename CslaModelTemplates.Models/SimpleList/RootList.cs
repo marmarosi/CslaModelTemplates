@@ -1,5 +1,5 @@
-﻿using Csla;
-using CslaModelTemplates.Common.Dal;
+using Csla;
+using CslaModelTemplates.Dal;
 using CslaModelTemplates.Contracts.SimpleList;
 using System;
 using System.Collections.Generic;

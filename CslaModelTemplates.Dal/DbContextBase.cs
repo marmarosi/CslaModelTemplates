@@ -1,4 +1,3 @@
-﻿using CslaModelTemplates.Common.Dal;
 using Microsoft.EntityFrameworkCore;
 
 namespace CslaModelTemplates.Dal

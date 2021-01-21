@@ -1,4 +1,4 @@
-﻿using CslaModelTemplates.Common.Dal;
+using CslaModelTemplates.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +20,7 @@ namespace CslaModelTemplates.Dal.MySql
             IServiceCollection services
             )
         {
-            services.AddDbContext<ApiDbContext>(options =>
+            services.AddDbContext<MySqlContext>(options =>
                 options.UseMySQL(
                     configuration.GetConnectionString(DAL.MySQL)
                     )

@@ -1,7 +1,8 @@
+using CslaModelTemplates.Common;
 using System;
 using System.Runtime.Serialization;
 
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
   /// <summary>
   /// Represents an exception thrown by the data access layer.

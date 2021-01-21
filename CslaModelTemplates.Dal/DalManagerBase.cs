@@ -1,6 +1,7 @@
+using CslaModelTemplates.Common;
 using System;
 
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// Represents a data access manager base object.

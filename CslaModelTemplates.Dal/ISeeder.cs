@@ -1,4 +1,4 @@
-﻿namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// Defines the functionality of a database seeder.

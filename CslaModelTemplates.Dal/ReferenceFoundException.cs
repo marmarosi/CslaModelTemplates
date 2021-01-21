@@ -1,6 +1,6 @@
 using System;
 
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// Represents an exception when references are found on deletetion check.

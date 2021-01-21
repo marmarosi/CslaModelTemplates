@@ -1,12 +1,11 @@
-﻿using Csla.Data.EntityFrameworkCore;
-using CslaModelTemplates.Common.Dal;
+using Csla.Data.EntityFrameworkCore;
 
 namespace CslaModelTemplates.Dal.MySql
 {
     /// <summary>
     /// Represents the data access manager object for MySQL Server databases.
     /// </summary>
-    public sealed class DalManager : DalManagerBase<DbContextManager<ApiDbContext>>
+    public sealed class DalManager : DalManagerBase<DbContextManager<MySqlContext>>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DalManager"/> class.
@@ -14,7 +13,7 @@ namespace CslaModelTemplates.Dal.MySql
         public DalManager()
         {
             SetTypes<DalRegistrar, DalManager>();
-            ConnectionManager = DbContextManager<ApiDbContext>.GetManager();
+            ConnectionManager = DbContextManager<MySqlContext>.GetManager();
         }
 
         /// <summary>

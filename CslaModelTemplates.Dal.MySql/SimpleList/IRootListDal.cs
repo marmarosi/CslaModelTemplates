@@ -22,7 +22,7 @@ namespace CslaModelTemplates.Dal.MySql.SimpleList
             RootListCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<ApiDbContext>.GetManager())
+            using (var ctx = DbContextManager<MySqlContext>.GetManager())
             {
                 List<RootListItemDao> list = ctx.DbContext.Roots
                     .Where(e => e.RootName.Contains(criteria.RootName))

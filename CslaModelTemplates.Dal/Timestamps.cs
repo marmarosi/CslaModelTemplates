@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// This class provides helper methods for MS SQL timestamps.

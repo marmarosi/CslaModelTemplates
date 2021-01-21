@@ -1,7 +1,7 @@
 using Csla;
 using System;
 
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// The base criteria object for sorted and paginated lists.

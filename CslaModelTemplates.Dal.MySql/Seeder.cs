@@ -15,7 +15,7 @@
             bool isDevelopment
             )
         {
-            ApiDbContext ctx = new ApiDbContext(DAL.MySQL);
+            MySqlContext ctx = new MySqlContext(DAL.MySQL);
 
             if (isDevelopment)
                 ctx.Database.EnsureDeleted();

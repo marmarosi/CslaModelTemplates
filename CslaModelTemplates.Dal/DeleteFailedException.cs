@@ -1,29 +1,29 @@
 using System;
 
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
-    /// Represents an exception when the operation cannot be executed for some wrong data.
+    /// Represents an exception when the deletion of the persistent data failed.
     /// </summary>
     [Serializable]
-    public class InvalidDataException : DalException
+    public class DeleteFailedException : DalException
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidDataException"/> class.
+        /// Initializes a new instance of the <see cref="DeleteFailedException"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
-        public InvalidDataException(
+        public DeleteFailedException(
             string message
             )
             : base(message)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidDataException"/> class.
+        /// Initializes a new instance of the <see cref="DeleteFailedException"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="innerException">The inner exception.</param>
-        public InvalidDataException(
+        public DeleteFailedException(
             string message,
             Exception innerException
             )

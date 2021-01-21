@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// Represents the configuration section for the data access layers.

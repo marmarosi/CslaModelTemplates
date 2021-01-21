@@ -1,4 +1,4 @@
-namespace CslaModelTemplates.Common.Dal
+namespace CslaModelTemplates.Dal
 {
     /// <summary>
     /// Defines the data transfer object of the read-only code-value list item object.
