@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Contract
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Dal", "CslaModelTemplates.Dal\CslaModelTemplates.Dal.csproj", "{AF683A00-7411-4429-8B7F-3ECE17811922}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Dal.MsSql", "CslaModelTemplates.Dal.MsSql\CslaModelTemplates.Dal.MsSql.csproj", "{BABE583A-12AA-4897-AE38-CD93C1EFDCCC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Models", "CslaModelTemplates.Models\CslaModelTemplates.Models.csproj", "{709B21B4-AA4A-42B9-8C8F-1B796196BEF5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Resources", "CslaModelTemplates.Resources\CslaModelTemplates.Resources.csproj", "{345ED0AD-A124-4251-941C-36DB5A200DC4}"
@@ -21,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaModelTemplates.Dal.MySql", "CslaModelTemplates.Dal.MySql\CslaModelTemplates.Dal.MySql.csproj", "{F279BD48-58A2-4A30-8402-FF3B3CFAEE97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaModelTemplates.Dal.SqlServer", "CslaModelTemplates.Dal.SqlServer\CslaModelTemplates.Dal.SqlServer.csproj", "{07EE08BE-C634-44CF-A0ED-7142876CE47A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,10 +46,6 @@ Global
 		{AF683A00-7411-4429-8B7F-3ECE17811922}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF683A00-7411-4429-8B7F-3ECE17811922}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF683A00-7411-4429-8B7F-3ECE17811922}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BABE583A-12AA-4897-AE38-CD93C1EFDCCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BABE583A-12AA-4897-AE38-CD93C1EFDCCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BABE583A-12AA-4897-AE38-CD93C1EFDCCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BABE583A-12AA-4897-AE38-CD93C1EFDCCC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{709B21B4-AA4A-42B9-8C8F-1B796196BEF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{709B21B4-AA4A-42B9-8C8F-1B796196BEF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{709B21B4-AA4A-42B9-8C8F-1B796196BEF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -56,6 +54,14 @@ Global
 		{345ED0AD-A124-4251-941C-36DB5A200DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{345ED0AD-A124-4251-941C-36DB5A200DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{345ED0AD-A124-4251-941C-36DB5A200DC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F279BD48-58A2-4A30-8402-FF3B3CFAEE97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F279BD48-58A2-4A30-8402-FF3B3CFAEE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F279BD48-58A2-4A30-8402-FF3B3CFAEE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F279BD48-58A2-4A30-8402-FF3B3CFAEE97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07EE08BE-C634-44CF-A0ED-7142876CE47A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07EE08BE-C634-44CF-A0ED-7142876CE47A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07EE08BE-C634-44CF-A0ED-7142876CE47A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07EE08BE-C634-44CF-A0ED-7142876CE47A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

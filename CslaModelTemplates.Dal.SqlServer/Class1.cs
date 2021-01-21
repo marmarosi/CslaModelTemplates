@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CslaModelTemplates.Dal.MsSql
+namespace CslaModelTemplates.Dal.SqlServer
 {
     public class Class1
     {

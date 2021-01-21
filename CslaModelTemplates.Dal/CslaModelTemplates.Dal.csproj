@@ -8,4 +8,8 @@
     <PackageReference Include="CSLA-EntityFrameworkCore" Version="4.11.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CslaModelTemplates.Common\CslaModelTemplates.Common.csproj" />
+  </ItemGroup>
+
 </Project>
