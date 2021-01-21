@@ -54,7 +54,7 @@ namespace CslaModelTemplates.Models.SimpleList
             using (IDalManager dm = DalFactory.GetManager())
             {
                 IRootListDal dal = dm.GetProvider<IRootListDal>();
-                List<RootListItemDao> list = dal.Get(criteria);
+                List<RootListItemDao> list = dal.Fetch(criteria);
 
                 foreach (RootListItemDao dao in list)
                     Add(RootListItem.Get(dao));

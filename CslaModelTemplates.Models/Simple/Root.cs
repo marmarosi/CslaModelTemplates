@@ -88,7 +88,7 @@ namespace CslaModelTemplates.Models.Simple
         /// <summary>
         /// Gets an existing root instance.
         /// </summary>
-        /// <param name="criteria">The key criteria the root.</param>
+        /// <param name="criteria">The criteria of the root.</param>
         /// <returns>The requested root instance.</returns>
         public static Root Get(
             RootCriteria criteria

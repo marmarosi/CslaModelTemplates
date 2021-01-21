@@ -10,6 +10,7 @@
     <Folder Include="ComplexSet\" />
     <Folder Include="ComplexView\" />
     <Folder Include="Complex\" />
+    <Folder Include="Selection\" />
     <Folder Include="SimpleList\" />
     <Folder Include="SimpleSet\" />
     <Folder Include="SimpleView\" />

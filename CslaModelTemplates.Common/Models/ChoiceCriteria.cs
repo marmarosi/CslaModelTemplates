@@ -1,4 +1,4 @@
-﻿using Csla;
+using Csla;
 using System;
 
 namespace CslaModelTemplates.Common.Models

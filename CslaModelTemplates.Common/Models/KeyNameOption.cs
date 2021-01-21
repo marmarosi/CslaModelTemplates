@@ -1,4 +1,4 @@
-﻿using Csla;
+using Csla;
 using System;
 
 namespace CslaModelTemplates.Common.Models
@@ -11,8 +11,8 @@ namespace CslaModelTemplates.Common.Models
     {
         #region Business Methods
 
-        public static readonly PropertyInfo<long> KeyProperty = RegisterProperty<long>(c => c.Key);
-        public long Key
+        public static readonly PropertyInfo<long?> KeyProperty = RegisterProperty<long?>(c => c.Key);
+        public long? Key
         {
             get { return GetProperty(KeyProperty); }
             private set { LoadProperty(KeyProperty, value); }
@@ -45,9 +45,16 @@ namespace CslaModelTemplates.Common.Models
 
         #region Factory Methods
 
-        public static KeyNameOption GetReadOnlyChild(KeyNameOptionDto dto)
+        /// <summary>
+        /// Gets a key-name option.
+        /// </summary>
+        /// <param name="dao">The data access object of the key-name option.</param>
+        /// <returns>The requested key-name option instance.</returns>
+        public static KeyNameOption Get(
+            KeyNameOptionDao dao
+            )
         {
-            return DataPortal.FetchChild<KeyNameOption>(dto);
+            return DataPortal.FetchChild<KeyNameOption>(dao);
         }
 
         private KeyNameOption()
@@ -57,10 +64,12 @@ namespace CslaModelTemplates.Common.Models
 
         #region Data Access
 
-        private void Child_Fetch(KeyNameOptionDto dto)
+        private void Child_Fetch(
+            KeyNameOptionDao dao
+            )
         {
-            Key = dto.Key;
-            Name = dto.Name;
+            Key = dao.Key;
+            Name = dao.Name;
         }
 
         #endregion

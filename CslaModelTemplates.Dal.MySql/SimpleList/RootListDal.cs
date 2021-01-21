@@ -11,14 +11,14 @@ namespace CslaModelTemplates.Dal.MySql.SimpleList
     /// </summary>
     public class RootListDal : IRootListDal
     {
-        #region Get
+        #region Fetch
 
         /// <summary>
         /// Gets the list of the roots.
         /// </summary>
         /// <param name="criteria">The criteria of the root list.</param>
         /// <returns>The requested root collection.</returns>
-        public List<RootListItemDao> Get(
+        public List<RootListItemDao> Fetch(
             RootListCriteria criteria
             )
         {

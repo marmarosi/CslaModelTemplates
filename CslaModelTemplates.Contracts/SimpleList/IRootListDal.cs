@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace CslaModelTemplates.Contracts.SimpleList
 {
@@ -7,6 +7,6 @@ namespace CslaModelTemplates.Contracts.SimpleList
     /// </summary>
     public interface IRootListDal
     {
-        List<RootListItemDao> Get(RootListCriteria criteria);
+        List<RootListItemDao> Fetch(RootListCriteria criteria);
     }
 }
