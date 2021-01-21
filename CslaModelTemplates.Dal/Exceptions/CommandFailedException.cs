@@ -1,6 +1,6 @@
 using System;
 
-namespace CslaModelTemplates.Dal
+namespace CslaModelTemplates.Dal.Exceptions
 {
     /// <summary>
     /// Represents an exception when the execution of a command failed.

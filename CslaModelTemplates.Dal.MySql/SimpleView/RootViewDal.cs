@@ -1,5 +1,6 @@
 using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Contracts.SimpleView;
+using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.MySql.Entities;
 using CslaModelTemplates.Resources;
 using Microsoft.EntityFrameworkCore;

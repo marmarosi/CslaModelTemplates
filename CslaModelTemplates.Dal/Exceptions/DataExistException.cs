@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 
-namespace CslaModelTemplates.Dal
+namespace CslaModelTemplates.Dal.Exceptions
 {
     /// <summary>
     /// Represents an exception when the requested persistent data already exist.

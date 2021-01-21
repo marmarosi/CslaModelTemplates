@@ -1,4 +1,4 @@
-﻿using Csla.Data.EntityFrameworkCore;
+using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Contracts.SimpleList;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

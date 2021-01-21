@@ -1,29 +1,29 @@
 using System;
 
-namespace CslaModelTemplates.Dal
+namespace CslaModelTemplates.Dal.Exceptions
 {
     /// <summary>
-    /// Represents an exception when the deletion of the persistent data failed.
+    /// Represents an exception when references are found on deletetion check.
     /// </summary>
     [Serializable]
-    public class DeleteFailedException : DalException
+    public class ReferenceFoundException : DalException
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DeleteFailedException"/> class.
+        /// Initializes a new instance of the <see cref="ReferenceFoundException"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
-        public DeleteFailedException(
+        public ReferenceFoundException(
             string message
             )
             : base(message)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DeleteFailedException"/> class.
+        /// Initializes a new instance of the <see cref="ReferenceFoundException"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="innerException">The inner exception.</param>
-        public DeleteFailedException(
+        public ReferenceFoundException(
             string message,
             Exception innerException
             )

@@ -1,3 +1,4 @@
+using CslaModelTemplates.Dal.Exceptions;
 using System;
 
 namespace CslaModelTemplates.Dal

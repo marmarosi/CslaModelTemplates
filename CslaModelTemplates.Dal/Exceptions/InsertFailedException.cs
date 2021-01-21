@@ -1,29 +1,29 @@
 using System;
 
-namespace CslaModelTemplates.Dal
+namespace CslaModelTemplates.Dal.Exceptions
 {
     /// <summary>
-    /// Represents an exception when the operation cannot be executed for some wrong data.
+    /// Represents an exception when the creation of the persistent data failed.
     /// </summary>
     [Serializable]
-    public class InvalidDataException : DalException
+    public class InsertFailedException : DalException
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidDataException"/> class.
+        /// Initializes a new instance of the <see cref="InsertFailedException"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
-        public InvalidDataException(
+        public InsertFailedException(
             string message
             )
             : base(message)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidDataException"/> class.
+        /// Initializes a new instance of the <see cref="InsertFailedException"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="innerException">The inner exception.</param>
-        public InvalidDataException(
+        public InsertFailedException(
             string message,
             Exception innerException
             )

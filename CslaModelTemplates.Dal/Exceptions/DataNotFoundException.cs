@@ -1,38 +1,38 @@
 using System;
 using System.Net;
 
-namespace CslaModelTemplates.Dal
+namespace CslaModelTemplates.Dal.Exceptions
 {
     /// <summary>
-    /// Represents an exception when the requested persistent data has ben changed.
+    /// Represents an exception when the requested persistent data are not found.
     /// </summary>
     [Serializable]
-    public class ConcurrencyException : DalException
+    public class DataNotFoundException : DalException
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConcurrencyException"/> class.
+        /// Initializes a new instance of the <see cref="DataNotFoundException"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
-        public ConcurrencyException(
+        public DataNotFoundException(
             string message
             )
             : base(message)
         {
-            StatusCode = (int)HttpStatusCode.Conflict;
+            StatusCode = (int)HttpStatusCode.NotFound;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConcurrencyException"/> class.
+        /// Initializes a new instance of the <see cref="DataNotFoundException"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="innerException">The inner exception.</param>
-        public ConcurrencyException(
+        public DataNotFoundException(
             string message,
             Exception innerException
             )
             : base(message, innerException)
         {
-            StatusCode = (int)HttpStatusCode.Conflict;
+            StatusCode = (int)HttpStatusCode.NotFound;
         }
     }
 }
