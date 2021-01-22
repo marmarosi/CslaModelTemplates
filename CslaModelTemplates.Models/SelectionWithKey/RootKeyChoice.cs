@@ -1,17 +1,17 @@
 using Csla;
 using CslaModelTemplates.Common.Models;
-using CslaModelTemplates.Contracts.SelectionByCode;
+using CslaModelTemplates.Contracts.SelectionWithKey;
 using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
 
-namespace CslaModelTemplates.Models.SelectionByCode
+namespace CslaModelTemplates.Models.SelectionWithKey
 {
     /// <summary>
     /// Represents a read-only root choice collection.
     /// </summary>
     [Serializable]
-    public class RootChoice : ReadOnlyListBase<RootChoice, CodeNameOption>
+    public class RootKeyChoice : ReadOnlyListBase<RootKeyChoice, KeyNameOption>
     {
         #region Authorization Rules
 
@@ -30,14 +30,14 @@ namespace CslaModelTemplates.Models.SelectionByCode
         /// </summary>
         /// <param name="criteria">The criteria root choice.</param>
         /// <returns>The requested root choice instance.</returns>
-        public static RootChoice Get(
-            RootChoiceCriteria criteria
+        public static RootKeyChoice Get(
+            RootKeyChoiceCriteria criteria
             )
         {
-            return DataPortal.Fetch<RootChoice>(criteria);
+            return DataPortal.Fetch<RootKeyChoice>(criteria);
         }
 
-        private RootChoice()
+        private RootKeyChoice()
         { /* require use of factory methods */ }
 
         #endregion
@@ -45,7 +45,7 @@ namespace CslaModelTemplates.Models.SelectionByCode
         #region Data Access
 
         private void DataPortal_Fetch(
-            RootChoiceCriteria criteria
+            RootKeyChoiceCriteria criteria
             )
         {
             var rlce = RaiseListChangedEvents;
@@ -54,11 +54,11 @@ namespace CslaModelTemplates.Models.SelectionByCode
 
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IRootChoiceDal dal = dm.GetProvider<IRootChoiceDal>();
-                List<CodeNameOptionDao> choice = dal.Fetch(criteria);
+                IRootKeyChoiceDal dal = dm.GetProvider<IRootKeyChoiceDal>();
+                List<KeyNameOptionDao> choice = dal.Fetch(criteria);
 
-                foreach (CodeNameOptionDao dao in choice)
-                    Add(CodeNameOption.Get(dao));
+                foreach (var dao in choice)
+                    Add(KeyNameOption.Get(dao));
             }
             IsReadOnly = true;
             RaiseListChangedEvents = rlce;

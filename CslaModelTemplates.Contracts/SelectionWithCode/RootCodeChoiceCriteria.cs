@@ -1,13 +1,13 @@
 using CslaModelTemplates.Common.Models;
 using System;
 
-namespace CslaModelTemplates.Contracts.SelectionByCode
+namespace CslaModelTemplates.Contracts.SelectionWithCode
 {
     /// <summary>
     /// Represents the criteria of the read-only root choice collection.
     /// </summary>
     [Serializable]
-    public class RootChoiceCriteria : ChoiceCriteria
+    public class RootCodeChoiceCriteria : ChoiceCriteria
     {
         public string RootName { get; set; }
     }

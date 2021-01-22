@@ -29,7 +29,7 @@ namespace CslaModelTemplates.Models.SimpleList
         /// </summary>
         /// <param name="criteria">The criteria of the read-only root collection.</param>
         /// <returns>The list of the root items.</returns>
-        public static RootList GetList(
+        public static RootList Get(
             RootListCriteria criteria
             )
         {

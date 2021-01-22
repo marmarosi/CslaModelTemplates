@@ -1,35 +1,35 @@
 using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common.Models;
-using CslaModelTemplates.Contracts.SelectionByCode;
+using CslaModelTemplates.Contracts.SelectionWithKey;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CslaModelTemplates.Dal.MySql.SelectionByCode
+namespace CslaModelTemplates.Dal.MySql.SelectionWithKey
 {
     /// <summary>
     /// Implements the data access functions of the read-only root choice collection.
     /// </summary>
-    public class RootChoiceDal : IRootChoiceDal
+    public class RootKeyChoiceDal : IRootKeyChoiceDal
     {
         #region Fetch
 
         /// <summary>
-        /// Gets the choice of the roots.
+        /// Gets the choice of the managers.
         /// </summary>
-        /// <param name="criteria">The criteria of the root choice.</param>
-        /// <returns>The data transfer object of the requested root choice.</returns>
-        public List<CodeNameOptionDao> Fetch(
-            RootChoiceCriteria criteria
+        /// <param name="criteria">The criteria of the manager choice.</param>
+        /// <returns>The data transfer object of the requested manager choice.</returns>
+        public List<KeyNameOptionDao> Fetch(
+            RootKeyChoiceCriteria criteria
             )
         {
             using (var ctx = DbContextManager<MySqlContext>.GetManager())
             {
-                List<CodeNameOptionDao> choice = ctx.DbContext.Roots
+                List<KeyNameOptionDao> choice = ctx.DbContext.Roots
                     .Where(e => e.RootName.Contains(criteria.RootName))
-                    .Select(e => new CodeNameOptionDao
+                    .Select(e => new KeyNameOptionDao
                     {
-                        Code = e.RootCode,
+                        Key = e.RootKey,
                         Name = e.RootName
                     })
                     .OrderBy(o => o.Name)

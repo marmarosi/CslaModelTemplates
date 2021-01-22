@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CslaModelTemplates.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:CslaModelTemplates.WebApi.ApiController">
+            <summary>
+            Serves as the base class for the API controllers.
+            </summary>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.ApiController.#ctor(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Creates a new instance of the controller.
+            </summary>
+            <param name="logger">The application logging service.</param>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.ApiController.HandleError(System.Exception)">
+            <summary>
+            Handles the eventual exceptions.
+            </summary>
+            <param name="exception">The exception thrown by the backend.</param>
+            <returns>The error information to send to the frontend.</returns>
+        </member>
+        <member name="T:CslaModelTemplates.WebApi.Controllers.SelectionController">
+            <summary>
+            Defines the API endpoints for selections.
+            </summary>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.#ctor(Microsoft.Extensions.Logging.ILogger{CslaModelTemplates.WebApi.Controllers.SelectionController})">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="logger">The application logging service.</param>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithKey(CslaModelTemplates.Contracts.SelectionWithKey.RootKeyChoiceCriteria)">
+            <summary>
+            Gets the key-name choice of the roots.
+            </summary>
+            <param name="criteria">The criteria of the root choice.</param>
+            <returns>The key-name choice of the tenants.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithCode(CslaModelTemplates.Contracts.SelectionWithCode.RootCodeChoiceCriteria)">
+            <summary>
+            Gets the code-name choice of the roots.
+            </summary>
+            <param name="criteria">The criteria of the root choice.</param>
+            <returns>The code-name choice of the tenants.</returns>
+        </member>
+        <member name="T:CslaModelTemplates.WebApi.Controllers.SimpleController">
+            <summary>
+            Defines the API endpoints for simple models.
+            </summary>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.#ctor(Microsoft.Extensions.Logging.ILogger{CslaModelTemplates.WebApi.Controllers.SimpleController})">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="logger">The application logging service.</param>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRootList(CslaModelTemplates.Contracts.SimpleList.RootListCriteria)">
+            <summary>
+            Gets a list of roots.
+            </summary>
+            <param name="criteria">The criteria of the root list.</param>
+            <returns>A list of roots.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRootView(CslaModelTemplates.Contracts.SimpleView.RootViewCriteria)">
+            <summary>
+            Gets the specified root view.
+            </summary>
+            <param name="criteria">The criteria of the root view.</param>
+            <returns>The requested root view.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRoot(CslaModelTemplates.Contracts.Simple.RootCriteria)">
+            <summary>
+            Gets the specified root.
+            </summary>
+            <param name="criteria">The criteria of the root.</param>
+            <returns>The requested root.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.CreateRoot(CslaModelTemplates.Contracts.Simple.RootDto)">
+            <summary>
+            Creates a new root.
+            </summary>
+            <param name="dto">The data transer object of the root.</param>
+            <returns>The created root.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.UpdateRoot(CslaModelTemplates.Contracts.Simple.RootDto)">
+            <summary>
+            Updates the specified root.
+            </summary>
+            <param name="dto">The data transer object of the root.</param>
+            <returns>The updated root.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.DeleteRoot(CslaModelTemplates.Contracts.Simple.RootCriteria)">
+            <summary>
+            Deletes the specified root.
+            </summary>
+            <param name="criteria">The criteria of the root.</param>
+        </member>
+        <member name="T:CslaModelTemplates.WebApi.Security.PasswordJumbler`1">
+            <summary>
+            Implements the standard Identity password hashing.
+            </summary>
+            <typeparam name="TUser">The type used to represent a user.</typeparam>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Security.PasswordJumbler`1.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Identity.PasswordHasherOptions})">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.Identity.PasswordHasher`1"/>.
+            </summary>
+            <param name="optionsAccessor">The options for this instance.</param>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Security.PasswordJumbler`1.HashPassword(`0,System.String)">
+            <summary>
+            Returns a hashed representation of the supplied <paramref name="password"/> for the specified <paramref name="user"/>.
+            </summary>
+            <param name="user">The user whose password is to be hashed.</param>
+            <param name="password">The password to hash.</param>
+            <returns>A hashed representation of the supplied <paramref name="password"/> for the specified <paramref name="user"/>.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Security.PasswordJumbler`1.VerifyHashedPassword(`0,System.String,System.String)">
+            <summary>
+            Returns a <see cref="T:Microsoft.AspNetCore.Identity.PasswordVerificationResult"/> indicating the result of a password hash comparison.
+            </summary>
+            <param name="user">The user whose password should be verified.</param>
+            <param name="hashedPassword">The hash value for a user's stored password.</param>
+            <param name="providedPassword">The password supplied for comparison.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Identity.PasswordVerificationResult"/> indicating the result of a password hash comparison.</returns>
+            <remarks>Implementations of this method should be time consistent.</remarks>
+        </member>
+        <member name="T:CslaModelTemplates.WebApi.Startup">
+            <summary>
+            The application launcher.
+            </summary>
+        </member>
+        <member name="P:CslaModelTemplates.WebApi.Startup.Configuration">
+            <summary>
+            Gets the application configuration.
+            </summary>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Startup.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Application startup constructor.
+            </summary>
+            <param name="environment">The hosting environment.</param>
+            <param name="configuration">The application configuration.</param>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime.
+            Use this method to add services to the container.
+            </summary>
+            <param name="services">The container of the application services.</param>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            This method gets called by the runtime.
+            Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app">The application builder.</param>
+        </member>
+    </members>
+</doc>
