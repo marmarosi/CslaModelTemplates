@@ -129,6 +129,24 @@
             <returns>A <see cref="T:Microsoft.AspNetCore.Identity.PasswordVerificationResult"/> indicating the result of a password hash comparison.</returns>
             <remarks>Implementations of this method should be time consistent.</remarks>
         </member>
+        <member name="T:CslaModelTemplates.WebApi.Program">
+            <summary>
+            Application bootstrap.
+            </summary>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Program.Main(System.String[])">
+            <summary>
+            Application entry point.
+            </summary>
+            <param name="args">The startup arguments.</param>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Calls the application startup.
+            </summary>
+            <param name = "args" > The startup arguments.</param>
+            <returns>The web host builder.</returns>
+        </member>
         <member name="T:CslaModelTemplates.WebApi.Startup">
             <summary>
             The application launcher.

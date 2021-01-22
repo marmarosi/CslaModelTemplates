@@ -176,17 +176,17 @@ namespace CslaModelTemplates.Dal
 
         #endregion
 
-        #region ProductionSeeds
+        #region LiveSeeds
 
         /// <summary>
         /// Ensures the initial data of the active layer.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public static void ProductionSeed(
+        public static void LiveSeed(
             string contentRootPath
             )
         {
-            ProductionSeed(ActiveLayer, contentRootPath);
+            LiveSeed(ActiveLayer, contentRootPath);
         }
 
         /// <summary>
@@ -194,13 +194,13 @@ namespace CslaModelTemplates.Dal
         /// </summary>
         /// <param name="dalName">The name of the data access layer.</param>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public static void ProductionSeed(
+        public static void LiveSeed(
             string dalName,
             string contentRootPath
             )
         {
             ISeeder seeder = Activator.CreateInstance(DalTypes[dalName]) as ISeeder;
-            seeder.ProductionSeed(contentRootPath);
+            seeder.LiveSeed(contentRootPath);
         }
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace CslaModelTemplates.Dal
             )
         {
             foreach (KeyValuePair<string, Type> dalType in DalTypes)
-                ProductionSeed(dalType.Key, contentRootPath);
+                LiveSeed(dalType.Key, contentRootPath);
         }
 
         #endregion

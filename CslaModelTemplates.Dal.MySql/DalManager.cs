@@ -20,7 +20,7 @@ namespace CslaModelTemplates.Dal.MySql
         /// Ensures the database schema and fills it with initial data.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public override void ProductionSeed(
+        public override void LiveSeed(
             string contentRootPath
             )
         {

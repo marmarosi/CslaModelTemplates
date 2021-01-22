@@ -26,7 +26,9 @@ namespace CslaModelTemplates.Dal.MySql.SelectionWithCode
             using (var ctx = DbContextManager<MySqlContext>.GetManager())
             {
                 List<CodeNameOptionDao> choice = ctx.DbContext.Roots
-                    .Where(e => e.RootName.Contains(criteria.RootName))
+                    .Where(e =>
+                        criteria.RootName == null || e.RootName.Contains(criteria.RootName)
+                    )
                     .Select(e => new CodeNameOptionDao
                     {
                         Code = e.RootCode,

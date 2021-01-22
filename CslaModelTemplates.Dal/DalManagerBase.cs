@@ -65,7 +65,7 @@ namespace CslaModelTemplates.Dal
         /// Override this method to ensure the database schema and fill it with initial data.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public virtual void ProductionSeed(string contentRootPath)
+        public virtual void LiveSeed(string contentRootPath)
         { }
 
         /// <summary>

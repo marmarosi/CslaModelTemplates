@@ -26,7 +26,7 @@ namespace CslaModelTemplates.Dal.MySql.SelectionWithKey
             using (var ctx = DbContextManager<MySqlContext>.GetManager())
             {
                 List<KeyNameOptionDao> choice = ctx.DbContext.Roots
-                    .Where(e => e.RootName.Contains(criteria.RootName))
+                    .Where(e => criteria.RootName == null || e.RootName.Contains(criteria.RootName))
                     .Select(e => new KeyNameOptionDao
                     {
                         Key = e.RootKey,

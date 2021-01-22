@@ -7,7 +7,7 @@ using CslaModelTemplates.Dal.MySql.Entities;
 using CslaModelTemplates.Resources;
 using System.Linq;
 
-namespace CslaModelTemplates.Dal.MsSql.Simple
+namespace CslaModelTemplates.Dal.MySql.Simple
 {
     /// <summary>
     /// Implements the data access functions of the editable root object.
@@ -63,7 +63,9 @@ namespace CslaModelTemplates.Dal.MsSql.Simple
             {
                 // Check unique root code.
                 Root root = ctx.DbContext.Roots
-                    .Where(e => e.RootCode == dao.RootCode)
+                    .Where(e =>
+                        e.RootCode == dao.RootCode
+                    )
                     .FirstOrDefault()
                     ;
                 if (root != null)
@@ -102,7 +104,9 @@ namespace CslaModelTemplates.Dal.MsSql.Simple
             {
                 // Get the specified root.
                 Root root = ctx.DbContext.Roots
-                    .Where(e => e.RootKey == dao.RootKey)
+                    .Where(e =>
+                        e.RootKey == dao.RootKey
+                    )
                     .FirstOrDefault()
                     ;
                 if (root == null)

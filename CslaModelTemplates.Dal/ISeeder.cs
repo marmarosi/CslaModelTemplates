@@ -5,7 +5,7 @@ namespace CslaModelTemplates.Dal
     /// </summary>
     public interface ISeeder
     {
-        void ProductionSeed(string contentRootPath);
+        void LiveSeed(string contentRootPath);
         void TestSeed(string contentRootPath);
     }
 }

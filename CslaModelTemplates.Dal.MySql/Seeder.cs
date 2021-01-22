@@ -1,4 +1,6 @@
-﻿namespace CslaModelTemplates.Dal.MySql
+﻿using CslaModelTemplates.Dal.MySql.Entities;
+
+namespace CslaModelTemplates.Dal.MySql
 {
     /// <summary>
     /// Database seeder.
@@ -15,13 +17,27 @@
             bool isDevelopment
             )
         {
-            MySqlContext ctx = new MySqlContext(DAL.MySQL);
+            using (MySqlContext ctx = new MySqlContext(DAL.MySQL))
+            {
+                if (isDevelopment)
+                    ctx.Database.EnsureDeleted();
+                ctx.Database.EnsureCreated();
 
-            if (isDevelopment)
-                ctx.Database.EnsureDeleted();
-            ctx.Database.EnsureCreated();
+                #region Root data
 
-            //TestDataGenerator<ApiDbContext>.Generate(ctx);
+                for (int i = 0; i < 100; i++)
+                {
+                    int serialNumber = i + 1;
+                    ctx.Roots.Add(new Root
+                    {
+                        RootCode = $"R-{serialNumber.ToString("0000")}",
+                        RootName = $"Root entry number {serialNumber}",
+                    });
+                }
+                ctx.SaveChanges();
+
+                #endregion
+            }
         }
     }
 }

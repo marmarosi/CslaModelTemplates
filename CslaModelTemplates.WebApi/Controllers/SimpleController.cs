@@ -4,17 +4,20 @@ using CslaModelTemplates.Contracts.SimpleView;
 using CslaModelTemplates.Models.Simple;
 using CslaModelTemplates.Models.SimpleList;
 using CslaModelTemplates.Models.SimpleView;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 
 namespace CslaModelTemplates.WebApi.Controllers
 {
     /// <summary>
     /// Defines the API endpoints for simple models.
     /// </summary>
-    [Route("api/simple")]
     [ApiController]
+    [Route("api/simple")]
+    [Produces("application/json")]
     public class SimpleController : ApiController
     {
         #region Constructor
@@ -38,6 +41,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="criteria">The criteria of the root list.</param>
         /// <returns>A list of roots.</returns>
         [HttpGet("")]
+        [ProducesResponseType(typeof(List<RootListItemDto>), StatusCodes.Status200OK)]
         public IActionResult GetRootList(
             [FromQuery] RootListCriteria criteria
             )
@@ -63,6 +67,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="criteria">The criteria of the root view.</param>
         /// <returns>The requested root view.</returns>
         [HttpGet("view")]
+        [ProducesResponseType(typeof(RootViewDto), StatusCodes.Status200OK)]
         public IActionResult GetRootView(
             [FromQuery] RootViewCriteria criteria
             )
@@ -88,6 +93,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="criteria">The criteria of the root.</param>
         /// <returns>The requested root.</returns>
         [HttpGet("fetch")]
+        [ProducesResponseType(typeof(RootDto), StatusCodes.Status200OK)]
         public IActionResult GetRoot(
             [FromQuery] RootCriteria criteria
             )
@@ -95,7 +101,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 Root root = Root.Get(criteria);
-                return Ok(root);
+                return Ok(root.AsDto());
             }
             catch (Exception ex)
             {
@@ -113,6 +119,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="dto">The data transer object of the root.</param>
         /// <returns>The created root.</returns>
         [HttpPost("")]
+        [ProducesResponseType(typeof(RootDto), StatusCodes.Status201Created)]
         public IActionResult CreateRoot(
             [FromBody] RootDto dto
             )
@@ -124,7 +131,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                 {
                     root = root.Save();
                 }
-                return Ok(root);
+                return Created(Request.Path, root.AsDto());
             }
             catch (Exception ex)
             {
@@ -142,6 +149,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="dto">The data transer object of the root.</param>
         /// <returns>The updated root.</returns>
         [HttpPut("")]
+        [ProducesResponseType(typeof(RootDto), StatusCodes.Status200OK)]
         public IActionResult UpdateRoot(
             [FromBody] RootDto dto
             )
@@ -153,7 +161,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                 {
                     root = root.Save();
                 }
-                return Ok(root);
+                return Ok(root.AsDto());
             }
             catch (Exception ex)
             {
@@ -170,6 +178,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
         [HttpDelete("")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult DeleteRoot(
             [FromQuery] RootCriteria criteria
             )
@@ -177,7 +186,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 Root.Delete(criteria);
-                return Ok();
+                return NoContent();
             }
             catch (Exception ex)
             {

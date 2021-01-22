@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CslaModelTemplates.Common.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using CodeDef = CslaModelTemplates.Contracts.SelectionWithCode;
 using CodeModel = CslaModelTemplates.Models.SelectionWithCode;
 using KeyDef = CslaModelTemplates.Contracts.SelectionWithKey;
@@ -11,8 +14,9 @@ namespace CslaModelTemplates.WebApi.Controllers
     /// <summary>
     /// Defines the API endpoints for selections.
     /// </summary>
-    [Route("api/selection")]
     [ApiController]
+    [Route("api/selection")]
+    [Produces("application/json")]
     public class SelectionController : ApiController
     {
         #region Constructor
@@ -36,8 +40,9 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="criteria">The criteria of the root choice.</param>
         /// <returns>The key-name choice of the tenants.</returns>
         [HttpGet("with-key")]
+        [ProducesResponseType(typeof(List<KeyNameOptionDto>), StatusCodes.Status200OK)]
         public IActionResult GetTenantChoiceWithKey(
-            KeyDef.RootKeyChoiceCriteria criteria
+            [FromQuery] KeyDef.RootKeyChoiceCriteria criteria
             )
         {
             try
@@ -61,8 +66,9 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="criteria">The criteria of the root choice.</param>
         /// <returns>The code-name choice of the tenants.</returns>
         [HttpGet("with-code")]
+        [ProducesResponseType(typeof(List<CodeNameOptionDto>), StatusCodes.Status200OK)]
         public IActionResult GetTenantChoiceWithCode(
-            CodeDef.RootCodeChoiceCriteria criteria
+            [FromQuery] CodeDef.RootCodeChoiceCriteria criteria
             )
         {
             try
