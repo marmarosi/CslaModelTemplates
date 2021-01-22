@@ -29,6 +29,7 @@ namespace CslaModelTemplates.Dal.MySql.SimpleList
                     .Select(e => new RootListItemDao
                     {
                         RootKey = e.RootKey,
+                        RootCode = e.RootCode,
                         RootName = e.RootName
                     })
                     .OrderBy(o => o.RootName)

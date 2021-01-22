@@ -24,6 +24,15 @@ namespace CslaModelTemplates.Models.Simple
             set { SetProperty(RootKeyProperty, value); }
         }
 
+        public static readonly PropertyInfo<string> RootCodeProperty = RegisterProperty<string>(c => c.RootCode);
+        [Required]
+        [MaxLength(10)]
+        public string RootCode
+        {
+            get { return GetProperty(RootCodeProperty); }
+            set { SetProperty(RootCodeProperty, value); }
+        }
+
         public static readonly PropertyInfo<string> RootNameProperty = RegisterProperty<string>(c => c.RootName);
         [Required]
         [MaxLength(100)]
@@ -49,6 +58,7 @@ namespace CslaModelTemplates.Models.Simple
             return new RootDto
             {
                 RootKey = RootKey,
+                RootCode = RootCode,
                 RootName = RootName,
                 Timestamp = Timestamp
             };
@@ -116,7 +126,7 @@ namespace CslaModelTemplates.Models.Simple
         /// </summary>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The rebuilt root instance.</returns>
-        public static Root From(
+        public static Root FromDto(
             RootDto dto
             )
         {
@@ -128,6 +138,7 @@ namespace CslaModelTemplates.Models.Simple
                 New();
 
             //root.RootKey = dto.RootKey;
+            root.RootCode = dto.RootCode;
             root.RootName = dto.RootName;
             //root.Timestamp = dto.Timestamp;
 
@@ -159,6 +170,7 @@ namespace CslaModelTemplates.Models.Simple
                 using (BypassPropertyChecks)
                 {
                     RootKey = dao.RootKey;
+                    RootCode = dao.RootCode;
                     RootName = dao.RootName;
                     Timestamp = dao.Timestamp;
                 }
@@ -170,6 +182,7 @@ namespace CslaModelTemplates.Models.Simple
             return new RootDao
             {
                 RootKey = RootKey,
+                RootCode = RootCode,
                 RootName = RootName,
                 Timestamp = Timestamp
             };

@@ -40,6 +40,7 @@ namespace CslaModelTemplates.Dal.MySql.SimpleView
                 return new RootViewDao
                 {
                     RootKey = root.RootKey,
+                    RootCode = root.RootCode,
                     RootName = root.RootName
                 };
             }

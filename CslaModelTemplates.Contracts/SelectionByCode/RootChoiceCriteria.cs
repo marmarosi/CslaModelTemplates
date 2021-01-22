@@ -1,7 +1,7 @@
 using CslaModelTemplates.Common.Models;
 using System;
 
-namespace CslaModelTemplates.Contracts.Selection
+namespace CslaModelTemplates.Contracts.SelectionByCode
 {
     /// <summary>
     /// Represents the criteria of the read-only root choice collection.

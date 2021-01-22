@@ -6,6 +6,7 @@
     public class RootViewData
     {
         public long? RootKey { get; set; }
+        public string RootCode { get; set; }
         public string RootName { get; set; }
     }
 

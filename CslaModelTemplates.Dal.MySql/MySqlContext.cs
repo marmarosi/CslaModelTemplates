@@ -57,7 +57,7 @@ namespace CslaModelTemplates.Dal.MySql
             #region Root
 
             modelBuilder.Entity<Root>()
-                .HasIndex(e => e.RootName)
+                .HasIndex(e => e.RootCode)
                 .IsUnique();
 
             #endregion

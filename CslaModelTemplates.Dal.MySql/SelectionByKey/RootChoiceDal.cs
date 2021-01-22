@@ -1,11 +1,11 @@
 using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common.Models;
-using CslaModelTemplates.Contracts.Selection;
+using CslaModelTemplates.Contracts.SelectionByKey;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CslaModelTemplates.Dal.MySql.Selection
+namespace CslaModelTemplates.Dal.MySql.SelectionByKey
 {
     /// <summary>
     /// Implements the data access functions of the read-only root choice collection.

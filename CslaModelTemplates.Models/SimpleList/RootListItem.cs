@@ -20,6 +20,13 @@ namespace CslaModelTemplates.Models.SimpleList
             private set { LoadProperty(RootKeyProperty, value); }
         }
 
+        public static readonly PropertyInfo<string> RootCodeProperty = RegisterProperty<string>(c => c.RootCode);
+        public string RootCode
+        {
+            get { return GetProperty(RootCodeProperty); }
+            private set { LoadProperty(RootCodeProperty, value); }
+        }
+
         public static readonly PropertyInfo<string> RootNameProperty = RegisterProperty<string>(c => c.RootName);
         public string RootName
         {
@@ -66,6 +73,7 @@ namespace CslaModelTemplates.Models.SimpleList
             )
         {
             RootKey = dao.RootKey;
+            RootCode = dao.RootCode;
             RootName = dao.RootName;
         }
 

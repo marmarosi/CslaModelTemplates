@@ -1,17 +1,17 @@
 using Csla;
 using CslaModelTemplates.Common.Models;
-using CslaModelTemplates.Contracts.Selection;
+using CslaModelTemplates.Contracts.SelectionByCode;
 using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
 
-namespace CslaModelTemplates.Models.Selection
+namespace CslaModelTemplates.Models.SelectionByCode
 {
     /// <summary>
     /// Represents a read-only root choice collection.
     /// </summary>
     [Serializable]
-    public class RootChoice : ReadOnlyListBase<RootChoice, KeyNameOption>
+    public class RootChoice : ReadOnlyListBase<RootChoice, CodeNameOption>
     {
         #region Authorization Rules
 
@@ -55,10 +55,10 @@ namespace CslaModelTemplates.Models.Selection
             using (IDalManager dm = DalFactory.GetManager())
             {
                 IRootChoiceDal dal = dm.GetProvider<IRootChoiceDal>();
-                List<KeyNameOptionDao> choice = dal.Fetch(criteria);
+                List<CodeNameOptionDao> choice = dal.Fetch(criteria);
 
-                foreach (var dao in choice)
-                    Add(KeyNameOption.Get(dao));
+                foreach (CodeNameOptionDao dao in choice)
+                    Add(CodeNameOption.Get(dao));
             }
             IsReadOnly = true;
             RaiseListChangedEvents = rlce;

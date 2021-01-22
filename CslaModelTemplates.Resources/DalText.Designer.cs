@@ -106,11 +106,11 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Root with name {0} already exists..
+        ///   Looks up a localized string similar to Root with code {0} already exists..
         /// </summary>
-        public static string Root_RootNameExists {
+        public static string Root_RootCodeExists {
             get {
-                return ResourceManager.GetString("Root_RootNameExists", resourceCulture);
+                return ResourceManager.GetString("Root_RootCodeExists", resourceCulture);
             }
         }
         

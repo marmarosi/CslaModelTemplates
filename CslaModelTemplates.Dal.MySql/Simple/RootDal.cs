@@ -40,6 +40,7 @@ namespace CslaModelTemplates.Dal.MsSql.Simple
                 return new RootDao
                 {
                     RootKey = root.RootKey,
+                    RootCode = root.RootCode,
                     RootName = root.RootName,
                     Timestamp = root.Timestamp
                 };
@@ -60,17 +61,18 @@ namespace CslaModelTemplates.Dal.MsSql.Simple
         {
             using (var ctx = DbContextManager<MySqlContext>.GetManager())
             {
-                // Check unique root name.
+                // Check unique root code.
                 Root root = ctx.DbContext.Roots
-                    .Where(e => e.RootName == dao.RootName)
+                    .Where(e => e.RootCode == dao.RootCode)
                     .FirstOrDefault()
                     ;
                 if (root != null)
-                    throw new DataExistException(DalText.Root_RootNameExists.With(dao.RootName));
+                    throw new DataExistException(DalText.Root_RootCodeExists.With(dao.RootCode));
 
                 // Create the new root.
                 root = new Root
                 {
+                    RootCode = dao.RootCode,
                     RootName = dao.RootName
                 };
                 ctx.DbContext.Roots.Add(root);
@@ -108,18 +110,19 @@ namespace CslaModelTemplates.Dal.MsSql.Simple
                 if (root.Timestamp != dao.Timestamp)
                     throw new ConcurrencyException(DalText.Root_Concurrency);
 
-                // Check unique root name.
-                if (root.RootName != dao.RootName)
+                // Check unique root code.
+                if (root.RootCode != dao.RootCode)
                 {
                     int exist = ctx.DbContext.Roots
-                    .Where(e => e.RootName == dao.RootName && e.RootKey != root.RootKey)
-                    .Count()
-                    ;
+                        .Where(e => e.RootCode == dao.RootCode && e.RootKey != root.RootKey)
+                        .Count()
+                        ;
                     if (exist > 0)
-                        throw new DataExistException(DalText.Root_RootNameExists.With(dao.RootName));
+                        throw new DataExistException(DalText.Root_RootCodeExists.With(dao.RootCode));
                 }
 
                 // Update the root.
+                root.RootCode = dao.RootCode;
                 root.RootName = dao.RootName;
 
                 int count = ctx.DbContext.SaveChanges();

@@ -59,5 +59,41 @@ namespace CslaModelTemplates.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root code cannot exceed {1} characters..
+        /// </summary>
+        public static string Root_RootCode_MaxLength {
+            get {
+                return ResourceManager.GetString("Root_RootCode_MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root code is required..
+        /// </summary>
+        public static string Root_RootCode_Required {
+            get {
+                return ResourceManager.GetString("Root_RootCode_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root name cannot exceed {1} characters..
+        /// </summary>
+        public static string Root_RootName_MaxLength {
+            get {
+                return ResourceManager.GetString("Root_RootName_MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root name is required..
+        /// </summary>
+        public static string Root_RootName_Required {
+            get {
+                return ResourceManager.GetString("Root_RootName_Required", resourceCulture);
+            }
+        }
     }
 }

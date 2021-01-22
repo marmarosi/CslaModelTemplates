@@ -8,6 +8,7 @@ namespace CslaModelTemplates.Contracts.Simple
     public class RootData
     {
         public long? RootKey { get; set; }
+        public string RootCode { get; set; }
         public string RootName { get; set; }
         public DateTime? Timestamp { get; set; }
     }
