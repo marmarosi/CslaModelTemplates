@@ -35,11 +35,11 @@ namespace CslaModelTemplates.Dal
             IServiceCollection services
             )
         {
-            var settings = configuration.GetSection(Section).Get<DalSettings>();
+            DalSettings settings = configuration.GetSection(Section).Get<DalSettings>();
             Configure(settings);
 
             List<IDalRegistrar> dalRegistrars = GetRegistrars();
-            foreach (var dalRegistrar in dalRegistrars)
+            foreach (IDalRegistrar dalRegistrar in dalRegistrars)
                 dalRegistrar.AddDalContext(configuration, services);
         }
 

@@ -57,7 +57,7 @@ namespace CslaModelTemplates.Models.SelectionWithKey
                 IRootKeyChoiceDal dal = dm.GetProvider<IRootKeyChoiceDal>();
                 List<KeyNameOptionDao> choice = dal.Fetch(criteria);
 
-                foreach (var dao in choice)
+                foreach (KeyNameOptionDao dao in choice)
                     Add(KeyNameOption.Get(dao));
             }
             IsReadOnly = true;

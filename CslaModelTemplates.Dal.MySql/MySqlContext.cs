@@ -43,6 +43,7 @@ namespace CslaModelTemplates.Dal.MySql
         #region Query results
 
         public DbSet<Root> Roots { get; set; }
+        public DbSet<Node> Nodes { get; set; }
 
         #endregion
 
@@ -59,6 +60,13 @@ namespace CslaModelTemplates.Dal.MySql
             modelBuilder.Entity<Root>()
                 .HasIndex(e => e.RootCode)
                 .IsUnique();
+
+            #endregion
+
+            #region Node
+
+            modelBuilder.Entity<Node>()
+                .HasIndex(e => new { e.ParentKey, e.NodeOrder });
 
             #endregion
         }

@@ -54,8 +54,8 @@ namespace CslaModelTemplates.WebApi
                         Title = "CslaModelTemplates.WebApi",
                         Version = "v1"
                     });
-                var xmlFile = $"{Environment.ApplicationName}.xml";
-                var xmlPath = Path.Combine(Environment.ContentRootPath, xmlFile);
+                string xmlFile = $"{Environment.ApplicationName}.xml";
+                string xmlPath = Path.Combine(Environment.ContentRootPath, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
         }

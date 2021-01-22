@@ -1,4 +1,5 @@
-﻿using CslaModelTemplates.Dal.MySql.Entities;
+using CslaModelTemplates.Dal.MySql.Entities;
+using System;
 
 namespace CslaModelTemplates.Dal.MySql
 {
@@ -7,6 +8,8 @@ namespace CslaModelTemplates.Dal.MySql
     /// </summary>
     public static class Seeder
     {
+        private static Random random = new Random(DateTime.Now.Millisecond);
+
         /// <summary>
         /// Initializes the database schema and fills it with demo data.
         /// </summary>
@@ -37,7 +40,58 @@ namespace CslaModelTemplates.Dal.MySql
                 ctx.SaveChanges();
 
                 #endregion
+
+                #region Node data
+
+                CreateNodeLevel(ctx, 1, null, null);
+
+                #endregion
             }
         }
+
+        #region Node helpers
+
+        private static void CreateNodeLevel(
+            MySqlContext ctx,
+            int level,
+            long? parentKey,
+            string parentPath
+            )
+        {
+            int count = level == 1 ? 3 : random.Next(1, 5);
+            for (int i = 0; i < count; i++)
+            {
+                int nodeOrder = i + 1;
+                Node node = CreateNode(parentKey, nodeOrder, parentPath);
+                ctx.Nodes.Add(node);
+                ctx.SaveChanges();
+
+                if (level < 4)
+                {
+                    string path = parentPath == null
+                        ? nodeOrder.ToString()
+                        : $"{parentPath}.{nodeOrder}";
+                    CreateNodeLevel(ctx, level + 1, node.NodeKey, path);
+                }
+            }
+        }
+
+        private static Node CreateNode(
+            long? parentKey,
+            int? nodeOrder,
+            string parentPath
+            )
+        {
+            return new Node
+            {
+                ParentKey = parentKey,
+                NodeOrder = nodeOrder,
+                NodeName = parentPath == null
+                    ? $"Node entry number {nodeOrder}"
+                    : $"Node entry number {parentPath}.{nodeOrder}"
+            };
+        }
+
+        #endregion
     }
 }
