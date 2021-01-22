@@ -7,7 +7,7 @@ namespace CslaModelTemplates.Contracts.SimpleList
     /// Represents the criteria of the read-only root collection.
     /// </summary>
     [Serializable]
-    public class RootListCriteria : CriteriaBase<RootListCriteria>
+    public class SimpleRootListCriteria : CriteriaBase<SimpleRootListCriteria>
     {
         public string RootName { get; set; }
     }

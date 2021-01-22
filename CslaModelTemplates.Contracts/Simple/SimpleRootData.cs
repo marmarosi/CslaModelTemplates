@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 
 namespace CslaModelTemplates.Contracts.Simple
 {
     /// <summary>
     /// Defines the editable root data.
     /// </summary>
-    public class RootData
+    public class SimpleRootData
     {
         public long? RootKey { get; set; }
         public string RootCode { get; set; }
@@ -16,12 +16,12 @@ namespace CslaModelTemplates.Contracts.Simple
     /// <summary>
     /// Defines the data access object of the editable root object.
     /// </summary>
-    public class RootDao : RootData
+    public class SimpleRootDao : SimpleRootData
     { }
 
     /// <summary>
     /// Defines the data transfer object of the editable root object.
     /// </summary>
-    public class RootDto : RootData
+    public class SimpleRootDto : SimpleRootData
     { }
 }

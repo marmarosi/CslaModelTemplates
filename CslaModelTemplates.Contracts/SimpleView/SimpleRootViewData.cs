@@ -1,9 +1,9 @@
-﻿namespace CslaModelTemplates.Contracts.SimpleView
+namespace CslaModelTemplates.Contracts.SimpleView
 {
     /// <summary>
     /// Defines the read-only root data.
     /// </summary>
-    public class RootViewData
+    public class SimpleRootViewData
     {
         public long? RootKey { get; set; }
         public string RootCode { get; set; }
@@ -13,12 +13,12 @@
     /// <summary>
     /// Defines the data access object of the read-only root object.
     /// </summary>
-    public class RootViewDao : RootViewData
+    public class SimpleRootViewDao : SimpleRootViewData
     { }
 
     /// <summary>
     /// Defines the data transfer object of the read-only root object.
     /// </summary>
-    public class RootViewDto : RootViewData
+    public class SimpleRootViewDto : SimpleRootViewData
     { }
 }

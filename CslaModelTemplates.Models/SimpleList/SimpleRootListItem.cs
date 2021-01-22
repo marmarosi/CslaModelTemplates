@@ -9,7 +9,7 @@ namespace CslaModelTemplates.Models.SimpleList
     /// Represents an item in a read-only root collection.
     /// </summary>
     [Serializable]
-    public class RootListItem : ReadOnlyModel<RootListItem>
+    public class SimpleRootListItem : ReadOnlyModel<SimpleRootListItem>
     {
         #region Business Methods
 
@@ -54,14 +54,14 @@ namespace CslaModelTemplates.Models.SimpleList
 
         #region Factory Methods
 
-        internal static RootListItem Get(
-            RootListItemDao dao
+        internal static SimpleRootListItem Get(
+            SimpleRootListItemDao dao
             )
         {
-            return DataPortal.FetchChild<RootListItem>(dao);
+            return DataPortal.FetchChild<SimpleRootListItem>(dao);
         }
 
-        private RootListItem()
+        private SimpleRootListItem()
         { /* require use of factory methods */ }
 
         #endregion
@@ -69,7 +69,7 @@ namespace CslaModelTemplates.Models.SimpleList
         #region Data Access
 
         private void Child_Fetch(
-            RootListItemDao dao
+            SimpleRootListItemDao dao
             )
         {
             RootKey = dao.RootKey;

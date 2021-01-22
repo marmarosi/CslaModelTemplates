@@ -3,8 +3,8 @@
     /// <summary>
     /// Defines the data access functions of the read-only root object.
     /// </summary>
-    public interface IRootViewDal
+    public interface ISimpleRootViewDal
     {
-        RootViewDao Fetch(RootViewCriteria criteria);
+        SimpleRootViewDao Fetch(SimpleRootViewCriteria criteria);
     }
 }

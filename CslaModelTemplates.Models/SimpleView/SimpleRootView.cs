@@ -10,7 +10,7 @@ namespace CslaModelTemplates.Models.SimpleView
     /// Represents a read-only root object.
     /// </summary>
     [Serializable]
-    public class RootView : ReadOnlyModel<RootView>
+    public class SimpleRootView : ReadOnlyModel<SimpleRootView>
     {
         #region Business Methods
 
@@ -59,14 +59,14 @@ namespace CslaModelTemplates.Models.SimpleView
         /// Gets the specified read-only root object.
         /// </summary>
         /// <param name="criteria">The criteria of the read-only root object.</param>
-        public static RootView Get(
-            RootViewCriteria criteria
+        public static SimpleRootView Get(
+            SimpleRootViewCriteria criteria
             )
         {
-            return DataPortal.Fetch<RootView>(criteria);
+            return DataPortal.Fetch<SimpleRootView>(criteria);
         }
 
-        private RootView()
+        private SimpleRootView()
         { /* require use of factory methods */ }
 
         #endregion
@@ -74,14 +74,14 @@ namespace CslaModelTemplates.Models.SimpleView
         #region Data Access
 
         private void DataPortal_Fetch(
-            RootViewCriteria criteria
+            SimpleRootViewCriteria criteria
             )
         {
             // Load values.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IRootViewDal dal = dm.GetProvider<IRootViewDal>();
-                RootViewDao dao = dal.Fetch(criteria);
+                ISimpleRootViewDal dal = dm.GetProvider<ISimpleRootViewDal>();
+                SimpleRootViewDao dao = dal.Fetch(criteria);
 
                 RootKey = dao.RootKey;
                 RootCode = dao.RootCode;

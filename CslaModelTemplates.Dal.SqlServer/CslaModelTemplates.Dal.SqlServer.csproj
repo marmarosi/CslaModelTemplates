@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Command\" />
+    <Folder Include="ComplexCommand\" />
     <Folder Include="ComplexList\" />
     <Folder Include="ComplexSet\" />
     <Folder Include="ComplexView\" />

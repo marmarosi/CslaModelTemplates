@@ -5,8 +5,8 @@ namespace CslaModelTemplates.Contracts.SimpleList
     /// <summary>
     /// Defines the data access functions of the read-only root collection.
     /// </summary>
-    public interface IRootListDal
+    public interface ISimpleRootListDal
     {
-        List<RootListItemDao> Fetch(RootListCriteria criteria);
+        List<SimpleRootListItemDao> Fetch(SimpleRootListCriteria criteria);
     }
 }

@@ -58,76 +58,46 @@
             </summary>
             <param name="logger">The application logging service.</param>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRootList(CslaModelTemplates.Contracts.SimpleList.RootListCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRootList(CslaModelTemplates.Contracts.SimpleList.SimpleRootListCriteria)">
             <summary>
             Gets a list of roots.
             </summary>
             <param name="criteria">The criteria of the root list.</param>
             <returns>A list of roots.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRootView(CslaModelTemplates.Contracts.SimpleView.RootViewCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRootView(CslaModelTemplates.Contracts.SimpleView.SimpleRootViewCriteria)">
             <summary>
             Gets the specified root view.
             </summary>
             <param name="criteria">The criteria of the root view.</param>
             <returns>The requested root view.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRoot(CslaModelTemplates.Contracts.Simple.RootCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRoot(CslaModelTemplates.Contracts.Simple.SimpleRootCriteria)">
             <summary>
             Gets the specified root.
             </summary>
             <param name="criteria">The criteria of the root.</param>
             <returns>The requested root.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.CreateRoot(CslaModelTemplates.Contracts.Simple.RootDto)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.CreateRoot(CslaModelTemplates.Contracts.Simple.SimpleRootDto)">
             <summary>
             Creates a new root.
             </summary>
             <param name="dto">The data transer object of the root.</param>
             <returns>The created root.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.UpdateRoot(CslaModelTemplates.Contracts.Simple.RootDto)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.UpdateRoot(CslaModelTemplates.Contracts.Simple.SimpleRootDto)">
             <summary>
             Updates the specified root.
             </summary>
             <param name="dto">The data transer object of the root.</param>
             <returns>The updated root.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.DeleteRoot(CslaModelTemplates.Contracts.Simple.RootCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.DeleteRoot(CslaModelTemplates.Contracts.Simple.SimpleRootCriteria)">
             <summary>
             Deletes the specified root.
             </summary>
             <param name="criteria">The criteria of the root.</param>
-        </member>
-        <member name="T:CslaModelTemplates.WebApi.Security.PasswordJumbler`1">
-            <summary>
-            Implements the standard Identity password hashing.
-            </summary>
-            <typeparam name="TUser">The type used to represent a user.</typeparam>
-        </member>
-        <member name="M:CslaModelTemplates.WebApi.Security.PasswordJumbler`1.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Identity.PasswordHasherOptions})">
-            <summary>
-            Creates a new instance of <see cref="T:Microsoft.AspNetCore.Identity.PasswordHasher`1"/>.
-            </summary>
-            <param name="optionsAccessor">The options for this instance.</param>
-        </member>
-        <member name="M:CslaModelTemplates.WebApi.Security.PasswordJumbler`1.HashPassword(`0,System.String)">
-            <summary>
-            Returns a hashed representation of the supplied <paramref name="password"/> for the specified <paramref name="user"/>.
-            </summary>
-            <param name="user">The user whose password is to be hashed.</param>
-            <param name="password">The password to hash.</param>
-            <returns>A hashed representation of the supplied <paramref name="password"/> for the specified <paramref name="user"/>.</returns>
-        </member>
-        <member name="M:CslaModelTemplates.WebApi.Security.PasswordJumbler`1.VerifyHashedPassword(`0,System.String,System.String)">
-            <summary>
-            Returns a <see cref="T:Microsoft.AspNetCore.Identity.PasswordVerificationResult"/> indicating the result of a password hash comparison.
-            </summary>
-            <param name="user">The user whose password should be verified.</param>
-            <param name="hashedPassword">The hash value for a user's stored password.</param>
-            <param name="providedPassword">The password supplied for comparison.</param>
-            <returns>A <see cref="T:Microsoft.AspNetCore.Identity.PasswordVerificationResult"/> indicating the result of a password hash comparison.</returns>
-            <remarks>Implementations of this method should be time consistent.</remarks>
         </member>
         <member name="T:CslaModelTemplates.WebApi.Program">
             <summary>

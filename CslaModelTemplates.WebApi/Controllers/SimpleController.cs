@@ -41,14 +41,14 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="criteria">The criteria of the root list.</param>
         /// <returns>A list of roots.</returns>
         [HttpGet("")]
-        [ProducesResponseType(typeof(List<RootListItemDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<SimpleRootListItemDto>), StatusCodes.Status200OK)]
         public IActionResult GetRootList(
-            [FromQuery] RootListCriteria criteria
+            [FromQuery] SimpleRootListCriteria criteria
             )
         {
             try
             {
-                RootList list = RootList.Get(criteria);
+                SimpleRootList list = SimpleRootList.Get(criteria);
                 return Ok(list);
             }
             catch (Exception ex)
@@ -67,14 +67,14 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="criteria">The criteria of the root view.</param>
         /// <returns>The requested root view.</returns>
         [HttpGet("view")]
-        [ProducesResponseType(typeof(RootViewDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SimpleRootViewDto), StatusCodes.Status200OK)]
         public IActionResult GetRootView(
-            [FromQuery] RootViewCriteria criteria
+            [FromQuery] SimpleRootViewCriteria criteria
             )
         {
             try
             {
-                RootView root = RootView.Get(criteria);
+                SimpleRootView root = SimpleRootView.Get(criteria);
                 return Ok(root);
             }
             catch (Exception ex)
@@ -93,14 +93,14 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="criteria">The criteria of the root.</param>
         /// <returns>The requested root.</returns>
         [HttpGet("fetch")]
-        [ProducesResponseType(typeof(RootDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SimpleRootDto), StatusCodes.Status200OK)]
         public IActionResult GetRoot(
-            [FromQuery] RootCriteria criteria
+            [FromQuery] SimpleRootCriteria criteria
             )
         {
             try
             {
-                Root root = Root.Get(criteria);
+                SimpleRoot root = SimpleRoot.Get(criteria);
                 return Ok(root.AsDto());
             }
             catch (Exception ex)
@@ -119,14 +119,14 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="dto">The data transer object of the root.</param>
         /// <returns>The created root.</returns>
         [HttpPost("")]
-        [ProducesResponseType(typeof(RootDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(SimpleRootDto), StatusCodes.Status201Created)]
         public IActionResult CreateRoot(
-            [FromBody] RootDto dto
+            [FromBody] SimpleRootDto dto
             )
         {
             try
             {
-                Root root = Root.FromDto(dto);
+                SimpleRoot root = SimpleRoot.FromDto(dto);
                 if (root.IsValid)
                 {
                     root = root.Save();
@@ -149,14 +149,14 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="dto">The data transer object of the root.</param>
         /// <returns>The updated root.</returns>
         [HttpPut("")]
-        [ProducesResponseType(typeof(RootDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SimpleRootDto), StatusCodes.Status200OK)]
         public IActionResult UpdateRoot(
-            [FromBody] RootDto dto
+            [FromBody] SimpleRootDto dto
             )
         {
             try
             {
-                Root root = Root.FromDto(dto);
+                SimpleRoot root = SimpleRoot.FromDto(dto);
                 if (root.IsSavable)
                 {
                     root = root.Save();
@@ -180,12 +180,12 @@ namespace CslaModelTemplates.WebApi.Controllers
         [HttpDelete("")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult DeleteRoot(
-            [FromQuery] RootCriteria criteria
+            [FromQuery] SimpleRootCriteria criteria
             )
         {
             try
             {
-                Root.Delete(criteria);
+                SimpleRoot.Delete(criteria);
                 return NoContent();
             }
             catch (Exception ex)

@@ -11,7 +11,7 @@ namespace CslaModelTemplates.Dal.MySql.SimpleView
     /// <summary>
     /// Implements the data access functions of the read-only root object.
     /// </summary>
-    public class RootViewDal : IRootViewDal
+    public class SimpleRootViewDal : ISimpleRootViewDal
     {
         #region Fetch
 
@@ -20,8 +20,8 @@ namespace CslaModelTemplates.Dal.MySql.SimpleView
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
         /// <returns>The requested root view.</returns>
-        public RootViewDao Fetch(
-            RootViewCriteria criteria
+        public SimpleRootViewDao Fetch(
+            SimpleRootViewCriteria criteria
             )
         {
             using (var ctx = DbContextManager<MySqlContext>.GetManager())
@@ -35,9 +35,9 @@ namespace CslaModelTemplates.Dal.MySql.SimpleView
                     .FirstOrDefault();
 
                 if (root == null)
-                    throw new DataNotFoundException(DalText.Root_NotFound);
+                    throw new DataNotFoundException(DalText.SimpleRoot_NotFound);
 
-                return new RootViewDao
+                return new SimpleRootViewDao
                 {
                     RootKey = root.RootKey,
                     RootCode = root.RootCode,

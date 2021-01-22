@@ -12,8 +12,8 @@ namespace CslaModelTemplates.Models.Simple
     /// Represents an editable root object.
     /// </summary>
     [Serializable]
-    [ValidationResourceType(typeof(ValidationText), ObjectName = "Root")]
-    public class Root : EditableModel<Root>
+    [ValidationResourceType(typeof(ValidationText), ObjectName = "SimpleRoot")]
+    public class SimpleRoot : EditableModel<SimpleRoot>
     {
         #region Business Methods
 
@@ -53,9 +53,9 @@ namespace CslaModelTemplates.Models.Simple
         /// Gets the data transfer object of the root object.
         /// </summary>
         /// <returns>The data transfer object of the root object.</returns>
-        public RootDto AsDto()
+        public SimpleRootDto AsDto()
         {
-            return new RootDto
+            return new SimpleRootDto
             {
                 RootKey = RootKey,
                 RootCode = RootCode,
@@ -90,9 +90,9 @@ namespace CslaModelTemplates.Models.Simple
         /// Creates a new root instance.
         /// </summary>
         /// <returns>The new root instance.</returns>
-        public static Root New()
+        public static SimpleRoot New()
         {
-            return DataPortal.Create<Root>();
+            return DataPortal.Create<SimpleRoot>();
         }
 
         /// <summary>
@@ -100,11 +100,11 @@ namespace CslaModelTemplates.Models.Simple
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
         /// <returns>The requested root instance.</returns>
-        public static Root Get(
-            RootCriteria criteria
+        public static SimpleRoot Get(
+            SimpleRootCriteria criteria
             )
         {
-            return DataPortal.Fetch<Root>(criteria);
+            return DataPortal.Fetch<SimpleRoot>(criteria);
         }
 
         /// <summary>
@@ -112,13 +112,13 @@ namespace CslaModelTemplates.Models.Simple
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
         public static void Delete(
-            RootCriteria criteria
+            SimpleRootCriteria criteria
             )
         {
-            DataPortal.Delete<Root>(criteria);
+            DataPortal.Delete<SimpleRoot>(criteria);
         }
 
-        private Root()
+        private SimpleRoot()
         { /* Require use of factory methods */ }
 
         /// <summary>
@@ -126,12 +126,12 @@ namespace CslaModelTemplates.Models.Simple
         /// </summary>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The rebuilt root instance.</returns>
-        public static Root FromDto(
-            RootDto dto
+        public static SimpleRoot FromDto(
+            SimpleRootDto dto
             )
         {
-            Root root = dto.RootKey.HasValue ?
-                DataPortal.Fetch<Root>(new RootCriteria()
+            SimpleRoot root = dto.RootKey.HasValue ?
+                DataPortal.Fetch<SimpleRoot>(new SimpleRootCriteria()
                 {
                     RootKey = dto.RootKey.Value
                 }) :
@@ -158,14 +158,14 @@ namespace CslaModelTemplates.Models.Simple
         }
 
         private void DataPortal_Fetch(
-            RootCriteria criteria
+            SimpleRootCriteria criteria
             )
         {
             // Load values.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IRootDal dal = dm.GetProvider<IRootDal>();
-                RootDao dao = dal.Fetch(criteria);
+                ISimpleRootDal dal = dm.GetProvider<ISimpleRootDal>();
+                SimpleRootDao dao = dal.Fetch(criteria);
 
                 using (BypassPropertyChecks)
                 {
@@ -177,9 +177,9 @@ namespace CslaModelTemplates.Models.Simple
             }
         }
 
-        private RootDao CreateDao()
+        private SimpleRootDao CreateDao()
         {
-            return new RootDao
+            return new SimpleRootDao
             {
                 RootKey = RootKey,
                 RootCode = RootCode,
@@ -194,11 +194,11 @@ namespace CslaModelTemplates.Models.Simple
             // Insert values.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IRootDal dal = dm.GetProvider<IRootDal>();
+                ISimpleRootDal dal = dm.GetProvider<ISimpleRootDal>();
 
                 using (BypassPropertyChecks)
                 {
-                    RootDao dao = CreateDao();
+                    SimpleRootDao dao = CreateDao();
                     dal.Insert(dao);
 
                     // Set new data.
@@ -215,11 +215,11 @@ namespace CslaModelTemplates.Models.Simple
             // Update values.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IRootDal dal = dm.GetProvider<IRootDal>();
+                ISimpleRootDal dal = dm.GetProvider<ISimpleRootDal>();
 
                 using (BypassPropertyChecks)
                 {
-                    RootDao dao = CreateDao();
+                    SimpleRootDao dao = CreateDao();
                     dal.Update(dao);
 
                     // Set new data.
@@ -235,19 +235,19 @@ namespace CslaModelTemplates.Models.Simple
             if (RootKey.HasValue)
                 using (BypassPropertyChecks)
                     DataPortal_Delete(
-                        new RootCriteria()
+                        new SimpleRootCriteria()
                         {
                             RootKey = RootKey.Value
                         });
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]
-        private void DataPortal_Delete(RootCriteria criteria)
+        private void DataPortal_Delete(SimpleRootCriteria criteria)
         {
             // Delete values.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IRootDal dal = dm.GetProvider<IRootDal>();
+                ISimpleRootDal dal = dm.GetProvider<ISimpleRootDal>();
 
                 dal.Delete(criteria);
             }

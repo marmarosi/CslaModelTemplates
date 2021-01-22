@@ -10,7 +10,7 @@ namespace CslaModelTemplates.Models.SimpleList
     /// Represents a read-only root collection.
     /// </summary>
     [Serializable]
-    public class RootList : ReadOnlyListBase<RootList, RootListItem>
+    public class SimpleRootList : ReadOnlyListBase<SimpleRootList, SimpleRootListItem>
     {
         #region Authorization Rules
 
@@ -29,14 +29,14 @@ namespace CslaModelTemplates.Models.SimpleList
         /// </summary>
         /// <param name="criteria">The criteria of the read-only root collection.</param>
         /// <returns>The list of the root items.</returns>
-        public static RootList Get(
-            RootListCriteria criteria
+        public static SimpleRootList Get(
+            SimpleRootListCriteria criteria
             )
         {
-            return DataPortal.Fetch<RootList>(criteria);
+            return DataPortal.Fetch<SimpleRootList>(criteria);
         }
 
-        private RootList()
+        private SimpleRootList()
         { /* require use of factory methods */ }
 
         #endregion
@@ -44,7 +44,7 @@ namespace CslaModelTemplates.Models.SimpleList
         #region Data Access
 
         private void DataPortal_Fetch(
-            RootListCriteria criteria
+            SimpleRootListCriteria criteria
             )
         {
             var rlce = RaiseListChangedEvents;
@@ -53,11 +53,11 @@ namespace CslaModelTemplates.Models.SimpleList
 
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IRootListDal dal = dm.GetProvider<IRootListDal>();
-                List<RootListItemDao> list = dal.Fetch(criteria);
+                ISimpleRootListDal dal = dm.GetProvider<ISimpleRootListDal>();
+                List<SimpleRootListItemDao> list = dal.Fetch(criteria);
 
-                foreach (RootListItemDao dao in list)
-                    Add(RootListItem.Get(dao));
+                foreach (SimpleRootListItemDao dao in list)
+                    Add(SimpleRootListItem.Get(dao));
             }
             IsReadOnly = true;
             RaiseListChangedEvents = rlce;

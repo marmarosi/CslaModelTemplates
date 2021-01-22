@@ -117,16 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Root_RootCode_MaxLength" xml:space="preserve">
+  <data name="SimpleRoot_RootCode_MaxLength" xml:space="preserve">
     <value>The root code cannot exceed {1} characters.</value>
   </data>
-  <data name="Root_RootCode_Required" xml:space="preserve">
+  <data name="SimpleRoot_RootCode_Required" xml:space="preserve">
     <value>The root code is required.</value>
   </data>
-  <data name="Root_RootName_MaxLength" xml:space="preserve">
+  <data name="SimpleRoot_RootName_MaxLength" xml:space="preserve">
     <value>The root name cannot exceed {1} characters.</value>
   </data>
-  <data name="Root_RootName_Required" xml:space="preserve">
+  <data name="SimpleRoot_RootName_Required" xml:space="preserve">
     <value>The root name is required.</value>
   </data>
 </root>

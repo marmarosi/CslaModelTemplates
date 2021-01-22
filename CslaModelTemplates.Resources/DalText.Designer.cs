@@ -122,5 +122,68 @@ namespace CslaModelTemplates.Resources {
                 return ResourceManager.GetString("Root_UpdateFailed", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root has been changed in the meantime..
+        /// </summary>
+        public static string SimpleRoot_Concurrency {
+            get {
+                return ResourceManager.GetString("SimpleRoot_Concurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot delete the root because others belong to it..
+        /// </summary>
+        public static string SimpleRoot_Delete_Others {
+            get {
+                return ResourceManager.GetString("SimpleRoot_Delete_Others", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting the root has failed..
+        /// </summary>
+        public static string SimpleRoot_DeleteFailed {
+            get {
+                return ResourceManager.GetString("SimpleRoot_DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating the new root has failed..
+        /// </summary>
+        public static string SimpleRoot_InsertFailed {
+            get {
+                return ResourceManager.GetString("SimpleRoot_InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The requested root has not been found..
+        /// </summary>
+        public static string SimpleRoot_NotFound {
+            get {
+                return ResourceManager.GetString("SimpleRoot_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Root with code {0} already exists..
+        /// </summary>
+        public static string SimpleRoot_RootCodeExists {
+            get {
+                return ResourceManager.GetString("SimpleRoot_RootCodeExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating the root has failed..
+        /// </summary>
+        public static string SimpleRoot_UpdateFailed {
+            get {
+                return ResourceManager.GetString("SimpleRoot_UpdateFailed", resourceCulture);
+            }
+        }
     }
 }

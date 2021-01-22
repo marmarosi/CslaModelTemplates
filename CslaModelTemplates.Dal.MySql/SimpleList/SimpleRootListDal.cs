@@ -9,7 +9,7 @@ namespace CslaModelTemplates.Dal.MySql.SimpleList
     /// <summary>
     /// Implements the data access functions of the read-only root collection.
     /// </summary>
-    public class RootListDal : IRootListDal
+    public class SimpleRootListDal : ISimpleRootListDal
     {
         #region Fetch
 
@@ -18,17 +18,17 @@ namespace CslaModelTemplates.Dal.MySql.SimpleList
         /// </summary>
         /// <param name="criteria">The criteria of the root list.</param>
         /// <returns>The requested root collection.</returns>
-        public List<RootListItemDao> Fetch(
-            RootListCriteria criteria
+        public List<SimpleRootListItemDao> Fetch(
+            SimpleRootListCriteria criteria
             )
         {
             using (var ctx = DbContextManager<MySqlContext>.GetManager())
             {
-                List<RootListItemDao> list = ctx.DbContext.Roots
+                List<SimpleRootListItemDao> list = ctx.DbContext.Roots
                     .Where(e =>
                         criteria.RootName == null || e.RootName.Contains(criteria.RootName)
                     )
-                    .Select(e => new RootListItemDao
+                    .Select(e => new SimpleRootListItemDao
                     {
                         RootKey = e.RootKey,
                         RootCode = e.RootCode,
