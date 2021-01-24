@@ -61,6 +61,24 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The key of the root is required..
+        /// </summary>
+        public static string RenameRoot_RootKey_Required {
+            get {
+                return ResourceManager.GetString("RenameRoot_RootKey_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new root name is required..
+        /// </summary>
+        public static string RenameRoot_RootName_Required {
+            get {
+                return ResourceManager.GetString("RenameRoot_RootName_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The root code cannot exceed {1} characters..
         /// </summary>
         public static string SimpleRoot_RootCode_MaxLength {

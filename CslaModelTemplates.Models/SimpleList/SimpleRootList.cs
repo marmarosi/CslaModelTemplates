@@ -25,10 +25,10 @@ namespace CslaModelTemplates.Models.SimpleList
         #region Factory Methods
 
         /// <summary>
-        /// Gets a list of root items that match the criteria.
+        /// Gets a filtered read-only root collection.
         /// </summary>
         /// <param name="criteria">The criteria of the read-only root collection.</param>
-        /// <returns>The list of the root items.</returns>
+        /// <returns>The requested read-only root collection.</returns>
         public static SimpleRootList Get(
             SimpleRootListCriteria criteria
             )
@@ -51,6 +51,7 @@ namespace CslaModelTemplates.Models.SimpleList
             RaiseListChangedEvents = false;
             IsReadOnly = false;
 
+            // Load values from persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
                 ISimpleRootListDal dal = dm.GetProvider<ISimpleRootListDal>();

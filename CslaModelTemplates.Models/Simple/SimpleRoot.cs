@@ -50,9 +50,9 @@ namespace CslaModelTemplates.Models.Simple
         }
 
         /// <summary>
-        /// Gets the data transfer object of the root object.
+        /// Gets the data transfer object of the editable root object.
         /// </summary>
-        /// <returns>The data transfer object of the root object.</returns>
+        /// <returns>The data transfer object of the editable root object.</returns>
         public SimpleRootDto AsDto()
         {
             return new SimpleRootDto
@@ -87,19 +87,19 @@ namespace CslaModelTemplates.Models.Simple
         #region Factory Methods
 
         /// <summary>
-        /// Creates a new root instance.
+        /// Creates a new editable root instance.
         /// </summary>
-        /// <returns>The new root instance.</returns>
+        /// <returns>The new editable root instance.</returns>
         public static SimpleRoot New()
         {
             return DataPortal.Create<SimpleRoot>();
         }
 
         /// <summary>
-        /// Gets an existing root instance.
+        /// Gets an existing editable root instance.
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
-        /// <returns>The requested root instance.</returns>
+        /// <returns>The requested editable root instance.</returns>
         public static SimpleRoot Get(
             SimpleRootCriteria criteria
             )
@@ -108,7 +108,7 @@ namespace CslaModelTemplates.Models.Simple
         }
 
         /// <summary>
-        /// Deletes an existing root instance.
+        /// Deletes an existing root.
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
         public static void Delete(
@@ -122,10 +122,10 @@ namespace CslaModelTemplates.Models.Simple
         { /* Require use of factory methods */ }
 
         /// <summary>
-        /// Rebuilds a root instance and sets the new property values.
+        /// Rebuilds an editable root instance from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer object.</param>
-        /// <returns>The rebuilt root instance.</returns>
+        /// <returns>The rebuilt editable root instance.</returns>
         public static SimpleRoot FromDto(
             SimpleRootDto dto
             )
@@ -161,7 +161,7 @@ namespace CslaModelTemplates.Models.Simple
             SimpleRootCriteria criteria
             )
         {
-            // Load values.
+            // Load values from persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
                 ISimpleRootDal dal = dm.GetProvider<ISimpleRootDal>();
@@ -179,6 +179,7 @@ namespace CslaModelTemplates.Models.Simple
 
         private SimpleRootDao CreateDao()
         {
+            // Build the data access object.
             return new SimpleRootDao
             {
                 RootKey = RootKey,
@@ -191,7 +192,7 @@ namespace CslaModelTemplates.Models.Simple
         [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_Insert()
         {
-            // Insert values.
+            // Insert values into persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
                 ISimpleRootDal dal = dm.GetProvider<ISimpleRootDal>();
@@ -212,7 +213,7 @@ namespace CslaModelTemplates.Models.Simple
         [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_Update()
         {
-            // Update values.
+            // Update values in persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
                 ISimpleRootDal dal = dm.GetProvider<ISimpleRootDal>();
@@ -244,7 +245,7 @@ namespace CslaModelTemplates.Models.Simple
         [Transactional(TransactionalTypes.TransactionScope)]
         private void DataPortal_Delete(SimpleRootCriteria criteria)
         {
-            // Delete values.
+            // Delete values from persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
                 ISimpleRootDal dal = dm.GetProvider<ISimpleRootDal>();

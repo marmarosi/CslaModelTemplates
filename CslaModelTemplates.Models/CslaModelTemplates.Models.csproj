@@ -19,8 +19,4 @@
     <ProjectReference Include="..\CslaModelTemplates.Resources\CslaModelTemplates.Resources.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ComplexCommand\" />
-  </ItemGroup>
-
 </Project>

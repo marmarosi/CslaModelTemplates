@@ -1,7 +1,9 @@
-﻿using CslaModelTemplates.Contracts.Simple;
+using CslaModelTemplates.Contracts.Simple;
+using CslaModelTemplates.Contracts.SimpleCommand;
 using CslaModelTemplates.Contracts.SimpleList;
 using CslaModelTemplates.Contracts.SimpleView;
 using CslaModelTemplates.Models.Simple;
+using CslaModelTemplates.Models.SimpleCommand;
 using CslaModelTemplates.Models.SimpleList;
 using CslaModelTemplates.Models.SimpleView;
 using Microsoft.AspNetCore.Http;
@@ -162,6 +164,34 @@ namespace CslaModelTemplates.WebApi.Controllers
                     root = root.Save();
                 }
                 return Ok(root.AsDto());
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region Rename
+
+        /// <summary>
+        /// Renames the specified root.
+        /// </summary>
+        /// <param name="dto">The data transer object of the rename root command.</param>
+        /// <returns>True when the root was renamed; otherwise false.</returns>
+        [HttpPatch("")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        public IActionResult RenameRootCommand(
+            [FromBody] RenameRootDto dto
+            )
+        {
+            try
+            {
+                RenameRoot command = RenameRoot.Create(dto);
+                command.Execute();
+
+                return Ok(command.Result);
             }
             catch (Exception ex)
             {

@@ -61,6 +61,24 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The requested root has not been found..
+        /// </summary>
+        public static string RenameRoot_NotFound {
+            get {
+                return ResourceManager.GetString("RenameRoot_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Renaming the root has failed..
+        /// </summary>
+        public static string RenameRoot_RenameFailed {
+            get {
+                return ResourceManager.GetString("RenameRoot_RenameFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The root has been changed in the meantime..
         /// </summary>
         public static string Root_Concurrency {

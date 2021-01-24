@@ -14,10 +14,10 @@ namespace CslaModelTemplates.Dal.MySql.SimpleList
         #region Fetch
 
         /// <summary>
-        /// Gets the list of the roots.
+        /// Gets the specified roots.
         /// </summary>
         /// <param name="criteria">The criteria of the root list.</param>
-        /// <returns>The requested root collection.</returns>
+        /// <returns>The requested root items.</returns>
         public List<SimpleRootListItemDao> Fetch(
             SimpleRootListCriteria criteria
             )

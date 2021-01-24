@@ -2,7 +2,6 @@ using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.Dal.Exceptions;
-using CslaModelTemplates.Dal.MySql;
 using CslaModelTemplates.Dal.MySql.Entities;
 using CslaModelTemplates.Resources;
 using System.Linq;
@@ -66,8 +65,8 @@ namespace CslaModelTemplates.Dal.MySql.Simple
                     .Where(e =>
                         e.RootCode == dao.RootCode
                     )
-                    .FirstOrDefault()
-                    ;
+                    .FirstOrDefault();
+
                 if (root != null)
                     throw new DataExistException(DalText.SimpleRoot_RootCodeExists.With(dao.RootCode));
 
@@ -107,8 +106,8 @@ namespace CslaModelTemplates.Dal.MySql.Simple
                     .Where(e =>
                         e.RootKey == dao.RootKey
                     )
-                    .FirstOrDefault()
-                    ;
+                    .FirstOrDefault();
+
                 if (root == null)
                     throw new DataNotFoundException(DalText.SimpleRoot_NotFound);
                 if (root.Timestamp != dao.Timestamp)
@@ -119,8 +118,8 @@ namespace CslaModelTemplates.Dal.MySql.Simple
                 {
                     int exist = ctx.DbContext.Roots
                         .Where(e => e.RootCode == dao.RootCode && e.RootKey != root.RootKey)
-                        .Count()
-                        ;
+                        .Count();
+
                     if (exist > 0)
                         throw new DataExistException(DalText.SimpleRoot_RootCodeExists.With(dao.RootCode));
                 }
@@ -157,8 +156,8 @@ namespace CslaModelTemplates.Dal.MySql.Simple
                     .Where(e =>
                         e.RootKey == criteria.RootKey
                      )
-                    .FirstOrDefault()
-                    ;
+                    .FirstOrDefault();
+
                 if (root == null)
                     throw new DataNotFoundException(DalText.SimpleRoot_NotFound);
 

@@ -93,6 +93,13 @@
             <param name="dto">The data transer object of the root.</param>
             <returns>The updated root.</returns>
         </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.RenameRootCommand(CslaModelTemplates.Contracts.SimpleCommand.RenameRootDto)">
+            <summary>
+            Renames the specified root.
+            </summary>
+            <param name="dto">The data transer object of the rename root command.</param>
+            <returns>True when the root was renamed; otherwise false.</returns>
+        </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.DeleteRoot(CslaModelTemplates.Contracts.Simple.SimpleRootCriteria)">
             <summary>
             Deletes the specified root.

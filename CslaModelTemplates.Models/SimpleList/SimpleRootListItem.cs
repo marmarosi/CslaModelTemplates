@@ -1,4 +1,4 @@
-﻿using Csla;
+using Csla;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.SimpleList;
 using System;
@@ -72,6 +72,7 @@ namespace CslaModelTemplates.Models.SimpleList
             SimpleRootListItemDao dao
             )
         {
+            // Set values from data access object.
             RootKey = dao.RootKey;
             RootCode = dao.RootCode;
             RootName = dao.RootName;

@@ -56,9 +56,10 @@ namespace CslaModelTemplates.Models.SimpleView
         #region Factory Methods
 
         /// <summary>
-        /// Gets the specified read-only root object.
+        /// Gets an existing read-only root instance.
         /// </summary>
-        /// <param name="criteria">The criteria of the read-only root object.</param>
+        /// <param name="criteria">The criteria of the read-only root.</param>
+        /// <returns>The requested read-only root instance.</returns>
         public static SimpleRootView Get(
             SimpleRootViewCriteria criteria
             )
@@ -77,7 +78,7 @@ namespace CslaModelTemplates.Models.SimpleView
             SimpleRootViewCriteria criteria
             )
         {
-            // Load values.
+            // Load values from persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
                 ISimpleRootViewDal dal = dm.GetProvider<ISimpleRootViewDal>();
