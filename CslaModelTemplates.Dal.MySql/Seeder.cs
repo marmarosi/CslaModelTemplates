@@ -41,54 +41,74 @@ namespace CslaModelTemplates.Dal.MySql
 
                 #endregion
 
-                #region Node data
+                #region Folder data
 
-                CreateNodeLevel(ctx, 1, null, null);
+                CreateFolderLevel(ctx, 1, null, null, null);
 
                 #endregion
             }
         }
 
-        #region Node helpers
+        #region Folder helpers
 
-        private static void CreateNodeLevel(
+        private static void CreateFolderLevel(
             MySqlContext ctx,
             int level,
             long? parentKey,
+            long? rootKey,
             string parentPath
             )
         {
             int count = level == 1 ? 3 : random.Next(1, 5);
             for (int i = 0; i < count; i++)
             {
-                int nodeOrder = i + 1;
-                Node node = CreateNode(parentKey, nodeOrder, parentPath);
-                ctx.Nodes.Add(node);
+                int folderOrder = i + 1;
+                Folder folder = CreateFolder(
+                    parentKey,
+                    rootKey,
+                    folderOrder,
+                    parentPath
+                    );
+                ctx.Folders.Add(folder);
                 ctx.SaveChanges();
+
+                if (level == 1)
+                {
+                    folder.RootKey = folder.FolderKey;
+                    ctx.SaveChanges();
+                }
 
                 if (level < 4)
                 {
                     string path = parentPath == null
-                        ? nodeOrder.ToString()
-                        : $"{parentPath}.{nodeOrder}";
-                    CreateNodeLevel(ctx, level + 1, node.NodeKey, path);
+                        ? folderOrder.ToString()
+                        : $"{parentPath}.{folderOrder}";
+                    CreateFolderLevel(
+                        ctx,
+                        level + 1,                      // level
+                        folder.FolderKey,               // parentKey
+                        rootKey ?? folder.FolderKey,    // rootKey
+                        path                            // parentPath
+                        );
                 }
             }
         }
 
-        private static Node CreateNode(
+        private static Folder CreateFolder(
             long? parentKey,
-            int? nodeOrder,
+            long? rootKey,
+            int? folderOrder,
             string parentPath
             )
         {
-            return new Node
+            return new Folder
             {
                 ParentKey = parentKey,
-                NodeOrder = nodeOrder,
-                NodeName = parentPath == null
-                    ? $"Node entry number {nodeOrder}"
-                    : $"Node entry number {parentPath}.{nodeOrder}"
+                RootKey = rootKey,
+                FolderOrder = folderOrder,
+                FolderName = parentPath == null
+                    ? $"Folder entry number {folderOrder}"
+                    : $"Folder entry number {parentPath}.{folderOrder}"
             };
         }
 

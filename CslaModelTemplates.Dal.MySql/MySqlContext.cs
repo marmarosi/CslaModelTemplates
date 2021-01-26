@@ -43,7 +43,7 @@ namespace CslaModelTemplates.Dal.MySql
         #region Query results
 
         public DbSet<Root> Roots { get; set; }
-        public DbSet<Node> Nodes { get; set; }
+        public DbSet<Folder> Folders { get; set; }
 
         #endregion
 
@@ -65,8 +65,8 @@ namespace CslaModelTemplates.Dal.MySql
 
             #region Node
 
-            modelBuilder.Entity<Node>()
-                .HasIndex(e => new { e.ParentKey, e.NodeOrder });
+            modelBuilder.Entity<Folder>()
+                .HasIndex(e => new { e.ParentKey, e.FolderOrder });
 
             #endregion
         }

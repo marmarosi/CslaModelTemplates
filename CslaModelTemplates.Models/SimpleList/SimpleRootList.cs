@@ -25,7 +25,7 @@ namespace CslaModelTemplates.Models.SimpleList
         #region Factory Methods
 
         /// <summary>
-        /// Gets a filtered read-only root collection.
+        /// Gets a read-only root collection that match the criteria..
         /// </summary>
         /// <param name="criteria">The criteria of the read-only root collection.</param>
         /// <returns>The requested read-only root collection.</returns>
@@ -57,6 +57,7 @@ namespace CslaModelTemplates.Models.SimpleList
                 ISimpleRootListDal dal = dm.GetProvider<ISimpleRootListDal>();
                 List<SimpleRootListItemDao> list = dal.Fetch(criteria);
 
+                // Create items from data access objects.
                 foreach (SimpleRootListItemDao dao in list)
                     Add(SimpleRootListItem.Get(dao));
             }

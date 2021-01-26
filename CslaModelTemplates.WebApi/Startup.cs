@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using System.IO;
 
 namespace CslaModelTemplates.WebApi
@@ -74,10 +75,14 @@ namespace CslaModelTemplates.WebApi
                 app.UseDeveloperExceptionPage();
                 DalFactory.TestSeedForAll(Environment.ContentRootPath);
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint(
-                    "/swagger/v1/swagger.json",
-                    "CslaModelTemplates.WebApi v1"
-                    ));
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint(
+                        "/swagger/v1/swagger.json",
+                        "CslaModelTemplates.WebApi v1"
+                        );
+                    c.DocExpansion(DocExpansion.None);
+                });
             }
             else
             {

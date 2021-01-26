@@ -56,7 +56,7 @@ namespace CslaModelTemplates.Models.SimpleView
         #region Factory Methods
 
         /// <summary>
-        /// Gets an existing read-only root instance.
+        /// Gets the specified read-only root instance.
         /// </summary>
         /// <param name="criteria">The criteria of the read-only root.</param>
         /// <returns>The requested read-only root instance.</returns>

@@ -106,6 +106,24 @@
             </summary>
             <param name="criteria">The criteria of the root.</param>
         </member>
+        <member name="T:CslaModelTemplates.WebApi.Controllers.TreeController">
+            <summary>
+            Defines the API endpoints for trees.
+            </summary>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.TreeController.#ctor(Microsoft.Extensions.Logging.ILogger{CslaModelTemplates.WebApi.Controllers.TreeController})">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="logger">The application logging service.</param>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.TreeController.GetFolderTree(CslaModelTemplates.Contracts.Tree.FolderTreeCriteria)">
+            <summary>
+            Gets the specified folder tree.
+            </summary>
+            <param name="criteria">The criteria of the folder tree.</param>
+            <returns>The requested folder tree.</returns>
+        </member>
         <member name="T:CslaModelTemplates.WebApi.Program">
             <summary>
             Application bootstrap.
