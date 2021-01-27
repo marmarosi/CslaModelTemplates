@@ -43,6 +43,7 @@ namespace CslaModelTemplates.Dal.MySql
         #region Query results
 
         public DbSet<Root> Roots { get; set; }
+        public DbSet<RootItem> RootItems { get; set; }
         public DbSet<Folder> Folders { get; set; }
 
         #endregion
@@ -59,6 +60,14 @@ namespace CslaModelTemplates.Dal.MySql
 
             modelBuilder.Entity<Root>()
                 .HasIndex(e => e.RootCode)
+                .IsUnique();
+
+            #endregion
+
+            #region RootItem
+
+            modelBuilder.Entity<RootItem>()
+                .HasIndex(e => new { e.RootKey, e.RootItemKey })
                 .IsUnique();
 
             #endregion

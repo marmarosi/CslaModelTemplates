@@ -3,6 +3,7 @@ using CslaModelTemplates.Dal;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.SimpleView;
 using System;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.SimpleView
 {
@@ -65,6 +66,18 @@ namespace CslaModelTemplates.Models.SimpleView
             )
         {
             return DataPortal.Fetch<SimpleRootView>(criteria);
+        }
+
+        /// <summary>
+        /// Gets the specified read-only root instance.
+        /// </summary>
+        /// <param name="criteria">The criteria of the read-only root.</param>
+        /// <returns>The requested read-only root instance.</returns>
+        public static async Task<SimpleRootView> GetAsync(
+            SimpleRootViewCriteria criteria
+            )
+        {
+            return await DataPortal.FetchAsync<SimpleRootView>(criteria);
         }
 
         private SimpleRootView()

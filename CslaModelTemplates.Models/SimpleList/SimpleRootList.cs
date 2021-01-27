@@ -1,8 +1,9 @@
 using Csla;
-using CslaModelTemplates.Dal;
 using CslaModelTemplates.Contracts.SimpleList;
+using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.SimpleList
 {
@@ -34,6 +35,18 @@ namespace CslaModelTemplates.Models.SimpleList
             )
         {
             return DataPortal.Fetch<SimpleRootList>(criteria);
+        }
+
+        /// <summary>
+        /// Gets a read-only root collection that match the criteria..
+        /// </summary>
+        /// <param name="criteria">The criteria of the read-only root collection.</param>
+        /// <returns>The requested read-only root collection.</returns>
+        public static async Task<SimpleRootList> GetAsync(
+            SimpleRootListCriteria criteria
+            )
+        {
+            return await DataPortal.FetchAsync<SimpleRootList>(criteria);
         }
 
         private SimpleRootList()

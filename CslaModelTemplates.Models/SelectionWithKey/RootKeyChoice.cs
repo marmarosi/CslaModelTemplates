@@ -4,6 +4,7 @@ using CslaModelTemplates.Contracts.SelectionWithKey;
 using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.SelectionWithKey
 {
@@ -35,6 +36,18 @@ namespace CslaModelTemplates.Models.SelectionWithKey
             )
         {
             return DataPortal.Fetch<RootKeyChoice>(criteria);
+        }
+
+        /// <summary>
+        /// Gets a choice of root options that match the criteria.
+        /// </summary>
+        /// <param name="criteria">The criteria root choice.</param>
+        /// <returns>The requested root choice instance.</returns>
+        public static async Task<RootKeyChoice> GetAsync(
+            RootKeyChoiceCriteria criteria
+            )
+        {
+            return await DataPortal.FetchAsync<RootKeyChoice>(criteria);
         }
 
         private RootKeyChoice()

@@ -3,6 +3,7 @@ using CslaModelTemplates.Contracts.Tree;
 using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.Tree
 {
@@ -32,6 +33,16 @@ namespace CslaModelTemplates.Models.Tree
         public static FolderTree Get(FolderTreeCriteria criteria)
         {
             return DataPortal.Fetch<FolderTree>(criteria);
+        }
+
+        /// <summary>
+        /// Gets the specified read-only folder tree.
+        /// </summary>
+        /// <param name="criteria">The criteria of the read-only folder tree.</param>
+        /// <returns>The requested read-only folder tree.</returns>
+        public static async Task<FolderTree> GetAsync(FolderTreeCriteria criteria)
+        {
+            return await DataPortal.FetchAsync<FolderTree>(criteria);
         }
 
         private FolderTree()

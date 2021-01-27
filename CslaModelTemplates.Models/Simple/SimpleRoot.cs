@@ -5,6 +5,7 @@ using CslaModelTemplates.Common.Validations;
 using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.Resources;
 using System;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.Simple
 {
@@ -90,9 +91,18 @@ namespace CslaModelTemplates.Models.Simple
         /// Creates a new editable root instance.
         /// </summary>
         /// <returns>The new editable root instance.</returns>
-        public static SimpleRoot New()
+        public static SimpleRoot Create()
         {
             return DataPortal.Create<SimpleRoot>();
+        }
+
+        /// <summary>
+        /// Creates a new editable root instance.
+        /// </summary>
+        /// <returns>The new editable root instance.</returns>
+        public static async Task<SimpleRoot> CreateAsync()
+        {
+            return await DataPortal.CreateAsync<SimpleRoot>();
         }
 
         /// <summary>
@@ -108,6 +118,18 @@ namespace CslaModelTemplates.Models.Simple
         }
 
         /// <summary>
+        /// Gets an existing editable root instance.
+        /// </summary>
+        /// <param name="criteria">The criteria of the root.</param>
+        /// <returns>The requested editable root instance.</returns>
+        public static async Task<SimpleRoot> GetAsync(
+            SimpleRootCriteria criteria
+            )
+        {
+            return await DataPortal.FetchAsync<SimpleRoot>(criteria);
+        }
+
+        /// <summary>
         /// Deletes an existing root.
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
@@ -116,6 +138,17 @@ namespace CslaModelTemplates.Models.Simple
             )
         {
             DataPortal.Delete<SimpleRoot>(criteria);
+        }
+
+        /// <summary>
+        /// Deletes an existing root.
+        /// </summary>
+        /// <param name="criteria">The criteria of the root.</param>
+        public static async void DeleteAsync(
+            SimpleRootCriteria criteria
+            )
+        {
+            await DataPortal.DeleteAsync<SimpleRoot>(criteria);
         }
 
         private SimpleRoot()
@@ -135,7 +168,31 @@ namespace CslaModelTemplates.Models.Simple
                 {
                     RootKey = dto.RootKey.Value
                 }) :
-                New();
+                Create();
+
+            //root.RootKey = dto.RootKey;
+            root.RootCode = dto.RootCode;
+            root.RootName = dto.RootName;
+            //root.Timestamp = dto.Timestamp;
+
+            return root;
+        }
+
+        /// <summary>
+        /// Rebuilds an editable root instance from the data transfer object.
+        /// </summary>
+        /// <param name="dto">The data transfer object.</param>
+        /// <returns>The rebuilt editable root instance.</returns>
+        public static async Task<SimpleRoot> FromDtoAsync(
+            SimpleRootDto dto
+            )
+        {
+            SimpleRoot root = dto.RootKey.HasValue ?
+                await DataPortal.FetchAsync<SimpleRoot>(new SimpleRootCriteria()
+                {
+                    RootKey = dto.RootKey.Value
+                }) :
+                await CreateAsync();
 
             //root.RootKey = dto.RootKey;
             root.RootCode = dto.RootCode;

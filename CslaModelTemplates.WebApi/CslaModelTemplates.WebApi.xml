@@ -22,6 +22,24 @@
             <param name="exception">The exception thrown by the backend.</param>
             <returns>The error information to send to the frontend.</returns>
         </member>
+        <member name="T:CslaModelTemplates.WebApi.Controllers.ComplexController">
+            <summary>
+            Defines the API endpoints for complex models.
+            </summary>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.#ctor(Microsoft.Extensions.Logging.ILogger{CslaModelTemplates.WebApi.Controllers.ComplexController})">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="logger">The application logging service.</param>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetRootView(CslaModelTemplates.Contracts.ComplexView.RootViewCriteria)">
+            <summary>
+            Gets the specified root view.
+            </summary>
+            <param name="criteria">The criteria of the root view.</param>
+            <returns>The requested root view.</returns>
+        </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.SelectionController">
             <summary>
             Defines the API endpoints for selections.
@@ -40,7 +58,21 @@
             <param name="criteria">The criteria of the root choice.</param>
             <returns>The key-name choice of the tenants.</returns>
         </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithKeyAsync(CslaModelTemplates.Contracts.SelectionWithKey.RootKeyChoiceCriteria)">
+            <summary>
+            Gets the key-name choice of the roots.
+            </summary>
+            <param name="criteria">The criteria of the root choice.</param>
+            <returns>The key-name choice of the tenants.</returns>
+        </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithCode(CslaModelTemplates.Contracts.SelectionWithCode.RootCodeChoiceCriteria)">
+            <summary>
+            Gets the code-name choice of the roots.
+            </summary>
+            <param name="criteria">The criteria of the root choice.</param>
+            <returns>The code-name choice of the tenants.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithCodeAsync(CslaModelTemplates.Contracts.SelectionWithCode.RootCodeChoiceCriteria)">
             <summary>
             Gets the code-name choice of the roots.
             </summary>
@@ -118,6 +150,13 @@
             <param name="logger">The application logging service.</param>
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.TreeController.GetFolderTree(CslaModelTemplates.Contracts.Tree.FolderTreeCriteria)">
+            <summary>
+            Gets the specified folder tree.
+            </summary>
+            <param name="criteria">The criteria of the folder tree.</param>
+            <returns>The requested folder tree.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.TreeController.GetFolderTreeAsync(CslaModelTemplates.Contracts.Tree.FolderTreeCriteria)">
             <summary>
             Gets the specified folder tree.
             </summary>

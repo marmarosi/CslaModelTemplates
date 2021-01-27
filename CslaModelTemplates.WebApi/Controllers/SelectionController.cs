@@ -1,9 +1,10 @@
-﻿using CslaModelTemplates.Common.Models;
+using CslaModelTemplates.Common.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CodeDef = CslaModelTemplates.Contracts.SelectionWithCode;
 using CodeModel = CslaModelTemplates.Models.SelectionWithCode;
 using KeyDef = CslaModelTemplates.Contracts.SelectionWithKey;
@@ -56,6 +57,28 @@ namespace CslaModelTemplates.WebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the key-name choice of the roots.
+        /// </summary>
+        /// <param name="criteria">The criteria of the root choice.</param>
+        /// <returns>The key-name choice of the tenants.</returns>
+        [HttpGet("async/with-key")]
+        [ProducesResponseType(typeof(List<KeyNameOptionDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTenantChoiceWithKeyAsync(
+            [FromQuery] KeyDef.RootKeyChoiceCriteria criteria
+            )
+        {
+            try
+            {
+                KeyModel.RootKeyChoice choice = await KeyModel.RootKeyChoice.GetAsync(criteria);
+                return Ok(choice);
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
         #endregion
 
         #region Choice with code
@@ -74,6 +97,28 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 CodeModel.RootCodeChoice choice = CodeModel.RootCodeChoice.Get(criteria);
+                return Ok(choice);
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets the code-name choice of the roots.
+        /// </summary>
+        /// <param name="criteria">The criteria of the root choice.</param>
+        /// <returns>The code-name choice of the tenants.</returns>
+        [HttpGet("async/with-code")]
+        [ProducesResponseType(typeof(List<CodeNameOptionDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTenantChoiceWithCodeAsync(
+            [FromQuery] CodeDef.RootCodeChoiceCriteria criteria
+            )
+        {
+            try
+            {
+                CodeModel.RootCodeChoice choice = await CodeModel.RootCodeChoice.GetAsync(criteria);
                 return Ok(choice);
             }
             catch (Exception ex)

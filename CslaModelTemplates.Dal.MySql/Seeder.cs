@@ -28,16 +28,30 @@ namespace CslaModelTemplates.Dal.MySql
 
                 #region Root data
 
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < 50; i++)
                 {
                     int serialNumber = i + 1;
-                    ctx.Roots.Add(new Root
+                    Root root = new Root
                     {
                         RootCode = $"R-{serialNumber.ToString("0000")}",
                         RootName = $"Root entry number {serialNumber}",
-                    });
+                    };
+                    ctx.Roots.Add(root);
+                    ctx.SaveChanges();
+
+                    int count = random.Next(1, 5);
+                    for (int j = 0; j < count; j++)
+                    {
+                        int index = j + 1;
+                        ctx.RootItems.Add(new RootItem
+                        {
+                            RootKey = root.RootKey,
+                            RootItemCode = $"I-{serialNumber.ToString("0000")}-{index}",
+                            RootItemName = $"Item entry number {serialNumber}.{index}",
+                        });
+                    }
+                    ctx.SaveChanges();
                 }
-                ctx.SaveChanges();
 
                 #endregion
 
