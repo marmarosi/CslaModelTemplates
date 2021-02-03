@@ -33,7 +33,6 @@ namespace CslaModelTemplates.Dal.MySql.SimpleView
                      )
                     .AsNoTracking()
                     .FirstOrDefault();
-
                 if (root == null)
                     throw new DataNotFoundException(DalText.SimpleRoot_NotFound);
 

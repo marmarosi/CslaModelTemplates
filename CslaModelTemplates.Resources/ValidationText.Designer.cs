@@ -81,6 +81,87 @@ namespace CslaModelTemplates.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The root code cannot exceed {1} characters..
         /// </summary>
+        public static string Root_RootCode_MaxLength {
+            get {
+                return ResourceManager.GetString("Root_RootCode_MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root code is required..
+        /// </summary>
+        public static string Root_RootCode_Required {
+            get {
+                return ResourceManager.GetString("Root_RootCode_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root name cannot exceed {1} characters..
+        /// </summary>
+        public static string Root_RootName_MaxLength {
+            get {
+                return ResourceManager.GetString("Root_RootName_MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root name is required..
+        /// </summary>
+        public static string Root_RootName_Required {
+            get {
+                return ResourceManager.GetString("Root_RootName_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root item code cannot exceed {1} characters..
+        /// </summary>
+        public static string RootItem_RootItemCode_MaxLength {
+            get {
+                return ResourceManager.GetString("RootItem_RootItemCode_MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root item code is not unique..
+        /// </summary>
+        public static string RootItem_RootItemCode_NotUnique {
+            get {
+                return ResourceManager.GetString("RootItem_RootItemCode_NotUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root item code is required..
+        /// </summary>
+        public static string RootItem_RootItemCode_Required {
+            get {
+                return ResourceManager.GetString("RootItem_RootItemCode_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root item name cannot exceed {1} characters..
+        /// </summary>
+        public static string RootItem_RootItemName_MaxLength {
+            get {
+                return ResourceManager.GetString("RootItem_RootItemName_MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root item name is required..
+        /// </summary>
+        public static string RootItem_RootItemName_Required {
+            get {
+                return ResourceManager.GetString("RootItem_RootItemName_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root code cannot exceed {1} characters..
+        /// </summary>
         public static string SimpleRoot_RootCode_MaxLength {
             get {
                 return ResourceManager.GetString("SimpleRoot_RootCode_MaxLength", resourceCulture);

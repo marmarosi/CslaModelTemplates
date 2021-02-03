@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="CSLA-Core" Version="4.11.2" />
+    <PackageReference Include="CSLA-Templates" Version="4.11.2" />
   </ItemGroup>
 
   <ItemGroup>

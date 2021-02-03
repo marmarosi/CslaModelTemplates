@@ -8,7 +8,6 @@
     <Folder Include="ComplexCommand\" />
     <Folder Include="ComplexList\" />
     <Folder Include="ComplexSet\" />
-    <Folder Include="Complex\" />
     <Folder Include="SimpleSet\" />
   </ItemGroup>
 

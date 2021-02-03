@@ -142,6 +142,51 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting the root item with code {0} has failed..
+        /// </summary>
+        public static string RootItem_DeleteFailed {
+            get {
+                return ResourceManager.GetString("RootItem_DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating the new root item with code {0} has failed..
+        /// </summary>
+        public static string RootItem_InsertFailed {
+            get {
+                return ResourceManager.GetString("RootItem_InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The requested root item has not been found..
+        /// </summary>
+        public static string RootItem_NotFound {
+            get {
+                return ResourceManager.GetString("RootItem_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Root item with code {0} already exists..
+        /// </summary>
+        public static string RootItem_RootItemCodeExists {
+            get {
+                return ResourceManager.GetString("RootItem_RootItemCodeExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating the root item with code {0} has failed..
+        /// </summary>
+        public static string RootItem_UpdateFailed {
+            get {
+                return ResourceManager.GetString("RootItem_UpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The root has been changed in the meantime..
         /// </summary>
         public static string SimpleRoot_Concurrency {

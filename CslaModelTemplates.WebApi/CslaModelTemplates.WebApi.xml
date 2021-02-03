@@ -40,6 +40,33 @@
             <param name="criteria">The criteria of the root view.</param>
             <returns>The requested root view.</returns>
         </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetRoot(CslaModelTemplates.Contracts.Complex.RootCriteria)">
+            <summary>
+            Gets the specified root.
+            </summary>
+            <param name="criteria">The criteria of the root.</param>
+            <returns>The requested root.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.CreateRoot(CslaModelTemplates.Contracts.Complex.RootDto)">
+            <summary>
+            Creates a new root.
+            </summary>
+            <param name="dto">The data transer object of the root.</param>
+            <returns>The created root.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.UpdateRoot(CslaModelTemplates.Contracts.Complex.RootDto)">
+            <summary>
+            Updates the specified root.
+            </summary>
+            <param name="dto">The data transer object of the root.</param>
+            <returns>The updated root.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.DeleteRoot(CslaModelTemplates.Contracts.Complex.RootCriteria)">
+            <summary>
+            Deletes the specified root.
+            </summary>
+            <param name="criteria">The criteria of the root.</param>
+        </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.SelectionController">
             <summary>
             Defines the API endpoints for selections.

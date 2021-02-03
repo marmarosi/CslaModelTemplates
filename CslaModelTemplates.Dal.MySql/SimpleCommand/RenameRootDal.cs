@@ -33,7 +33,6 @@ namespace CslaModelTemplates.Dal.MySql.SimpleCommand
                         e.RootKey == dao.RootKey
                     )
                     .FirstOrDefault();
-
                 if (root == null)
                     throw new DataNotFoundException(DalText.RenameRoot_NotFound);
 

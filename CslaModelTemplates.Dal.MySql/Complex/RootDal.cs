@@ -1,17 +1,18 @@
 using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
-using CslaModelTemplates.Contracts.Simple;
+using CslaModelTemplates.Contracts.Complex;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.MySql.Entities;
 using CslaModelTemplates.Resources;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace CslaModelTemplates.Dal.MySql.Simple
+namespace CslaModelTemplates.Dal.MySql.Complex
 {
     /// <summary>
     /// Implements the data access functions of the editable root object.
     /// </summary>
-    public class SimpleRootDal : ISimpleRootDal
+    public class RootDal : IRootDal
     {
         #region Fetch
 
@@ -20,26 +21,35 @@ namespace CslaModelTemplates.Dal.MySql.Simple
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
         /// <returns>The requested root.</returns>
-        public SimpleRootDao Fetch(
-            SimpleRootCriteria criteria
+        public RootDao Fetch(
+            RootCriteria criteria
             )
         {
             using (var ctx = DbContextManager<MySqlContext>.GetManager())
             {
                 // Get the specified root.
                 Root root = ctx.DbContext.Roots
+                    .Include(e => e.Items)
                     .Where(e =>
                         e.RootKey == criteria.RootKey
                      )
                     .FirstOrDefault();
                 if (root == null)
-                    throw new DataNotFoundException(DalText.SimpleRoot_NotFound);
+                    throw new DataNotFoundException(DalText.Root_NotFound);
 
-                return new SimpleRootDao
+                return new RootDao
                 {
                     RootKey = root.RootKey,
                     RootCode = root.RootCode,
                     RootName = root.RootName,
+                    Items = root.Items
+                        .Select(i => new RootItemDao
+                        {
+                            RootItemKey = i.RootItemKey,
+                            RootKey = i.RootKey,
+                            RootItemCode = i.RootItemCode,
+                            RootItemName = i.RootItemName
+                        }).ToList(),
                     Timestamp = root.Timestamp
                 };
             }
@@ -54,7 +64,7 @@ namespace CslaModelTemplates.Dal.MySql.Simple
         /// </summary>
         /// <param name="dao">The data of the root.</param>
         public void Insert(
-            SimpleRootDao dao
+            RootDao dao
             )
         {
             using (var ctx = DbContextManager<MySqlContext>.GetManager())
@@ -66,7 +76,7 @@ namespace CslaModelTemplates.Dal.MySql.Simple
                     )
                     .FirstOrDefault();
                 if (root != null)
-                    throw new DataExistException(DalText.SimpleRoot_RootCodeExists.With(dao.RootCode));
+                    throw new DataExistException(DalText.Root_RootCodeExists.With(dao.RootCode));
 
                 // Create the new root.
                 root = new Root
@@ -77,7 +87,7 @@ namespace CslaModelTemplates.Dal.MySql.Simple
                 ctx.DbContext.Roots.Add(root);
                 int count = ctx.DbContext.SaveChanges();
                 if (count == 0)
-                    throw new InsertFailedException(DalText.SimpleRoot_InsertFailed);
+                    throw new InsertFailedException(DalText.Root_InsertFailed);
 
                 // Return new data.
                 dao.RootKey = root.RootKey;
@@ -94,7 +104,7 @@ namespace CslaModelTemplates.Dal.MySql.Simple
         /// </summary>
         /// <param name="dao">The data of the root.</param>
         public void Update(
-            SimpleRootDao dao
+            RootDao dao
             )
         {
             using (var ctx = DbContextManager<MySqlContext>.GetManager())
@@ -106,9 +116,9 @@ namespace CslaModelTemplates.Dal.MySql.Simple
                     )
                     .FirstOrDefault();
                 if (root == null)
-                    throw new DataNotFoundException(DalText.SimpleRoot_NotFound);
+                    throw new DataNotFoundException(DalText.Root_NotFound);
                 if (root.Timestamp != dao.Timestamp)
-                    throw new ConcurrencyException(DalText.SimpleRoot_Concurrency);
+                    throw new ConcurrencyException(DalText.Root_Concurrency);
 
                 // Check unique root code.
                 if (root.RootCode != dao.RootCode)
@@ -117,7 +127,7 @@ namespace CslaModelTemplates.Dal.MySql.Simple
                         .Where(e => e.RootCode == dao.RootCode && e.RootKey != root.RootKey)
                         .Count();
                     if (exist > 0)
-                        throw new DataExistException(DalText.SimpleRoot_RootCodeExists.With(dao.RootCode));
+                        throw new DataExistException(DalText.Root_RootCodeExists.With(dao.RootCode));
                 }
 
                 // Update the root.
@@ -126,7 +136,7 @@ namespace CslaModelTemplates.Dal.MySql.Simple
 
                 int count = ctx.DbContext.SaveChanges();
                 if (count == 0)
-                    throw new UpdateFailedException(DalText.SimpleRoot_UpdateFailed);
+                    throw new UpdateFailedException(DalText.Root_UpdateFailed);
 
                 // Return new data.
                 dao.Timestamp = root.Timestamp;
@@ -142,7 +152,7 @@ namespace CslaModelTemplates.Dal.MySql.Simple
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
         public void Delete(
-            SimpleRootCriteria criteria
+            RootCriteria criteria
             )
         {
             using (var ctx = DbContextManager<MySqlContext>.GetManager())
@@ -153,9 +163,8 @@ namespace CslaModelTemplates.Dal.MySql.Simple
                         e.RootKey == criteria.RootKey
                      )
                     .FirstOrDefault();
-
                 if (root == null)
-                    throw new DataNotFoundException(DalText.SimpleRoot_NotFound);
+                    throw new DataNotFoundException(DalText.Root_NotFound);
 
                 // Check or delete references
                 //int dependents = 0;
@@ -168,7 +177,7 @@ namespace CslaModelTemplates.Dal.MySql.Simple
                 ctx.DbContext.Roots.Remove(root);
                 int count = ctx.DbContext.SaveChanges();
                 if (count == 0)
-                    throw new DeleteFailedException(DalText.SimpleRoot_DeleteFailed);
+                    throw new DeleteFailedException(DalText.Root_DeleteFailed);
             }
         }
 

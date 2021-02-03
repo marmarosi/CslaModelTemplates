@@ -10,7 +10,7 @@ namespace CslaModelTemplates.Dal.MySql.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long RootKey { get; set; }
+        public long? RootKey { get; set; }
 
         [MaxLength(10)]
         public string RootCode { get; set; }

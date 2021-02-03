@@ -34,7 +34,6 @@ namespace CslaModelTemplates.Dal.MySql.ComplexView
                      )
                     .AsNoTracking()
                     .FirstOrDefault();
-
                 if (root == null)
                     throw new DataNotFoundException(DalText.Root_NotFound);
 
