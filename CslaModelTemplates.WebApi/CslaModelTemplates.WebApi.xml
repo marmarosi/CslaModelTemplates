@@ -33,6 +33,13 @@
             </summary>
             <param name="logger">The application logging service.</param>
         </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetRootList(CslaModelTemplates.Contracts.ComplexList.RootListCriteria)">
+            <summary>
+            Gets a list of roots.
+            </summary>
+            <param name="criteria">The criteria of the root list.</param>
+            <returns>A list of roots.</returns>
+        </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetRootView(CslaModelTemplates.Contracts.ComplexView.RootViewCriteria)">
             <summary>
             Gets the specified root view.

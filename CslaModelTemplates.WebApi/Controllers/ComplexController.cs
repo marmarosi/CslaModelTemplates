@@ -1,10 +1,8 @@
 using CslaModelTemplates.Contracts.Complex;
-//using CslaModelTemplates.Contracts.ComplexCommand;
-//using CslaModelTemplates.Contracts.ComplexList;
+using CslaModelTemplates.Contracts.ComplexList;
 using CslaModelTemplates.Contracts.ComplexView;
 using CslaModelTemplates.Models.Complex;
-//using CslaModelTemplates.Models.ComplexCommand;
-//using CslaModelTemplates.Models.ComplexList;
+using CslaModelTemplates.Models.ComplexList;
 using CslaModelTemplates.Models.ComplexView;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +30,32 @@ namespace CslaModelTemplates.WebApi.Controllers
             ILogger<ComplexController> logger
             ) : base(logger)
         { }
+
+        #endregion
+
+        #region List
+
+        /// <summary>
+        /// Gets a list of roots.
+        /// </summary>
+        /// <param name="criteria">The criteria of the root list.</param>
+        /// <returns>A list of roots.</returns>
+        [HttpGet("")]
+        [ProducesResponseType(typeof(List<RootListItemDto>), StatusCodes.Status200OK)]
+        public IActionResult GetRootList(
+            [FromQuery] RootListCriteria criteria
+            )
+        {
+            try
+            {
+                RootList list = RootList.Get(criteria);
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
 
         #endregion
 
