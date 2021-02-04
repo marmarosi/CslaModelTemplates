@@ -5,9 +5,9 @@ namespace CslaModelTemplates.Contracts.SimpleView
     /// </summary>
     public class SimpleRootViewData
     {
-        public long? RootKey { get; set; }
-        public string RootCode { get; set; }
-        public string RootName { get; set; }
+        public long? RootKey;
+        public string RootCode;
+        public string RootName;
     }
 
     /// <summary>

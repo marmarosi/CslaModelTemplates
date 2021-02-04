@@ -8,10 +8,10 @@ namespace CslaModelTemplates.Contracts.Complex
     /// </summary>
     public class RootItemData
     {
-        public long? RootItemKey { get; set; }
-        public long? RootKey { get; set; }
-        public string RootItemCode { get; set; }
-        public string RootItemName { get; set; }
+        public long? RootItemKey;
+        public long? RootKey;
+        public string RootItemCode;
+        public string RootItemName;
     }
 
     /// <summary>
@@ -23,9 +23,9 @@ namespace CslaModelTemplates.Contracts.Complex
     /// <summary>
     /// Defines the data transfer object of the editable root item object.
     /// </summary>
-    public class RootItemDto : RootItemData, IChildDto
+    public class RootItemDto : RootItemData
     {
         [JsonIgnore]
-        public bool __Processed { get; set; }
+        public bool __Processed;
     }
 }

@@ -5,9 +5,9 @@ namespace CslaModelTemplates.Contracts.ComplexView
     /// </summary>
     public class RootItemViewData
     {
-        public long? RootItemKey { get; set; }
-        public string RootItemCode { get; set; }
-        public string RootItemName { get; set; }
+        public long? RootItemKey;
+        public string RootItemCode;
+        public string RootItemName;
     }
 
     /// <summary>
