@@ -1,6 +1,8 @@
 using CslaModelTemplates.Contracts.Complex;
+using CslaModelTemplates.Contracts.ComplexCommand;
 using CslaModelTemplates.Contracts.ComplexList;
 using CslaModelTemplates.Contracts.ComplexView;
+using CslaModelTemplates.Models.Command;
 using CslaModelTemplates.Models.Complex;
 using CslaModelTemplates.Models.ComplexList;
 using CslaModelTemplates.Models.ComplexView;
@@ -76,6 +78,34 @@ namespace CslaModelTemplates.WebApi.Controllers
             {
                 RootView root = RootView.Get(criteria);
                 return Ok(root);
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region Rename
+
+        /// <summary>
+        /// Renames the specified root.
+        /// </summary>
+        /// <param name="criteria">The criteria of the count roots by item count command.</param>
+        /// <returns>The list of the root counts.</returns>
+        [HttpPatch("")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        public IActionResult CountRootsCommand(
+            [FromBody] CountRootsCriteria criteria
+            )
+        {
+            try
+            {
+                CountRoots command = CountRoots.Create(criteria);
+                command.Execute();
+
+                return Ok(command.Result);
             }
             catch (Exception ex)
             {
