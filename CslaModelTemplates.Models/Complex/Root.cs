@@ -22,7 +22,7 @@ namespace CslaModelTemplates.Models.Complex
         public long? RootKey
         {
             get { return GetProperty(RootKeyProperty); }
-            set { SetProperty(RootKeyProperty, value); }
+            private set { LoadProperty(RootKeyProperty, value); }
         }
 
         public static readonly PropertyInfo<string> RootCodeProperty = RegisterProperty<string>(c => c.RootCode);
@@ -55,22 +55,6 @@ namespace CslaModelTemplates.Models.Complex
         {
             get { return GetProperty(TimestampProperty); }
             private set { LoadProperty(TimestampProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets the data transfer object of the editable root object.
-        /// </summary>
-        /// <returns>The data transfer object of the editable root object.</returns>
-        public RootDto AsDto()
-        {
-            return new RootDto
-            {
-                RootKey = RootKey,
-                RootCode = RootCode,
-                RootName = RootName,
-                Items = Items.AsDto(),
-                Timestamp = Timestamp
-            };
         }
 
         #endregion
@@ -303,11 +287,7 @@ namespace CslaModelTemplates.Models.Complex
         {
             if (RootKey.HasValue)
                 using (BypassPropertyChecks)
-                    DataPortal_Delete(
-                        new RootCriteria()
-                        {
-                            RootKey = RootKey.Value
-                        });
+                    DataPortal_Delete(new RootCriteria(RootKey.Value));
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]

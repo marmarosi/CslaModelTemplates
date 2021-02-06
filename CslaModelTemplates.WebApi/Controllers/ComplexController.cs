@@ -131,7 +131,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 Root root = Root.Get(criteria);
-                return Ok(root.AsDto());
+                return Ok(root.ToDto<RootDto>());
             }
             catch (Exception ex)
             {
@@ -161,7 +161,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                 {
                     root = root.Save();
                 }
-                return Created(Request.Path, root.AsDto());
+                return Created(Request.Path, root.ToDto<RootDto>());
             }
             catch (Exception ex)
             {
@@ -191,7 +191,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                 {
                     root = root.Save();
                 }
-                return Ok(root.AsDto());
+                return Ok(root.ToDto<RootDto>());
             }
             catch (Exception ex)
             {

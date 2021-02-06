@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace CslaModelTemplates.Common.Models
 {
+    /// <summary>
+    /// Defines the helper functions of editable models.
+    /// </summary>
     public interface IEditableModel
     {
         void CollectMessages(
@@ -11,5 +14,6 @@ namespace CslaModelTemplates.Common.Models
             string prefix,
             ref List<ValidationMessage> messages
             );
+        T ToDto<T>() where T : class;
     }
 }

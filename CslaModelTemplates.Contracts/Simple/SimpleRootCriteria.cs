@@ -1,4 +1,4 @@
-﻿using Csla;
+using Csla;
 using System;
 
 namespace CslaModelTemplates.Contracts.Simple
@@ -10,5 +10,14 @@ namespace CslaModelTemplates.Contracts.Simple
     public class SimpleRootCriteria : CriteriaBase<SimpleRootCriteria>
     {
         public long RootKey { get; set; }
+
+        public SimpleRootCriteria() { }
+
+        public SimpleRootCriteria(
+            long rootKey
+            )
+        {
+            RootKey = rootKey;
+        }
     }
 }

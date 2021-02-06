@@ -22,7 +22,7 @@ namespace CslaModelTemplates.Models.Simple
         public long? RootKey
         {
             get { return GetProperty(RootKeyProperty); }
-            set { SetProperty(RootKeyProperty, value); }
+            private set { LoadProperty(RootKeyProperty, value); }
         }
 
         public static readonly PropertyInfo<string> RootCodeProperty = RegisterProperty<string>(c => c.RootCode);
@@ -48,21 +48,6 @@ namespace CslaModelTemplates.Models.Simple
         {
             get { return GetProperty(TimestampProperty); }
             private set { LoadProperty(TimestampProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets the data transfer object of the editable root object.
-        /// </summary>
-        /// <returns>The data transfer object of the editable root object.</returns>
-        public SimpleRootDto AsDto()
-        {
-            return new SimpleRootDto
-            {
-                RootKey = RootKey,
-                RootCode = RootCode,
-                RootName = RootName,
-                Timestamp = Timestamp
-            };
         }
 
         #endregion
@@ -168,7 +153,7 @@ namespace CslaModelTemplates.Models.Simple
                 {
                     RootKey = dto.RootKey.Value
                 }) :
-                Create();
+                DataPortal.Create<SimpleRoot>();
 
             //root.RootKey = dto.RootKey;
             root.RootCode = dto.RootCode;
@@ -192,7 +177,7 @@ namespace CslaModelTemplates.Models.Simple
                 {
                     RootKey = dto.RootKey.Value
                 }) :
-                await CreateAsync();
+                await DataPortal.CreateAsync<SimpleRoot>();
 
             //root.RootKey = dto.RootKey;
             root.RootCode = dto.RootCode;
@@ -263,7 +248,6 @@ namespace CslaModelTemplates.Models.Simple
                     RootKey = dao.RootKey;
                     Timestamp = dao.Timestamp;
                 }
-                FieldManager.UpdateChildren(this);
             }
         }
 
@@ -283,7 +267,6 @@ namespace CslaModelTemplates.Models.Simple
                     // Set new data.
                     Timestamp = dao.Timestamp;
                 }
-                FieldManager.UpdateChildren(this);
             }
         }
 
@@ -292,11 +275,7 @@ namespace CslaModelTemplates.Models.Simple
         {
             if (RootKey.HasValue)
                 using (BypassPropertyChecks)
-                    DataPortal_Delete(
-                        new SimpleRootCriteria()
-                        {
-                            RootKey = RootKey.Value
-                        });
+                    DataPortal_Delete(new SimpleRootCriteria(RootKey.Value));
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]

@@ -1,4 +1,5 @@
 using Csla;
+using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.Complex;
 using System;
 using System.Collections.Generic;
@@ -6,24 +7,13 @@ using System.Linq;
 
 namespace CslaModelTemplates.Models.Complex
 {
+    /// <summary>
+    /// Represents an editable root item collection.
+    /// </summary>
     [Serializable]
-    public class RootItems : BusinessListBase<RootItems, RootItem>
+    public class RootItems : EditableList<RootItems, RootItem>
     {
         #region Business Methods
-
-        /// <summary>
-        /// Gets the data transfer object of the editable root item collection.
-        /// </summary>
-        /// <returns>The data transfer object of the editable root item collection.</returns>
-        internal List<RootItemDto> AsDto()
-        {
-            List<RootItemDto> list = new List<RootItemDto>();
-
-            foreach (RootItem item in Items)
-                list.Add(item.AsDto());
-
-            return list;
-        }
 
         /// <summary>
         /// Rebuilds an editable root item collection from the data transfer objects.

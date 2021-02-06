@@ -41,11 +41,16 @@ namespace CslaModelTemplates.WebApi
         /// Use this method to add services to the container.
         /// </summary>
         /// <param name="services">The container of the application services.</param>
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(
+            IServiceCollection services
+            )
         {
             DalFactory.Configure(Configuration, services);
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options => {
+                    options.JsonSerializerOptions.IncludeFields = true;
+                });
 
             services.AddSwaggerGen(c =>
             {

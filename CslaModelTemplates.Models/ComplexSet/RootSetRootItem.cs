@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CslaModelTemplates.Models.ComplexSet
 {
-    class RootSetChildren
+    class RootSetRootItem
     {
     }
 }

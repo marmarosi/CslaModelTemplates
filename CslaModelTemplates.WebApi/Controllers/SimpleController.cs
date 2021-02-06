@@ -1,10 +1,12 @@
 using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.Contracts.SimpleCommand;
 using CslaModelTemplates.Contracts.SimpleList;
+using CslaModelTemplates.Contracts.SimpleSet;
 using CslaModelTemplates.Contracts.SimpleView;
 using CslaModelTemplates.Models.Simple;
 using CslaModelTemplates.Models.SimpleCommand;
 using CslaModelTemplates.Models.SimpleList;
+using CslaModelTemplates.Models.SimpleSet;
 using CslaModelTemplates.Models.SimpleView;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -103,7 +105,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 SimpleRoot root = SimpleRoot.Get(criteria);
-                return Ok(root.AsDto());
+                return Ok(root.ToDto<SimpleRootDto>());
             }
             catch (Exception ex)
             {
@@ -133,7 +135,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                 {
                     root = root.Save();
                 }
-                return Created(Request.Path, root.AsDto());
+                return Created(Request.Path, root.ToDto<SimpleRootDto>());
             }
             catch (Exception ex)
             {
@@ -163,7 +165,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                 {
                     root = root.Save();
                 }
-                return Ok(root.AsDto());
+                return Ok(root.ToDto<SimpleRootDto>());
             }
             catch (Exception ex)
             {
@@ -217,6 +219,32 @@ namespace CslaModelTemplates.WebApi.Controllers
             {
                 SimpleRoot.Delete(criteria);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region ReadSet
+
+        /// <summary>
+        /// Gets the specified root set.
+        /// </summary>
+        /// <param name="criteria">The criteria of the root set.</param>
+        /// <returns>The requested root set.</returns>
+        [HttpGet("set")]
+        //[ProducesResponseType(typeof(List<SimpleRootSetItemDto>), StatusCodes.Status200OK)]
+        public IActionResult GetRootSet(
+            [FromQuery] SimpleRootSetCriteria criteria
+            )
+        {
+            try
+            {
+                SimpleRootSet set = SimpleRootSet.Get(criteria);
+                return Ok(set.ToDto<SimpleRootDto>());
             }
             catch (Exception ex)
             {

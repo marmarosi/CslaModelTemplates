@@ -10,5 +10,14 @@ namespace CslaModelTemplates.Contracts.Complex
     public class RootCriteria : CriteriaBase<RootCriteria>
     {
         public long RootKey { get; set; }
+
+        public RootCriteria() { }
+
+        public RootCriteria(
+            long rootKey
+            )
+        {
+            RootKey = rootKey;
+        }
     }
 }

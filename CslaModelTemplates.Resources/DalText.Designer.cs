@@ -248,5 +248,59 @@ namespace CslaModelTemplates.Resources {
                 return ResourceManager.GetString("SimpleRoot_UpdateFailed", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root with code {0} has been changed in the meantime..
+        /// </summary>
+        public static string SimpleRootSetItem_Concurrency {
+            get {
+                return ResourceManager.GetString("SimpleRootSetItem_Concurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting the root with code {0} has failed..
+        /// </summary>
+        public static string SimpleRootSetItem_DeleteFailed {
+            get {
+                return ResourceManager.GetString("SimpleRootSetItem_DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating the new root with code {0} has failed..
+        /// </summary>
+        public static string SimpleRootSetItem_InsertFailed {
+            get {
+                return ResourceManager.GetString("SimpleRootSetItem_InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root with code {0} has not been found..
+        /// </summary>
+        public static string SimpleRootSetItem_NotFound {
+            get {
+                return ResourceManager.GetString("SimpleRootSetItem_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Root with code {0} already exists..
+        /// </summary>
+        public static string SimpleRootSetItem_RootCodeExists {
+            get {
+                return ResourceManager.GetString("SimpleRootSetItem_RootCodeExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating the root with code {0} has failed..
+        /// </summary>
+        public static string SimpleRootSetItem_UpdateFailed {
+            get {
+                return ResourceManager.GetString("SimpleRootSetItem_UpdateFailed", resourceCulture);
+            }
+        }
     }
 }

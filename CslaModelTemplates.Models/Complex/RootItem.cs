@@ -1,6 +1,7 @@
 using Csla;
 using Csla.Core;
 using Csla.Rules;
+using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Common.Validations;
 using CslaModelTemplates.Contracts.Complex;
 using CslaModelTemplates.Dal;
@@ -15,7 +16,7 @@ namespace CslaModelTemplates.Models.Complex
     /// </summary>
     [Serializable]
     [ValidationResourceType(typeof(ValidationText), ObjectName = "RootItem")]
-    public class RootItem : BusinessBase<RootItem>
+    public class RootItem : EditableModel<RootItem>
     {
         #region Business Methods
 
@@ -23,14 +24,14 @@ namespace CslaModelTemplates.Models.Complex
         public long? RootItemKey
         {
             get { return GetProperty(RootItemKeyProperty); }
-            set { SetProperty(RootItemKeyProperty, value); }
+            private set { LoadProperty(RootItemKeyProperty, value); }
         }
 
         public static readonly PropertyInfo<long?> RootKeyProperty = RegisterProperty<long?>(c => c.RootKey);
         public long? RootKey
         {
             get { return GetProperty(RootKeyProperty); }
-            set { SetProperty(RootKeyProperty, value); }
+            private set { LoadProperty(RootKeyProperty, value); }
         }
 
         public static readonly PropertyInfo<string> RootItemCodeProperty = RegisterProperty<string>(c => c.RootItemCode);
@@ -51,9 +52,6 @@ namespace CslaModelTemplates.Models.Complex
             set { SetProperty(RootItemNameProperty, value); }
         }
 
-        private RootItem()
-        { /* Require use of factory methods */ }
-
         /// <summary>
         /// Updates an editable root item from the data transfer object.
         /// </summary>
@@ -68,21 +66,6 @@ namespace CslaModelTemplates.Models.Complex
             RootItemName = dto.RootItemName;
 
             dto.__Processed = true;
-        }
-
-        /// <summary>
-        /// Gets the data transfer object of the editable root item object.
-        /// </summary>
-        /// <returns>The data transfer object of the editable root item object.</returns>
-        internal RootItemDto AsDto()
-        {
-            return new RootItemDto
-            {
-                RootItemKey = RootItemKey,
-                RootKey = RootKey,
-                RootItemCode = RootItemCode,
-                RootItemName = RootItemName
-            };
         }
 
         #endregion
@@ -142,6 +125,9 @@ namespace CslaModelTemplates.Models.Complex
         #endregion
 
         #region Factory Methods
+
+        private RootItem()
+        { /* Require use of factory methods */ }
 
         /// <summary>
         /// Rebuilds an editable root item instance from the data transfer object.
@@ -217,7 +203,7 @@ namespace CslaModelTemplates.Models.Complex
                     // Set new data.
                     RootItemKey = dao.RootItemKey;
                 }
-                FieldManager.UpdateChildren(this);
+                //FieldManager.UpdateChildren(this);
             }
         }
 
@@ -237,7 +223,7 @@ namespace CslaModelTemplates.Models.Complex
 
                     // Set new data.
                 }
-                FieldManager.UpdateChildren(this);
+                //FieldManager.UpdateChildren(this);
             }
         }
 
@@ -254,10 +240,7 @@ namespace CslaModelTemplates.Models.Complex
                 //Items.Clear();
                 //FieldManager.UpdateChildren(this);
 
-                RootItemCriteria criteria = new RootItemCriteria
-                {
-                    RootItemKey = RootItemKey.Value
-                };
+                RootItemCriteria criteria = new RootItemCriteria(RootItemKey.Value);
                 dal.Delete(criteria);
             }
         }

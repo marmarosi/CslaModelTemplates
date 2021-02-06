@@ -1,4 +1,3 @@
-using CslaModelTemplates.Common;
 using System.Text.Json.Serialization;
 
 namespace CslaModelTemplates.Contracts.Complex
