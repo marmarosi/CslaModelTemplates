@@ -1,8 +1,8 @@
 using Csla;
-using CslaModelTemplates.Dal;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Common.Validations;
 using CslaModelTemplates.Contracts.Complex;
+using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
 using System.Threading.Tasks;

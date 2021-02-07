@@ -11,6 +11,8 @@
     <Folder Include="ComplexSet\" />
     <Folder Include="ComplexView\" />
     <Folder Include="Complex\" />
+    <Folder Include="Tree\" />
+    <Folder Include="SimpleCommand\" />
     <Folder Include="SelectionWithCode\" />
     <Folder Include="SelectionWithKey\" />
     <Folder Include="SimpleList\" />

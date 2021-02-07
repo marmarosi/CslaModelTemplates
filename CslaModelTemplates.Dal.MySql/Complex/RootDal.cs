@@ -5,6 +5,7 @@ using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.MySql.Entities;
 using CslaModelTemplates.Resources;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace CslaModelTemplates.Dal.MySql.Complex
@@ -133,6 +134,7 @@ namespace CslaModelTemplates.Dal.MySql.Complex
                 // Update the root.
                 root.RootCode = dao.RootCode;
                 root.RootName = dao.RootName;
+                root.Timestamp = DateTime.Now; // Force update timestamp.
 
                 int count = ctx.DbContext.SaveChanges();
                 if (count == 0)

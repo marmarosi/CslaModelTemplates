@@ -24,7 +24,16 @@ namespace CslaModelTemplates.Contracts.Complex
     /// </summary>
     public class RootItemDto : RootItemData
     {
-        [JsonIgnore]
-        public bool __Processed;
+        public RootItemDao ToDao()
+        {
+            return new RootItemDao
+            {
+                RootItemKey = RootItemKey,
+                RootKey = RootKey,
+                RootItemCode = RootItemCode,
+                RootItemName = RootItemName
+            };
+        }
+
     }
 }

@@ -89,7 +89,7 @@ namespace CslaModelTemplates.Models.SimpleSet
             )
         {
             SimpleRootSetItem root = dto.RootKey.HasValue ?
-                DataPortal.Fetch<SimpleRootSetItem>(dto.ToDao()) :
+                DataPortal.FetchChild<SimpleRootSetItem>(dto.ToDao()) :
                 DataPortal.CreateChild<SimpleRootSetItem>();
 
             //root.RootKey = dto.RootKey;

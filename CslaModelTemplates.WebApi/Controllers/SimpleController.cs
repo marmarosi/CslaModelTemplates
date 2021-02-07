@@ -228,7 +228,7 @@ namespace CslaModelTemplates.WebApi.Controllers
 
         #endregion
 
-        #region ReadSet
+        #region Read-Set
 
         /// <summary>
         /// Gets the specified root set.
@@ -236,7 +236,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="criteria">The criteria of the root set.</param>
         /// <returns>The requested root set.</returns>
         [HttpGet("set")]
-        //[ProducesResponseType(typeof(List<SimpleRootSetItemDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<SimpleRootSetItemDto>), StatusCodes.Status200OK)]
         public IActionResult GetRootSet(
             [FromQuery] SimpleRootSetCriteria criteria
             )
@@ -244,7 +244,37 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 SimpleRootSet set = SimpleRootSet.Get(criteria);
-                return Ok(set.ToDto<SimpleRootDto>());
+                return Ok(set.ToDto<SimpleRootSetItemDto>());
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region Update-Set
+
+        /// <summary>
+        /// Updates the specified roots.
+        /// </summary>
+        /// <param name="dto">The data transer objects of the root set.</param>
+        /// <returns>The updated root set.</returns>
+        [HttpPut("set")]
+        [ProducesResponseType(typeof(List<SimpleRootSetItemDto>), StatusCodes.Status200OK)]
+        public IActionResult UpdateRootSet(
+            [FromBody] List<SimpleRootSetItemDto> dto
+            )
+        {
+            try
+            {
+                SimpleRootSet root = SimpleRootSet.FromDto(dto);
+                if (root.IsSavable)
+                {
+                    root = root.Save();
+                }
+                return Ok(root.ToDto<SimpleRootSetItemDto>());
             }
             catch (Exception ex)
             {

@@ -64,8 +64,6 @@ namespace CslaModelTemplates.Models.Complex
             //RootKey = dto.RootKey;
             RootItemCode = dto.RootItemCode;
             RootItemName = dto.RootItemName;
-
-            dto.__Processed = true;
         }
 
         #endregion
@@ -152,12 +150,12 @@ namespace CslaModelTemplates.Models.Complex
 
         #region Data Access
 
-        protected override void Child_Create()
-        {
-            // TODO: load default values
-            // omit this override if you have no defaults to set
-            //base.Child_Create();
-        }
+        //protected override void Child_Create()
+        //{
+        //    // TODO: load default values
+        //    // omit this override if you have no defaults to set
+        //    base.Child_Create();
+        //}
 
         private void Child_Fetch(
             RootItemDao dao

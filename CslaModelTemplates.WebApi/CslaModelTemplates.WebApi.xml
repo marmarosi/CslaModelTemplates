@@ -186,6 +186,13 @@
             <param name="criteria">The criteria of the root set.</param>
             <returns>The requested root set.</returns>
         </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.UpdateRootSet(System.Collections.Generic.List{CslaModelTemplates.Contracts.SimpleSet.SimpleRootSetItemDto})">
+            <summary>
+            Updates the specified roots.
+            </summary>
+            <param name="dto">The data transer objects of the root set.</param>
+            <returns>The updated root set.</returns>
+        </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.TreeController">
             <summary>
             Defines the API endpoints for trees.

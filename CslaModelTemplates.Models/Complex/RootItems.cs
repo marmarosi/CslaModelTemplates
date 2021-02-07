@@ -3,7 +3,6 @@ using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.Complex;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CslaModelTemplates.Models.Complex
 {
@@ -31,14 +30,13 @@ namespace CslaModelTemplates.Models.Complex
                 if (dto == null)
                     RemoveItem(i);
                 else
+                {
                     item.Update(dto);
+                    list.Remove(dto);
+                }
             }
-
-            List<RootItemDto> listToAdd = list.Where(item => !item.__Processed).ToList();
-            foreach (RootItemDto dto in listToAdd)
-            {
+            foreach (RootItemDto dto in list)
                 Items.Add(RootItem.FromDto(dto));
-            }
         }
 
         #endregion
