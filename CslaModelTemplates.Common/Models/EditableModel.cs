@@ -130,11 +130,12 @@ namespace CslaModelTemplates.Common.Models
         public D ToDto<D>() where D : class
         {
             Type type = typeof(D);
-            D instance = Activator.CreateInstance(type) as D;
+            D dto = Activator.CreateInstance(type) as D;
 
             List<IPropertyInfo> properties = FieldManager.GetRegisteredProperties();
-            List<FieldInfo> fields =
-                type.GetFields(BindingFlags.Public | BindingFlags.Instance).ToList();
+            List<FieldInfo> fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance)
+                .Where(fi => !fi.Name.StartsWith("__"))
+                .ToList();
 
             foreach (var field in fields)
             {
@@ -149,7 +150,7 @@ namespace CslaModelTemplates.Common.Models
                             .GetMethod("ToDto")
                             .MakeGenericMethod(childType)
                             .Invoke(cslaBase, null);
-                        field.SetValue(instance, value);
+                        field.SetValue(dto, value);
                     }
                     else if (property.Type.GetInterface(nameof(IEditableModel)) != null)
                     {
@@ -159,14 +160,14 @@ namespace CslaModelTemplates.Common.Models
                             .GetMethod("ToDto")
                             .MakeGenericMethod(childType)
                             .Invoke(cslaBase, null);
-                        field.SetValue(instance, value);
+                        field.SetValue(dto, value);
                     }
                     else
-                        field.SetValue(instance, GetProperty(property));
+                        field.SetValue(dto, GetProperty(property));
                 }
             }
 
-            return instance;
+            return dto;
         }
     }
 }

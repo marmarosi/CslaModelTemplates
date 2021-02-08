@@ -63,10 +63,8 @@ namespace CslaModelTemplates.Models.Complex
 
         protected override void AddBusinessRules()
         {
-            // Add validation rules.
-            base.AddBusinessRules();
-
-            //BusinessRules.AddRule(new Rule(IdProperty));
+            // TODO: add validation rules
+            //BusinessRules.AddRule(new Rule(), IdProperty);
         }
 
         private static void AddObjectAuthorizationRules()

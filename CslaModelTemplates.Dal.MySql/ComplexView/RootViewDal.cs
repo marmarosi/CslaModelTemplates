@@ -49,6 +49,7 @@ namespace CslaModelTemplates.Dal.MySql.ComplexView
                             RootItemCode = item.RootItemCode,
                             RootItemName = item.RootItemName
                         })
+                        .OrderBy(io => io.RootItemName)
                         .ToList()
                 };
             }

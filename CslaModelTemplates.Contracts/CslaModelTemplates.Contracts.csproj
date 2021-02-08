@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ComplexSet\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="CSLA-Core" Version="4.11.2" />
   </ItemGroup>
 

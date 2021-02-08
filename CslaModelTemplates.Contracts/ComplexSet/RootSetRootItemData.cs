@@ -1,35 +1,40 @@
-namespace CslaModelTemplates.Contracts.Complex
+using System.Text.Json.Serialization;
+
+namespace CslaModelTemplates.Contracts.ComplexSet
 {
     /// <summary>
     /// Defines the editable root item data.
     /// </summary>
-    public class RootItemData
+    public class RootSetRootItemData
     {
         public long? RootItemKey;
         public long? RootKey;
         public string RootItemCode;
         public string RootItemName;
+        [JsonIgnore]
+        public string __rootCode; // for error messages
     }
 
     /// <summary>
     /// Defines the data access object of the editable root item object.
     /// </summary>
-    public class RootItemDao : RootItemData
+    public class RootSetRootItemDao : RootSetRootItemData
     { }
 
     /// <summary>
     /// Defines the data transfer object of the editable root item object.
     /// </summary>
-    public class RootItemDto : RootItemData
+    public class RootSetRootItemDto : RootSetRootItemData
     {
-        public RootItemDao ToDao()
+        public RootSetRootItemDao ToDao()
         {
-            return new RootItemDao
+            return new RootSetRootItemDao
             {
                 RootItemKey = RootItemKey,
                 RootKey = RootKey,
                 RootItemCode = RootItemCode,
-                RootItemName = RootItemName
+                RootItemName = RootItemName,
+                __rootCode = __rootCode
             };
         }
 

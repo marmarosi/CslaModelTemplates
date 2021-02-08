@@ -138,6 +138,39 @@
   <data name="RootItem_UpdateFailed" xml:space="preserve">
     <value>Updating the root item with code {0} has failed.</value>
   </data>
+  <data name="RootSetItem_Concurrency" xml:space="preserve">
+    <value>The root with code {0} has been changed in the meantime.</value>
+  </data>
+  <data name="RootSetItem_DeleteFailed" xml:space="preserve">
+    <value>Deleting the root with code {0} has failed.</value>
+  </data>
+  <data name="RootSetItem_InsertFailed" xml:space="preserve">
+    <value>Creating the new root with code {0} has failed.</value>
+  </data>
+  <data name="RootSetItem_NotFound" xml:space="preserve">
+    <value>The root with code {0} has not been found.</value>
+  </data>
+  <data name="RootSetItem_RootCodeExists" xml:space="preserve">
+    <value>Root with code {0} already exists.</value>
+  </data>
+  <data name="RootSetItem_UpdateFailed" xml:space="preserve">
+    <value>Updating the root with code {0} has failed.</value>
+  </data>
+  <data name="RootSetRootItem_DeleteFailed" xml:space="preserve">
+    <value>Deleting the root item with code [ {0} ] {1} has failed.</value>
+  </data>
+  <data name="RootSetRootItem_InsertFailed" xml:space="preserve">
+    <value>Creating the new root item with code [ {0} ] {1} has failed.</value>
+  </data>
+  <data name="RootSetRootItem_NotFound" xml:space="preserve">
+    <value>The requested root item with code [ {0} ] {1} has not been found.</value>
+  </data>
+  <data name="RootSetRootItem_RootItemCodeExists" xml:space="preserve">
+    <value>Root item with code [ {0} ] {1} already exists.</value>
+  </data>
+  <data name="RootSetRootItem_UpdateFailed" xml:space="preserve">
+    <value>Updating the root item with code [ {0} ] {1} has failed.</value>
+  </data>
   <data name="Root_Concurrency" xml:space="preserve">
     <value>The root has been changed in the meantime.</value>
   </data>

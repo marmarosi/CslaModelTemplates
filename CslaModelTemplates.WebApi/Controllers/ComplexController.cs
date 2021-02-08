@@ -1,10 +1,12 @@
 using CslaModelTemplates.Contracts.Complex;
 using CslaModelTemplates.Contracts.ComplexCommand;
 using CslaModelTemplates.Contracts.ComplexList;
+using CslaModelTemplates.Contracts.ComplexSet;
 using CslaModelTemplates.Contracts.ComplexView;
 using CslaModelTemplates.Models.Command;
 using CslaModelTemplates.Models.Complex;
 using CslaModelTemplates.Models.ComplexList;
+using CslaModelTemplates.Models.ComplexSet;
 using CslaModelTemplates.Models.ComplexView;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -217,6 +219,64 @@ namespace CslaModelTemplates.WebApi.Controllers
             {
                 Root.Delete(criteria);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region Read-Set
+
+        /// <summary>
+        /// Gets the specified root set.
+        /// </summary>
+        /// <param name="criteria">The criteria of the root set.</param>
+        /// <returns>The requested root set.</returns>
+        [HttpGet("set")]
+        [ProducesResponseType(typeof(List<RootSetItemDto>), StatusCodes.Status200OK)]
+        public IActionResult GetRootSet(
+            [FromQuery] RootSetCriteria criteria
+            )
+        {
+            try
+            {
+                RootSet set = RootSet.Get(criteria);
+                return Ok(set.ToDto<RootSetItemDto>());
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region Update-Set
+
+        /// <summary>
+        /// Updates the specified roots.
+        /// </summary>
+        /// <param name="criteria">The criteria of the root set.</param>
+        /// <param name="dto">The data transer objects of the root set.</param>
+        /// <returns>The updated root set.</returns>
+        [HttpPut("set")]
+        [ProducesResponseType(typeof(List<RootSetItemDto>), StatusCodes.Status200OK)]
+        public IActionResult UpdateRootSet(
+            [FromQuery] RootSetCriteria criteria,
+            [FromBody] List<RootSetItemDto> dto
+            )
+        {
+            try
+            {
+                RootSet root = RootSet.FromDto(criteria, dto);
+                if (root.IsSavable)
+                {
+                    root = root.Save();
+                }
+                return Ok(root.ToDto<RootSetItemDto>());
             }
             catch (Exception ex)
             {

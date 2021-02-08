@@ -81,6 +81,21 @@
             </summary>
             <param name="criteria">The criteria of the root.</param>
         </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetRootSet(CslaModelTemplates.Contracts.ComplexSet.RootSetCriteria)">
+            <summary>
+            Gets the specified root set.
+            </summary>
+            <param name="criteria">The criteria of the root set.</param>
+            <returns>The requested root set.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.UpdateRootSet(CslaModelTemplates.Contracts.ComplexSet.RootSetCriteria,System.Collections.Generic.List{CslaModelTemplates.Contracts.ComplexSet.RootSetItemDto})">
+            <summary>
+            Updates the specified roots.
+            </summary>
+            <param name="criteria">The criteria of the root set.</param>
+            <param name="dto">The data transer objects of the root set.</param>
+            <returns>The updated root set.</returns>
+        </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.SelectionController">
             <summary>
             Defines the API endpoints for selections.

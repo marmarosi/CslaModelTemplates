@@ -43,7 +43,7 @@ namespace CslaModelTemplates.Models.Complex
 
         #region Factory Methods
 
-        internal static RootItems NewRootItems()
+        internal static RootItems Create()
         {
             return DataPortal.CreateChild<RootItems>();
         }

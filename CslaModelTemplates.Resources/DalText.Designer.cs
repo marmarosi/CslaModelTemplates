@@ -187,6 +187,105 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The root with code {0} has been changed in the meantime..
+        /// </summary>
+        public static string RootSetItem_Concurrency {
+            get {
+                return ResourceManager.GetString("RootSetItem_Concurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting the root with code {0} has failed..
+        /// </summary>
+        public static string RootSetItem_DeleteFailed {
+            get {
+                return ResourceManager.GetString("RootSetItem_DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating the new root with code {0} has failed..
+        /// </summary>
+        public static string RootSetItem_InsertFailed {
+            get {
+                return ResourceManager.GetString("RootSetItem_InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root with code {0} has not been found..
+        /// </summary>
+        public static string RootSetItem_NotFound {
+            get {
+                return ResourceManager.GetString("RootSetItem_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Root with code {0} already exists..
+        /// </summary>
+        public static string RootSetItem_RootCodeExists {
+            get {
+                return ResourceManager.GetString("RootSetItem_RootCodeExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating the root with code {0} has failed..
+        /// </summary>
+        public static string RootSetItem_UpdateFailed {
+            get {
+                return ResourceManager.GetString("RootSetItem_UpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting the root item with code [ {0} ] {1} has failed..
+        /// </summary>
+        public static string RootSetRootItem_DeleteFailed {
+            get {
+                return ResourceManager.GetString("RootSetRootItem_DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating the new root item with code [ {0} ] {1} has failed..
+        /// </summary>
+        public static string RootSetRootItem_InsertFailed {
+            get {
+                return ResourceManager.GetString("RootSetRootItem_InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The requested root item with code [ {0} ] {1} has not been found..
+        /// </summary>
+        public static string RootSetRootItem_NotFound {
+            get {
+                return ResourceManager.GetString("RootSetRootItem_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Root item with code [ {0} ] {1} already exists..
+        /// </summary>
+        public static string RootSetRootItem_RootItemCodeExists {
+            get {
+                return ResourceManager.GetString("RootSetRootItem_RootItemCodeExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating the root item with code [ {0} ] {1} has failed..
+        /// </summary>
+        public static string RootSetRootItem_UpdateFailed {
+            get {
+                return ResourceManager.GetString("RootSetRootItem_UpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The root has been changed in the meantime..
         /// </summary>
         public static string SimpleRoot_Concurrency {

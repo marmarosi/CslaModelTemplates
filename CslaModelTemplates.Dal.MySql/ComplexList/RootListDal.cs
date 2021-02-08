@@ -39,7 +39,9 @@ namespace CslaModelTemplates.Dal.MySql.ComplexList
                             RootItemKey = i.RootItemKey,
                             RootItemCode = i.RootItemCode,
                             RootItemName = i.RootItemName
-                        }).ToList()
+                        })
+                        .OrderBy(io => io.RootItemName)
+                        .ToList()
                     })
                     .OrderBy(o => o.RootName)
                     .AsNoTracking()
