@@ -18,7 +18,8 @@ namespace CslaModelTemplates.Dal.MySql.Entities
         [MaxLength(100)]
         public string RootName { get; set; }
 
-        public DateTime Timestamp { get; set; } = DateTime.Now;
+        [Timestamp]
+        public DateTime Timestamp { get; set; }
 
         public List<RootItem> Items { get; set; }
     }

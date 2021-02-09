@@ -4,6 +4,7 @@ using CslaModelTemplates.Contracts.SimpleSet;
 using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.SimpleSet
 {
@@ -29,9 +30,9 @@ namespace CslaModelTemplates.Models.SimpleSet
         /// Creates a new editable root collection.
         /// </summary>
         /// <returns>The new editable root collection.</returns>
-        public static SimpleRootSet Create()
+        public static async Task<SimpleRootSet> Create()
         {
-            return DataPortal.Create<SimpleRootSet>();
+            return await DataPortal.CreateAsync<SimpleRootSet>();
         }
 
         /// <summary>
@@ -39,11 +40,11 @@ namespace CslaModelTemplates.Models.SimpleSet
         /// </summary>
         /// <param name="criteria">The criteria of the editable root collection.</param>
         /// <returns>The requested editable root collection.</returns>
-        public static SimpleRootSet Get(
+        public static async Task<SimpleRootSet> Get(
             SimpleRootSetCriteria criteria
             )
         {
-            return DataPortal.Fetch<SimpleRootSet>(criteria);
+            return await DataPortal.FetchAsync<SimpleRootSet>(criteria);
         }
 
         private SimpleRootSet()
@@ -52,16 +53,29 @@ namespace CslaModelTemplates.Models.SimpleSet
         /// <summary>
         /// Rebuilds an editable root instance from the data transfer object.
         /// </summary>
+        /// <param name="criteria">The criteria of the editable root collection.</param>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The rebuilt editable root instance.</returns>
-        public static SimpleRootSet FromDto(
+        public static async Task<SimpleRootSet> FromDto(
+            SimpleRootSetCriteria criteria,
             List<SimpleRootSetItemDto> list
             )
         {
-            SimpleRootSet set = DataPortal.Create<SimpleRootSet>();
+            SimpleRootSet set = await DataPortal.FetchAsync<SimpleRootSet>(criteria);
 
+            foreach (SimpleRootSetItem item in set.Items)
+            {
+                SimpleRootSetItemDto dto = list.Find(o => o.RootKey == item.RootKey);
+                if (dto == null)
+                    item.Delete();
+                else
+                {
+                    item.Update(dto);
+                    list.Remove(dto);
+                }
+            }
             foreach (SimpleRootSetItemDto dto in list)
-                set.Add(SimpleRootSetItem.FromDto(dto));
+                set.Add(await SimpleRootSetItem.Create(dto));
 
             return set;
         }

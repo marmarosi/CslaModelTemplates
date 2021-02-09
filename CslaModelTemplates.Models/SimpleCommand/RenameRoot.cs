@@ -1,9 +1,11 @@
 using Csla;
+using Csla.Security;
 using CslaModelTemplates.Common.Validations;
 using CslaModelTemplates.Contracts.SimpleCommand;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.SimpleCommand
 {
@@ -36,27 +38,11 @@ namespace CslaModelTemplates.Models.SimpleCommand
             private set { LoadProperty(ResultProperty, value); }
         }
 
-        /// <summary>
-        /// Executes the command.
-        /// </summary>
-        public void Execute()
-        {
-            //if (!CanExecuteCommand())
-            //    throw new SecurityException(SecurityText.Login_Execute);
-
-            if (RootKey == null || RootKey == 0)
-                throw new CommandException(ValidationText.RenameRoot_RootKey_Required);
-            if (string.IsNullOrEmpty(RootName))
-                throw new CommandException(ValidationText.RenameRoot_RootName_Required);
-
-            DataPortal_Execute();
-        }
-
         #endregion
 
         #region Business Rules
 
-        public static bool CanExecuteCommand()
+        private bool CanExecuteCommand()
         {
             return true;
         }
@@ -66,19 +52,29 @@ namespace CslaModelTemplates.Models.SimpleCommand
         #region Factory Methods
 
         /// <summary>
-        /// Creates a new rename root command.
+        /// Renames the specified root.
         /// </summary>
         /// <param name="dto">The data transfer object of the command.</param>
-        /// <returns>The new rename root command.</returns>
-        public static RenameRoot Create(
+        /// <returns>The rename root command with the result..</returns>
+        public static async Task<bool> Execute(
             RenameRootDto dto
             )
         {
-            RenameRoot cmd = new RenameRoot();
-            cmd.RootKey = dto.RootKey;
-            cmd.RootName = dto.RootName;
-            cmd.Result = false;
-            return cmd;
+            if (dto.RootKey == null || dto.RootKey == 0)
+                throw new CommandException(ValidationText.RenameRoot_RootKey_Required);
+            if (string.IsNullOrEmpty(dto.RootName))
+                throw new CommandException(ValidationText.RenameRoot_RootName_Required);
+
+            RenameRoot command = new RenameRoot();
+            command.RootKey = dto.RootKey;
+            command.RootName = dto.RootName;
+            command.Result = false;
+
+            if (!command.CanExecuteCommand())
+                throw new SecurityException(ValidationText.RenameRoot_Security_Failed);
+
+            command = await Task.Run(() => DataPortal.ExecuteAsync(command));
+            return command.Result;
         }
 
         private RenameRoot()

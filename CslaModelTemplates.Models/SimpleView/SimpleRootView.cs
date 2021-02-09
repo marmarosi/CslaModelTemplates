@@ -61,19 +61,7 @@ namespace CslaModelTemplates.Models.SimpleView
         /// </summary>
         /// <param name="criteria">The criteria of the read-only root.</param>
         /// <returns>The requested read-only root instance.</returns>
-        public static SimpleRootView Get(
-            SimpleRootViewCriteria criteria
-            )
-        {
-            return DataPortal.Fetch<SimpleRootView>(criteria);
-        }
-
-        /// <summary>
-        /// Gets the specified read-only root instance.
-        /// </summary>
-        /// <param name="criteria">The criteria of the read-only root.</param>
-        /// <returns>The requested read-only root instance.</returns>
-        public static async Task<SimpleRootView> GetAsync(
+        public static async Task<SimpleRootView> Get(
             SimpleRootViewCriteria criteria
             )
         {

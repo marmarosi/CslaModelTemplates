@@ -42,35 +42,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The key-name choice of the tenants.</returns>
         [HttpGet("with-key")]
         [ProducesResponseType(typeof(List<KeyNameOptionDto>), StatusCodes.Status200OK)]
-        public IActionResult GetTenantChoiceWithKey(
-            [FromQuery] KeyDef.RootKeyChoiceCriteria criteria
-            )
-        {
-            try
-            {
-                KeyModel.RootKeyChoice choice = KeyModel.RootKeyChoice.Get(criteria);
-                return Ok(choice);
-            }
-            catch (Exception ex)
-            {
-                return HandleError(ex);
-            }
-        }
-
-        /// <summary>
-        /// Gets the key-name choice of the roots.
-        /// </summary>
-        /// <param name="criteria">The criteria of the root choice.</param>
-        /// <returns>The key-name choice of the tenants.</returns>
-        [HttpGet("async/with-key")]
-        [ProducesResponseType(typeof(List<KeyNameOptionDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTenantChoiceWithKeyAsync(
             [FromQuery] KeyDef.RootKeyChoiceCriteria criteria
             )
         {
             try
             {
-                KeyModel.RootKeyChoice choice = await KeyModel.RootKeyChoice.GetAsync(criteria);
+                KeyModel.RootKeyChoice choice = await KeyModel.RootKeyChoice.Get(criteria);
                 return Ok(choice);
             }
             catch (Exception ex)
@@ -88,28 +66,6 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="criteria">The criteria of the root choice.</param>
         /// <returns>The code-name choice of the tenants.</returns>
-        [HttpGet("with-code")]
-        [ProducesResponseType(typeof(List<CodeNameOptionDto>), StatusCodes.Status200OK)]
-        public IActionResult GetTenantChoiceWithCode(
-            [FromQuery] CodeDef.RootCodeChoiceCriteria criteria
-            )
-        {
-            try
-            {
-                CodeModel.RootCodeChoice choice = CodeModel.RootCodeChoice.Get(criteria);
-                return Ok(choice);
-            }
-            catch (Exception ex)
-            {
-                return HandleError(ex);
-            }
-        }
-
-        /// <summary>
-        /// Gets the code-name choice of the roots.
-        /// </summary>
-        /// <param name="criteria">The criteria of the root choice.</param>
-        /// <returns>The code-name choice of the tenants.</returns>
         [HttpGet("async/with-code")]
         [ProducesResponseType(typeof(List<CodeNameOptionDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTenantChoiceWithCodeAsync(
@@ -118,7 +74,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                CodeModel.RootCodeChoice choice = await CodeModel.RootCodeChoice.GetAsync(criteria);
+                CodeModel.RootCodeChoice choice = await CodeModel.RootCodeChoice.Get(criteria);
                 return Ok(choice);
             }
             catch (Exception ex)

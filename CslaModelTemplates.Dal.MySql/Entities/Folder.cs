@@ -21,7 +21,8 @@ namespace CslaModelTemplates.Dal.MySql.Entities
         [MaxLength(100)]
         public string FolderName { get; set; }
 
-        public DateTime Timestamp { get; set; } = DateTime.Now;
+        [Timestamp]
+        public DateTime Timestamp { get; set; }
 
         [ForeignKey("ParentKey")]
         public Folder Parent { get; set; }

@@ -5,6 +5,7 @@ using CslaModelTemplates.Contracts.SimpleSet;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.SimpleSet
 {
@@ -49,6 +50,20 @@ namespace CslaModelTemplates.Models.SimpleSet
             private set { LoadProperty(TimestampProperty, value); }
         }
 
+        /// <summary>
+        /// Updates an editable root from the data transfer object.
+        /// </summary>
+        /// <param name="dto">The data transfer objects.</param>
+        internal void Update(
+            SimpleRootSetItemDto dto
+            )
+        {
+            //RootKey = dto.RootKey;
+            RootCode = dto.RootCode;
+            RootName = dto.RootName;
+            //Timestamp = dto.Timestamp;
+        }
+
         #endregion
 
         #region Business Rules
@@ -80,17 +95,16 @@ namespace CslaModelTemplates.Models.SimpleSet
         { /* Require use of factory methods */ }
 
         /// <summary>
-        /// Rebuilds an editable root item instance from the data transfer object.
+        /// Creates an editable root item instance from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The rebuilt editable root item instance.</returns>
-        internal static SimpleRootSetItem FromDto(
+        internal static async Task<SimpleRootSetItem> Create(
             SimpleRootSetItemDto dto
             )
         {
-            SimpleRootSetItem root = dto.RootKey.HasValue ?
-                DataPortal.FetchChild<SimpleRootSetItem>(dto.ToDao()) :
-                DataPortal.CreateChild<SimpleRootSetItem>();
+            SimpleRootSetItem root = null;
+            await Task.Run(() => root = DataPortal.CreateChild<SimpleRootSetItem>());
 
             //root.RootKey = dto.RootKey;
             root.RootCode = dto.RootCode;

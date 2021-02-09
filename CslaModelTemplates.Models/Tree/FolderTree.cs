@@ -30,17 +30,7 @@ namespace CslaModelTemplates.Models.Tree
         /// </summary>
         /// <param name="criteria">The criteria of the read-only folder tree.</param>
         /// <returns>The requested read-only folder tree.</returns>
-        public static FolderTree Get(FolderTreeCriteria criteria)
-        {
-            return DataPortal.Fetch<FolderTree>(criteria);
-        }
-
-        /// <summary>
-        /// Gets the specified read-only folder tree.
-        /// </summary>
-        /// <param name="criteria">The criteria of the read-only folder tree.</param>
-        /// <returns>The requested read-only folder tree.</returns>
-        public static async Task<FolderTree> GetAsync(FolderTreeCriteria criteria)
+        public static async Task<FolderTree> Get(FolderTreeCriteria criteria)
         {
             return await DataPortal.FetchAsync<FolderTree>(criteria);
         }

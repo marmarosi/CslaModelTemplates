@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.WebApi.Controllers
 {
@@ -46,13 +47,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>A list of roots.</returns>
         [HttpGet("")]
         [ProducesResponseType(typeof(List<SimpleRootListItemDto>), StatusCodes.Status200OK)]
-        public IActionResult GetRootList(
+        public async Task<IActionResult> GetRootList(
             [FromQuery] SimpleRootListCriteria criteria
             )
         {
             try
             {
-                SimpleRootList list = SimpleRootList.Get(criteria);
+                SimpleRootList list = await SimpleRootList.Get(criteria);
                 return Ok(list);
             }
             catch (Exception ex)
@@ -72,13 +73,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The requested root view.</returns>
         [HttpGet("view")]
         [ProducesResponseType(typeof(SimpleRootViewDto), StatusCodes.Status200OK)]
-        public IActionResult GetRootView(
+        public async Task<IActionResult> GetRootView(
             [FromQuery] SimpleRootViewCriteria criteria
             )
         {
             try
             {
-                SimpleRootView root = SimpleRootView.Get(criteria);
+                SimpleRootView root = await SimpleRootView.Get(criteria);
                 return Ok(root);
             }
             catch (Exception ex)
@@ -98,13 +99,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The requested root.</returns>
         [HttpGet("fetch")]
         [ProducesResponseType(typeof(SimpleRootDto), StatusCodes.Status200OK)]
-        public IActionResult GetRoot(
+        public async Task<IActionResult> GetRoot(
             [FromQuery] SimpleRootCriteria criteria
             )
         {
             try
             {
-                SimpleRoot root = SimpleRoot.Get(criteria);
+                SimpleRoot root = await SimpleRoot.Get(criteria);
                 return Ok(root.ToDto<SimpleRootDto>());
             }
             catch (Exception ex)
@@ -124,16 +125,16 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The created root.</returns>
         [HttpPost("")]
         [ProducesResponseType(typeof(SimpleRootDto), StatusCodes.Status201Created)]
-        public IActionResult CreateRoot(
+        public async Task<IActionResult> CreateRoot(
             [FromBody] SimpleRootDto dto
             )
         {
             try
             {
-                SimpleRoot root = SimpleRoot.FromDto(dto);
+                SimpleRoot root = await SimpleRoot.FromDto(dto);
                 if (root.IsValid)
                 {
-                    root = root.Save();
+                    root = await root.SaveAsync();
                 }
                 return Created(Request.Path, root.ToDto<SimpleRootDto>());
             }
@@ -154,18 +155,43 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The updated root.</returns>
         [HttpPut("")]
         [ProducesResponseType(typeof(SimpleRootDto), StatusCodes.Status200OK)]
-        public IActionResult UpdateRoot(
+        public async Task<IActionResult> UpdateRoot(
             [FromBody] SimpleRootDto dto
             )
         {
             try
             {
-                SimpleRoot root = SimpleRoot.FromDto(dto);
+                SimpleRoot root = await SimpleRoot.FromDto(dto);
                 if (root.IsSavable)
                 {
-                    root = root.Save();
+                    root = await root.SaveAsync();
                 }
                 return Ok(root.ToDto<SimpleRootDto>());
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region Delete
+
+        /// <summary>
+        /// Deletes the specified root.
+        /// </summary>
+        /// <param name="criteria">The criteria of the root.</param>
+        [HttpDelete("")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteRoot(
+            [FromQuery] SimpleRootCriteria criteria
+            )
+        {
+            try
+            {
+                await Task.Run(() => SimpleRoot.Delete(criteria));
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -184,41 +210,14 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>True when the root was renamed; otherwise false.</returns>
         [HttpPatch("")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        public IActionResult RenameRootCommand(
+        public async Task<IActionResult> RenameRootCommand(
             [FromBody] RenameRootDto dto
             )
         {
             try
             {
-                RenameRoot command = RenameRoot.Create(dto);
-                command.Execute();
-
-                return Ok(command.Result);
-            }
-            catch (Exception ex)
-            {
-                return HandleError(ex);
-            }
-        }
-
-        #endregion
-
-        #region Delete
-
-        /// <summary>
-        /// Deletes the specified root.
-        /// </summary>
-        /// <param name="criteria">The criteria of the root.</param>
-        [HttpDelete("")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public IActionResult DeleteRoot(
-            [FromQuery] SimpleRootCriteria criteria
-            )
-        {
-            try
-            {
-                SimpleRoot.Delete(criteria);
-                return NoContent();
+                bool result = await RenameRoot.Execute(dto);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -237,13 +236,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The requested root set.</returns>
         [HttpGet("set")]
         [ProducesResponseType(typeof(List<SimpleRootSetItemDto>), StatusCodes.Status200OK)]
-        public IActionResult GetRootSet(
+        public async Task<IActionResult> GetRootSet(
             [FromQuery] SimpleRootSetCriteria criteria
             )
         {
             try
             {
-                SimpleRootSet set = SimpleRootSet.Get(criteria);
+                SimpleRootSet set = await SimpleRootSet.Get(criteria);
                 return Ok(set.ToDto<SimpleRootSetItemDto>());
             }
             catch (Exception ex)
@@ -259,20 +258,22 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <summary>
         /// Updates the specified roots.
         /// </summary>
+        /// <param name="criteria">The criteria of the root set.</param>
         /// <param name="dto">The data transer objects of the root set.</param>
         /// <returns>The updated root set.</returns>
         [HttpPut("set")]
         [ProducesResponseType(typeof(List<SimpleRootSetItemDto>), StatusCodes.Status200OK)]
-        public IActionResult UpdateRootSet(
+        public async Task<IActionResult> UpdateRootSet(
+            [FromQuery] SimpleRootSetCriteria criteria,
             [FromBody] List<SimpleRootSetItemDto> dto
             )
         {
             try
             {
-                SimpleRootSet root = SimpleRootSet.FromDto(dto);
+                SimpleRootSet root = await SimpleRootSet.FromDto(criteria, dto);
                 if (root.IsSavable)
                 {
-                    root = root.Save();
+                    root = await root.SaveAsync();
                 }
                 return Ok(root.ToDto<SimpleRootSetItemDto>());
             }

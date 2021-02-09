@@ -123,6 +123,9 @@
   <data name="RenameRoot_RootName_Required" xml:space="preserve">
     <value>The new root name is required.</value>
   </data>
+  <data name="RenameRoot_Security_Failed" xml:space="preserve">
+    <value>Not authorized to rename the root.</value>
+  </data>
   <data name="RootItem_RootItemCode_MaxLength" xml:space="preserve">
     <value>The root item code cannot exceed {1} characters.</value>
   </data>

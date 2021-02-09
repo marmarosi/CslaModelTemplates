@@ -79,6 +79,15 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not authorized to rename the root..
+        /// </summary>
+        public static string RenameRoot_Security_Failed {
+            get {
+                return ResourceManager.GetString("RenameRoot_Security_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The root code cannot exceed {1} characters..
         /// </summary>
         public static string Root_RootCode_MaxLength {

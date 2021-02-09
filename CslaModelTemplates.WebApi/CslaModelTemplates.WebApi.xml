@@ -107,26 +107,12 @@
             </summary>
             <param name="logger">The application logging service.</param>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithKey(CslaModelTemplates.Contracts.SelectionWithKey.RootKeyChoiceCriteria)">
-            <summary>
-            Gets the key-name choice of the roots.
-            </summary>
-            <param name="criteria">The criteria of the root choice.</param>
-            <returns>The key-name choice of the tenants.</returns>
-        </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithKeyAsync(CslaModelTemplates.Contracts.SelectionWithKey.RootKeyChoiceCriteria)">
             <summary>
             Gets the key-name choice of the roots.
             </summary>
             <param name="criteria">The criteria of the root choice.</param>
             <returns>The key-name choice of the tenants.</returns>
-        </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithCode(CslaModelTemplates.Contracts.SelectionWithCode.RootCodeChoiceCriteria)">
-            <summary>
-            Gets the code-name choice of the roots.
-            </summary>
-            <param name="criteria">The criteria of the root choice.</param>
-            <returns>The code-name choice of the tenants.</returns>
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithCodeAsync(CslaModelTemplates.Contracts.SelectionWithCode.RootCodeChoiceCriteria)">
             <summary>
@@ -181,18 +167,18 @@
             <param name="dto">The data transer object of the root.</param>
             <returns>The updated root.</returns>
         </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.DeleteRoot(CslaModelTemplates.Contracts.Simple.SimpleRootCriteria)">
+            <summary>
+            Deletes the specified root.
+            </summary>
+            <param name="criteria">The criteria of the root.</param>
+        </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.RenameRootCommand(CslaModelTemplates.Contracts.SimpleCommand.RenameRootDto)">
             <summary>
             Renames the specified root.
             </summary>
             <param name="dto">The data transer object of the rename root command.</param>
             <returns>True when the root was renamed; otherwise false.</returns>
-        </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.DeleteRoot(CslaModelTemplates.Contracts.Simple.SimpleRootCriteria)">
-            <summary>
-            Deletes the specified root.
-            </summary>
-            <param name="criteria">The criteria of the root.</param>
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRootSet(CslaModelTemplates.Contracts.SimpleSet.SimpleRootSetCriteria)">
             <summary>
@@ -201,10 +187,11 @@
             <param name="criteria">The criteria of the root set.</param>
             <returns>The requested root set.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.UpdateRootSet(System.Collections.Generic.List{CslaModelTemplates.Contracts.SimpleSet.SimpleRootSetItemDto})">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.UpdateRootSet(CslaModelTemplates.Contracts.SimpleSet.SimpleRootSetCriteria,System.Collections.Generic.List{CslaModelTemplates.Contracts.SimpleSet.SimpleRootSetItemDto})">
             <summary>
             Updates the specified roots.
             </summary>
+            <param name="criteria">The criteria of the root set.</param>
             <param name="dto">The data transer objects of the root set.</param>
             <returns>The updated root set.</returns>
         </member>
@@ -218,13 +205,6 @@
             Creates a new instance.
             </summary>
             <param name="logger">The application logging service.</param>
-        </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.TreeController.GetFolderTree(CslaModelTemplates.Contracts.Tree.FolderTreeCriteria)">
-            <summary>
-            Gets the specified folder tree.
-            </summary>
-            <param name="criteria">The criteria of the folder tree.</param>
-            <returns>The requested folder tree.</returns>
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.TreeController.GetFolderTreeAsync(CslaModelTemplates.Contracts.Tree.FolderTreeCriteria)">
             <summary>

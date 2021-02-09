@@ -31,19 +31,7 @@ namespace CslaModelTemplates.Models.SelectionWithCode
         /// </summary>
         /// <param name="criteria">The criteria root choice.</param>
         /// <returns>The requested root choice instance.</returns>
-        public static RootCodeChoice Get(
-            RootCodeChoiceCriteria criteria
-            )
-        {
-            return DataPortal.Fetch<RootCodeChoice>(criteria);
-        }
-
-        /// <summary>
-        /// Gets a choice of root options that match the criteria.
-        /// </summary>
-        /// <param name="criteria">The criteria root choice.</param>
-        /// <returns>The requested root choice instance.</returns>
-        public static async Task<RootCodeChoice> GetAsync(
+        public static async Task<RootCodeChoice> Get(
             RootCodeChoiceCriteria criteria
             )
         {

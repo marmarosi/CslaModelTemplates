@@ -31,19 +31,7 @@ namespace CslaModelTemplates.Models.SelectionWithKey
         /// </summary>
         /// <param name="criteria">The criteria root choice.</param>
         /// <returns>The requested root choice instance.</returns>
-        public static RootKeyChoice Get(
-            RootKeyChoiceCriteria criteria
-            )
-        {
-            return DataPortal.Fetch<RootKeyChoice>(criteria);
-        }
-
-        /// <summary>
-        /// Gets a choice of root options that match the criteria.
-        /// </summary>
-        /// <param name="criteria">The criteria root choice.</param>
-        /// <returns>The requested root choice instance.</returns>
-        public static async Task<RootKeyChoice> GetAsync(
+        public static async Task<RootKeyChoice> Get(
             RootKeyChoiceCriteria criteria
             )
         {
