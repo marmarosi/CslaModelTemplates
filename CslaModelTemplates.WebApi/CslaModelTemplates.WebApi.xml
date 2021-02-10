@@ -42,21 +42,14 @@
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetRootView(CslaModelTemplates.Contracts.ComplexView.RootViewCriteria)">
             <summary>
-            Gets the specified root view.
+            Gets the specified root details to display.
             </summary>
             <param name="criteria">The criteria of the root view.</param>
             <returns>The requested root view.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.CountRootsCommand(CslaModelTemplates.Contracts.ComplexCommand.CountRootsCriteria)">
-            <summary>
-            Renames the specified root.
-            </summary>
-            <param name="criteria">The criteria of the count roots by item count command.</param>
-            <returns>The list of the root counts.</returns>
-        </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetRoot(CslaModelTemplates.Contracts.Complex.RootCriteria)">
             <summary>
-            Gets the specified root.
+            Gets the specified root to edit.
             </summary>
             <param name="criteria">The criteria of the root.</param>
             <returns>The requested root.</returns>
@@ -81,6 +74,13 @@
             </summary>
             <param name="criteria">The criteria of the root.</param>
         </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.CountRootsCommand(CslaModelTemplates.Contracts.ComplexCommand.CountRootsCriteria)">
+            <summary>
+            Counts the roots grouped by the number of their items.
+            </summary>
+            <param name="criteria">The criteria of the count roots by item count command.</param>
+            <returns>The list of the root counts.</returns>
+        </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetRootSet(CslaModelTemplates.Contracts.ComplexSet.RootSetCriteria)">
             <summary>
             Gets the specified root set.
@@ -90,7 +90,7 @@
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.UpdateRootSet(CslaModelTemplates.Contracts.ComplexSet.RootSetCriteria,System.Collections.Generic.List{CslaModelTemplates.Contracts.ComplexSet.RootSetItemDto})">
             <summary>
-            Updates the specified roots.
+            Updates the specified root set.
             </summary>
             <param name="criteria">The criteria of the root set.</param>
             <param name="dto">The data transer objects of the root set.</param>
@@ -141,14 +141,14 @@
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRootView(CslaModelTemplates.Contracts.SimpleView.SimpleRootViewCriteria)">
             <summary>
-            Gets the specified root view.
+            Gets the specified root details to display.
             </summary>
             <param name="criteria">The criteria of the root view.</param>
             <returns>The requested root view.</returns>
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRoot(CslaModelTemplates.Contracts.Simple.SimpleRootCriteria)">
             <summary>
-            Gets the specified root.
+            Gets the specified root to edit.
             </summary>
             <param name="criteria">The criteria of the root.</param>
             <returns>The requested root.</returns>
@@ -189,7 +189,7 @@
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.UpdateRootSet(CslaModelTemplates.Contracts.SimpleSet.SimpleRootSetCriteria,System.Collections.Generic.List{CslaModelTemplates.Contracts.SimpleSet.SimpleRootSetItemDto})">
             <summary>
-            Updates the specified roots.
+            Updates the specified root set.
             </summary>
             <param name="criteria">The criteria of the root set.</param>
             <param name="dto">The data transer objects of the root set.</param>

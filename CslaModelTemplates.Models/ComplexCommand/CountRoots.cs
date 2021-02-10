@@ -1,13 +1,16 @@
 ﻿using Csla;
+using Csla.Security;
 using CslaModelTemplates.Contracts.ComplexCommand;
 using CslaModelTemplates.Dal;
+using CslaModelTemplates.Resources;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.Command
 {
     /// <summary>
-    /// Counts the roots frouped by the number of their items.
+    /// Counts the roots grouped by the number of their items.
     /// </summary>
     [Serializable]
     public class CountRoots : CommandBase<CountRoots>
@@ -28,22 +31,11 @@ namespace CslaModelTemplates.Models.Command
             private set { LoadProperty(ResultProperty, value); }
         }
 
-        /// <summary>
-        /// Executes the command.
-        /// </summary>
-        public void Execute()
-        {
-            //if (!CanExecuteCommand())
-            //    throw new SecurityException(SecurityText.Login_Execute);
-
-            DataPortal_Execute();
-        }
-
         #endregion
 
         #region Business Rules
 
-        public static bool CanExecuteCommand()
+        public bool CanExecuteCommand()
         {
             return true;
         }
@@ -53,18 +45,23 @@ namespace CslaModelTemplates.Models.Command
         #region Factory Methods
 
         /// <summary>
-        /// Creates a new count roots by item count command.
+        /// Counts the roots grouped by the number of their items.
         /// </summary>
         /// <param name="criteria">The criteria of the command.</param>
-        /// <returns>The new count roots by item count command.</returns>
-        public static CountRoots Create(
+        /// <returns>The count list.</returns>
+        public static async Task<CountRootsList> Execute(
             CountRootsCriteria criteria
             )
         {
-            CountRoots cmd = new CountRoots();
-            cmd.RootName = criteria.RootName;
-            cmd.Result = null;
-            return cmd;
+            CountRoots command = new CountRoots();
+            command.RootName = criteria.RootName;
+            command.Result = null;
+
+            if (!command.CanExecuteCommand())
+                throw new SecurityException(ValidationText.CountRoots_Security_Failed);
+
+            command = await Task.Run(() => DataPortal.ExecuteAsync(command));
+            return command.Result;
         }
 
         private CountRoots()

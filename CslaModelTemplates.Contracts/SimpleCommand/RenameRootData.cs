@@ -5,8 +5,8 @@ namespace CslaModelTemplates.Contracts.SimpleCommand
     /// </summary>
     public class RenameRootData
     {
-        public long? RootKey;
-        public string RootName;
+        public long? RootKey { get; set; }
+        public string RootName { get; set; }
     }
 
     /// <summary>

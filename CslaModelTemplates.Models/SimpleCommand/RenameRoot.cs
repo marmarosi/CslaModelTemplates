@@ -55,7 +55,7 @@ namespace CslaModelTemplates.Models.SimpleCommand
         /// Renames the specified root.
         /// </summary>
         /// <param name="dto">The data transfer object of the command.</param>
-        /// <returns>The rename root command with the result..</returns>
+        /// <returns>True when the rename succeeded; otherwise false.</returns>
         public static async Task<bool> Execute(
             RenameRootDto dto
             )

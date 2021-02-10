@@ -8,6 +8,7 @@ using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.Complex
 {
@@ -128,21 +129,17 @@ namespace CslaModelTemplates.Models.Complex
         { /* Require use of factory methods */ }
 
         /// <summary>
-        /// Rebuilds an editable root item instance from the data transfer object.
+        /// Creates an editable root item instance from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer object.</param>
-        /// <returns>The rebuilt editable root item instance.</returns>
-        internal static RootItem FromDto(
+        /// <returns>The new editable root item instance.</returns>
+        internal static async Task<RootItem> Create(
             RootItemDto dto
             )
         {
-            RootItem item = DataPortal.CreateChild<RootItem>();
-
-            //item.RootItemKey = dto.RootItemKey;
-            //item.RootKey = dto.RootKey;
-            item.RootItemCode = dto.RootItemCode;
-            item.RootItemName = dto.RootItemName;
-
+            RootItem item = null;
+            item = await Task.Run(() => DataPortal.CreateChild<RootItem>());
+            item.Update(dto);
             return item;
         }
 
@@ -154,7 +151,6 @@ namespace CslaModelTemplates.Models.Complex
         //{
         //    // TODO: load default values
         //    // omit this override if you have no defaults to set
-        //    base.Child_Create();
         //}
 
         private void Child_Fetch(

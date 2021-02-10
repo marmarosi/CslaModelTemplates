@@ -81,16 +81,7 @@ namespace CslaModelTemplates.Models.Complex
         /// Creates a new editable root instance.
         /// </summary>
         /// <returns>The new editable root instance.</returns>
-        public static Root Create()
-        {
-            return DataPortal.Create<Root>();
-        }
-
-        /// <summary>
-        /// Creates a new editable root instance.
-        /// </summary>
-        /// <returns>The new editable root instance.</returns>
-        public static async Task<Root> CreateAsync()
+        public static async Task<Root> Create()
         {
             return await DataPortal.CreateAsync<Root>();
         }
@@ -100,19 +91,7 @@ namespace CslaModelTemplates.Models.Complex
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
         /// <returns>The requested editable root instance.</returns>
-        public static Root Get(
-            RootCriteria criteria
-            )
-        {
-            return DataPortal.Fetch<Root>(criteria);
-        }
-
-        /// <summary>
-        /// Gets an existing editable root instance.
-        /// </summary>
-        /// <param name="criteria">The criteria of the root.</param>
-        /// <returns>The requested editable root instance.</returns>
-        public static async Task<Root> GetAsync(
+        public static async Task<Root> Get(
             RootCriteria criteria
             )
         {
@@ -123,18 +102,7 @@ namespace CslaModelTemplates.Models.Complex
         /// Deletes an existing root.
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
-        public static void Delete(
-            RootCriteria criteria
-            )
-        {
-            DataPortal.Delete<Root>(criteria);
-        }
-
-        /// <summary>
-        /// Deletes an existing root.
-        /// </summary>
-        /// <param name="criteria">The criteria of the root.</param>
-        public static async void DeleteAsync(
+        public static async void Delete(
             RootCriteria criteria
             )
         {
@@ -149,32 +117,7 @@ namespace CslaModelTemplates.Models.Complex
         /// </summary>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The rebuilt editable root instance.</returns>
-        public static Root FromDto(
-            RootDto dto
-            )
-        {
-            Root root = dto.RootKey.HasValue ?
-                DataPortal.Fetch<Root>(new RootCriteria()
-                {
-                    RootKey = dto.RootKey.Value
-                }) :
-                Create();
-
-            //root.RootKey = dto.RootKey;
-            root.RootCode = dto.RootCode;
-            root.RootName = dto.RootName;
-            root.Items.FromDto(dto.Items);
-            //root.Timestamp = dto.Timestamp;
-
-            return root;
-        }
-
-        /// <summary>
-        /// Rebuilds an editable root instance from the data transfer object.
-        /// </summary>
-        /// <param name="dto">The data transfer object.</param>
-        /// <returns>The rebuilt editable root instance.</returns>
-        public static async Task<Root> FromDtoAsync(
+        public static async Task<Root> FromDto(
             RootDto dto
             )
         {
@@ -183,12 +126,12 @@ namespace CslaModelTemplates.Models.Complex
                 {
                     RootKey = dto.RootKey.Value
                 }) :
-                await CreateAsync();
+                await DataPortal.CreateAsync<Root>();
 
             //root.RootKey = dto.RootKey;
             root.RootCode = dto.RootCode;
             root.RootName = dto.RootName;
-            root.Items.FromDto(dto.Items);
+            await root.Items.Update(dto.Items);
             //root.Timestamp = dto.Timestamp;
 
             return root;
@@ -203,7 +146,7 @@ namespace CslaModelTemplates.Models.Complex
         {
             // Load default values.
             // Omit this override if you have no defaults to set.
-            base.DataPortal_Create();
+            Items = RootItems.Create();
         }
 
         private void DataPortal_Fetch(
@@ -295,6 +238,9 @@ namespace CslaModelTemplates.Models.Complex
             using (IDalManager dm = DalFactory.GetManager())
             {
                 IRootDal dal = dm.GetProvider<IRootDal>();
+
+                if (!RootKey.HasValue)
+                    DataPortal_Fetch(criteria);
 
                 Items.Clear();
                 FieldManager.UpdateChildren(this);

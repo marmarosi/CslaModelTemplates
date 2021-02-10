@@ -7,10 +7,10 @@ namespace CslaModelTemplates.Contracts.Simple
     /// </summary>
     public class SimpleRootData
     {
-        public long? RootKey;
-        public string RootCode;
-        public string RootName;
-        public DateTime? Timestamp;
+        public long? RootKey { get; set; }
+        public string RootCode { get; set; }
+        public string RootName { get; set; }
+        public DateTime? Timestamp { get; set; }
     }
 
     /// <summary>

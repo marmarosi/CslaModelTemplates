@@ -5,6 +5,7 @@ using CslaModelTemplates.Contracts.ComplexSet;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.ComplexSet
 {
@@ -102,22 +103,21 @@ namespace CslaModelTemplates.Models.ComplexSet
         { /* Require use of factory methods */ }
 
         /// <summary>
-        /// Rebuilds an editable root item instance from the data transfer object.
+        /// Creates an editable root instance from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer object.</param>
-        /// <returns>The rebuilt editable root item instance.</returns>
-        internal static RootSetItem FromDto(
+        /// <returns>The new editable root instance.</returns>
+        internal static async Task<RootSetItem> Create(
             RootSetItemDto dto
             )
         {
-            RootSetItem root = dto.RootKey.HasValue ?
-                DataPortal.FetchChild<RootSetItem>(dto.ToDao()) :
-                DataPortal.CreateChild<RootSetItem>();
+            RootSetItem root = null;
+            await Task.Run(() => root = DataPortal.CreateChild<RootSetItem>());
 
             //root.RootKey = dto.RootKey;
             root.RootCode = dto.RootCode;
             root.RootName = dto.RootName;
-            root.Items.Update(dto.Items);
+            await root.Items.Update(dto.Items);
             //root.Timestamp = dto.Timestamp;
 
             return root;
@@ -127,12 +127,11 @@ namespace CslaModelTemplates.Models.ComplexSet
 
         #region Data Access
 
-        protected override void Child_Create()
-        {
-            // TODO: load default values
-            // omit this override if you have no defaults to set
-            //base.Child_Create();
-        }
+        //protected override void Child_Create()
+        //{
+        //    // TODO: load default values
+        //    // omit this override if you have no defaults to set
+        //}
 
         private void Child_Fetch(
             RootSetItemDao dao

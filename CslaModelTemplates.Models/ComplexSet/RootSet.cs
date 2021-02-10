@@ -4,6 +4,7 @@ using CslaModelTemplates.Contracts.ComplexSet;
 using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.ComplexSet
 {
@@ -29,9 +30,9 @@ namespace CslaModelTemplates.Models.ComplexSet
         /// Creates a new editable root collection.
         /// </summary>
         /// <returns>The new editable root collection.</returns>
-        public static RootSet Create()
+        public static async Task<RootSet> Create()
         {
-            return DataPortal.Create<RootSet>();
+            return await DataPortal.CreateAsync<RootSet>();
         }
 
         /// <summary>
@@ -39,11 +40,11 @@ namespace CslaModelTemplates.Models.ComplexSet
         /// </summary>
         /// <param name="criteria">The criteria of the editable root collection.</param>
         /// <returns>The requested editable root collection.</returns>
-        public static RootSet Get(
+        public static async Task<RootSet> Get(
             RootSetCriteria criteria
             )
         {
-            return DataPortal.Fetch<RootSet>(criteria);
+            return await DataPortal.FetchAsync<RootSet>(criteria);
         }
 
         private RootSet()
@@ -55,12 +56,12 @@ namespace CslaModelTemplates.Models.ComplexSet
         /// <param name="criteria">The criteria of the root set.</param>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The rebuilt editable root instance.</returns>
-        public static RootSet FromDto(
+        public static async Task<RootSet> FromDto(
             RootSetCriteria criteria,
             List<RootSetItemDto> list
             )
         {
-            RootSet set = DataPortal.Fetch<RootSet>(criteria);
+            RootSet set = await DataPortal.FetchAsync<RootSet>(criteria);
 
             foreach (RootSetItem item in set.Items)
             {
@@ -74,7 +75,7 @@ namespace CslaModelTemplates.Models.ComplexSet
                 }
             }
             foreach (RootSetItemDto dto in list)
-                set.Add(RootSetItem.FromDto(dto));
+                set.Add(await RootSetItem.Create(dto));
 
             return set;
         }

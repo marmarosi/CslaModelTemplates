@@ -95,10 +95,10 @@ namespace CslaModelTemplates.Models.SimpleSet
         { /* Require use of factory methods */ }
 
         /// <summary>
-        /// Creates an editable root item instance from the data transfer object.
+        /// Creates an editable root instance from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer object.</param>
-        /// <returns>The rebuilt editable root item instance.</returns>
+        /// <returns>The new editable root instance.</returns>
         internal static async Task<SimpleRootSetItem> Create(
             SimpleRootSetItemDto dto
             )

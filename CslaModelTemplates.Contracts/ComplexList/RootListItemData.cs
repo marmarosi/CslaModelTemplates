@@ -7,9 +7,9 @@ namespace CslaModelTemplates.Contracts.ComplexList
     /// </summary>
     public class RootListItemData
     {
-        public long? RootKey;
-        public string RootCode;
-        public string RootName;
+        public long? RootKey { get; set; }
+        public string RootCode { get; set; }
+        public string RootName { get; set; }
     }
 
     /// <summary>
@@ -17,7 +17,7 @@ namespace CslaModelTemplates.Contracts.ComplexList
     /// </summary>
     public class RootListItemDao : RootListItemData
     {
-        public List<RootItemListItemDao> Items;
+        public List<RootItemListItemDao> Items { get; set; }
     }
 
     /// <summary>
@@ -25,6 +25,6 @@ namespace CslaModelTemplates.Contracts.ComplexList
     /// </summary>
     public class RootListItemDto : RootListItemData
     {
-        public List<RootItemListItemDto> Items;
+        public List<RootItemListItemDto> Items { get; set; }
     }
 }

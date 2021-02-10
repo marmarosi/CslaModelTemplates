@@ -61,6 +61,15 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not authorized to execute this command..
+        /// </summary>
+        public static string CountRoots_Security_Failed {
+            get {
+                return ResourceManager.GetString("CountRoots_Security_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The key of the root is required..
         /// </summary>
         public static string RenameRoot_RootKey_Required {

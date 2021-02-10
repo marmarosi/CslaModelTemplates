@@ -8,10 +8,10 @@ namespace CslaModelTemplates.Contracts.Complex
     /// </summary>
     public class RootData
     {
-        public long? RootKey;
-        public string RootCode;
-        public string RootName;
-        public DateTime? Timestamp;
+        public long? RootKey { get; set; }
+        public string RootCode { get; set; }
+        public string RootName { get; set; }
+        public DateTime? Timestamp { get; set; }
     }
 
     /// <summary>
@@ -19,7 +19,7 @@ namespace CslaModelTemplates.Contracts.Complex
     /// </summary>
     public class RootDao : RootData
     {
-        public List<RootItemDao> Items;
+        public List<RootItemDao> Items { get; set; }
     }
 
     /// <summary>
@@ -27,6 +27,6 @@ namespace CslaModelTemplates.Contracts.Complex
     /// </summary>
     public class RootDto : RootData
     {
-        public List<RootItemDto> Items;
+        public List<RootItemDto> Items { get; set; }
     }
 }

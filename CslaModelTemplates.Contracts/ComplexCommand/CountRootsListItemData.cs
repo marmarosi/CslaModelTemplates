@@ -5,8 +5,8 @@
     /// </summary>
     public class CountRootsListItemData
     {
-        public int ItemCount;
-        public int CountOfRoots;
+        public int ItemCount { get; set; }
+        public int CountOfRoots { get; set; }
     }
 
     /// <summary>

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CountRoots_Security_Failed" xml:space="preserve">
+    <value>Not authorized to execute this command.</value>
+  </data>
   <data name="RenameRoot_RootKey_Required" xml:space="preserve">
     <value>The key of the root is required.</value>
   </data>

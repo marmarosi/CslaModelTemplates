@@ -5,10 +5,10 @@ namespace CslaModelTemplates.Contracts.Complex
     /// </summary>
     public class RootItemData
     {
-        public long? RootItemKey;
-        public long? RootKey;
-        public string RootItemCode;
-        public string RootItemName;
+        public long? RootItemKey { get; set; }
+        public long? RootKey { get; set; }
+        public string RootItemCode { get; set; }
+        public string RootItemName { get; set; }
     }
 
     /// <summary>

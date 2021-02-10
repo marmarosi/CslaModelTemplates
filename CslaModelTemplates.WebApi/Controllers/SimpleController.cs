@@ -67,7 +67,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region View
 
         /// <summary>
-        /// Gets the specified root view.
+        /// Gets the specified root details to display.
         /// </summary>
         /// <param name="criteria">The criteria of the root view.</param>
         /// <returns>The requested root view.</returns>
@@ -93,7 +93,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Read
 
         /// <summary>
-        /// Gets the specified root.
+        /// Gets the specified root to edit.
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
         /// <returns>The requested root.</returns>
@@ -256,7 +256,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Update-Set
 
         /// <summary>
-        /// Updates the specified roots.
+        /// Updates the specified root set.
         /// </summary>
         /// <param name="criteria">The criteria of the root set.</param>
         /// <param name="dto">The data transer objects of the root set.</param>

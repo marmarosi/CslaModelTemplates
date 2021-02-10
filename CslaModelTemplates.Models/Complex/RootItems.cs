@@ -3,6 +3,7 @@ using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.Complex;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.Complex
 {
@@ -19,7 +20,7 @@ namespace CslaModelTemplates.Models.Complex
         /// </summary>
         /// <param name="list">The list of data transfer objects.</param>
         /// <returns>The rebuilt editable root item collection.</returns>
-        internal void FromDto(
+        internal async Task Update(
             List<RootItemDto> list
             )
         {
@@ -36,7 +37,7 @@ namespace CslaModelTemplates.Models.Complex
                 }
             }
             foreach (RootItemDto dto in list)
-                Items.Add(RootItem.FromDto(dto));
+                Items.Add(await RootItem.Create(dto));
         }
 
         #endregion

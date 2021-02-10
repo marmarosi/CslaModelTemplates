@@ -7,9 +7,9 @@ namespace CslaModelTemplates.Contracts.ComplexView
     /// </summary>
     public class RootViewData
     {
-        public long? RootKey;
-        public string RootCode;
-        public string RootName;
+        public long? RootKey { get; set; }
+        public string RootCode { get; set; }
+        public string RootName { get; set; }
     }
 
     /// <summary>
@@ -17,7 +17,7 @@ namespace CslaModelTemplates.Contracts.ComplexView
     /// </summary>
     public class RootViewDao : RootViewData
     {
-        public List<RootItemViewDao> Items;
+        public List<RootItemViewDao> Items { get; set; }
     }
 
     /// <summary>
@@ -25,6 +25,6 @@ namespace CslaModelTemplates.Contracts.ComplexView
     /// </summary>
     public class RootViewDto : RootViewData
     {
-        public List<RootItemViewDto> Items;
+        public List<RootItemViewDto> Items { get; set; }
     }
 }

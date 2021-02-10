@@ -23,6 +23,8 @@ namespace CslaModelTemplates.Common.Models
     public abstract class EditableModel<T> : BusinessBase<T>, IEditableModel
         where T : BusinessBase<T>
     {
+        #region Properties
+
         [JsonIgnore]
         public new virtual IParent Parent => base.Parent;
 
@@ -56,6 +58,10 @@ namespace CslaModelTemplates.Common.Models
         [JsonIgnore]
         public override BrokenRulesCollection BrokenRulesCollection => base.BrokenRulesCollection;
 
+        #endregion
+
+        #region IsValid
+
         [JsonIgnore]
         public override bool IsValid
         {
@@ -76,6 +82,10 @@ namespace CslaModelTemplates.Common.Models
                     return base.IsValid;
             }
         }
+
+        #endregion
+
+        #region CollectMessages
 
         /// <summary>
         /// Gathers and formats broken rule messages.
@@ -122,6 +132,10 @@ namespace CslaModelTemplates.Common.Models
             }
         }
 
+        #endregion
+
+        #region ToDto
+
         /// <summary>
         /// Converts the business object to data transfer object.
         /// </summary>
@@ -132,42 +146,44 @@ namespace CslaModelTemplates.Common.Models
             Type type = typeof(D);
             D dto = Activator.CreateInstance(type) as D;
 
-            List<IPropertyInfo> properties = FieldManager.GetRegisteredProperties();
-            List<FieldInfo> fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance)
+            List<IPropertyInfo> cslaProperties = FieldManager.GetRegisteredProperties();
+            List<PropertyInfo> dtoProperties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Where(fi => !fi.Name.StartsWith("__"))
                 .ToList();
 
-            foreach (var field in fields)
+            foreach (var dtoProperty in dtoProperties)
             {
-                var property = properties.Find(pi => pi.Name == field.Name);
-                if (property != null)
+                var cslaProperty = cslaProperties.Find(pi => pi.Name == dtoProperty.Name);
+                if (cslaProperty != null)
                 {
-                    if (property.Type.GetInterface(nameof(IEditableList)) != null)
+                    if (cslaProperty.Type.GetInterface(nameof(IEditableList)) != null)
                     {
-                        Type childType = field.FieldType.GenericTypeArguments[0];
-                        IEditableList cslaBase = GetProperty(property) as IEditableList;
-                        object value = property.Type
+                        Type childType = dtoProperty.PropertyType.GenericTypeArguments[0];
+                        IEditableList cslaBase = GetProperty(cslaProperty) as IEditableList;
+                        object value = cslaProperty.Type
                             .GetMethod("ToDto")
                             .MakeGenericMethod(childType)
                             .Invoke(cslaBase, null);
-                        field.SetValue(dto, value);
+                        dtoProperty.SetValue(dto, value);
                     }
-                    else if (property.Type.GetInterface(nameof(IEditableModel)) != null)
+                    else if (cslaProperty.Type.GetInterface(nameof(IEditableModel)) != null)
                     {
-                        Type childType = field.FieldType;
-                        IEditableModel cslaBase = GetProperty(property) as IEditableModel;
-                        object value = property.Type
+                        Type childType = dtoProperty.PropertyType;
+                        IEditableModel cslaBase = GetProperty(cslaProperty) as IEditableModel;
+                        object value = cslaProperty.Type
                             .GetMethod("ToDto")
                             .MakeGenericMethod(childType)
                             .Invoke(cslaBase, null);
-                        field.SetValue(dto, value);
+                        dtoProperty.SetValue(dto, value);
                     }
                     else
-                        field.SetValue(dto, GetProperty(property));
+                        dtoProperty.SetValue(dto, GetProperty(cslaProperty));
                 }
             }
 
             return dto;
         }
+
+        #endregion
     }
 }

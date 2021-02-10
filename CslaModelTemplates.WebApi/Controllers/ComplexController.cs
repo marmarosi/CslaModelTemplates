@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.WebApi.Controllers
 {
@@ -46,13 +47,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>A list of roots.</returns>
         [HttpGet("")]
         [ProducesResponseType(typeof(List<RootListItemDto>), StatusCodes.Status200OK)]
-        public IActionResult GetRootList(
+        public async Task<IActionResult> GetRootList(
             [FromQuery] RootListCriteria criteria
             )
         {
             try
             {
-                RootList list = RootList.Get(criteria);
+                RootList list = await RootList.Get(criteria);
                 return Ok(list);
             }
             catch (Exception ex)
@@ -66,48 +67,20 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region View
 
         /// <summary>
-        /// Gets the specified root view.
+        /// Gets the specified root details to display.
         /// </summary>
         /// <param name="criteria">The criteria of the root view.</param>
         /// <returns>The requested root view.</returns>
         [HttpGet("view")]
         [ProducesResponseType(typeof(RootViewDto), StatusCodes.Status200OK)]
-        public IActionResult GetRootView(
+        public async Task<IActionResult> GetRootView(
             [FromQuery] RootViewCriteria criteria
             )
         {
             try
             {
-                RootView root = RootView.Get(criteria);
+                RootView root = await RootView.Get(criteria);
                 return Ok(root);
-            }
-            catch (Exception ex)
-            {
-                return HandleError(ex);
-            }
-        }
-
-        #endregion
-
-        #region Rename
-
-        /// <summary>
-        /// Renames the specified root.
-        /// </summary>
-        /// <param name="criteria">The criteria of the count roots by item count command.</param>
-        /// <returns>The list of the root counts.</returns>
-        [HttpPatch("")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        public IActionResult CountRootsCommand(
-            [FromBody] CountRootsCriteria criteria
-            )
-        {
-            try
-            {
-                CountRoots command = CountRoots.Create(criteria);
-                command.Execute();
-
-                return Ok(command.Result);
             }
             catch (Exception ex)
             {
@@ -120,19 +93,19 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Read
 
         /// <summary>
-        /// Gets the specified root.
+        /// Gets the specified root to edit.
         /// </summary>
         /// <param name="criteria">The criteria of the root.</param>
         /// <returns>The requested root.</returns>
         [HttpGet("fetch")]
         [ProducesResponseType(typeof(RootDto), StatusCodes.Status200OK)]
-        public IActionResult GetRoot(
+        public async Task<IActionResult> GetRoot(
             [FromQuery] RootCriteria criteria
             )
         {
             try
             {
-                Root root = Root.Get(criteria);
+                Root root = await Root.Get(criteria);
                 return Ok(root.ToDto<RootDto>());
             }
             catch (Exception ex)
@@ -152,16 +125,16 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The created root.</returns>
         [HttpPost("")]
         [ProducesResponseType(typeof(RootDto), StatusCodes.Status201Created)]
-        public IActionResult CreateRoot(
+        public async Task<IActionResult> CreateRoot(
             [FromBody] RootDto dto
             )
         {
             try
             {
-                Root root = Root.FromDto(dto);
+                Root root = await Root.FromDto(dto);
                 if (root.IsValid)
                 {
-                    root = root.Save();
+                    root = await root.SaveAsync();
                 }
                 return Created(Request.Path, root.ToDto<RootDto>());
             }
@@ -182,16 +155,16 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The updated root.</returns>
         [HttpPut("")]
         [ProducesResponseType(typeof(RootDto), StatusCodes.Status200OK)]
-        public IActionResult UpdateRoot(
+        public async Task<IActionResult> UpdateRoot(
             [FromBody] RootDto dto
             )
         {
             try
             {
-                Root root = Root.FromDto(dto);
+                Root root = await Root.FromDto(dto);
                 if (root.IsSavable)
                 {
-                    root = root.Save();
+                    root = await root.SaveAsync();
                 }
                 return Ok(root.ToDto<RootDto>());
             }
@@ -211,14 +184,40 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="criteria">The criteria of the root.</param>
         [HttpDelete("")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public IActionResult DeleteRoot(
+        public async Task<IActionResult> DeleteRoot(
             [FromQuery] RootCriteria criteria
             )
         {
             try
             {
-                Root.Delete(criteria);
+                await Task.Run(() => Root.Delete(criteria));
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region Count
+
+        /// <summary>
+        /// Counts the roots grouped by the number of their items.
+        /// </summary>
+        /// <param name="criteria">The criteria of the count roots by item count command.</param>
+        /// <returns>The list of the root counts.</returns>
+        [HttpPatch("")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        public async Task<IActionResult> CountRootsCommand(
+            [FromBody] CountRootsCriteria criteria
+            )
+        {
+            try
+            {
+                CountRootsList list = await CountRoots.Execute(criteria);
+                return Ok(list);
             }
             catch (Exception ex)
             {
@@ -237,13 +236,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The requested root set.</returns>
         [HttpGet("set")]
         [ProducesResponseType(typeof(List<RootSetItemDto>), StatusCodes.Status200OK)]
-        public IActionResult GetRootSet(
+        public async Task<IActionResult> GetRootSet(
             [FromQuery] RootSetCriteria criteria
             )
         {
             try
             {
-                RootSet set = RootSet.Get(criteria);
+                RootSet set = await RootSet.Get(criteria);
                 return Ok(set.ToDto<RootSetItemDto>());
             }
             catch (Exception ex)
@@ -257,26 +256,26 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Update-Set
 
         /// <summary>
-        /// Updates the specified roots.
+        /// Updates the specified root set.
         /// </summary>
         /// <param name="criteria">The criteria of the root set.</param>
         /// <param name="dto">The data transer objects of the root set.</param>
         /// <returns>The updated root set.</returns>
         [HttpPut("set")]
         [ProducesResponseType(typeof(List<RootSetItemDto>), StatusCodes.Status200OK)]
-        public IActionResult UpdateRootSet(
+        public async Task<IActionResult> UpdateRootSet(
             [FromQuery] RootSetCriteria criteria,
             [FromBody] List<RootSetItemDto> dto
             )
         {
             try
             {
-                RootSet root = RootSet.FromDto(criteria, dto);
-                if (root.IsSavable)
+                RootSet set = await RootSet.FromDto(criteria, dto);
+                if (set.IsSavable)
                 {
-                    root = root.Save();
+                    set = await set.SaveAsync();
                 }
-                return Ok(root.ToDto<RootSetItemDto>());
+                return Ok(set.ToDto<RootSetItemDto>());
             }
             catch (Exception ex)
             {

@@ -7,10 +7,10 @@ namespace CslaModelTemplates.Contracts.ComplexSet
     /// </summary>
     public class RootSetRootItemData
     {
-        public long? RootItemKey;
-        public long? RootKey;
-        public string RootItemCode;
-        public string RootItemName;
+        public long? RootItemKey { get; set; }
+        public long? RootKey { get; set; }
+        public string RootItemCode { get; set; }
+        public string RootItemName { get; set; }
         [JsonIgnore]
         public string __rootCode; // for error messages
     }

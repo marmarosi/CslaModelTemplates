@@ -30,19 +30,7 @@ namespace CslaModelTemplates.Models.ComplexList
         /// </summary>
         /// <param name="criteria">The criteria of the read-only root collection.</param>
         /// <returns>The requested read-only root collection.</returns>
-        public static RootList Get(
-            RootListCriteria criteria
-            )
-        {
-            return DataPortal.Fetch<RootList>(criteria);
-        }
-
-        /// <summary>
-        /// Gets a read-only root collection that match the criteria..
-        /// </summary>
-        /// <param name="criteria">The criteria of the read-only root collection.</param>
-        /// <returns>The requested read-only root collection.</returns>
-        public static async Task<RootList> GetAsync(
+        public static async Task<RootList> Get(
             RootListCriteria criteria
             )
         {
