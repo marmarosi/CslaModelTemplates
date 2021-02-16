@@ -5,7 +5,7 @@ namespace CslaModelTemplates.Contracts.SimpleCommand
     /// </summary>
     public class RenameRootData
     {
-        public long? RootKey { get; set; }
+        public long RootKey { get; set; }
         public string RootName { get; set; }
     }
 
@@ -15,7 +15,7 @@ namespace CslaModelTemplates.Contracts.SimpleCommand
     public class RenameRootDao : RenameRootData
     {
         public RenameRootDao(
-            long? rootKey,
+            long rootKey,
             string rootName
             )
         {

@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Common.Validations;
 using CslaModelTemplates.Contracts.SimpleSet;
@@ -16,7 +18,7 @@ namespace CslaModelTemplates.Models.SimpleSet
     [ValidationResourceType(typeof(ValidationText), ObjectName = "SimpleRootSetItem")]
     public class SimpleRootSetItem : EditableModel<SimpleRootSetItem>
     {
-        #region Business Methods
+        #region Properties
 
         public static readonly PropertyInfo<long?> RootKeyProperty = RegisterProperty<long?>(c => c.RootKey);
         public long? RootKey
@@ -50,6 +52,45 @@ namespace CslaModelTemplates.Models.SimpleSet
             private set { LoadProperty(TimestampProperty, value); }
         }
 
+        #endregion
+
+        #region Business Rules
+
+        //protected override void AddBusinessRules()
+        //{
+        //    // Add validation rules.
+        //    BusinessRules.AddRule(new Required(RootNameProperty));
+
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(new IsInRole(
+        //        AuthorizationActions.WriteProperty, RootNameProperty, "Manager"));
+        //}
+
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(SimpleRootSetItem),
+        //        new IsInRole(AuthorizationActions.EditObject, "Manager")
+        //        );
+        //}
+
+        #endregion
+
+        #region Business Methods
+
+        /// <summary>
+        /// Gets an existing editable root instance.
+        /// </summary>
+        /// <param name="dao">The data access objects.</param>
+        /// <returns>The requested editable root instance.</returns>
+        internal static SimpleRootSetItem Get(
+            SimpleRootSetItemDao dao
+            )
+        {
+            return DataPortal.FetchChild<SimpleRootSetItem>(dao);
+        }
+
         /// <summary>
         /// Updates an editable root from the data transfer object.
         /// </summary>
@@ -66,30 +107,7 @@ namespace CslaModelTemplates.Models.SimpleSet
 
         #endregion
 
-        #region Business Rules
-
-        protected override void AddBusinessRules()
-        {
-            // TODO: add validation rules
-            //BusinessRules.AddRule(new Rule(), IdProperty);
-        }
-
-        private static void AddObjectAuthorizationRules()
-        {
-            // TODO: add authorization rules
-            //BusinessRules.AddRule(...);
-        }
-
-        #endregion
-
         #region Factory Methods
-
-        internal static SimpleRootSetItem Get(
-            SimpleRootSetItemDao dao
-            )
-        {
-            return DataPortal.FetchChild<SimpleRootSetItem>(dao);
-        }
 
         private SimpleRootSetItem()
         { /* Require use of factory methods */ }
@@ -105,12 +123,7 @@ namespace CslaModelTemplates.Models.SimpleSet
         {
             SimpleRootSetItem root = null;
             await Task.Run(() => root = DataPortal.CreateChild<SimpleRootSetItem>());
-
-            //root.RootKey = dto.RootKey;
-            root.RootCode = dto.RootCode;
-            root.RootName = dto.RootName;
-            //root.Timestamp = dto.Timestamp;
-
+            root.Update(dto);
             return root;
         }
 

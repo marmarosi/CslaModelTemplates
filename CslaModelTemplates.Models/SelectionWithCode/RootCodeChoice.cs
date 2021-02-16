@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.SelectionWithCode;
 using CslaModelTemplates.Dal;
@@ -14,17 +16,23 @@ namespace CslaModelTemplates.Models.SelectionWithCode
     [Serializable]
     public class RootCodeChoice : ReadOnlyListBase<RootCodeChoice, CodeNameOption>
     {
-        #region Authorization Rules
+        #region Business Rules
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // Add authorization rules.
-            //AuthorizationRules.AllowGet(typeof(RootList), "Role");
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(RootCodeChoice),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private RootCodeChoice()
+        { /* require use of factory methods */ }
 
         /// <summary>
         /// Gets a choice of root options that match the criteria.
@@ -37,9 +45,6 @@ namespace CslaModelTemplates.Models.SelectionWithCode
         {
             return await DataPortal.FetchAsync<RootCodeChoice>(criteria);
         }
-
-        private RootCodeChoice()
-        { /* require use of factory methods */ }
 
         #endregion
 

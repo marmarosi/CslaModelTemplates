@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Contracts.ComplexList;
 using CslaModelTemplates.Dal;
 using System;
@@ -13,17 +15,23 @@ namespace CslaModelTemplates.Models.ComplexList
     [Serializable]
     public class RootList : ReadOnlyListBase<RootList, RootListItem>
     {
-        #region Authorization Rules
+        #region Business Rules
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // Add authorization rules.
-            //AuthorizationRules.AllowGet(typeof(ManagerList), "Role");
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(RootList),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private RootList()
+        { /* require use of factory methods */ }
 
         /// <summary>
         /// Gets a read-only root collection that match the criteria..
@@ -36,9 +44,6 @@ namespace CslaModelTemplates.Models.ComplexList
         {
             return await DataPortal.FetchAsync<RootList>(criteria);
         }
-
-        private RootList()
-        { /* require use of factory methods */ }
 
         #endregion
 

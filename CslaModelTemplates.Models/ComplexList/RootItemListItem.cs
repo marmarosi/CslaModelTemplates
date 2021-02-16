@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.ComplexList;
 using System;
@@ -11,7 +13,7 @@ namespace CslaModelTemplates.Models.ComplexList
     [Serializable]
     public class RootItemListItem : ReadOnlyModel<RootItemListItem>
     {
-        #region Business Methods
+        #region Properties
 
         public static readonly PropertyInfo<long?> RootItemKeyProperty = RegisterProperty<long?>(c => c.RootItemKey);
         public long? RootItemKey
@@ -38,21 +40,28 @@ namespace CslaModelTemplates.Models.ComplexList
 
         #region Business Rules
 
-        protected override void AddBusinessRules()
-        {
-            // Add authorization rules.
-            //BusinessRules.AddRule(...);
-        }
+        //protected override void AddBusinessRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(new IsInRole(
+        //        AuthorizationActions.ReadProperty, RootItemNameProperty, "Manager"));
+        //}
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // Add authorization rules.
-            //BusinessRules.AddRule(...);
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(RootItemListItem),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private RootItemListItem()
+        { /* require use of factory methods */ }
 
         internal static RootItemListItem Get(
             RootItemListItemDao dao
@@ -60,9 +69,6 @@ namespace CslaModelTemplates.Models.ComplexList
         {
             return DataPortal.FetchChild<RootItemListItem>(dao);
         }
-
-        private RootItemListItem()
-        { /* require use of factory methods */ }
 
         #endregion
 

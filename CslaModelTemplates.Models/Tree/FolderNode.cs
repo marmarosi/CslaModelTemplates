@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.Tree;
 using System;
@@ -11,7 +13,7 @@ namespace CslaModelTemplates.Models.Tree
     [Serializable]
     public class FolderNode : ReadOnlyModel<FolderNode>
     {
-        #region Business Methods
+        #region Properties
 
         public static readonly PropertyInfo<long?> FolderKeyProperty = RegisterProperty<long?>(c => c.FolderKey);
         public long? FolderKey
@@ -52,29 +54,33 @@ namespace CslaModelTemplates.Models.Tree
 
         #region Business Rules
 
-        protected override void AddBusinessRules()
-        {
-            // Add authorization rules.
-            //BusinessRules.AddRule(...);
-        }
+        //protected override void AddBusinessRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(new IsInRole(
+        //        AuthorizationActions.ReadProperty, FolderNameProperty, "Manager"));
+        //}
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // Add authorization rules.
-            //BusinessRules.AddRule(...);
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(FolderNode),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
 
+        private FolderNode()
+        { /* require use of factory methods */ }
+
         internal static FolderNode Fetch(FolderNodeDao dao)
         {
             return DataPortal.FetchChild<FolderNode>(dao);
         }
-
-        private FolderNode()
-        { /* require use of factory methods */ }
 
         #endregion
 

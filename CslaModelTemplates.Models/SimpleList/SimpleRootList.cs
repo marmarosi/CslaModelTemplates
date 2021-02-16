@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Contracts.SimpleList;
 using CslaModelTemplates.Dal;
 using System;
@@ -13,17 +15,23 @@ namespace CslaModelTemplates.Models.SimpleList
     [Serializable]
     public class SimpleRootList : ReadOnlyListBase<SimpleRootList, SimpleRootListItem>
     {
-        #region Authorization Rules
+        #region Business Rules
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // Add authorization rules.
-            //AuthorizationRules.AllowGet(typeof(ManagerList), "Role");
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(SimpleRootList),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private SimpleRootList()
+        { /* require use of factory methods */ }
 
         /// <summary>
         /// Gets a read-only root collection that match the criteria..
@@ -36,9 +44,6 @@ namespace CslaModelTemplates.Models.SimpleList
         {
             return await DataPortal.FetchAsync<SimpleRootList>(criteria);
         }
-
-        private SimpleRootList()
-        { /* require use of factory methods */ }
 
         #endregion
 

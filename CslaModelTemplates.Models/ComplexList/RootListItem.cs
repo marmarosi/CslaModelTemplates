@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.ComplexList;
 using System;
@@ -11,7 +13,7 @@ namespace CslaModelTemplates.Models.ComplexList
     [Serializable]
     public class RootListItem : ReadOnlyModel<RootListItem>
     {
-        #region Business Methods
+        #region Properties
 
         public static readonly PropertyInfo<long?> RootKeyProperty = RegisterProperty<long?>(c => c.RootKey);
         public long? RootKey
@@ -45,21 +47,28 @@ namespace CslaModelTemplates.Models.ComplexList
 
         #region Business Rules
 
-        protected override void AddBusinessRules()
-        {
-            // Add authorization rules.
-            //BusinessRules.AddRule(...);
-        }
+        //protected override void AddBusinessRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(new IsInRole(
+        //        AuthorizationActions.ReadProperty, RootNameProperty, "Manager"));
+        //}
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // Add authorization rules.
-            //BusinessRules.AddRule(...);
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(RootListItem),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private RootListItem()
+        { /* require use of factory methods */ }
 
         internal static RootListItem Get(
             RootListItemDao dao
@@ -67,9 +76,6 @@ namespace CslaModelTemplates.Models.ComplexList
         {
             return DataPortal.FetchChild<RootListItem>(dao);
         }
-
-        private RootListItem()
-        { /* require use of factory methods */ }
 
         #endregion
 

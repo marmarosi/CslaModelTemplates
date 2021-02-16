@@ -1,8 +1,10 @@
 using Csla;
-using CslaModelTemplates.Dal;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Common.Validations;
 using CslaModelTemplates.Contracts.Simple;
+using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
 using System.Threading.Tasks;
@@ -16,7 +18,7 @@ namespace CslaModelTemplates.Models.Simple
     [ValidationResourceType(typeof(ValidationText), ObjectName = "SimpleRoot")]
     public class SimpleRoot : EditableModel<SimpleRoot>
     {
-        #region Business Methods
+        #region Properties
 
         public static readonly PropertyInfo<long?> RootKeyProperty = RegisterProperty<long?>(c => c.RootKey);
         public long? RootKey
@@ -54,23 +56,35 @@ namespace CslaModelTemplates.Models.Simple
 
         #region Business Rules
 
-        protected override void AddBusinessRules()
-        {
-            // Add validation rules.
-            base.AddBusinessRules();
+        //protected override void AddBusinessRules()
+        //{
+        //    // Add validation rules.
+        //    BusinessRules.AddRule(new Required(RootNameProperty));
 
-            //BusinessRules.AddRule(new Rule(IdProperty));
-        }
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(new IsInRole(
+        //        AuthorizationActions.WriteProperty, RootNameProperty, "Manager"));
+        //}
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // Add authorization rules.
-            //BusinessRules.AddRule(...);
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(SimpleRoot),
+        //        new IsInRole(AuthorizationActions.EditObject, "Manager")
+        //        );
+        //}
+
+        #endregion
+
+        #region Business Methods
 
         #endregion
 
         #region Factory Methods
+
+        private SimpleRoot()
+        { /* Require use of factory methods */ }
 
         /// <summary>
         /// Creates a new editable root instance.
@@ -103,9 +117,6 @@ namespace CslaModelTemplates.Models.Simple
         {
             await DataPortal.DeleteAsync<SimpleRoot>(criteria);
         }
-
-        private SimpleRoot()
-        { /* Require use of factory methods */ }
 
         /// <summary>
         /// Rebuilds an editable root instance from the data transfer object.

@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Contracts.Tree;
 using System;
 using System.Collections.Generic;
@@ -11,25 +13,28 @@ namespace CslaModelTemplates.Models.Tree
     [Serializable]
     public class FolderNodeList : ReadOnlyListBase<FolderNodeList, FolderNode>
     {
-        #region Authorization Rules
+        #region Business Rules
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // TODO: add authorization rules
-            //AuthorizationRules.AllowGet(typeof(FolderNodeList), "Role");
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(FolderNodeList),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
 
+        private FolderNodeList()
+        { /* require use of factory methods */ }
+
         internal static FolderNodeList Get(List<FolderNodeDao> list)
         {
             return DataPortal.FetchChild<FolderNodeList>(list);
         }
-
-        private FolderNodeList()
-        { /* require use of factory methods */ }
 
         #endregion
 

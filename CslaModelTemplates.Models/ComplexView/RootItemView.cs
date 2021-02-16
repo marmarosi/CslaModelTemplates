@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.ComplexView;
 using System;
@@ -11,7 +13,7 @@ namespace CslaModelTemplates.Models.ComplexView
     [Serializable]
     public class RootItemView : ReadOnlyModel<RootItemView>
     {
-        #region Business Methods
+        #region Properties
 
         public static readonly PropertyInfo<long?> RootItemKeyProperty = RegisterProperty<long?>(c => c.RootItemKey);
         public long? RootItemKey
@@ -38,21 +40,28 @@ namespace CslaModelTemplates.Models.ComplexView
 
         #region Business Rules
 
-        protected override void AddBusinessRules()
-        {
-            // Add authorization rules.
-            //BusinessRules.AddRule(...);
-        }
+        //protected override void AddBusinessRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(new IsInRole(
+        //        AuthorizationActions.ReadProperty, RootItemNameProperty, "Manager"));
+        //}
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // Add authorization rules.
-            //BusinessRules.AddRule(...);
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(RootItemView),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private RootItemView()
+        { /* require use of factory methods */ }
 
         internal static RootItemView Get(
             RootItemViewDao dao
@@ -60,9 +69,6 @@ namespace CslaModelTemplates.Models.ComplexView
         {
             return DataPortal.FetchChild<RootItemView>(dao);
         }
-
-        private RootItemView()
-        { /* require use of factory methods */ }
 
         #endregion
 

@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Common.Validations;
 using CslaModelTemplates.Contracts.Complex;
@@ -16,7 +18,7 @@ namespace CslaModelTemplates.Models.Complex
     [ValidationResourceType(typeof(ValidationText), ObjectName = "Root")]
     public class Root : EditableModel<Root>
     {
-        #region Business Methods
+        #region Properties
 
         public static readonly PropertyInfo<long?> RootKeyProperty = RegisterProperty<long?>(c => c.RootKey);
         public long? RootKey
@@ -61,21 +63,35 @@ namespace CslaModelTemplates.Models.Complex
 
         #region Business Rules
 
-        protected override void AddBusinessRules()
-        {
-            // TODO: add validation rules
-            //BusinessRules.AddRule(new Rule(), IdProperty);
-        }
+        //protected override void AddBusinessRules()
+        //{
+        //    // Add validation rules.
+        //    BusinessRules.AddRule(new Required(RootNameProperty));
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // Add authorization rules.
-            //BusinessRules.AddRule(...);
-        }
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(new IsInRole(
+        //        AuthorizationActions.WriteProperty, RootNameProperty, "Manager"));
+        //}
+
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(Root),
+        //        new IsInRole(AuthorizationActions.EditObject, "Manager")
+        //        );
+        //}
+
+        #endregion
+
+        #region Business Methods
 
         #endregion
 
         #region Factory Methods
+
+        private Root()
+        { /* Require use of factory methods */ }
 
         /// <summary>
         /// Creates a new editable root instance.
@@ -108,9 +124,6 @@ namespace CslaModelTemplates.Models.Complex
         {
             await DataPortal.DeleteAsync<Root>(criteria);
         }
-
-        private Root()
-        { /* Require use of factory methods */ }
 
         /// <summary>
         /// Rebuilds an editable root instance from the data transfer object.

@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.Complex;
 using System;
@@ -13,7 +15,29 @@ namespace CslaModelTemplates.Models.Complex
     [Serializable]
     public class RootItems : EditableList<RootItems, RootItem>
     {
+        #region Business Rules
+
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(RootItems),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
+
+        #endregion
+
         #region Business Methods
+
+        /// <summary>
+        /// Creates a new editable root item collection.
+        /// </summary>
+        /// <returns>The editable root item collection.</returns>
+        internal static RootItems Create()
+        {
+            return DataPortal.CreateChild<RootItems>();
+        }
 
         /// <summary>
         /// Rebuilds an editable root item collection from the data transfer objects.
@@ -44,13 +68,8 @@ namespace CslaModelTemplates.Models.Complex
 
         #region Factory Methods
 
-        internal static RootItems Create()
-        {
-            return DataPortal.CreateChild<RootItems>();
-        }
-
         private RootItems()
-        { }
+        { /* Require use of factory methods */ }
 
         #endregion
 

@@ -1,6 +1,7 @@
 using Csla;
 using Csla.Core;
 using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Common.Validations;
 using CslaModelTemplates.Contracts.ComplexSet;
@@ -19,7 +20,7 @@ namespace CslaModelTemplates.Models.ComplexSet
     [ValidationResourceType(typeof(ValidationText), ObjectName = "RootItem")]
     public class RootSetRootItem : EditableModel<RootSetRootItem>
     {
-        #region Business Methods
+        #region Properties
 
         public static readonly PropertyInfo<long?> RootItemKeyProperty = RegisterProperty<long?>(c => c.RootItemKey);
         public long? RootItemKey
@@ -53,36 +54,28 @@ namespace CslaModelTemplates.Models.ComplexSet
             set { SetProperty(RootItemNameProperty, value); }
         }
 
-        /// <summary>
-        /// Updates an editable root item from the data transfer object.
-        /// </summary>
-        /// <param name="dto">The data transfer objects.</param>
-        internal void Update(
-            RootSetRootItemDto dto
-            )
-        {
-            //RootItemKey = dto.RootItemKey;
-            //RootKey = dto.RootKey;
-            RootItemCode = dto.RootItemCode;
-            RootItemName = dto.RootItemName;
-        }
-
         #endregion
 
         #region Business Rules
 
         protected override void AddBusinessRules()
         {
-            // TODO: add validation rules
-            //BusinessRules.AddRule(new Rule(), IdProperty);
+            // Add validation rules.
             BusinessRules.AddRule(new UniqueRootItemCodes(RootItemCodeProperty));
+
+            // Add authorization rules.
+            //BusinessRules.AddRule(new IsInRole(
+            //    AuthorizationActions.WriteProperty, RootItemCodeProperty, "Manager"));
         }
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // TODO: add authorization rules
-            //BusinessRules.AddRule(...);
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // TODO: add authorization rules
+        //    BusinessRules.AddRule(
+        //        typeof(RootSetRootItem),
+        //        new IsInRole(AuthorizationActions.EditObject, "Manager")
+        //        );
+        //}
 
         private class UniqueRootItemCodes : BusinessRule
         {
@@ -120,6 +113,23 @@ namespace CslaModelTemplates.Models.ComplexSet
             }
         }
 
+        #endregion
+
+        #region Business Methods
+
+        /// <summary>
+        /// Updates an editable root item from the data transfer object.
+        /// </summary>
+        /// <param name="dto">The data transfer objects.</param>
+        internal void Update(
+            RootSetRootItemDto dto
+            )
+        {
+            //RootItemKey = dto.RootItemKey;
+            //RootKey = dto.RootKey;
+            RootItemCode = dto.RootItemCode;
+            RootItemName = dto.RootItemName;
+        }
 
         #endregion
 
@@ -226,7 +236,6 @@ namespace CslaModelTemplates.Models.ComplexSet
             RootSetItem parent
             )
         {
-            // TODO: delete values
             // Delete values from persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {

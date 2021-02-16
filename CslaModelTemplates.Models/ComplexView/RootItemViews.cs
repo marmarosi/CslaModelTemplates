@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Contracts.ComplexView;
 using System;
 using System.Collections.Generic;
@@ -11,17 +13,23 @@ namespace CslaModelTemplates.Models.ComplexView
     [Serializable]
     public class RootItemViews : ReadOnlyListBase<RootItemViews, RootItemView>
     {
-        #region Authorization Rules
+        #region Business Rules
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // TODO: add authorization rules
-            //AuthorizationRules.AllowGet(typeof(FoodOrderItemViewList), "Role");
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(RootItemViews),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private RootItemViews()
+        { /* require use of factory methods */ }
 
         internal static RootItemViews Get(
             List<RootItemViewDao> list
@@ -29,9 +37,6 @@ namespace CslaModelTemplates.Models.ComplexView
         {
             return DataPortal.FetchChild<RootItemViews>(list);
         }
-
-        private RootItemViews()
-        { /* require use of factory methods */ }
 
         #endregion
 

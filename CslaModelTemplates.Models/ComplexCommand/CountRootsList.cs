@@ -1,4 +1,6 @@
-﻿using Csla;
+using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Contracts.ComplexCommand;
 using System;
 using System.Collections.Generic;
@@ -11,17 +13,23 @@ namespace CslaModelTemplates.Models.Command
     [Serializable]
     public class CountRootsList : ReadOnlyListBase<CountRootsList, CountRootsListItem>
     {
-        #region Authorization Rules
+        #region Business Rules
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // TODO: add authorization rules
-            //AuthorizationRules.AllowGet(typeof(FoodOrderItemViewList), "Role");
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(CountRootsList),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private CountRootsList()
+        { /* require use of factory methods */ }
 
         internal static CountRootsList Get(
             List<CountRootsListItemDao> list
@@ -29,9 +37,6 @@ namespace CslaModelTemplates.Models.Command
         {
             return DataPortal.FetchChild<CountRootsList>(list);
         }
-
-        private CountRootsList()
-        { /* require use of factory methods */ }
 
         #endregion
 

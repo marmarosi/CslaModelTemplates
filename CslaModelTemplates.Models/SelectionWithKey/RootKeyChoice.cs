@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.SelectionWithKey;
 using CslaModelTemplates.Dal;
@@ -14,17 +16,23 @@ namespace CslaModelTemplates.Models.SelectionWithKey
     [Serializable]
     public class RootKeyChoice : ReadOnlyListBase<RootKeyChoice, KeyNameOption>
     {
-        #region Authorization Rules
+        #region Business Rules
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // Add authorization rules.
-            //AuthorizationRules.AllowGet(typeof(RootList), "Role");
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(RootKeyChoice),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private RootKeyChoice()
+        { /* require use of factory methods */ }
 
         /// <summary>
         /// Gets a choice of root options that match the criteria.
@@ -37,9 +45,6 @@ namespace CslaModelTemplates.Models.SelectionWithKey
         {
             return await DataPortal.FetchAsync<RootKeyChoice>(criteria);
         }
-
-        private RootKeyChoice()
-        { /* require use of factory methods */ }
 
         #endregion
 

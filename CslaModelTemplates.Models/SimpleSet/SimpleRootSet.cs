@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.SimpleSet;
 using CslaModelTemplates.Dal;
@@ -14,17 +16,23 @@ namespace CslaModelTemplates.Models.SimpleSet
     [Serializable]
     public class SimpleRootSet : EditableList<SimpleRootSet, SimpleRootSetItem>
     {
-        #region Authorization Rules
+        #region Business Rules
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // TODO: add authorization rules
-            //AuthorizationRules.AllowGet(typeof(SimpleRootSet), "Role");
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(SimpleRootSet),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private SimpleRootSet()
+        { /* Require use of factory methods */ }
 
         /// <summary>
         /// Creates a new editable root collection.
@@ -46,9 +54,6 @@ namespace CslaModelTemplates.Models.SimpleSet
         {
             return await DataPortal.FetchAsync<SimpleRootSet>(criteria);
         }
-
-        private SimpleRootSet()
-        { /* Require use of factory methods */ }
 
         /// <summary>
         /// Rebuilds an editable root instance from the data transfer object.

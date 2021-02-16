@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Contracts.Tree;
 using CslaModelTemplates.Dal;
 using System;
@@ -13,17 +15,23 @@ namespace CslaModelTemplates.Models.Tree
     [Serializable]
     public class FolderTree : ReadOnlyListBase<FolderTree, FolderNode>
     {
-        #region Authorization Rules
+        #region Business Rules
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // Add authorization rules.
-            //AuthorizationRules.AllowGet(typeof(FolderTree), "Role");
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(FolderTree),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private FolderTree()
+        { /* require use of factory methods */ }
 
         /// <summary>
         /// Gets the specified read-only folder tree.
@@ -34,9 +42,6 @@ namespace CslaModelTemplates.Models.Tree
         {
             return await DataPortal.FetchAsync<FolderTree>(criteria);
         }
-
-        private FolderTree()
-        { /* require use of factory methods */ }
 
         #endregion
 

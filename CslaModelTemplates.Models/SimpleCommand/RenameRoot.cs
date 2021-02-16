@@ -1,5 +1,6 @@
 using Csla;
-using Csla.Security;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Validations;
 using CslaModelTemplates.Contracts.SimpleCommand;
 using CslaModelTemplates.Dal;
@@ -15,10 +16,10 @@ namespace CslaModelTemplates.Models.SimpleCommand
     [Serializable]
     public class RenameRoot : CommandBase<RenameRoot>
     {
-        #region Business Methods
+        #region Properties
 
-        public static readonly PropertyInfo<long?> RootKeyProperty = RegisterProperty<long?>(c => c.RootKey);
-        public long? RootKey
+        public static readonly PropertyInfo<long> RootKeyProperty = RegisterProperty<long>(c => c.RootKey);
+        public long RootKey
         {
             get { return ReadProperty(RootKeyProperty); }
             private set { LoadProperty(RootKeyProperty, value); }
@@ -42,14 +43,27 @@ namespace CslaModelTemplates.Models.SimpleCommand
 
         #region Business Rules
 
-        private bool CanExecuteCommand()
+        private void Validate()
         {
-            return true;
+            if (string.IsNullOrEmpty(RootName))
+                throw new CommandException(ValidationText.RenameRoot_RootName_Required);
         }
+
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(RenameRoot),
+        //        new IsInRole(AuthorizationActions.ExecuteMethod, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private RenameRoot()
+        { /* require use of factory methods */ }
 
         /// <summary>
         /// Renames the specified root.
@@ -60,25 +74,16 @@ namespace CslaModelTemplates.Models.SimpleCommand
             RenameRootDto dto
             )
         {
-            if (dto.RootKey == null || dto.RootKey == 0)
-                throw new CommandException(ValidationText.RenameRoot_RootKey_Required);
-            if (string.IsNullOrEmpty(dto.RootName))
-                throw new CommandException(ValidationText.RenameRoot_RootName_Required);
-
             RenameRoot command = new RenameRoot();
             command.RootKey = dto.RootKey;
             command.RootName = dto.RootName;
             command.Result = false;
 
-            if (!command.CanExecuteCommand())
-                throw new SecurityException(ValidationText.RenameRoot_Security_Failed);
+            command.Validate();
 
             command = await Task.Run(() => DataPortal.ExecuteAsync(command));
             return command.Result;
         }
-
-        private RenameRoot()
-        { /* require use of factory methods */ }
 
         #endregion
 
@@ -90,6 +95,7 @@ namespace CslaModelTemplates.Models.SimpleCommand
             using (var ctx = DalFactory.GetManager())
             {
                 IRenameRootDal dal = ctx.GetProvider<IRenameRootDal>();
+
                 RenameRootDao dao = new RenameRootDao(RootKey, RootName);
                 dal.Execute(dao);
 

@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.ComplexView;
@@ -13,7 +15,7 @@ namespace CslaModelTemplates.Models.ComplexView
     [Serializable]
     public class RootView : ReadOnlyModel<RootView>
     {
-        #region Business Methods
+        #region Properties
 
         public static readonly PropertyInfo<long?> RootKeyProperty = RegisterProperty<long?>(c => c.RootKey);
         public long? RootKey
@@ -47,21 +49,28 @@ namespace CslaModelTemplates.Models.ComplexView
 
         #region Business Rules
 
-        protected override void AddBusinessRules()
-        {
-            // TODO: add authorization rules
-            //BusinessRules.AddRule(...);
-        }
+        //protected override void AddBusinessRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(new IsInRole(
+        //        AuthorizationActions.ReadProperty, RootNameProperty, "Manager"));
+        //}
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // TODO: add authorization rules
-            //BusinessRules.AddRule(...);
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(RootView),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private RootView()
+        { /* require use of factory methods */ }
 
         /// <summary>
         /// Gets the specified read-only root instance.
@@ -74,9 +83,6 @@ namespace CslaModelTemplates.Models.ComplexView
         {
             return await DataPortal.FetchAsync<RootView>(criteria);
         }
-
-        private RootView()
-        { /* require use of factory methods */ }
 
         #endregion
 

@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.ComplexSet;
 using CslaModelTemplates.Dal;
@@ -14,17 +16,23 @@ namespace CslaModelTemplates.Models.ComplexSet
     [Serializable]
     public class RootSet : EditableList<RootSet, RootSetItem>
     {
-        #region Authorization Rules
+        #region Business Rules
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // TODO: add authorization rules
-            //AuthorizationRules.AllowGet(typeof(RootSet), "Role");
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(RootSet),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private RootSet()
+        { /* Require use of factory methods */ }
 
         /// <summary>
         /// Creates a new editable root collection.
@@ -47,9 +55,6 @@ namespace CslaModelTemplates.Models.ComplexSet
             return await DataPortal.FetchAsync<RootSet>(criteria);
         }
 
-        private RootSet()
-        { /* Require use of factory methods */ }
-
         /// <summary>
         /// Rebuilds an editable root instance from the data transfer object.
         /// </summary>
@@ -70,7 +75,7 @@ namespace CslaModelTemplates.Models.ComplexSet
                     item.Delete();
                 else
                 {
-                    item.Update(dto);
+                    await item.Update(dto);
                     list.Remove(dto);
                 }
             }

@@ -1,4 +1,6 @@
 using Csla;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.SimpleList;
 using System;
@@ -11,7 +13,7 @@ namespace CslaModelTemplates.Models.SimpleList
     [Serializable]
     public class SimpleRootListItem : ReadOnlyModel<SimpleRootListItem>
     {
-        #region Business Methods
+        #region Properties
 
         public static readonly PropertyInfo<long?> RootKeyProperty = RegisterProperty<long?>(c => c.RootKey);
         public long? RootKey
@@ -38,21 +40,28 @@ namespace CslaModelTemplates.Models.SimpleList
 
         #region Business Rules
 
-        protected override void AddBusinessRules()
-        {
-            // Add authorization rules.
-            //BusinessRules.AddRule(...);
-        }
+        //protected override void AddBusinessRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(new IsInRole(
+        //        AuthorizationActions.ReadProperty, RootNameProperty, "Manager"));
+        //}
 
-        private static void AddObjectAuthorizationRules()
-        {
-            // Add authorization rules.
-            //BusinessRules.AddRule(...);
-        }
+        //private static void AddObjectAuthorizationRules()
+        //{
+        //    // Add authorization rules.
+        //    BusinessRules.AddRule(
+        //        typeof(SimpleRootListItem),
+        //        new IsInRole(AuthorizationActions.GetObject, "Manager")
+        //        );
+        //}
 
         #endregion
 
         #region Factory Methods
+
+        private SimpleRootListItem()
+        { /* require use of factory methods */ }
 
         internal static SimpleRootListItem Get(
             SimpleRootListItemDao dao
@@ -60,9 +69,6 @@ namespace CslaModelTemplates.Models.SimpleList
         {
             return DataPortal.FetchChild<SimpleRootListItem>(dao);
         }
-
-        private SimpleRootListItem()
-        { /* require use of factory methods */ }
 
         #endregion
 
