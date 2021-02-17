@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace CslaModelTemplates.Contracts.Tree
 {
     /// <summary>
-    /// Defines the read-only folder tree data.
+    /// Defines the read-only folder node data.
     /// </summary>
     public class FolderNodeData
     {
@@ -15,7 +15,7 @@ namespace CslaModelTemplates.Contracts.Tree
     }
 
     /// <summary>
-    /// Defines the data access object of the read-only folder tree object.
+    /// Defines the data access object of the read-only folder node object.
     /// </summary>
     public class FolderNodeDao : FolderNodeData
     {
@@ -23,7 +23,7 @@ namespace CslaModelTemplates.Contracts.Tree
     }
 
     /// <summary>
-    /// Defines the data transfer object of the read-only folder tree object.
+    /// Defines the data transfer object of the read-only folder node object.
     /// </summary>
     public class FolderNodeDto : FolderNodeData
     {

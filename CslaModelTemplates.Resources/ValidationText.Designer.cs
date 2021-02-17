@@ -61,128 +61,128 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The new root name is required..
+        ///   Looks up a localized string similar to The player code cannot exceed {1} characters..
         /// </summary>
-        public static string RenameRoot_RootName_Required {
+        public static string Player_PlayerCode_MaxLength {
             get {
-                return ResourceManager.GetString("RenameRoot_RootName_Required", resourceCulture);
+                return ResourceManager.GetString("Player_PlayerCode_MaxLength", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root code cannot exceed {1} characters..
+        ///   Looks up a localized string similar to The player code is not unique..
         /// </summary>
-        public static string Root_RootCode_MaxLength {
+        public static string Player_PlayerCode_NotUnique {
             get {
-                return ResourceManager.GetString("Root_RootCode_MaxLength", resourceCulture);
+                return ResourceManager.GetString("Player_PlayerCode_NotUnique", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root code is required..
+        ///   Looks up a localized string similar to The player code is required..
         /// </summary>
-        public static string Root_RootCode_Required {
+        public static string Player_PlayerCode_Required {
             get {
-                return ResourceManager.GetString("Root_RootCode_Required", resourceCulture);
+                return ResourceManager.GetString("Player_PlayerCode_Required", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root name cannot exceed {1} characters..
+        ///   Looks up a localized string similar to The player name cannot exceed {1} characters..
         /// </summary>
-        public static string Root_RootName_MaxLength {
+        public static string Player_PlayerName_MaxLength {
             get {
-                return ResourceManager.GetString("Root_RootName_MaxLength", resourceCulture);
+                return ResourceManager.GetString("Player_PlayerName_MaxLength", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root name is required..
+        ///   Looks up a localized string similar to The player name is required..
         /// </summary>
-        public static string Root_RootName_Required {
+        public static string Player_PlayerName_Required {
             get {
-                return ResourceManager.GetString("Root_RootName_Required", resourceCulture);
+                return ResourceManager.GetString("Player_PlayerName_Required", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root item code cannot exceed {1} characters..
+        ///   Looks up a localized string similar to The new team name is required..
         /// </summary>
-        public static string RootItem_RootItemCode_MaxLength {
+        public static string RenameTeam_TeamName_Required {
             get {
-                return ResourceManager.GetString("RootItem_RootItemCode_MaxLength", resourceCulture);
+                return ResourceManager.GetString("RenameTeam_TeamName_Required", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root item code is not unique..
+        ///   Looks up a localized string similar to The team code cannot exceed {1} characters..
         /// </summary>
-        public static string RootItem_RootItemCode_NotUnique {
+        public static string SimpleTeam_TeamCode_MaxLength {
             get {
-                return ResourceManager.GetString("RootItem_RootItemCode_NotUnique", resourceCulture);
+                return ResourceManager.GetString("SimpleTeam_TeamCode_MaxLength", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root item code is required..
+        ///   Looks up a localized string similar to The team code is required..
         /// </summary>
-        public static string RootItem_RootItemCode_Required {
+        public static string SimpleTeam_TeamCode_Required {
             get {
-                return ResourceManager.GetString("RootItem_RootItemCode_Required", resourceCulture);
+                return ResourceManager.GetString("SimpleTeam_TeamCode_Required", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root item name cannot exceed {1} characters..
+        ///   Looks up a localized string similar to The team name cannot exceed {1} characters..
         /// </summary>
-        public static string RootItem_RootItemName_MaxLength {
+        public static string SimpleTeam_TeamName_MaxLength {
             get {
-                return ResourceManager.GetString("RootItem_RootItemName_MaxLength", resourceCulture);
+                return ResourceManager.GetString("SimpleTeam_TeamName_MaxLength", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root item name is required..
+        ///   Looks up a localized string similar to The team name is required..
         /// </summary>
-        public static string RootItem_RootItemName_Required {
+        public static string SimpleTeam_TeamName_Required {
             get {
-                return ResourceManager.GetString("RootItem_RootItemName_Required", resourceCulture);
+                return ResourceManager.GetString("SimpleTeam_TeamName_Required", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root code cannot exceed {1} characters..
+        ///   Looks up a localized string similar to The team code cannot exceed {1} characters..
         /// </summary>
-        public static string SimpleRoot_RootCode_MaxLength {
+        public static string Team_TeamCode_MaxLength {
             get {
-                return ResourceManager.GetString("SimpleRoot_RootCode_MaxLength", resourceCulture);
+                return ResourceManager.GetString("Team_TeamCode_MaxLength", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root code is required..
+        ///   Looks up a localized string similar to The team code is required..
         /// </summary>
-        public static string SimpleRoot_RootCode_Required {
+        public static string Team_TeamCode_Required {
             get {
-                return ResourceManager.GetString("SimpleRoot_RootCode_Required", resourceCulture);
+                return ResourceManager.GetString("Team_TeamCode_Required", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root name cannot exceed {1} characters..
+        ///   Looks up a localized string similar to The team name cannot exceed {1} characters..
         /// </summary>
-        public static string SimpleRoot_RootName_MaxLength {
+        public static string Team_TeamName_MaxLength {
             get {
-                return ResourceManager.GetString("SimpleRoot_RootName_MaxLength", resourceCulture);
+                return ResourceManager.GetString("Team_TeamName_MaxLength", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root name is required..
+        ///   Looks up a localized string similar to The team name is required..
         /// </summary>
-        public static string SimpleRoot_RootName_Required {
+        public static string Team_TeamName_Required {
             get {
-                return ResourceManager.GetString("SimpleRoot_RootName_Required", resourceCulture);
+                return ResourceManager.GetString("Team_TeamName_Required", resourceCulture);
             }
         }
     }

@@ -26,28 +26,28 @@ namespace CslaModelTemplates.Dal.MySql
                     ctx.Database.EnsureDeleted();
                 ctx.Database.EnsureCreated();
 
-                #region Root data
+                #region Team data
 
                 for (int i = 0; i < 50; i++)
                 {
                     int serialNumber = i + 1;
-                    Root root = new Root
+                    Team team = new Team
                     {
-                        RootCode = $"R-{serialNumber.ToString("0000")}",
-                        RootName = $"Root entry number {serialNumber}",
+                        TeamCode = $"R-{serialNumber.ToString("0000")}",
+                        TeamName = $"Team entry number {serialNumber}",
                     };
-                    ctx.Roots.Add(root);
+                    ctx.Teams.Add(team);
                     ctx.SaveChanges();
 
                     int count = random.Next(1, 5);
                     for (int j = 0; j < count; j++)
                     {
                         int index = j + 1;
-                        ctx.RootItems.Add(new RootItem
+                        ctx.Players.Add(new Player
                         {
-                            RootKey = root.RootKey,
-                            RootItemCode = $"I-{serialNumber.ToString("0000")}-{index}",
-                            RootItemName = $"Item entry number {serialNumber}.{index}",
+                            TeamKey = team.TeamKey,
+                            PlayerCode = $"I-{serialNumber.ToString("0000")}-{index}",
+                            PlayerName = $"Item entry number {serialNumber}.{index}",
                         });
                     }
                     ctx.SaveChanges();
@@ -101,7 +101,7 @@ namespace CslaModelTemplates.Dal.MySql
                         ctx,
                         level + 1,                      // level
                         folder.FolderKey,               // parentKey
-                        rootKey ?? folder.FolderKey,    // rootKey
+                        rootKey ?? folder.FolderKey,    // teamKey
                         path                            // parentPath
                         );
                 }

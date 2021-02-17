@@ -33,68 +33,74 @@
             </summary>
             <param name="logger">The application logging service.</param>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetRootList(CslaModelTemplates.Contracts.ComplexList.RootListCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetTeamList(CslaModelTemplates.Contracts.ComplexList.TeamListCriteria)">
             <summary>
-            Gets a list of roots.
+            Gets a list of teams.
             </summary>
-            <param name="criteria">The criteria of the root list.</param>
-            <returns>A list of roots.</returns>
+            <param name="criteria">The criteria of the team list.</param>
+            <returns>A list of teams.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetRootView(CslaModelTemplates.Contracts.ComplexView.RootViewCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetTeamView(CslaModelTemplates.Contracts.ComplexView.TeamViewCriteria)">
             <summary>
-            Gets the specified root details to display.
+            Gets the specified team details to display.
             </summary>
-            <param name="criteria">The criteria of the root view.</param>
-            <returns>The requested root view.</returns>
+            <param name="criteria">The criteria of the team view.</param>
+            <returns>The requested team view.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetRoot(CslaModelTemplates.Contracts.Complex.RootCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetNewTeam">
             <summary>
-            Gets the specified root to edit.
+            Gets a new team to edit.
             </summary>
-            <param name="criteria">The criteria of the root.</param>
-            <returns>The requested root.</returns>
+            <returns>The new team.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.CreateRoot(CslaModelTemplates.Contracts.Complex.RootDto)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetTeam(CslaModelTemplates.Contracts.Complex.TeamCriteria)">
             <summary>
-            Creates a new root.
+            Gets the specified team to edit.
             </summary>
-            <param name="dto">The data transer object of the root.</param>
-            <returns>The created root.</returns>
+            <param name="criteria">The criteria of the team.</param>
+            <returns>The requested team.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.UpdateRoot(CslaModelTemplates.Contracts.Complex.RootDto)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.CreateTeam(CslaModelTemplates.Contracts.Complex.TeamDto)">
             <summary>
-            Updates the specified root.
+            Creates a new team.
             </summary>
-            <param name="dto">The data transer object of the root.</param>
-            <returns>The updated root.</returns>
+            <param name="dto">The data transer object of the team.</param>
+            <returns>The created team.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.DeleteRoot(CslaModelTemplates.Contracts.Complex.RootCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.UpdateTeam(CslaModelTemplates.Contracts.Complex.TeamDto)">
             <summary>
-            Deletes the specified root.
+            Updates the specified team.
             </summary>
-            <param name="criteria">The criteria of the root.</param>
+            <param name="dto">The data transer object of the team.</param>
+            <returns>The updated team.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.CountRootsCommand(CslaModelTemplates.Contracts.ComplexCommand.CountRootsCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.DeleteTeam(CslaModelTemplates.Contracts.Complex.TeamCriteria)">
             <summary>
-            Counts the roots grouped by the number of their items.
+            Deletes the specified team.
             </summary>
-            <param name="criteria">The criteria of the count roots by item count command.</param>
-            <returns>The list of the root counts.</returns>
+            <param name="criteria">The criteria of the team.</param>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetRootSet(CslaModelTemplates.Contracts.ComplexSet.RootSetCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.CountTeamsCommand(CslaModelTemplates.Contracts.ComplexCommand.CountTeamsCriteria)">
             <summary>
-            Gets the specified root set.
+            Counts the teams grouped by the number of their items.
             </summary>
-            <param name="criteria">The criteria of the root set.</param>
-            <returns>The requested root set.</returns>
+            <param name="criteria">The criteria of the count teams by item count command.</param>
+            <returns>The list of the team counts.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.UpdateRootSet(CslaModelTemplates.Contracts.ComplexSet.RootSetCriteria,System.Collections.Generic.List{CslaModelTemplates.Contracts.ComplexSet.RootSetItemDto})">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetTeamSet(CslaModelTemplates.Contracts.ComplexSet.TeamSetCriteria)">
             <summary>
-            Updates the specified root set.
+            Gets the specified team set.
             </summary>
-            <param name="criteria">The criteria of the root set.</param>
-            <param name="dto">The data transer objects of the root set.</param>
-            <returns>The updated root set.</returns>
+            <param name="criteria">The criteria of the team set.</param>
+            <returns>The requested team set.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.UpdateTeamSet(CslaModelTemplates.Contracts.ComplexSet.TeamSetCriteria,System.Collections.Generic.List{CslaModelTemplates.Contracts.ComplexSet.TeamSetItemDto})">
+            <summary>
+            Updates the specified team set.
+            </summary>
+            <param name="criteria">The criteria of the team set.</param>
+            <param name="dto">The data transer objects of the team set.</param>
+            <returns>The updated team set.</returns>
         </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.SelectionController">
             <summary>
@@ -107,18 +113,18 @@
             </summary>
             <param name="logger">The application logging service.</param>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithKeyAsync(CslaModelTemplates.Contracts.SelectionWithKey.RootKeyChoiceCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithKeyAsync(CslaModelTemplates.Contracts.SelectionWithKey.TeamKeyChoiceCriteria)">
             <summary>
-            Gets the key-name choice of the roots.
+            Gets the key-name choice of the teams.
             </summary>
-            <param name="criteria">The criteria of the root choice.</param>
+            <param name="criteria">The criteria of the team choice.</param>
             <returns>The key-name choice of the tenants.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithCodeAsync(CslaModelTemplates.Contracts.SelectionWithCode.RootCodeChoiceCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithCodeAsync(CslaModelTemplates.Contracts.SelectionWithCode.TeamCodeChoiceCriteria)">
             <summary>
-            Gets the code-name choice of the roots.
+            Gets the code-name choice of the teams.
             </summary>
-            <param name="criteria">The criteria of the root choice.</param>
+            <param name="criteria">The criteria of the team choice.</param>
             <returns>The code-name choice of the tenants.</returns>
         </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.SimpleController">
@@ -132,68 +138,74 @@
             </summary>
             <param name="logger">The application logging service.</param>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRootList(CslaModelTemplates.Contracts.SimpleList.SimpleRootListCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetTeamList(CslaModelTemplates.Contracts.SimpleList.SimpleTeamListCriteria)">
             <summary>
-            Gets a list of roots.
+            Gets a list of teams.
             </summary>
-            <param name="criteria">The criteria of the root list.</param>
-            <returns>A list of roots.</returns>
+            <param name="criteria">The criteria of the team list.</param>
+            <returns>A list of teams.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRootView(CslaModelTemplates.Contracts.SimpleView.SimpleRootViewCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetTeamView(CslaModelTemplates.Contracts.SimpleView.SimpleTeamViewCriteria)">
             <summary>
-            Gets the specified root details to display.
+            Gets the specified team details to display.
             </summary>
-            <param name="criteria">The criteria of the root view.</param>
-            <returns>The requested root view.</returns>
+            <param name="criteria">The criteria of the team view.</param>
+            <returns>The requested team view.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRoot(CslaModelTemplates.Contracts.Simple.SimpleRootCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetTeam">
             <summary>
-            Gets the specified root to edit.
+            Gets e new team to edit.
             </summary>
-            <param name="criteria">The criteria of the root.</param>
-            <returns>The requested root.</returns>
+            <returns>The new team.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.CreateRoot(CslaModelTemplates.Contracts.Simple.SimpleRootDto)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetTeam(CslaModelTemplates.Contracts.Simple.SimpleTeamCriteria)">
             <summary>
-            Creates a new root.
+            Gets the specified team to edit.
             </summary>
-            <param name="dto">The data transer object of the root.</param>
-            <returns>The created root.</returns>
+            <param name="criteria">The criteria of the team.</param>
+            <returns>The requested team.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.UpdateRoot(CslaModelTemplates.Contracts.Simple.SimpleRootDto)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.CreateTeam(CslaModelTemplates.Contracts.Simple.SimpleTeamDto)">
             <summary>
-            Updates the specified root.
+            Creates a new team.
             </summary>
-            <param name="dto">The data transer object of the root.</param>
-            <returns>The updated root.</returns>
+            <param name="dto">The data transer object of the team.</param>
+            <returns>The created team.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.DeleteRoot(CslaModelTemplates.Contracts.Simple.SimpleRootCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.UpdateTeam(CslaModelTemplates.Contracts.Simple.SimpleTeamDto)">
             <summary>
-            Deletes the specified root.
+            Updates the specified team.
             </summary>
-            <param name="criteria">The criteria of the root.</param>
+            <param name="dto">The data transer object of the team.</param>
+            <returns>The updated team.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.RenameRootCommand(CslaModelTemplates.Contracts.SimpleCommand.RenameRootDto)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.DeleteTeam(CslaModelTemplates.Contracts.Simple.SimpleTeamCriteria)">
             <summary>
-            Renames the specified root.
+            Deletes the specified team.
             </summary>
-            <param name="dto">The data transer object of the rename root command.</param>
-            <returns>True when the root was renamed; otherwise false.</returns>
+            <param name="criteria">The criteria of the team.</param>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetRootSet(CslaModelTemplates.Contracts.SimpleSet.SimpleRootSetCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.RenameTeamCommand(CslaModelTemplates.Contracts.SimpleCommand.RenameTeamDto)">
             <summary>
-            Gets the specified root set.
+            Renames the specified team.
             </summary>
-            <param name="criteria">The criteria of the root set.</param>
-            <returns>The requested root set.</returns>
+            <param name="dto">The data transer object of the rename team command.</param>
+            <returns>True when the team was renamed; otherwise false.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.UpdateRootSet(CslaModelTemplates.Contracts.SimpleSet.SimpleRootSetCriteria,System.Collections.Generic.List{CslaModelTemplates.Contracts.SimpleSet.SimpleRootSetItemDto})">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetTeamSet(CslaModelTemplates.Contracts.SimpleSet.SimpleTeamSetCriteria)">
             <summary>
-            Updates the specified root set.
+            Gets the specified team set.
             </summary>
-            <param name="criteria">The criteria of the root set.</param>
-            <param name="dto">The data transer objects of the root set.</param>
-            <returns>The updated root set.</returns>
+            <param name="criteria">The criteria of the team set.</param>
+            <returns>The requested team set.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.UpdateTeamSet(CslaModelTemplates.Contracts.SimpleSet.SimpleTeamSetCriteria,System.Collections.Generic.List{CslaModelTemplates.Contracts.SimpleSet.SimpleTeamSetItemDto})">
+            <summary>
+            Updates the specified team set.
+            </summary>
+            <param name="criteria">The criteria of the team set.</param>
+            <param name="dto">The data transer objects of the team set.</param>
+            <returns>The updated team set.</returns>
         </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.TreeController">
             <summary>

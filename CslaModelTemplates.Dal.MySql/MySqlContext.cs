@@ -42,8 +42,8 @@ namespace CslaModelTemplates.Dal.MySql
 
         #region Query results
 
-        public DbSet<Root> Roots { get; set; }
-        public DbSet<RootItem> RootItems { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Player> Players { get; set; }
         public DbSet<Folder> Folders { get; set; }
 
         #endregion
@@ -56,18 +56,18 @@ namespace CslaModelTemplates.Dal.MySql
             ModelBuilder modelBuilder
             )
         {
-            #region Root
+            #region Team
 
-            modelBuilder.Entity<Root>()
-                .HasIndex(e => e.RootCode)
+            modelBuilder.Entity<Team>()
+                .HasIndex(e => e.TeamCode)
                 .IsUnique();
 
             #endregion
 
-            #region RootItem
+            #region Player
 
-            modelBuilder.Entity<RootItem>()
-                .HasIndex(e => new { e.RootKey, e.RootItemCode })
+            modelBuilder.Entity<Player>()
+                .HasIndex(e => new { e.TeamKey, e.PlayerCode })
                 .IsUnique();
 
             #endregion

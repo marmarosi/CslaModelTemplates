@@ -61,344 +61,344 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The requested root has not been found..
+        ///   Looks up a localized string similar to Deleting the player with code {0} has failed..
         /// </summary>
-        public static string RenameRoot_NotFound {
+        public static string Player_DeleteFailed {
             get {
-                return ResourceManager.GetString("RenameRoot_NotFound", resourceCulture);
+                return ResourceManager.GetString("Player_DeleteFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Renaming the root has failed..
+        ///   Looks up a localized string similar to Creating the new player with code {0} has failed..
         /// </summary>
-        public static string RenameRoot_RenameFailed {
+        public static string Player_InsertFailed {
             get {
-                return ResourceManager.GetString("RenameRoot_RenameFailed", resourceCulture);
+                return ResourceManager.GetString("Player_InsertFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root has been changed in the meantime..
+        ///   Looks up a localized string similar to The requested player has not been found..
         /// </summary>
-        public static string Root_Concurrency {
+        public static string Player_NotFound {
             get {
-                return ResourceManager.GetString("Root_Concurrency", resourceCulture);
+                return ResourceManager.GetString("Player_NotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot delete the root because others belong to it..
+        ///   Looks up a localized string similar to Player with code {0} already exists..
         /// </summary>
-        public static string Root_Delete_Others {
+        public static string Player_PlayerCodeExists {
             get {
-                return ResourceManager.GetString("Root_Delete_Others", resourceCulture);
+                return ResourceManager.GetString("Player_PlayerCodeExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting the root has failed..
+        ///   Looks up a localized string similar to Updating the player with code {0} has failed..
         /// </summary>
-        public static string Root_DeleteFailed {
+        public static string Player_UpdateFailed {
             get {
-                return ResourceManager.GetString("Root_DeleteFailed", resourceCulture);
+                return ResourceManager.GetString("Player_UpdateFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating the new root has failed..
+        ///   Looks up a localized string similar to The requested team has not been found..
         /// </summary>
-        public static string Root_InsertFailed {
+        public static string RenameTeam_NotFound {
             get {
-                return ResourceManager.GetString("Root_InsertFailed", resourceCulture);
+                return ResourceManager.GetString("RenameTeam_NotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The requested root has not been found..
+        ///   Looks up a localized string similar to Renaming the team has failed..
         /// </summary>
-        public static string Root_NotFound {
+        public static string RenameTeam_RenameFailed {
             get {
-                return ResourceManager.GetString("Root_NotFound", resourceCulture);
+                return ResourceManager.GetString("RenameTeam_RenameFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Root with code {0} already exists..
+        ///   Looks up a localized string similar to The team has been changed in the meantime..
         /// </summary>
-        public static string Root_RootCodeExists {
+        public static string SimpleTeam_Concurrency {
             get {
-                return ResourceManager.GetString("Root_RootCodeExists", resourceCulture);
+                return ResourceManager.GetString("SimpleTeam_Concurrency", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating the root has failed..
+        ///   Looks up a localized string similar to Cannot delete the team because others belong to it..
         /// </summary>
-        public static string Root_UpdateFailed {
+        public static string SimpleTeam_Delete_Others {
             get {
-                return ResourceManager.GetString("Root_UpdateFailed", resourceCulture);
+                return ResourceManager.GetString("SimpleTeam_Delete_Others", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting the root item with code {0} has failed..
+        ///   Looks up a localized string similar to Deleting the team has failed..
         /// </summary>
-        public static string RootItem_DeleteFailed {
+        public static string SimpleTeam_DeleteFailed {
             get {
-                return ResourceManager.GetString("RootItem_DeleteFailed", resourceCulture);
+                return ResourceManager.GetString("SimpleTeam_DeleteFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating the new root item with code {0} has failed..
+        ///   Looks up a localized string similar to Creating the new team has failed..
         /// </summary>
-        public static string RootItem_InsertFailed {
+        public static string SimpleTeam_InsertFailed {
             get {
-                return ResourceManager.GetString("RootItem_InsertFailed", resourceCulture);
+                return ResourceManager.GetString("SimpleTeam_InsertFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The requested root item has not been found..
+        ///   Looks up a localized string similar to The requested team has not been found..
         /// </summary>
-        public static string RootItem_NotFound {
+        public static string SimpleTeam_NotFound {
             get {
-                return ResourceManager.GetString("RootItem_NotFound", resourceCulture);
+                return ResourceManager.GetString("SimpleTeam_NotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Root item with code {0} already exists..
+        ///   Looks up a localized string similar to Team with code {0} already exists..
         /// </summary>
-        public static string RootItem_RootItemCodeExists {
+        public static string SimpleTeam_TeamCodeExists {
             get {
-                return ResourceManager.GetString("RootItem_RootItemCodeExists", resourceCulture);
+                return ResourceManager.GetString("SimpleTeam_TeamCodeExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating the root item with code {0} has failed..
+        ///   Looks up a localized string similar to Updating the team has failed..
         /// </summary>
-        public static string RootItem_UpdateFailed {
+        public static string SimpleTeam_UpdateFailed {
             get {
-                return ResourceManager.GetString("RootItem_UpdateFailed", resourceCulture);
+                return ResourceManager.GetString("SimpleTeam_UpdateFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root with code {0} has been changed in the meantime..
+        ///   Looks up a localized string similar to The team with code {0} has been changed in the meantime..
         /// </summary>
-        public static string RootSetItem_Concurrency {
+        public static string SimpleTeamSetItem_Concurrency {
             get {
-                return ResourceManager.GetString("RootSetItem_Concurrency", resourceCulture);
+                return ResourceManager.GetString("SimpleTeamSetItem_Concurrency", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting the root with code {0} has failed..
+        ///   Looks up a localized string similar to Deleting the team with code {0} has failed..
         /// </summary>
-        public static string RootSetItem_DeleteFailed {
+        public static string SimpleTeamSetItem_DeleteFailed {
             get {
-                return ResourceManager.GetString("RootSetItem_DeleteFailed", resourceCulture);
+                return ResourceManager.GetString("SimpleTeamSetItem_DeleteFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating the new root with code {0} has failed..
+        ///   Looks up a localized string similar to Creating the new team with code {0} has failed..
         /// </summary>
-        public static string RootSetItem_InsertFailed {
+        public static string SimpleTeamSetItem_InsertFailed {
             get {
-                return ResourceManager.GetString("RootSetItem_InsertFailed", resourceCulture);
+                return ResourceManager.GetString("SimpleTeamSetItem_InsertFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root with code {0} has not been found..
+        ///   Looks up a localized string similar to The team with code {0} has not been found..
         /// </summary>
-        public static string RootSetItem_NotFound {
+        public static string SimpleTeamSetItem_NotFound {
             get {
-                return ResourceManager.GetString("RootSetItem_NotFound", resourceCulture);
+                return ResourceManager.GetString("SimpleTeamSetItem_NotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Root with code {0} already exists..
+        ///   Looks up a localized string similar to Team with code {0} already exists..
         /// </summary>
-        public static string RootSetItem_RootCodeExists {
+        public static string SimpleTeamSetItem_TeamCodeExists {
             get {
-                return ResourceManager.GetString("RootSetItem_RootCodeExists", resourceCulture);
+                return ResourceManager.GetString("SimpleTeamSetItem_TeamCodeExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating the root with code {0} has failed..
+        ///   Looks up a localized string similar to Updating the team with code {0} has failed..
         /// </summary>
-        public static string RootSetItem_UpdateFailed {
+        public static string SimpleTeamSetItem_UpdateFailed {
             get {
-                return ResourceManager.GetString("RootSetItem_UpdateFailed", resourceCulture);
+                return ResourceManager.GetString("SimpleTeamSetItem_UpdateFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting the root item with code [ {0} ] {1} has failed..
+        ///   Looks up a localized string similar to The team has been changed in the meantime..
         /// </summary>
-        public static string RootSetRootItem_DeleteFailed {
+        public static string Team_Concurrency {
             get {
-                return ResourceManager.GetString("RootSetRootItem_DeleteFailed", resourceCulture);
+                return ResourceManager.GetString("Team_Concurrency", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating the new root item with code [ {0} ] {1} has failed..
+        ///   Looks up a localized string similar to Cannot delete the team because others belong to it..
         /// </summary>
-        public static string RootSetRootItem_InsertFailed {
+        public static string Team_Delete_Others {
             get {
-                return ResourceManager.GetString("RootSetRootItem_InsertFailed", resourceCulture);
+                return ResourceManager.GetString("Team_Delete_Others", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The requested root item with code [ {0} ] {1} has not been found..
+        ///   Looks up a localized string similar to Deleting the team has failed..
         /// </summary>
-        public static string RootSetRootItem_NotFound {
+        public static string Team_DeleteFailed {
             get {
-                return ResourceManager.GetString("RootSetRootItem_NotFound", resourceCulture);
+                return ResourceManager.GetString("Team_DeleteFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Root item with code [ {0} ] {1} already exists..
+        ///   Looks up a localized string similar to Creating the new team has failed..
         /// </summary>
-        public static string RootSetRootItem_RootItemCodeExists {
+        public static string Team_InsertFailed {
             get {
-                return ResourceManager.GetString("RootSetRootItem_RootItemCodeExists", resourceCulture);
+                return ResourceManager.GetString("Team_InsertFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating the root item with code [ {0} ] {1} has failed..
+        ///   Looks up a localized string similar to The requested team has not been found..
         /// </summary>
-        public static string RootSetRootItem_UpdateFailed {
+        public static string Team_NotFound {
             get {
-                return ResourceManager.GetString("RootSetRootItem_UpdateFailed", resourceCulture);
+                return ResourceManager.GetString("Team_NotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root has been changed in the meantime..
+        ///   Looks up a localized string similar to Team with code {0} already exists..
         /// </summary>
-        public static string SimpleRoot_Concurrency {
+        public static string Team_TeamCodeExists {
             get {
-                return ResourceManager.GetString("SimpleRoot_Concurrency", resourceCulture);
+                return ResourceManager.GetString("Team_TeamCodeExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot delete the root because others belong to it..
+        ///   Looks up a localized string similar to Updating the team has failed..
         /// </summary>
-        public static string SimpleRoot_Delete_Others {
+        public static string Team_UpdateFailed {
             get {
-                return ResourceManager.GetString("SimpleRoot_Delete_Others", resourceCulture);
+                return ResourceManager.GetString("Team_UpdateFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting the root has failed..
+        ///   Looks up a localized string similar to The team with code {0} has been changed in the meantime..
         /// </summary>
-        public static string SimpleRoot_DeleteFailed {
+        public static string TeamSetItem_Concurrency {
             get {
-                return ResourceManager.GetString("SimpleRoot_DeleteFailed", resourceCulture);
+                return ResourceManager.GetString("TeamSetItem_Concurrency", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating the new root has failed..
+        ///   Looks up a localized string similar to Deleting the team with code {0} has failed..
         /// </summary>
-        public static string SimpleRoot_InsertFailed {
+        public static string TeamSetItem_DeleteFailed {
             get {
-                return ResourceManager.GetString("SimpleRoot_InsertFailed", resourceCulture);
+                return ResourceManager.GetString("TeamSetItem_DeleteFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The requested root has not been found..
+        ///   Looks up a localized string similar to Creating the new team with code {0} has failed..
         /// </summary>
-        public static string SimpleRoot_NotFound {
+        public static string TeamSetItem_InsertFailed {
             get {
-                return ResourceManager.GetString("SimpleRoot_NotFound", resourceCulture);
+                return ResourceManager.GetString("TeamSetItem_InsertFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Root with code {0} already exists..
+        ///   Looks up a localized string similar to The team with code {0} has not been found..
         /// </summary>
-        public static string SimpleRoot_RootCodeExists {
+        public static string TeamSetItem_NotFound {
             get {
-                return ResourceManager.GetString("SimpleRoot_RootCodeExists", resourceCulture);
+                return ResourceManager.GetString("TeamSetItem_NotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating the root has failed..
+        ///   Looks up a localized string similar to Team with code {0} already exists..
         /// </summary>
-        public static string SimpleRoot_UpdateFailed {
+        public static string TeamSetItem_TeamCodeExists {
             get {
-                return ResourceManager.GetString("SimpleRoot_UpdateFailed", resourceCulture);
+                return ResourceManager.GetString("TeamSetItem_TeamCodeExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root with code {0} has been changed in the meantime..
+        ///   Looks up a localized string similar to Updating the team with code {0} has failed..
         /// </summary>
-        public static string SimpleRootSetItem_Concurrency {
+        public static string TeamSetItem_UpdateFailed {
             get {
-                return ResourceManager.GetString("SimpleRootSetItem_Concurrency", resourceCulture);
+                return ResourceManager.GetString("TeamSetItem_UpdateFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting the root with code {0} has failed..
+        ///   Looks up a localized string similar to Deleting the player with code [ {0} ] {1} has failed..
         /// </summary>
-        public static string SimpleRootSetItem_DeleteFailed {
+        public static string TeamSetPlayer_DeleteFailed {
             get {
-                return ResourceManager.GetString("SimpleRootSetItem_DeleteFailed", resourceCulture);
+                return ResourceManager.GetString("TeamSetPlayer_DeleteFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating the new root with code {0} has failed..
+        ///   Looks up a localized string similar to Creating the new player with code [ {0} ] {1} has failed..
         /// </summary>
-        public static string SimpleRootSetItem_InsertFailed {
+        public static string TeamSetPlayer_InsertFailed {
             get {
-                return ResourceManager.GetString("SimpleRootSetItem_InsertFailed", resourceCulture);
+                return ResourceManager.GetString("TeamSetPlayer_InsertFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root with code {0} has not been found..
+        ///   Looks up a localized string similar to The requested player with code [ {0} ] {1} has not been found..
         /// </summary>
-        public static string SimpleRootSetItem_NotFound {
+        public static string TeamSetPlayer_NotFound {
             get {
-                return ResourceManager.GetString("SimpleRootSetItem_NotFound", resourceCulture);
+                return ResourceManager.GetString("TeamSetPlayer_NotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Root with code {0} already exists..
+        ///   Looks up a localized string similar to Player with code [ {0} ] {1} already exists..
         /// </summary>
-        public static string SimpleRootSetItem_RootCodeExists {
+        public static string TeamSetPlayer_PlayerCodeExists {
             get {
-                return ResourceManager.GetString("SimpleRootSetItem_RootCodeExists", resourceCulture);
+                return ResourceManager.GetString("TeamSetPlayer_PlayerCodeExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating the root with code {0} has failed..
+        ///   Looks up a localized string similar to Updating the player with code [ {0} ] {1} has failed..
         /// </summary>
-        public static string SimpleRootSetItem_UpdateFailed {
+        public static string TeamSetPlayer_UpdateFailed {
             get {
-                return ResourceManager.GetString("SimpleRootSetItem_UpdateFailed", resourceCulture);
+                return ResourceManager.GetString("TeamSetPlayer_UpdateFailed", resourceCulture);
             }
         }
     }

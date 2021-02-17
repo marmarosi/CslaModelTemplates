@@ -41,19 +41,19 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region List
 
         /// <summary>
-        /// Gets a list of roots.
+        /// Gets a list of teams.
         /// </summary>
-        /// <param name="criteria">The criteria of the root list.</param>
-        /// <returns>A list of roots.</returns>
+        /// <param name="criteria">The criteria of the team list.</param>
+        /// <returns>A list of teams.</returns>
         [HttpGet("")]
-        [ProducesResponseType(typeof(List<RootListItemDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetRootList(
-            [FromQuery] RootListCriteria criteria
+        [ProducesResponseType(typeof(List<TeamListItemDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTeamList(
+            [FromQuery] TeamListCriteria criteria
             )
         {
             try
             {
-                RootList list = await RootList.Get(criteria);
+                TeamList list = await TeamList.Get(criteria);
                 return Ok(list);
             }
             catch (Exception ex)
@@ -67,20 +67,43 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region View
 
         /// <summary>
-        /// Gets the specified root details to display.
+        /// Gets the specified team details to display.
         /// </summary>
-        /// <param name="criteria">The criteria of the root view.</param>
-        /// <returns>The requested root view.</returns>
+        /// <param name="criteria">The criteria of the team view.</param>
+        /// <returns>The requested team view.</returns>
         [HttpGet("view")]
-        [ProducesResponseType(typeof(RootViewDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetRootView(
-            [FromQuery] RootViewCriteria criteria
+        [ProducesResponseType(typeof(TeamViewDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTeamView(
+            [FromQuery] TeamViewCriteria criteria
             )
         {
             try
             {
-                RootView root = await RootView.Get(criteria);
-                return Ok(root);
+                TeamView team = await TeamView.Get(criteria);
+                return Ok(team);
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region New
+
+        /// <summary>
+        /// Gets a new team to edit.
+        /// </summary>
+        /// <returns>The new team.</returns>
+        [HttpGet("new")]
+        [ProducesResponseType(typeof(TeamDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetNewTeam()
+        {
+            try
+            {
+                Team team = await Team.Create();
+                return Ok(team.ToDto<TeamDto>());
             }
             catch (Exception ex)
             {
@@ -93,20 +116,20 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Read
 
         /// <summary>
-        /// Gets the specified root to edit.
+        /// Gets the specified team to edit.
         /// </summary>
-        /// <param name="criteria">The criteria of the root.</param>
-        /// <returns>The requested root.</returns>
+        /// <param name="criteria">The criteria of the team.</param>
+        /// <returns>The requested team.</returns>
         [HttpGet("fetch")]
-        [ProducesResponseType(typeof(RootDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetRoot(
-            [FromQuery] RootCriteria criteria
+        [ProducesResponseType(typeof(TeamDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTeam(
+            [FromQuery] TeamCriteria criteria
             )
         {
             try
             {
-                Root root = await Root.Get(criteria);
-                return Ok(root.ToDto<RootDto>());
+                Team team = await Team.Get(criteria);
+                return Ok(team.ToDto<TeamDto>());
             }
             catch (Exception ex)
             {
@@ -119,24 +142,24 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Create
 
         /// <summary>
-        /// Creates a new root.
+        /// Creates a new team.
         /// </summary>
-        /// <param name="dto">The data transer object of the root.</param>
-        /// <returns>The created root.</returns>
+        /// <param name="dto">The data transer object of the team.</param>
+        /// <returns>The created team.</returns>
         [HttpPost("")]
-        [ProducesResponseType(typeof(RootDto), StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateRoot(
-            [FromBody] RootDto dto
+        [ProducesResponseType(typeof(TeamDto), StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateTeam(
+            [FromBody] TeamDto dto
             )
         {
             try
             {
-                Root root = await Root.FromDto(dto);
-                if (root.IsValid)
+                Team team = await Team.FromDto(dto);
+                if (team.IsValid)
                 {
-                    root = await root.SaveAsync();
+                    team = await team.SaveAsync();
                 }
-                return Created(Request.Path, root.ToDto<RootDto>());
+                return Created(Request.Path, team.ToDto<TeamDto>());
             }
             catch (Exception ex)
             {
@@ -149,24 +172,24 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Update
 
         /// <summary>
-        /// Updates the specified root.
+        /// Updates the specified team.
         /// </summary>
-        /// <param name="dto">The data transer object of the root.</param>
-        /// <returns>The updated root.</returns>
+        /// <param name="dto">The data transer object of the team.</param>
+        /// <returns>The updated team.</returns>
         [HttpPut("")]
-        [ProducesResponseType(typeof(RootDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateRoot(
-            [FromBody] RootDto dto
+        [ProducesResponseType(typeof(TeamDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateTeam(
+            [FromBody] TeamDto dto
             )
         {
             try
             {
-                Root root = await Root.FromDto(dto);
-                if (root.IsSavable)
+                Team team = await Team.FromDto(dto);
+                if (team.IsSavable)
                 {
-                    root = await root.SaveAsync();
+                    team = await team.SaveAsync();
                 }
-                return Ok(root.ToDto<RootDto>());
+                return Ok(team.ToDto<TeamDto>());
             }
             catch (Exception ex)
             {
@@ -179,18 +202,18 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Delete
 
         /// <summary>
-        /// Deletes the specified root.
+        /// Deletes the specified team.
         /// </summary>
-        /// <param name="criteria">The criteria of the root.</param>
+        /// <param name="criteria">The criteria of the team.</param>
         [HttpDelete("")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteRoot(
-            [FromQuery] RootCriteria criteria
+        public async Task<IActionResult> DeleteTeam(
+            [FromQuery] TeamCriteria criteria
             )
         {
             try
             {
-                await Task.Run(() => Root.Delete(criteria));
+                await Task.Run(() => Team.Delete(criteria));
                 return NoContent();
             }
             catch (Exception ex)
@@ -204,19 +227,19 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Count
 
         /// <summary>
-        /// Counts the roots grouped by the number of their items.
+        /// Counts the teams grouped by the number of their items.
         /// </summary>
-        /// <param name="criteria">The criteria of the count roots by item count command.</param>
-        /// <returns>The list of the root counts.</returns>
+        /// <param name="criteria">The criteria of the count teams by item count command.</param>
+        /// <returns>The list of the team counts.</returns>
         [HttpPatch("")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        public async Task<IActionResult> CountRootsCommand(
-            [FromBody] CountRootsCriteria criteria
+        public async Task<IActionResult> CountTeamsCommand(
+            [FromBody] CountTeamsCriteria criteria
             )
         {
             try
             {
-                CountRootsList list = await CountRoots.Execute(criteria);
+                CountTeamsList list = await CountTeams.Execute(criteria);
                 return Ok(list);
             }
             catch (Exception ex)
@@ -230,20 +253,20 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Read-Set
 
         /// <summary>
-        /// Gets the specified root set.
+        /// Gets the specified team set.
         /// </summary>
-        /// <param name="criteria">The criteria of the root set.</param>
-        /// <returns>The requested root set.</returns>
+        /// <param name="criteria">The criteria of the team set.</param>
+        /// <returns>The requested team set.</returns>
         [HttpGet("set")]
-        [ProducesResponseType(typeof(List<RootSetItemDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetRootSet(
-            [FromQuery] RootSetCriteria criteria
+        [ProducesResponseType(typeof(List<TeamSetItemDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTeamSet(
+            [FromQuery] TeamSetCriteria criteria
             )
         {
             try
             {
-                RootSet set = await RootSet.Get(criteria);
-                return Ok(set.ToDto<RootSetItemDto>());
+                TeamSet set = await TeamSet.Get(criteria);
+                return Ok(set.ToDto<TeamSetItemDto>());
             }
             catch (Exception ex)
             {
@@ -256,26 +279,26 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Update-Set
 
         /// <summary>
-        /// Updates the specified root set.
+        /// Updates the specified team set.
         /// </summary>
-        /// <param name="criteria">The criteria of the root set.</param>
-        /// <param name="dto">The data transer objects of the root set.</param>
-        /// <returns>The updated root set.</returns>
+        /// <param name="criteria">The criteria of the team set.</param>
+        /// <param name="dto">The data transer objects of the team set.</param>
+        /// <returns>The updated team set.</returns>
         [HttpPut("set")]
-        [ProducesResponseType(typeof(List<RootSetItemDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateRootSet(
-            [FromQuery] RootSetCriteria criteria,
-            [FromBody] List<RootSetItemDto> dto
+        [ProducesResponseType(typeof(List<TeamSetItemDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateTeamSet(
+            [FromQuery] TeamSetCriteria criteria,
+            [FromBody] List<TeamSetItemDto> dto
             )
         {
             try
             {
-                RootSet set = await RootSet.FromDto(criteria, dto);
+                TeamSet set = await TeamSet.FromDto(criteria, dto);
                 if (set.IsSavable)
                 {
                     set = await set.SaveAsync();
                 }
-                return Ok(set.ToDto<RootSetItemDto>());
+                return Ok(set.ToDto<TeamSetItemDto>());
             }
             catch (Exception ex)
             {

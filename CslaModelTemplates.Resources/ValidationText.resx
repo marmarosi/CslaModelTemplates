@@ -117,46 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RenameRoot_RootName_Required" xml:space="preserve">
-    <value>The new root name is required.</value>
+  <data name="Player_PlayerCode_MaxLength" xml:space="preserve">
+    <value>The player code cannot exceed {1} characters.</value>
   </data>
-  <data name="RootItem_RootItemCode_MaxLength" xml:space="preserve">
-    <value>The root item code cannot exceed {1} characters.</value>
+  <data name="Player_PlayerCode_NotUnique" xml:space="preserve">
+    <value>The player code is not unique.</value>
   </data>
-  <data name="RootItem_RootItemCode_NotUnique" xml:space="preserve">
-    <value>The root item code is not unique.</value>
+  <data name="Player_PlayerCode_Required" xml:space="preserve">
+    <value>The player code is required.</value>
   </data>
-  <data name="RootItem_RootItemCode_Required" xml:space="preserve">
-    <value>The root item code is required.</value>
+  <data name="Player_PlayerName_MaxLength" xml:space="preserve">
+    <value>The player name cannot exceed {1} characters.</value>
   </data>
-  <data name="RootItem_RootItemName_MaxLength" xml:space="preserve">
-    <value>The root item name cannot exceed {1} characters.</value>
+  <data name="Player_PlayerName_Required" xml:space="preserve">
+    <value>The player name is required.</value>
   </data>
-  <data name="RootItem_RootItemName_Required" xml:space="preserve">
-    <value>The root item name is required.</value>
+  <data name="RenameTeam_TeamName_Required" xml:space="preserve">
+    <value>The new team name is required.</value>
   </data>
-  <data name="Root_RootCode_MaxLength" xml:space="preserve">
-    <value>The root code cannot exceed {1} characters.</value>
+  <data name="SimpleTeam_TeamCode_MaxLength" xml:space="preserve">
+    <value>The team code cannot exceed {1} characters.</value>
   </data>
-  <data name="Root_RootCode_Required" xml:space="preserve">
-    <value>The root code is required.</value>
+  <data name="SimpleTeam_TeamCode_Required" xml:space="preserve">
+    <value>The team code is required.</value>
   </data>
-  <data name="Root_RootName_MaxLength" xml:space="preserve">
-    <value>The root name cannot exceed {1} characters.</value>
+  <data name="SimpleTeam_TeamName_MaxLength" xml:space="preserve">
+    <value>The team name cannot exceed {1} characters.</value>
   </data>
-  <data name="Root_RootName_Required" xml:space="preserve">
-    <value>The root name is required.</value>
+  <data name="SimpleTeam_TeamName_Required" xml:space="preserve">
+    <value>The team name is required.</value>
   </data>
-  <data name="SimpleRoot_RootCode_MaxLength" xml:space="preserve">
-    <value>The root code cannot exceed {1} characters.</value>
+  <data name="Team_TeamCode_MaxLength" xml:space="preserve">
+    <value>The team code cannot exceed {1} characters.</value>
   </data>
-  <data name="SimpleRoot_RootCode_Required" xml:space="preserve">
-    <value>The root code is required.</value>
+  <data name="Team_TeamCode_Required" xml:space="preserve">
+    <value>The team code is required.</value>
   </data>
-  <data name="SimpleRoot_RootName_MaxLength" xml:space="preserve">
-    <value>The root name cannot exceed {1} characters.</value>
+  <data name="Team_TeamName_MaxLength" xml:space="preserve">
+    <value>The team name cannot exceed {1} characters.</value>
   </data>
-  <data name="SimpleRoot_RootName_Required" xml:space="preserve">
-    <value>The root name is required.</value>
+  <data name="Team_TeamName_Required" xml:space="preserve">
+    <value>The team name is required.</value>
   </data>
 </root>

@@ -36,19 +36,19 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Choice with key
 
         /// <summary>
-        /// Gets the key-name choice of the roots.
+        /// Gets the key-name choice of the teams.
         /// </summary>
-        /// <param name="criteria">The criteria of the root choice.</param>
+        /// <param name="criteria">The criteria of the team choice.</param>
         /// <returns>The key-name choice of the tenants.</returns>
         [HttpGet("with-key")]
         [ProducesResponseType(typeof(List<KeyNameOptionDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTenantChoiceWithKeyAsync(
-            [FromQuery] KeyDef.RootKeyChoiceCriteria criteria
+            [FromQuery] KeyDef.TeamKeyChoiceCriteria criteria
             )
         {
             try
             {
-                KeyModel.RootKeyChoice choice = await KeyModel.RootKeyChoice.Get(criteria);
+                KeyModel.TeamKeyChoice choice = await KeyModel.TeamKeyChoice.Get(criteria);
                 return Ok(choice);
             }
             catch (Exception ex)
@@ -62,19 +62,19 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Choice with code
 
         /// <summary>
-        /// Gets the code-name choice of the roots.
+        /// Gets the code-name choice of the teams.
         /// </summary>
-        /// <param name="criteria">The criteria of the root choice.</param>
+        /// <param name="criteria">The criteria of the team choice.</param>
         /// <returns>The code-name choice of the tenants.</returns>
         [HttpGet("async/with-code")]
         [ProducesResponseType(typeof(List<CodeNameOptionDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTenantChoiceWithCodeAsync(
-            [FromQuery] CodeDef.RootCodeChoiceCriteria criteria
+            [FromQuery] CodeDef.TeamCodeChoiceCriteria criteria
             )
         {
             try
             {
-                CodeModel.RootCodeChoice choice = await CodeModel.RootCodeChoice.Get(criteria);
+                CodeModel.TeamCodeChoice choice = await CodeModel.TeamCodeChoice.Get(criteria);
                 return Ok(choice);
             }
             catch (Exception ex)

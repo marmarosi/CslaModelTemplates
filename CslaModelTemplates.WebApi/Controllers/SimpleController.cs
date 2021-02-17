@@ -41,19 +41,19 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region List
 
         /// <summary>
-        /// Gets a list of roots.
+        /// Gets a list of teams.
         /// </summary>
-        /// <param name="criteria">The criteria of the root list.</param>
-        /// <returns>A list of roots.</returns>
+        /// <param name="criteria">The criteria of the team list.</param>
+        /// <returns>A list of teams.</returns>
         [HttpGet("")]
-        [ProducesResponseType(typeof(List<SimpleRootListItemDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetRootList(
-            [FromQuery] SimpleRootListCriteria criteria
+        [ProducesResponseType(typeof(List<SimpleTeamListItemDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTeamList(
+            [FromQuery] SimpleTeamListCriteria criteria
             )
         {
             try
             {
-                SimpleRootList list = await SimpleRootList.Get(criteria);
+                SimpleTeamList list = await SimpleTeamList.Get(criteria);
                 return Ok(list);
             }
             catch (Exception ex)
@@ -67,20 +67,43 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region View
 
         /// <summary>
-        /// Gets the specified root details to display.
+        /// Gets the specified team details to display.
         /// </summary>
-        /// <param name="criteria">The criteria of the root view.</param>
-        /// <returns>The requested root view.</returns>
+        /// <param name="criteria">The criteria of the team view.</param>
+        /// <returns>The requested team view.</returns>
         [HttpGet("view")]
-        [ProducesResponseType(typeof(SimpleRootViewDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetRootView(
-            [FromQuery] SimpleRootViewCriteria criteria
+        [ProducesResponseType(typeof(SimpleTeamViewDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTeamView(
+            [FromQuery] SimpleTeamViewCriteria criteria
             )
         {
             try
             {
-                SimpleRootView root = await SimpleRootView.Get(criteria);
-                return Ok(root);
+                SimpleTeamView team = await SimpleTeamView.Get(criteria);
+                return Ok(team);
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region New
+
+        /// <summary>
+        /// Gets e new team to edit.
+        /// </summary>
+        /// <returns>The new team.</returns>
+        [HttpGet("new")]
+        [ProducesResponseType(typeof(SimpleTeamDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTeam()
+        {
+            try
+            {
+                SimpleTeam team = await SimpleTeam.Create();
+                return Ok(team.ToDto<SimpleTeamDto>());
             }
             catch (Exception ex)
             {
@@ -93,20 +116,20 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Read
 
         /// <summary>
-        /// Gets the specified root to edit.
+        /// Gets the specified team to edit.
         /// </summary>
-        /// <param name="criteria">The criteria of the root.</param>
-        /// <returns>The requested root.</returns>
+        /// <param name="criteria">The criteria of the team.</param>
+        /// <returns>The requested team.</returns>
         [HttpGet("fetch")]
-        [ProducesResponseType(typeof(SimpleRootDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetRoot(
-            [FromQuery] SimpleRootCriteria criteria
+        [ProducesResponseType(typeof(SimpleTeamDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTeam(
+            [FromQuery] SimpleTeamCriteria criteria
             )
         {
             try
             {
-                SimpleRoot root = await SimpleRoot.Get(criteria);
-                return Ok(root.ToDto<SimpleRootDto>());
+                SimpleTeam team = await SimpleTeam.Get(criteria);
+                return Ok(team.ToDto<SimpleTeamDto>());
             }
             catch (Exception ex)
             {
@@ -119,24 +142,24 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Create
 
         /// <summary>
-        /// Creates a new root.
+        /// Creates a new team.
         /// </summary>
-        /// <param name="dto">The data transer object of the root.</param>
-        /// <returns>The created root.</returns>
+        /// <param name="dto">The data transer object of the team.</param>
+        /// <returns>The created team.</returns>
         [HttpPost("")]
-        [ProducesResponseType(typeof(SimpleRootDto), StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateRoot(
-            [FromBody] SimpleRootDto dto
+        [ProducesResponseType(typeof(SimpleTeamDto), StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateTeam(
+            [FromBody] SimpleTeamDto dto
             )
         {
             try
             {
-                SimpleRoot root = await SimpleRoot.FromDto(dto);
-                if (root.IsValid)
+                SimpleTeam team = await SimpleTeam.FromDto(dto);
+                if (team.IsValid)
                 {
-                    root = await root.SaveAsync();
+                    team = await team.SaveAsync();
                 }
-                return Created(Request.Path, root.ToDto<SimpleRootDto>());
+                return Created(Request.Path, team.ToDto<SimpleTeamDto>());
             }
             catch (Exception ex)
             {
@@ -149,24 +172,24 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Update
 
         /// <summary>
-        /// Updates the specified root.
+        /// Updates the specified team.
         /// </summary>
-        /// <param name="dto">The data transer object of the root.</param>
-        /// <returns>The updated root.</returns>
+        /// <param name="dto">The data transer object of the team.</param>
+        /// <returns>The updated team.</returns>
         [HttpPut("")]
-        [ProducesResponseType(typeof(SimpleRootDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateRoot(
-            [FromBody] SimpleRootDto dto
+        [ProducesResponseType(typeof(SimpleTeamDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateTeam(
+            [FromBody] SimpleTeamDto dto
             )
         {
             try
             {
-                SimpleRoot root = await SimpleRoot.FromDto(dto);
-                if (root.IsSavable)
+                SimpleTeam team = await SimpleTeam.FromDto(dto);
+                if (team.IsSavable)
                 {
-                    root = await root.SaveAsync();
+                    team = await team.SaveAsync();
                 }
-                return Ok(root.ToDto<SimpleRootDto>());
+                return Ok(team.ToDto<SimpleTeamDto>());
             }
             catch (Exception ex)
             {
@@ -179,18 +202,18 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Delete
 
         /// <summary>
-        /// Deletes the specified root.
+        /// Deletes the specified team.
         /// </summary>
-        /// <param name="criteria">The criteria of the root.</param>
+        /// <param name="criteria">The criteria of the team.</param>
         [HttpDelete("")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteRoot(
-            [FromQuery] SimpleRootCriteria criteria
+        public async Task<IActionResult> DeleteTeam(
+            [FromQuery] SimpleTeamCriteria criteria
             )
         {
             try
             {
-                await Task.Run(() => SimpleRoot.Delete(criteria));
+                await Task.Run(() => SimpleTeam.Delete(criteria));
                 return NoContent();
             }
             catch (Exception ex)
@@ -204,19 +227,19 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Rename
 
         /// <summary>
-        /// Renames the specified root.
+        /// Renames the specified team.
         /// </summary>
-        /// <param name="dto">The data transer object of the rename root command.</param>
-        /// <returns>True when the root was renamed; otherwise false.</returns>
+        /// <param name="dto">The data transer object of the rename team command.</param>
+        /// <returns>True when the team was renamed; otherwise false.</returns>
         [HttpPatch("")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        public async Task<IActionResult> RenameRootCommand(
-            [FromBody] RenameRootDto dto
+        public async Task<IActionResult> RenameTeamCommand(
+            [FromBody] RenameTeamDto dto
             )
         {
             try
             {
-                bool result = await RenameRoot.Execute(dto);
+                bool result = await RenameTeam.Execute(dto);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -230,20 +253,20 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Read-Set
 
         /// <summary>
-        /// Gets the specified root set.
+        /// Gets the specified team set.
         /// </summary>
-        /// <param name="criteria">The criteria of the root set.</param>
-        /// <returns>The requested root set.</returns>
+        /// <param name="criteria">The criteria of the team set.</param>
+        /// <returns>The requested team set.</returns>
         [HttpGet("set")]
-        [ProducesResponseType(typeof(List<SimpleRootSetItemDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetRootSet(
-            [FromQuery] SimpleRootSetCriteria criteria
+        [ProducesResponseType(typeof(List<SimpleTeamSetItemDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTeamSet(
+            [FromQuery] SimpleTeamSetCriteria criteria
             )
         {
             try
             {
-                SimpleRootSet set = await SimpleRootSet.Get(criteria);
-                return Ok(set.ToDto<SimpleRootSetItemDto>());
+                SimpleTeamSet set = await SimpleTeamSet.Get(criteria);
+                return Ok(set.ToDto<SimpleTeamSetItemDto>());
             }
             catch (Exception ex)
             {
@@ -256,26 +279,26 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Update-Set
 
         /// <summary>
-        /// Updates the specified root set.
+        /// Updates the specified team set.
         /// </summary>
-        /// <param name="criteria">The criteria of the root set.</param>
-        /// <param name="dto">The data transer objects of the root set.</param>
-        /// <returns>The updated root set.</returns>
+        /// <param name="criteria">The criteria of the team set.</param>
+        /// <param name="dto">The data transer objects of the team set.</param>
+        /// <returns>The updated team set.</returns>
         [HttpPut("set")]
-        [ProducesResponseType(typeof(List<SimpleRootSetItemDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateRootSet(
-            [FromQuery] SimpleRootSetCriteria criteria,
-            [FromBody] List<SimpleRootSetItemDto> dto
+        [ProducesResponseType(typeof(List<SimpleTeamSetItemDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateTeamSet(
+            [FromQuery] SimpleTeamSetCriteria criteria,
+            [FromBody] List<SimpleTeamSetItemDto> dto
             )
         {
             try
             {
-                SimpleRootSet root = await SimpleRootSet.FromDto(criteria, dto);
-                if (root.IsSavable)
+                SimpleTeamSet team = await SimpleTeamSet.FromDto(criteria, dto);
+                if (team.IsSavable)
                 {
-                    root = await root.SaveAsync();
+                    team = await team.SaveAsync();
                 }
-                return Ok(root.ToDto<SimpleRootSetItemDto>());
+                return Ok(team.ToDto<SimpleTeamSetItemDto>());
             }
             catch (Exception ex)
             {
