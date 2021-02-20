@@ -4,6 +4,7 @@ using CslaModelTemplates.Contracts.SimpleSet;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.MySql.Entities;
 using CslaModelTemplates.Resources;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CslaModelTemplates.Dal.MySql.SimpleSet
@@ -98,6 +99,7 @@ namespace CslaModelTemplates.Dal.MySql.SimpleSet
                     throw new UpdateFailedException(DalText.SimpleTeamSetItem_UpdateFailed.With(team.TeamCode));
 
                 // Return new data.
+                dao.Timestamp = team.Timestamp;
             }
         }
         #endregion Update
@@ -129,6 +131,13 @@ namespace CslaModelTemplates.Dal.MySql.SimpleSet
                 //dependents = ctx.DbContext.Others.Count(e => e.TeamKey == criteria.TeamKey);
                 //if (dependents > 0)
                 //    throw new DeleteFailedException(DalText.SimpleTeamSetItem_Delete_Others);
+
+                List<Player> players = ctx.DbContext.Players
+                    .Where(e => e.TeamKey == criteria.TeamKey)
+                    .ToList();
+                foreach (Player player in players)
+                    ctx.DbContext.Players.Remove(player);
+                ctx.DbContext.SaveChanges();
 
                 // Delete the team.
                 ctx.DbContext.Teams.Remove(team);

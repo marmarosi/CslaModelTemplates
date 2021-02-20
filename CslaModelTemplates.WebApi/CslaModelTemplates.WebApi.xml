@@ -9,6 +9,11 @@
             Serves as the base class for the API controllers.
             </summary>
         </member>
+        <member name="P:CslaModelTemplates.WebApi.ApiController.Uri">
+            <summary>
+            Gets the path of the request.
+            </summary>
+        </member>
         <member name="M:CslaModelTemplates.WebApi.ApiController.#ctor(Microsoft.Extensions.Logging.ILogger)">
             <summary>
             Creates a new instance of the controller.
@@ -113,14 +118,14 @@
             </summary>
             <param name="logger">The application logging service.</param>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithKeyAsync(CslaModelTemplates.Contracts.SelectionWithKey.TeamKeyChoiceCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTeamChoiceWithKey(CslaModelTemplates.Contracts.SelectionWithKey.TeamKeyChoiceCriteria)">
             <summary>
             Gets the key-name choice of the teams.
             </summary>
             <param name="criteria">The criteria of the team choice.</param>
             <returns>The key-name choice of the tenants.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTenantChoiceWithCodeAsync(CslaModelTemplates.Contracts.SelectionWithCode.TeamCodeChoiceCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTeamChoiceWithCode(CslaModelTemplates.Contracts.SelectionWithCode.TeamCodeChoiceCriteria)">
             <summary>
             Gets the code-name choice of the teams.
             </summary>
@@ -152,7 +157,7 @@
             <param name="criteria">The criteria of the team view.</param>
             <returns>The requested team view.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetTeam">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetNewTeam">
             <summary>
             Gets e new team to edit.
             </summary>

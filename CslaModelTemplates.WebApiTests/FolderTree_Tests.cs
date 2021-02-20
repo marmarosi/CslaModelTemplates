@@ -1,13 +1,7 @@
 using CslaModelTemplates.Contracts.Tree;
-using CslaModelTemplates.Dal;
 using CslaModelTemplates.Models.Tree;
 using CslaModelTemplates.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-using System;
-using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -19,7 +13,8 @@ namespace CslaModelTemplates.WebApiTests
         public async Task GetFolderTree_ReturnsATree()
         {
             // Arrange
-            var logger = Setup();
+            SetupService setup = SetupService.GetInstance();
+            var logger = setup.GetLogger<TreeController>();
             var sut = new TreeController(logger);
 
             // Act
@@ -33,36 +28,28 @@ namespace CslaModelTemplates.WebApiTests
             FolderTree tree = okObjectResult.Value as FolderTree;
             Assert.NotNull(tree);
 
+            // The tree must have one root node.
             Assert.Single(tree);
+
+            // Level 1 - root node
+            FolderNode nodeLevel1 = tree[0];
+            Assert.Equal(1, nodeLevel1.Level);
+            Assert.True(nodeLevel1.Children.Count > 0);
+
+            // Level 2
+            FolderNode nodeLevel2 = nodeLevel1.Children[0];
+            Assert.Equal(2, nodeLevel2.Level);
+            Assert.True(nodeLevel2.Children.Count > 0);
+
+            // Level 3
+            FolderNode nodeLevel3 = nodeLevel2.Children[0];
+            Assert.Equal(3, nodeLevel3.Level);
+            Assert.True(nodeLevel3.Children.Count > 0);
+
+            // Level 4
+            FolderNode nodeLevel4 = nodeLevel3.Children[0];
+            Assert.Equal(4, nodeLevel4.Level);
+            Assert.Empty(nodeLevel4.Children);
         }
-
-        #region Setup
-
-        private ILogger<TreeController> Setup()
-        {
-            var configuration = GetConfig();
-
-            // Configure strongly typed settings object.
-            var dalSettingsSection = configuration.GetSection("DalSettings");
-            DalSettings dalSettings = dalSettingsSection.Get<DalSettings>();
-
-            // Create configured DAL manager types.
-            DalFactory.Configure(dalSettings);
-
-            // Create logger.
-            return new NullLogger<TreeController>();
-        }
-
-        private IConfiguration GetConfig()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true) // use appsettings.json in current folder
-                .AddEnvironmentVariables();
-
-            return builder.Build();
-        }
-
-        #endregion
     }
 }

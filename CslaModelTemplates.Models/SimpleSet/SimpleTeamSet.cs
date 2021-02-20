@@ -68,11 +68,12 @@ namespace CslaModelTemplates.Models.SimpleSet
         {
             SimpleTeamSet set = await DataPortal.FetchAsync<SimpleTeamSet>(criteria);
 
-            foreach (SimpleTeamSetItem item in set.Items)
+            for (int i = set.Items.Count - 1; i > -1; i--)
             {
+                SimpleTeamSetItem item = set[i];
                 SimpleTeamSetItemDto dto = list.Find(o => o.TeamKey == item.TeamKey);
                 if (dto == null)
-                    item.Delete();
+                    set.Remove(item);
                 else
                 {
                     item.Update(dto);

@@ -33,7 +33,7 @@ namespace CslaModelTemplates.Dal.MySql
                     int serialNumber = i + 1;
                     Team team = new Team
                     {
-                        TeamCode = $"R-{serialNumber.ToString("0000")}",
+                        TeamCode = $"T-{serialNumber.ToString("0000")}",
                         TeamName = $"Team entry number {serialNumber}",
                     };
                     ctx.Teams.Add(team);
@@ -46,7 +46,7 @@ namespace CslaModelTemplates.Dal.MySql
                         ctx.Players.Add(new Player
                         {
                             TeamKey = team.TeamKey,
-                            PlayerCode = $"I-{serialNumber.ToString("0000")}-{index}",
+                            PlayerCode = $"P-{serialNumber.ToString("0000")}-{index}",
                             PlayerName = $"Item entry number {serialNumber}.{index}",
                         });
                     }

@@ -135,6 +135,18 @@
   <data name="RenameTeam_TeamName_Required" xml:space="preserve">
     <value>The new team name is required.</value>
   </data>
+  <data name="SimpleTeamSetItem_TeamCode_MaxLength" xml:space="preserve">
+    <value>The team code cannot exceed {1} characters.</value>
+  </data>
+  <data name="SimpleTeamSetItem_TeamCode_Required" xml:space="preserve">
+    <value>The team code is required.</value>
+  </data>
+  <data name="SimpleTeamSetItem_TeamName_MaxLength" xml:space="preserve">
+    <value>The team name cannot exceed {1} characters.</value>
+  </data>
+  <data name="SimpleTeamSetItem_TeamName_Required" xml:space="preserve">
+    <value>The team name is required.</value>
+  </data>
   <data name="SimpleTeam_TeamCode_MaxLength" xml:space="preserve">
     <value>The team code cannot exceed {1} characters.</value>
   </data>

@@ -98,7 +98,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The new team.</returns>
         [HttpGet("new")]
         [ProducesResponseType(typeof(SimpleTeamDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetTeam()
+        public async Task<IActionResult> GetNewTeam()
         {
             try
             {
@@ -159,7 +159,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                 {
                     team = await team.SaveAsync();
                 }
-                return Created(Request.Path, team.ToDto<SimpleTeamDto>());
+                return Created(Uri, team.ToDto<SimpleTeamDto>());
             }
             catch (Exception ex)
             {

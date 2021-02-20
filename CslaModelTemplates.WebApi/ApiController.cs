@@ -1,4 +1,4 @@
-﻿using CslaModelTemplates.Common;
+using CslaModelTemplates.Common;
 using CslaModelTemplates.Common.Validations;
 using CslaModelTemplates.Dal;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +15,17 @@ namespace CslaModelTemplates.WebApi
     public class ApiController : ControllerBase
     {
         internal ILogger Logger { get; set; }
+
+        /// <summary>
+        /// Gets the path of the request.
+        /// </summary>
+        protected string Uri
+        {
+            get
+            {
+                return Request == null ? "" : Request.Path;
+            }
+        }
 
         /// <summary>
         /// Creates a new instance of the controller.
