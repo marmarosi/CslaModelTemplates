@@ -4,6 +4,7 @@ using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.MySql.Entities;
 using CslaModelTemplates.Resources;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace CslaModelTemplates.Dal.MySql.Simple
@@ -31,6 +32,7 @@ namespace CslaModelTemplates.Dal.MySql.Simple
                     .Where(e =>
                         e.TeamKey == criteria.TeamKey
                      )
+                    .AsNoTracking()
                     .FirstOrDefault();
                 if (team == null)
                     throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
@@ -152,6 +154,7 @@ namespace CslaModelTemplates.Dal.MySql.Simple
                     .Where(e =>
                         e.TeamKey == criteria.TeamKey
                      )
+                    .AsNoTracking()
                     .FirstOrDefault();
 
                 if (team == null)

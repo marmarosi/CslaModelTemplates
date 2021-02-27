@@ -11,6 +11,9 @@ namespace CslaModelTemplates.Contracts.ComplexCommand
     {
         public string TeamName { get; set; }
 
+        public CountTeamsCriteria()
+        { }
+
         public CountTeamsCriteria(
             string teamName
             )

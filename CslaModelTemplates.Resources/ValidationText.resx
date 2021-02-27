@@ -159,6 +159,18 @@
   <data name="SimpleTeam_TeamName_Required" xml:space="preserve">
     <value>The team name is required.</value>
   </data>
+  <data name="TeamSetItem_TeamCode_MaxLength" xml:space="preserve">
+    <value>The team code cannot exceed {1} characters.</value>
+  </data>
+  <data name="TeamSetItem_TeamCode_Required" xml:space="preserve">
+    <value>The team code is required.</value>
+  </data>
+  <data name="TeamSetItem_TeamName_MaxLength" xml:space="preserve">
+    <value>The team name cannot exceed {1} characters.</value>
+  </data>
+  <data name="TeamSetItem_TeamName_Required" xml:space="preserve">
+    <value>The team name is required.</value>
+  </data>
   <data name="Team_TeamCode_MaxLength" xml:space="preserve">
     <value>The team code cannot exceed {1} characters.</value>
   </data>

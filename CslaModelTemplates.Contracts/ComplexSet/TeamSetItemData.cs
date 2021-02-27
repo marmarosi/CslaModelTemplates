@@ -20,6 +20,11 @@ namespace CslaModelTemplates.Contracts.ComplexSet
     public class TeamSetItemDao : TeamSetItemData
     {
         public List<TeamSetPlayerDao> Players { get; set; }
+
+        public TeamSetItemDao()
+        {
+            Players = new List<TeamSetPlayerDao>();
+        }
     }
 
     /// <summary>
@@ -28,6 +33,11 @@ namespace CslaModelTemplates.Contracts.ComplexSet
     public class TeamSetItemDto : TeamSetItemData
     {
         public List<TeamSetPlayerDto> Players { get; set; }
+
+        public TeamSetItemDto()
+        {
+            Players = new List<TeamSetPlayerDto>();
+        }
 
         public TeamSetItemDao ToDao()
         {

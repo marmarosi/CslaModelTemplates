@@ -159,7 +159,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                 {
                     team = await team.SaveAsync();
                 }
-                return Created(Request.Path, team.ToDto<TeamDto>());
+                return Created(Uri, team.ToDto<TeamDto>());
             }
             catch (Exception ex)
             {

@@ -145,11 +145,12 @@ namespace CslaModelTemplates.Models.ComplexSet
 
         #region Data Access
 
-        //protected override void Child_Create()
-        //{
-        //    // TODO: load default values
-        //    // omit this override if you have no defaults to set
-        //}
+        protected override void Child_Create()
+        {
+            // TODO: load default values
+            // omit this override if you have no defaults to set
+            Players = TeamSetPlayers.Create();
+        }
 
         private void Child_Fetch(
             TeamSetItemDao dao

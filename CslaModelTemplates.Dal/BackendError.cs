@@ -7,7 +7,7 @@ namespace CslaModelTemplates.Dal
     /// Represents an error occurred on the backend.
     /// </summary>
     [Serializable]
-    public class BackendError
+    public class BackendError : Exception
     {
         #region Properties
 
@@ -19,7 +19,7 @@ namespace CslaModelTemplates.Dal
         /// <summary>
         /// Gets or sets the error message.
         /// </summary>
-        public string Message { get; set; }
+        public new string Message { get; set; }
 
         /// <summary>
         /// Gets or sets the summary of error messages.
@@ -29,12 +29,12 @@ namespace CslaModelTemplates.Dal
         /// <summary>
         /// Gets or sets the source of error messages.
         /// </summary>
-        public string Source { get; set; }
+        public new string Source { get; set; }
 
         /// <summary>
         /// Gets or sets the summary of error messages.
         /// </summary>
-        public string StackTrace { get; set; }
+        public new string StackTrace { get; set; }
 
         #endregion
 

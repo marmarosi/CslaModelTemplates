@@ -77,24 +77,27 @@ namespace CslaModelTemplates.WebApiTests
             List<SimpleTeamSetItemDto> updatedList = okObjectResult.Value as List<SimpleTeamSetItemDto>;
             Assert.NotNull(updatedList);
 
-            // The updated model must have new values.
+            // The updated team must have new values.
             SimpleTeamSetItemDto updated = updatedList[0];
 
             Assert.Equal(pristine.TeamKey, updated.TeamKey);
-            Assert.Equal("T-9101", updated.TeamCode);
-            Assert.Equal("Test team number 9101", updated.TeamName);
+            Assert.Equal(pristine.TeamCode, updated.TeamCode);
+            Assert.Equal(pristine.TeamName, updated.TeamName);
             Assert.NotEqual(pristine.Timestamp, updated.Timestamp);
 
-            // The created model must have new values.
-            SimpleTeamSetItemDto created = updatedList.FirstOrDefault(o => o.TeamCode == "T-9102");
-
+            // The created team must have new values.
+            SimpleTeamSetItemDto created = updatedList
+                .FirstOrDefault(o => o.TeamCode == pristineNew.TeamCode);
             Assert.NotNull(created);
+
             Assert.NotNull(created.TeamKey);
-            Assert.Equal("Test team number 9102", created.TeamName);
+            Assert.Equal(pristineNew.TeamCode, created.TeamCode);
+            Assert.Equal(pristineNew.TeamName, created.TeamName);
             Assert.NotNull(created.Timestamp);
 
-            // The deleted model must have gone.
-            SimpleTeamSetItemDto deleted = updatedList.FirstOrDefault(o => o.TeamKey == deletedKey);
+            // The deleted team must have gone.
+            SimpleTeamSetItemDto deleted = updatedList
+                .FirstOrDefault(o => o.TeamKey == deletedKey);
             Assert.Null(deleted);
         }
     }

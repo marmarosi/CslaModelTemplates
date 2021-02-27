@@ -221,5 +221,41 @@ namespace CslaModelTemplates.Resources {
                 return ResourceManager.GetString("Team_TeamName_Required", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The team code cannot exceed {1} characters..
+        /// </summary>
+        public static string TeamSetItem_TeamCode_MaxLength {
+            get {
+                return ResourceManager.GetString("TeamSetItem_TeamCode_MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The team code is required..
+        /// </summary>
+        public static string TeamSetItem_TeamCode_Required {
+            get {
+                return ResourceManager.GetString("TeamSetItem_TeamCode_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The team name cannot exceed {1} characters..
+        /// </summary>
+        public static string TeamSetItem_TeamName_MaxLength {
+            get {
+                return ResourceManager.GetString("TeamSetItem_TeamName_MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The team name is required..
+        /// </summary>
+        public static string TeamSetItem_TeamName_Required {
+            get {
+                return ResourceManager.GetString("TeamSetItem_TeamName_Required", resourceCulture);
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ using CslaModelTemplates.Contracts.ComplexSet;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.MySql.Entities;
 using CslaModelTemplates.Resources;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -122,6 +123,7 @@ namespace CslaModelTemplates.Dal.MySql.ComplexSet
                     .Where(e =>
                         e.TeamKey == criteria.TeamKey
                      )
+                    .AsNoTracking()
                     .FirstOrDefault();
                 if (team == null)
                     throw new DataNotFoundException(DalText.TeamSetItem_NotFound.With(team.TeamCode));

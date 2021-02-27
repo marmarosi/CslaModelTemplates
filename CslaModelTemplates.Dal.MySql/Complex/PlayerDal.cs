@@ -4,6 +4,7 @@ using CslaModelTemplates.Contracts.Complex;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.MySql.Entities;
 using CslaModelTemplates.Resources;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace CslaModelTemplates.Dal.MySql.Complex
@@ -119,6 +120,7 @@ namespace CslaModelTemplates.Dal.MySql.Complex
                     .Where(e =>
                         e.PlayerKey == criteria.PlayerKey
                      )
+                    .AsNoTracking()
                     .FirstOrDefault();
                 if (player == null)
                     throw new DataNotFoundException(DalText.Player_NotFound);

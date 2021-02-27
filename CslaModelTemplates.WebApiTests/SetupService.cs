@@ -2,13 +2,17 @@ using CslaModelTemplates.Dal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using System;
 using System.IO;
+using Xunit;
 
+[assembly: CollectionBehavior(MaxParallelThreads = 1)]
 namespace CslaModelTemplates.WebApiTests
 {
     internal class SetupService
     {
         private static readonly SetupService _setupServiceInstance = new SetupService();
+        private static Random _random = new Random(DateTime.Now.Millisecond);
 
         private SetupService()
         {

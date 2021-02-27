@@ -4,6 +4,7 @@ using CslaModelTemplates.Contracts.SimpleSet;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.MySql.Entities;
 using CslaModelTemplates.Resources;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -121,6 +122,7 @@ namespace CslaModelTemplates.Dal.MySql.SimpleSet
                     .Where(e =>
                         e.TeamKey == criteria.TeamKey
                      )
+                    .AsNoTracking()
                     .FirstOrDefault();
                 if (team == null)
                     throw new DataNotFoundException(DalText.SimpleTeamSetItem_NotFound.With(team.TeamCode));

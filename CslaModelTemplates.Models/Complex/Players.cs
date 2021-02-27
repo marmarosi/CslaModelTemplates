@@ -5,6 +5,7 @@ using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.Complex;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.Complex
@@ -48,7 +49,8 @@ namespace CslaModelTemplates.Models.Complex
             List<PlayerDto> list
             )
         {
-            for (int i = Items.Count-1; i > -1; i--)
+            List<int> indeces = Enumerable.Range(0, list.Count).ToList();
+            for (int i = Items.Count - 1; i > -1; i--)
             {
                 Player item = Items[i];
                 PlayerDto dto = list.Find(o => o.PlayerKey == item.PlayerKey);
@@ -57,11 +59,11 @@ namespace CslaModelTemplates.Models.Complex
                 else
                 {
                     item.Update(dto);
-                    list.Remove(dto);
+                    indeces.Remove(list.IndexOf(dto));
                 }
             }
-            foreach (PlayerDto dto in list)
-                Items.Add(await Player.Create(dto));
+            foreach (int index in indeces)
+                Items.Add(await Player.Create(list[index]));
         }
 
         #endregion

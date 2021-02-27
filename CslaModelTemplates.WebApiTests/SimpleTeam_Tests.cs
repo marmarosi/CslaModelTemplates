@@ -29,7 +29,7 @@ namespace CslaModelTemplates.WebApiTests
             SimpleTeamDto team = okObjectResult.Value as SimpleTeamDto;
             Assert.NotNull(team);
 
-            // The code and name must end with 22.
+            // The code and name must miss.
             Assert.Empty(team.TeamCode);
             Assert.Empty(team.TeamName);
             Assert.Null(team.Timestamp);
@@ -49,17 +49,18 @@ namespace CslaModelTemplates.WebApiTests
 
             // Act
             IActionResult actionResult;
-            SimpleTeamDto team;
+            SimpleTeamDto pristineTeam;
+
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                team = new SimpleTeamDto
+                pristineTeam = new SimpleTeamDto
                 {
                     TeamKey = null,
                     TeamCode = "T-9001",
                     TeamName = "Test team number 9001",
                     Timestamp = null
                 };
-                actionResult = await sut.CreateTeam(team);
+                actionResult = await sut.CreateTeam(pristineTeam);
 
                 scope.Dispose();
             }
@@ -68,14 +69,14 @@ namespace CslaModelTemplates.WebApiTests
             CreatedResult createdResult = actionResult as CreatedResult;
             Assert.NotNull(createdResult);
 
-            team = createdResult.Value as SimpleTeamDto;
-            Assert.NotNull(team);
+            SimpleTeamDto createdTeam = createdResult.Value as SimpleTeamDto;
+            Assert.NotNull(createdTeam);
 
             // The model must have new values.
-            Assert.NotNull(team.Timestamp);
-            Assert.Equal("T-9001", team.TeamCode);
-            Assert.Equal("Test team number 9001", team.TeamName);
-            Assert.NotNull(team.Timestamp);
+            Assert.NotNull(createdTeam.TeamKey);
+            Assert.Equal(pristineTeam.TeamCode, createdTeam.TeamCode);
+            Assert.Equal(pristineTeam.TeamName, createdTeam.TeamName);
+            Assert.NotNull(createdTeam.Timestamp);
         }
 
         #endregion
@@ -108,7 +109,7 @@ namespace CslaModelTemplates.WebApiTests
             // The code and name must end with 22.
             Assert.Equal(22, pristine.TeamKey);
             Assert.Equal("T-0022", pristine.TeamCode);
-            Assert.EndsWith("2", pristine.TeamName);
+            Assert.EndsWith("22", pristine.TeamName);
             Assert.NotNull(pristine.Timestamp);
 
             // --- UPDATE
@@ -125,14 +126,14 @@ namespace CslaModelTemplates.WebApiTests
             okObjectResult = actionResult as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
-            SimpleTeamDto team = okObjectResult.Value as SimpleTeamDto;
-            Assert.NotNull(team);
+            SimpleTeamDto updated = okObjectResult.Value as SimpleTeamDto;
+            Assert.NotNull(updated);
 
-            // The model must have new values.
-            Assert.Equal(pristine.TeamKey, team.TeamKey);
-            Assert.Equal("T-9002", team.TeamCode);
-            Assert.Equal("Test team number 9002", team.TeamName);
-            Assert.NotEqual(pristine.Timestamp, team.Timestamp);
+            // The team must have new values.
+            Assert.Equal(pristine.TeamKey, updated.TeamKey);
+            Assert.Equal(pristine.TeamCode, updated.TeamCode);
+            Assert.Equal(pristine.TeamName, updated.TeamName);
+            Assert.NotEqual(pristine.Timestamp, updated.Timestamp);
         }
 
         #endregion

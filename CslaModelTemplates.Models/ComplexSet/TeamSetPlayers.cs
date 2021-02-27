@@ -5,6 +5,7 @@ using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.ComplexSet;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.ComplexSet
@@ -48,7 +49,8 @@ namespace CslaModelTemplates.Models.ComplexSet
             List<TeamSetPlayerDto> list
             )
         {
-            for (int i = Items.Count-1; i >= 0; i--)
+            List<int> indeces = Enumerable.Range(0, list.Count).ToList();
+            for (int i = Items.Count - 1; i > -1; i--)
             {
                 TeamSetPlayer item = Items[i];
                 TeamSetPlayerDto dto = list.Find(o => o.PlayerKey == item.PlayerKey);
@@ -57,11 +59,11 @@ namespace CslaModelTemplates.Models.ComplexSet
                 else
                 {
                     item.Update(dto);
-                    list.Remove(dto);
+                    indeces.Remove(list.IndexOf(dto));
                 }
             }
-            foreach (TeamSetPlayerDto dto in list)
-                Items.Add(await TeamSetPlayer.Create(dto));
+            foreach (int index in indeces)
+                Items.Add(await TeamSetPlayer.Create(list[index]));
         }
 
         #endregion

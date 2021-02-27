@@ -6,6 +6,7 @@ using CslaModelTemplates.Contracts.ComplexSet;
 using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.ComplexSet
@@ -68,19 +69,21 @@ namespace CslaModelTemplates.Models.ComplexSet
         {
             TeamSet set = await DataPortal.FetchAsync<TeamSet>(criteria);
 
-            foreach (TeamSetItem item in set.Items)
+            List<int> indeces = Enumerable.Range(0, list.Count).ToList();
+            for (int i = set.Items.Count - 1; i > -1; i--)
             {
+                TeamSetItem item = set.Items[i];
                 TeamSetItemDto dto = list.Find(o => o.TeamKey == item.TeamKey);
                 if (dto == null)
-                    item.Delete();
+                    set.Remove(item);
                 else
                 {
                     await item.Update(dto);
-                    list.Remove(dto);
+                    indeces.Remove(list.IndexOf(dto));
                 }
             }
-            foreach (TeamSetItemDto dto in list)
-                set.Add(await TeamSetItem.Create(dto));
+            foreach (int index in indeces)
+                set.Add(await TeamSetItem.Create(list[index]));
 
             return set;
         }
