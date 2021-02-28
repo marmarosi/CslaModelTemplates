@@ -1,28 +1,29 @@
-using CslaModelTemplates.Dal.MySql.Entities;
+using CslaModelTemplates.Dal.SqlServer.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
 
-namespace CslaModelTemplates.Dal.MySql
+namespace CslaModelTemplates.Dal.SqlServer
 {
     /// <summary>
     /// Represents a session with the database.
     /// </summary>
-    public class MySqlContext : DbContextBase
+    public class SqlServerContext : DbContextBase
     {
         #region Constructors
 
         /// <summary>
         /// Creates a new instance of the class.
         /// </summary>
-        public MySqlContext() : base()
+        public SqlServerContext() : base()
         {
-            ConnectionString = DalFactory.GetConnectionString(DAL.MySQL);
+            ConnectionString = DalFactory.GetConnectionString(DAL.SQLServer);
         }
 
         /// <summary>
         /// Creates a new instance of the class.
         /// </summary>
         /// <param name="dalName">The name of the data access layer.</param>
-        public MySqlContext(
+        public SqlServerContext(
             string dalName
             ) : base(dalName)
         { }
@@ -37,7 +38,7 @@ namespace CslaModelTemplates.Dal.MySql
             DbContextOptionsBuilder optionsBuilder
             )
         {
-            optionsBuilder.UseMySQL(ConnectionString);
+            optionsBuilder.UseSqlServer(ConnectionString);
         }
 
         #region Query results
@@ -61,6 +62,9 @@ namespace CslaModelTemplates.Dal.MySql
             modelBuilder.Entity<Team>()
                 .HasIndex(e => e.TeamCode)
                 .IsUnique();
+            modelBuilder.Entity<Team>()
+                .Property(e => e.Timestamp)
+                .HasDefaultValue(DateTime.Now);
 
             #endregion
 
@@ -76,6 +80,9 @@ namespace CslaModelTemplates.Dal.MySql
 
             modelBuilder.Entity<Folder>()
                 .HasIndex(e => new { e.ParentKey, e.FolderOrder });
+            modelBuilder.Entity<Folder>()
+                .Property(e => e.Timestamp)
+                .HasDefaultValue(DateTime.Now);
 
             #endregion
         }

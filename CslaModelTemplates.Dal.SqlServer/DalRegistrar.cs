@@ -2,10 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CslaModelTemplates.Dal.MySql
+namespace CslaModelTemplates.Dal.SqlServer
 {
     /// <summary>
-    /// Provides method to configure the data access layer context to use MySQL server.
+    /// Provides method to configure the data access layer context to use SQL Server.
     /// </summary>
     public class DalRegistrar : IDalRegistrar
     {
@@ -19,9 +19,9 @@ namespace CslaModelTemplates.Dal.MySql
             IServiceCollection services
             )
         {
-            services.AddDbContext<MySqlContext>(options =>
-                options.UseMySQL(
-                    configuration.GetConnectionString(DAL.MySQL)
+            services.AddDbContext<SqlServerContext>(options =>
+                options.UseSqlServer(
+                    configuration.GetConnectionString(DAL.SQLServer)
                     )
                 );
         }

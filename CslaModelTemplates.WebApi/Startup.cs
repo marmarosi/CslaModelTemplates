@@ -78,7 +78,7 @@ namespace CslaModelTemplates.WebApi
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                DalFactory.TestSeedForAll(Environment.ContentRootPath);
+                DalFactory.DevelopmentSeed(Environment.ContentRootPath);
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
@@ -91,7 +91,7 @@ namespace CslaModelTemplates.WebApi
             }
             else
             {
-                DalFactory.ProductionSeedForAll(Environment.ContentRootPath);
+                DalFactory.ProductionSeed(Environment.ContentRootPath);
             }
 
             app.UseHttpsRedirection();

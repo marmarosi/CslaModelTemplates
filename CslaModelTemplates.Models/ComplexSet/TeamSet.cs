@@ -1,6 +1,4 @@
 using Csla;
-using Csla.Rules;
-using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.ComplexSet;
 using CslaModelTemplates.Dal;
@@ -27,6 +25,36 @@ namespace CslaModelTemplates.Models.ComplexSet
         //        new IsInRole(AuthorizationActions.GetObject, "Manager")
         //        );
         //}
+
+        #endregion
+
+        #region Business Methods
+
+        /// <summary>
+        /// Rebuilds an editable team collection from the data transfer objects.
+        /// </summary>
+        /// <param name="list">The list of data transfer objects.</param>
+        /// <returns>The rebuilt editable team collection.</returns>
+        internal async Task Update(
+            List<TeamSetItemDto> list
+            )
+        {
+            List<int> indeces = Enumerable.Range(0, list.Count).ToList();
+            for (int i = Items.Count - 1; i > -1; i--)
+            {
+                TeamSetItem item = Items[i];
+                TeamSetItemDto dto = list.Find(o => o.TeamKey == item.TeamKey);
+                if (dto == null)
+                    RemoveItem(i);
+                else
+                {
+                    await item.Update(dto);
+                    indeces.Remove(list.IndexOf(dto));
+                }
+            }
+            foreach (int index in indeces)
+                Items.Add(await TeamSetItem.Create(list[index]));
+        }
 
         #endregion
 
@@ -68,23 +96,7 @@ namespace CslaModelTemplates.Models.ComplexSet
             )
         {
             TeamSet set = await DataPortal.FetchAsync<TeamSet>(criteria);
-
-            List<int> indeces = Enumerable.Range(0, list.Count).ToList();
-            for (int i = set.Items.Count - 1; i > -1; i--)
-            {
-                TeamSetItem item = set.Items[i];
-                TeamSetItemDto dto = list.Find(o => o.TeamKey == item.TeamKey);
-                if (dto == null)
-                    set.Remove(item);
-                else
-                {
-                    await item.Update(dto);
-                    indeces.Remove(list.IndexOf(dto));
-                }
-            }
-            foreach (int index in indeces)
-                set.Add(await TeamSetItem.Create(list[index]));
-
+            await set.Update(list);
             return set;
         }
 
