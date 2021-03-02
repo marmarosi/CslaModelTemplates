@@ -1,5 +1,4 @@
 using CslaModelTemplates.Contracts.SimpleView;
-using CslaModelTemplates.Models.SimpleView;
 using CslaModelTemplates.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -25,7 +24,7 @@ namespace CslaModelTemplates.WebApiTests
             OkObjectResult okObjectResult = actionResult as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
-            SimpleTeamView team = okObjectResult.Value as SimpleTeamView;
+            SimpleTeamViewDto team = okObjectResult.Value as SimpleTeamViewDto;
             Assert.NotNull(team);
 
             // The code and name must end with 31.

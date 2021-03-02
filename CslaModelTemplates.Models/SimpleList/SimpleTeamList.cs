@@ -1,6 +1,7 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
+using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.SimpleList;
 using CslaModelTemplates.Dal;
 using System;
@@ -13,7 +14,7 @@ namespace CslaModelTemplates.Models.SimpleList
     /// Represents a read-only team collection.
     /// </summary>
     [Serializable]
-    public class SimpleTeamList : ReadOnlyListBase<SimpleTeamList, SimpleTeamListItem>
+    public class SimpleTeamList : ReadOnlyList<SimpleTeamList, SimpleTeamListItem>
     {
         #region Business Rules
 

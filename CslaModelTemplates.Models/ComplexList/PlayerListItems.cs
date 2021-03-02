@@ -1,6 +1,7 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
+using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.ComplexList;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace CslaModelTemplates.Models.ComplexList
     /// Represents a read-only player collection.
     /// </summary>
     [Serializable]
-    public class PlayerListItems : ReadOnlyListBase<PlayerListItems, PlayerListItem>
+    public class PlayerListItems : ReadOnlyList<PlayerListItems, PlayerListItem>
     {
         #region Business Rules
 

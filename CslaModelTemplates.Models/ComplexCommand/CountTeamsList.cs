@@ -1,6 +1,7 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
+using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.ComplexCommand;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace CslaModelTemplates.Models.Command
     /// Represents a read-only count teams collection.
     /// </summary>
     [Serializable]
-    public class CountTeamsList : ReadOnlyListBase<CountTeamsList, CountTeamsListItem>
+    public class CountTeamsList : ReadOnlyList<CountTeamsList, CountTeamsListItem>
     {
         #region Business Rules
 

@@ -5,6 +5,7 @@ using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.SqlServer.Entities;
 using CslaModelTemplates.Resources;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace CslaModelTemplates.Dal.SqlServer.Simple

@@ -101,6 +101,7 @@ namespace CslaModelTemplates.Dal.SqlServer.Complex
                 // Return new data.
             }
         }
+
         #endregion Update
 
         #region Delete

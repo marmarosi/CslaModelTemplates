@@ -1,7 +1,8 @@
+using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.SelectionWithKey;
-using CslaModelTemplates.Models.SelectionWithKey;
 using CslaModelTemplates.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace CslaModelTemplates.WebApiTests
             OkObjectResult okObjectResult = actionResult as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
-            TeamKeyChoice choice = okObjectResult.Value as TeamKeyChoice;
+            List<KeyNameOptionDto> choice = okObjectResult.Value as List<KeyNameOptionDto>;
             Assert.NotNull(choice);
 
             // The choice must have 5 items.

@@ -103,6 +103,7 @@ namespace CslaModelTemplates.Dal.SqlServer.SimpleSet
                 dao.Timestamp = team.Timestamp;
             }
         }
+
         #endregion Update
 
         #region Delete

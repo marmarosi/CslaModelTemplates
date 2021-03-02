@@ -45,7 +45,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 FolderTree tree = await FolderTree.Get(criteria);
-                return Ok(tree);
+                return Ok(tree.ToDto<FolderNodeDto>());
             }
             catch (Exception ex)
             {

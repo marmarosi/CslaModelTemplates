@@ -14,7 +14,7 @@ namespace CslaModelTemplates.Models.SelectionWithKey
     /// Represents a read-only team choice collection.
     /// </summary>
     [Serializable]
-    public class TeamKeyChoice : ReadOnlyListBase<TeamKeyChoice, KeyNameOption>
+    public class TeamKeyChoice : ReadOnlyList<TeamKeyChoice, KeyNameOption>
     {
         #region Business Rules
 

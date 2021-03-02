@@ -1,4 +1,6 @@
+using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace CslaModelTemplates.Dal
@@ -6,7 +8,8 @@ namespace CslaModelTemplates.Dal
     /// <summary>
     /// Represents a data access manager base object.
     /// </summary>
-    public class DalManagerBase<C> : IDalManager, IDisposable, ISeeder where C: IDisposable
+    public class DalManagerBase<C> : IDalManager, IDisposable, ISeeder 
+        where C: IDisposable
     {
         private Type RegistrarType = null;
         protected string ProviderMask = null;
@@ -59,6 +62,11 @@ namespace CslaModelTemplates.Dal
         public IDalRegistrar GetDalRegistrar()
         {
             return Activator.CreateInstance(RegistrarType) as IDalRegistrar;
+        }
+
+        public IDisposable GetDbContextManager()
+        {
+            return ConnectionManager;
         }
 
         /// <summary>

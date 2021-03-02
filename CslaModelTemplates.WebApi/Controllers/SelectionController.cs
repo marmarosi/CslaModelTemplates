@@ -49,7 +49,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 KeyModel.TeamKeyChoice choice = await KeyModel.TeamKeyChoice.Get(criteria);
-                return Ok(choice);
+                return Ok(choice.ToDto<KeyNameOptionDto>());
             }
             catch (Exception ex)
             {
@@ -75,7 +75,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 CodeModel.TeamCodeChoice choice = await CodeModel.TeamCodeChoice.Get(criteria);
-                return Ok(choice);
+                return Ok(choice.ToDto<CodeNameOptionDto>());
             }
             catch (Exception ex)
             {

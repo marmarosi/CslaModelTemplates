@@ -15,7 +15,7 @@ namespace CslaModelTemplates.Dal
     {
         private static StringDictionary Connections = new StringDictionary();
         private static Dictionary<string, Type> DalTypes = new Dictionary<string, Type>();
-        private static string ActiveLayer;
+        public static string ActiveLayer;
 
         /// <summary>
         /// The name of the configuration section holding the DAL manager types.

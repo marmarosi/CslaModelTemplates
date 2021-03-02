@@ -1,7 +1,7 @@
 using CslaModelTemplates.Contracts.ComplexCommand;
-using CslaModelTemplates.Models.Command;
 using CslaModelTemplates.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Transactions;
 using Xunit;
@@ -32,25 +32,25 @@ namespace CslaModelTemplates.WebApiTests
             OkObjectResult okObjectResult = actionResult as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
-            CountTeamsList list = okObjectResult.Value as CountTeamsList;
+            List<CountTeamsListItemDto> list = okObjectResult.Value as List<CountTeamsListItemDto>;
             Assert.NotNull(list);
 
             // Count list must contain 4 items.
             Assert.Equal(4, list.Count);
 
-            CountTeamsListItem item1 = list[0];
+            CountTeamsListItemDto item1 = list[0];
             Assert.Equal(4, item1.ItemCount);
             Assert.True(item1.CountOfTeams > 0);
 
-            CountTeamsListItem item2 = list[1];
+            CountTeamsListItemDto item2 = list[1];
             Assert.Equal(3, item2.ItemCount);
             Assert.True(item2.CountOfTeams > 0);
 
-            CountTeamsListItem item3 = list[2];
+            CountTeamsListItemDto item3 = list[2];
             Assert.Equal(2, item3.ItemCount);
             Assert.True(item3.CountOfTeams > 0);
 
-            CountTeamsListItem item4 = list[3];
+            CountTeamsListItemDto item4 = list[3];
             Assert.Equal(1, item4.ItemCount);
             Assert.True(item4.CountOfTeams > 0);
         }

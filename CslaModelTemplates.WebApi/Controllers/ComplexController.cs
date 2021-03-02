@@ -54,7 +54,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 TeamList list = await TeamList.Get(criteria);
-                return Ok(list);
+                return Ok(list.ToDto<TeamListItemDto>());
             }
             catch (Exception ex)
             {
@@ -80,7 +80,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 TeamView team = await TeamView.Get(criteria);
-                return Ok(team);
+                return Ok(team.ToDto<TeamViewDto>());
             }
             catch (Exception ex)
             {
@@ -240,7 +240,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 CountTeamsList list = await CountTeams.Execute(criteria);
-                return Ok(list);
+                return Ok(list.ToDto<CountTeamsListItemDto>());
             }
             catch (Exception ex)
             {

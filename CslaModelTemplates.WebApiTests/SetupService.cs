@@ -1,5 +1,9 @@
+using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Dal;
+using CslaModelTemplates.Dal.MySql;
+using CslaModelTemplates.Dal.SqlServer;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
@@ -12,19 +16,26 @@ namespace CslaModelTemplates.WebApiTests
     internal class SetupService
     {
         private static readonly SetupService _setupServiceInstance = new SetupService();
-        private static Random _random = new Random(DateTime.Now.Millisecond);
+        private static readonly Random _random = new Random(DateTime.Now.Millisecond);
+
+        private readonly IServiceCollection _serviceCollection = new ServiceCollection();
+        private readonly IServiceProvider _serviceProvider;
 
         private SetupService()
         {
             // Get the configuration.
             IConfiguration configuration = GetConfig();
 
-            // Configure strongly typed settings object.
-            IConfigurationSection dalSettingsSection = configuration.GetSection(DalFactory.Section);
-            DalSettings dalSettings = dalSettingsSection.Get<DalSettings>();
+            // Initializes a new instance of ServiceProvider class.
+            _serviceProvider = _serviceCollection.BuildServiceProvider();
 
-            // Create configured DAL manager types.
-            DalFactory.Configure(dalSettings);
+            //// Configure strongly typed settings object.
+            //IConfigurationSection dalSettingsSection = configuration.GetSection(DalFactory.Section);
+            //DalSettings dalSettings = dalSettingsSection.Get<DalSettings>();
+
+            //// Create configured DAL manager types.
+            //DalFactory.Configure(dalSettings);
+            DalFactory.Configure(configuration, _serviceCollection);
         }
 
         public static SetupService GetInstance() => _setupServiceInstance;
@@ -43,6 +54,30 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Create logger.
             return new NullLogger<T>();
+        }
+
+        public IServiceScope GetScope()
+        {
+            return _serviceProvider.CreateScope();
+        }
+
+        public IDisposable UnitOfWork()
+        {
+            return UnitOfWork(DalFactory.ActiveLayer);
+        }
+
+        public IDisposable UnitOfWork(
+            string dalName
+            )
+        {
+            switch (dalName)
+            {
+                case DAL.MySQL:
+                    return DbContextManager<MySqlContext>.GetManager();
+                case DAL.SQLServer:
+                default:
+                    return DbContextManager<SqlServerContext>.GetManager();
+            }
         }
     }
 }

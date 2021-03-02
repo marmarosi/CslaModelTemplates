@@ -14,7 +14,7 @@ namespace CslaModelTemplates.Models.SelectionWithCode
     /// Represents a read-only team choice collection.
     /// </summary>
     [Serializable]
-    public class TeamCodeChoice : ReadOnlyListBase<TeamCodeChoice, CodeNameOption>
+    public class TeamCodeChoice : ReadOnlyList<TeamCodeChoice, CodeNameOption>
     {
         #region Business Rules
 

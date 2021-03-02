@@ -1,7 +1,7 @@
 using CslaModelTemplates.Contracts.SimpleList;
-using CslaModelTemplates.Models.SimpleList;
 using CslaModelTemplates.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -25,7 +25,7 @@ namespace CslaModelTemplates.WebApiTests
             OkObjectResult okObjectResult = actionResult as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
-            SimpleTeamList list = okObjectResult.Value as SimpleTeamList;
+            List<SimpleTeamListItemDto> list = okObjectResult.Value as List<SimpleTeamListItemDto>;
             Assert.NotNull(list);
 
             // The choice must have 5 items.

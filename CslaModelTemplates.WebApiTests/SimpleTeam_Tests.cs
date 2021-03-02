@@ -91,49 +91,52 @@ namespace CslaModelTemplates.WebApiTests
             var logger = setup.GetLogger<SimpleController>();
             var sut = new SimpleController(logger);
 
-            // --- READ
-            IActionResult actionResult;
-            OkObjectResult okObjectResult;
-
-            // Act
-            SimpleTeamCriteria criteria = new SimpleTeamCriteria { TeamKey = 22 };
-            actionResult = await sut.GetTeam(criteria);
-
-            // Assert
-            okObjectResult = actionResult as OkObjectResult;
-            Assert.NotNull(okObjectResult);
-
-            SimpleTeamDto pristine = okObjectResult.Value as SimpleTeamDto;
-            Assert.NotNull(pristine);
-
-            // The code and name must end with 22.
-            Assert.Equal(22, pristine.TeamKey);
-            Assert.Equal("T-0022", pristine.TeamCode);
-            Assert.EndsWith("22", pristine.TeamName);
-            Assert.NotNull(pristine.Timestamp);
-
-            // --- UPDATE
-            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            using (var uow = setup.UnitOfWork())
             {
-                pristine.TeamCode = "T-9002";
-                pristine.TeamName = "Test team number 9002";
-                actionResult = await sut.UpdateTeam(pristine);
+                // --- READ
+                IActionResult actionResult;
+                OkObjectResult okObjectResult;
 
-                scope.Dispose();
+                // Act
+                SimpleTeamCriteria criteria = new SimpleTeamCriteria { TeamKey = 22 };
+                actionResult = await sut.GetTeam(criteria);
+
+                // Assert
+                okObjectResult = actionResult as OkObjectResult;
+                Assert.NotNull(okObjectResult);
+
+                SimpleTeamDto pristine = okObjectResult.Value as SimpleTeamDto;
+                Assert.NotNull(pristine);
+
+                // The code and name must end with 22.
+                Assert.Equal(22, pristine.TeamKey);
+                Assert.Equal("T-0022", pristine.TeamCode);
+                Assert.EndsWith("22", pristine.TeamName);
+                Assert.NotNull(pristine.Timestamp);
+
+                // --- UPDATE
+                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    pristine.TeamCode = "T-9002";
+                    pristine.TeamName = "Test team number 9002";
+                    actionResult = await sut.UpdateTeam(pristine);
+
+                    scope.Dispose();
+                }
+
+                // Assert
+                okObjectResult = actionResult as OkObjectResult;
+                Assert.NotNull(okObjectResult);
+
+                SimpleTeamDto updated = okObjectResult.Value as SimpleTeamDto;
+                Assert.NotNull(updated);
+
+                // The team must have new values.
+                Assert.Equal(pristine.TeamKey, updated.TeamKey);
+                Assert.Equal(pristine.TeamCode, updated.TeamCode);
+                Assert.Equal(pristine.TeamName, updated.TeamName);
+                Assert.NotEqual(pristine.Timestamp, updated.Timestamp);
             }
-
-            // Assert
-            okObjectResult = actionResult as OkObjectResult;
-            Assert.NotNull(okObjectResult);
-
-            SimpleTeamDto updated = okObjectResult.Value as SimpleTeamDto;
-            Assert.NotNull(updated);
-
-            // The team must have new values.
-            Assert.Equal(pristine.TeamKey, updated.TeamKey);
-            Assert.Equal(pristine.TeamCode, updated.TeamCode);
-            Assert.Equal(pristine.TeamName, updated.TeamName);
-            Assert.NotEqual(pristine.Timestamp, updated.Timestamp);
         }
 
         #endregion

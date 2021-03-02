@@ -1,5 +1,4 @@
 using CslaModelTemplates.Contracts.ComplexView;
-using CslaModelTemplates.Models.ComplexView;
 using CslaModelTemplates.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -25,7 +24,7 @@ namespace CslaModelTemplates.WebApiTests
             OkObjectResult okObjectResult = actionResult as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
-            TeamView team = okObjectResult.Value as TeamView;
+            TeamViewDto team = okObjectResult.Value as TeamViewDto;
             Assert.NotNull(team);
 
             // The code and name must end with 17.
@@ -34,7 +33,7 @@ namespace CslaModelTemplates.WebApiTests
             Assert.True(team.Players.Count > 0);
 
             // The code and name must end with 17.
-            PlayerView player = team.Players[0];
+            PlayerViewDto player = team.Players[0];
             Assert.StartsWith("P-0017", player.PlayerCode);
             Assert.Contains("17.", player.PlayerName);
         }

@@ -2,6 +2,7 @@ using CslaModelTemplates.Contracts.ComplexList;
 using CslaModelTemplates.Models.ComplexList;
 using CslaModelTemplates.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace CslaModelTemplates.WebApiTests
             OkObjectResult okObjectResult = actionResult as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
-            TeamList list = okObjectResult.Value as TeamList;
+            List<TeamListItemDto> list = okObjectResult.Value as List<TeamListItemDto>;
             Assert.NotNull(list);
 
             // The choice must have 5 items.
@@ -39,7 +40,7 @@ namespace CslaModelTemplates.WebApiTests
                 Assert.True(team.Players.Count > 0);
 
                 // The player code and names must contain 6.
-                PlayerListItem player = team.Players[0];
+                PlayerListItemDto player = team.Players[0];
                 Assert.Contains("6", player.PlayerCode);
                 Assert.Contains("6.", player.PlayerName);
             }

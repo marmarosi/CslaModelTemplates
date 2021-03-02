@@ -27,18 +27,22 @@ namespace CslaModelTemplates.Dal.SqlServer.ComplexCommand
             string teamName = criteria.TeamName ?? "";
             using (var ctx = DbContextManager<SqlServerContext>.GetManager())
             {
-                List<CountTeamsListItemDao> list = ctx.DbContext.Teams
+                var counts = ctx.DbContext.Teams
                     .Include(e => e.Players)
                     .Where(e => teamName == "" || e.TeamName.Contains(teamName))
+                    .Select(e => new { e.TeamKey, Count = e.Players.Count })
+                    .AsNoTracking()
+                    .ToList();
+
+                List<CountTeamsListItemDao> list = counts
                     .GroupBy(
-                        e => e.Players.Count,
+                        e => e.Count,
                         (key, grp) => new CountTeamsListItemDao
                         {
                             ItemCount = key,
                             CountOfTeams = grp.Count()
                         })
                     .OrderByDescending(o => o.ItemCount)
-                    .AsNoTracking()
                     .ToList();
 
                 return list;

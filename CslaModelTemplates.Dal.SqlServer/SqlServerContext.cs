@@ -1,5 +1,6 @@
 using CslaModelTemplates.Dal.SqlServer.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 
 namespace CslaModelTemplates.Dal.SqlServer
@@ -17,6 +18,7 @@ namespace CslaModelTemplates.Dal.SqlServer
         public SqlServerContext() : base()
         {
             ConnectionString = DalFactory.GetConnectionString(DAL.SQLServer);
+            SubscribeStateChangeEvents();
         }
 
         /// <summary>
@@ -26,7 +28,9 @@ namespace CslaModelTemplates.Dal.SqlServer
         public SqlServerContext(
             string dalName
             ) : base(dalName)
-        { }
+        {
+            SubscribeStateChangeEvents();
+        }
 
         #endregion
 
@@ -40,6 +44,37 @@ namespace CslaModelTemplates.Dal.SqlServer
         {
             optionsBuilder.UseSqlServer(ConnectionString);
         }
+
+        #region Auto update timestamps
+
+        void SubscribeStateChangeEvents()
+        {
+            ChangeTracker.Tracked += OnEntityTracked;
+            ChangeTracker.StateChanged += OnEntityStateChanged;
+        }
+
+        void OnEntityStateChanged(object sender, EntityStateChangedEventArgs e)
+        {
+            ProcessLastModified(e.Entry);
+        }
+
+        void OnEntityTracked(object sender, EntityTrackedEventArgs e)
+        {
+            if (!e.FromQuery)
+                ProcessLastModified(e.Entry);
+        }
+
+        void ProcessLastModified(EntityEntry entry)
+        {
+            if (entry.State == EntityState.Modified || entry.State == EntityState.Added)
+            {
+                var property = entry.Metadata.FindProperty("Timestamp");
+                if (property != null && property.ClrType == typeof(DateTime))
+                    entry.CurrentValues[property] = DateTime.UtcNow;
+            }
+        }
+
+        #endregion
 
         #region Query results
 

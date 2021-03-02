@@ -1,3 +1,5 @@
+using Csla.Data.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace CslaModelTemplates.Dal

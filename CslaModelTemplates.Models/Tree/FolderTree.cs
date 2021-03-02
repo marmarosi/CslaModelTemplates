@@ -1,6 +1,7 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
+using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.Tree;
 using CslaModelTemplates.Dal;
 using System;
@@ -13,7 +14,7 @@ namespace CslaModelTemplates.Models.Tree
     /// Represents a read-only folder tree.
     /// </summary>
     [Serializable]
-    public class FolderTree : ReadOnlyListBase<FolderTree, FolderNode>
+    public class FolderTree : ReadOnlyList<FolderTree, FolderNode>
     {
         #region Business Rules
 
