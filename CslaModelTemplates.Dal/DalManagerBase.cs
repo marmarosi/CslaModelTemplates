@@ -1,6 +1,4 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
-using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace CslaModelTemplates.Dal
@@ -34,6 +32,8 @@ namespace CslaModelTemplates.Dal
                 );
         }
 
+        #region IDalManager
+
         /// <summary>
         /// Gets a data access object of the specified type.
         /// </summary>
@@ -64,24 +64,25 @@ namespace CslaModelTemplates.Dal
             return Activator.CreateInstance(RegistrarType) as IDalRegistrar;
         }
 
-        public IDisposable GetDbContextManager()
-        {
-            return ConnectionManager;
-        }
+        #endregion
+
+        #region ISeeder
 
         /// <summary>
         /// Override this method to ensure the database schema and fill it with initial data.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public virtual void LiveSeed(string contentRootPath)
+        public virtual void ProductionSeed(string contentRootPath)
         { }
 
         /// <summary>
         /// Override this method to ensure the database schema and fill it with demo data.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public virtual void TestSeed(string contentRootPath)
+        public virtual void DevelopmentSeed(string contentRootPath)
         { }
+
+        #endregion
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

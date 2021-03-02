@@ -200,7 +200,7 @@ namespace CslaModelTemplates.Dal
             )
         {
             ISeeder seeder = Activator.CreateInstance(DalTypes[dalName]) as ISeeder;
-            seeder.LiveSeed(contentRootPath);
+            seeder.ProductionSeed(contentRootPath);
         }
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace CslaModelTemplates.Dal
             )
         {
             ISeeder seeder = Activator.CreateInstance(DalTypes[dalName ?? ActiveLayer]) as ISeeder;
-            seeder.TestSeed(contentRootPath);
+            seeder.DevelopmentSeed(contentRootPath);
         }
 
         /// <summary>

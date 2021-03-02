@@ -16,11 +16,13 @@ namespace CslaModelTemplates.Dal.SqlServer
             ConnectionManager = DbContextManager<SqlServerContext>.GetManager(DAL.SQLServer);
         }
 
+        #region ISeeder
+
         /// <summary>
         /// Ensures the database schema and fills it with initial data.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public override void LiveSeed(
+        public override void ProductionSeed(
             string contentRootPath
             )
         {
@@ -31,11 +33,13 @@ namespace CslaModelTemplates.Dal.SqlServer
         /// Ensures the database schema and fills it with demo data.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public override void TestSeed(
+        public override void DevelopmentSeed(
             string contentRootPath
             )
         {
             Seeder.Run(contentRootPath, true);
         }
+
+        #endregion
     }
 }
