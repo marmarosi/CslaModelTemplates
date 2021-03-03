@@ -38,7 +38,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The requested folder tree.</returns>
         [HttpGet("")]
         [ProducesResponseType(typeof(FolderNodeDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetFolderTreeAsync(
+        public async Task<IActionResult> GetFolderTree(
             [FromQuery] FolderTreeCriteria criteria
             )
         {

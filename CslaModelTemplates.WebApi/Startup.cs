@@ -62,7 +62,7 @@ namespace CslaModelTemplates.WebApi
                     });
                 string xmlFile = $"{Environment.ApplicationName}.xml";
                 string xmlPath = Path.Combine(Environment.ContentRootPath, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(xmlPath, true);
             });
         }
 

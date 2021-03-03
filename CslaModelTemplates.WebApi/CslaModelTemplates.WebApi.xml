@@ -107,6 +107,24 @@
             <param name="dto">The data transer objects of the team set.</param>
             <returns>The updated team set.</returns>
         </member>
+        <member name="T:CslaModelTemplates.WebApi.Controllers.PaginationController">
+            <summary>
+            Defines the API endpoints for pagination.
+            </summary>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.PaginationController.#ctor(Microsoft.Extensions.Logging.ILogger{CslaModelTemplates.WebApi.Controllers.TreeController})">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="logger">The application logging service.</param>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.PaginationController.GetPaginatedTeamList(CslaModelTemplates.Contracts.PaginatedList.PaginatedTeamListCriteria)">
+            <summary>
+            Gets the specified page of teams.
+            </summary>
+            <param name="criteria">The criteria of the team list.</param>
+            <returns>The requested page of the team list.</returns>
+        </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.SelectionController">
             <summary>
             Defines the API endpoints for selections.
@@ -223,7 +241,7 @@
             </summary>
             <param name="logger">The application logging service.</param>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.TreeController.GetFolderTreeAsync(CslaModelTemplates.Contracts.Tree.FolderTreeCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.TreeController.GetFolderTree(CslaModelTemplates.Contracts.Tree.FolderTreeCriteria)">
             <summary>
             Gets the specified folder tree.
             </summary>

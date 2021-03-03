@@ -19,7 +19,7 @@ namespace CslaModelTemplates.WebApiTests
 
             // Act
             FolderTreeCriteria criteria = new FolderTreeCriteria { RootKey = 1 };
-            IActionResult actionResult = await sut.GetFolderTreeAsync(criteria);
+            IActionResult actionResult = await sut.GetFolderTree(criteria);
 
             // Assert
             OkObjectResult okObjectResult = actionResult as OkObjectResult;
