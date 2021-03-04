@@ -112,7 +112,7 @@
             Defines the API endpoints for pagination.
             </summary>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.PaginationController.#ctor(Microsoft.Extensions.Logging.ILogger{CslaModelTemplates.WebApi.Controllers.TreeController})">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.PaginationController.#ctor(Microsoft.Extensions.Logging.ILogger{CslaModelTemplates.WebApi.Controllers.PaginationController})">
             <summary>
             Creates a new instance.
             </summary>

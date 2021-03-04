@@ -29,7 +29,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="logger">The application logging service.</param>
         public PaginationController(
-            ILogger<TreeController> logger
+            ILogger<PaginationController> logger
             ) : base(logger)
         { }
 

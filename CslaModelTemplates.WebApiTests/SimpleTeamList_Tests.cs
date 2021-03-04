@@ -28,7 +28,7 @@ namespace CslaModelTemplates.WebApiTests
             List<SimpleTeamListItemDto> list = okObjectResult.Value as List<SimpleTeamListItemDto>;
             Assert.NotNull(list);
 
-            // The choice must have 5 items.
+            // The list must have 5 items.
             Assert.Equal(5, list.Count);
 
             // The code and names must end with 9.
