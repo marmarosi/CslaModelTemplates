@@ -1,3 +1,5 @@
+using CslaModelTemplates.Common.DataTransfer;
+
 namespace CslaModelTemplates.Contracts.PaginatedList
 {
     /// <summary>

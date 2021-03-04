@@ -1,10 +1,13 @@
-using CslaModelTemplates.Contracts;
+using CslaModelTemplates.Common.DataTransfer;
 using CslaModelTemplates.Contracts.PaginatedList;
+using CslaModelTemplates.Contracts.SortedList;
 using CslaModelTemplates.Models.PaginatedList;
+using CslaModelTemplates.Models.SortedList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CslaModelTemplates.WebApi.Controllers
@@ -30,6 +33,32 @@ namespace CslaModelTemplates.WebApi.Controllers
 
         #endregion
 
+        #region SortedTeamList
+
+        /// <summary>
+        /// Gets the specified teams sorted.
+        /// </summary>
+        /// <param name="criteria">The criteria of the team list.</param>
+        /// <returns>The requested team list.</returns>
+        [HttpGet("sorted")]
+        [ProducesResponseType(typeof(List<SortedTeamListItemDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetSortedTeamList(
+            [FromQuery] SortedTeamListCriteria criteria
+            )
+        {
+            try
+            {
+                SortedTeamList list = await SortedTeamList.Get(criteria);
+                return Ok(list.ToDto<SortedTeamListItemDto>());
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
         #region PaginatedTeamList
 
         /// <summary>
@@ -37,7 +66,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="criteria">The criteria of the team list.</param>
         /// <returns>The requested page of the team list.</returns>
-        [HttpGet("")]
+        [HttpGet("paginated")]
         [ProducesResponseType(typeof(PaginatedList<PaginatedTeamListItemDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetPaginatedTeamList(
             [FromQuery] PaginatedTeamListCriteria criteria
@@ -45,8 +74,8 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                PaginatedTeamList tree = await PaginatedTeamList.Get(criteria);
-                return Ok(tree.ToDto<PaginatedList<PaginatedTeamListItemDto>>());
+                PaginatedTeamList list = await PaginatedTeamList.Get(criteria);
+                return Ok(list.ToDto<PaginatedList<PaginatedTeamListItemDto>>());
             }
             catch (Exception ex)
             {

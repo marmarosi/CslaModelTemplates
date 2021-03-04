@@ -1,11 +1,11 @@
 using System.Diagnostics;
 
-namespace CslaModelTemplates.Dal
+namespace CslaModelTemplates.Common
 {
     /// <summary>
-    /// This class provides helper methods for MS SQL timestamps.
+    /// This class provides helper methods for SQL Server timestamps.
     /// </summary>
-    public static class Timestamps
+    public static class TimestampExtensions
     {
         /// <summary>
         /// Determines whether two timestamps differ.

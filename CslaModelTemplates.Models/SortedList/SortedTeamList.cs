@@ -2,16 +2,16 @@ using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
-using CslaModelTemplates.Contracts.SimpleList;
+using CslaModelTemplates.Contracts.SortedList;
 using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CslaModelTemplates.Models.SimpleList
+namespace CslaModelTemplates.Models.SortedList
 {
     /// <summary>
-    /// Represents a read-only team collection.
+    /// Represents a read-only team collection sorted.
     /// </summary>
     [Serializable]
     public class SortedTeamList : ReadOnlyList<SortedTeamList, SortedTeamListItem>
@@ -22,7 +22,7 @@ namespace CslaModelTemplates.Models.SimpleList
         //{
         //    // Add authorization rules.
         //    BusinessRules.AddRule(
-        //        typeof(SimpleTeamList),
+        //        typeof(SortedTeamList),
         //        new IsInRole(AuthorizationActions.GetObject, "Manager")
         //        );
         //}
@@ -40,7 +40,7 @@ namespace CslaModelTemplates.Models.SimpleList
         /// <param name="criteria">The criteria of the read-only team collection.</param>
         /// <returns>The requested read-only team collection.</returns>
         public static async Task<SortedTeamList> Get(
-            SimpleTeamListCriteria criteria
+            SortedTeamListCriteria criteria
             )
         {
             return await DataPortal.FetchAsync<SortedTeamList>(criteria);
@@ -51,7 +51,7 @@ namespace CslaModelTemplates.Models.SimpleList
         #region Data Access
 
         private void DataPortal_Fetch(
-            SimpleTeamListCriteria criteria
+            SortedTeamListCriteria criteria
             )
         {
             var rlce = RaiseListChangedEvents;
@@ -61,11 +61,11 @@ namespace CslaModelTemplates.Models.SimpleList
             // Load values from persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                ISimpleTeamListDal dal = dm.GetProvider<ISimpleTeamListDal>();
-                List<SimpleTeamListItemDao> list = dal.Fetch(criteria);
+                ISortedTeamListDal dal = dm.GetProvider<ISortedTeamListDal>();
+                List<SortedTeamListItemDao> list = dal.Fetch(criteria);
 
                 // Create items from data access objects.
-                foreach (SimpleTeamListItemDao dao in list)
+                foreach (SortedTeamListItemDao dao in list)
                     Add(SortedTeamListItem.Get(dao));
             }
             IsReadOnly = true;

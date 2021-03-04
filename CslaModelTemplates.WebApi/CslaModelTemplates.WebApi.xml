@@ -94,7 +94,7 @@
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetTeamSet(CslaModelTemplates.Contracts.ComplexSet.TeamSetCriteria)">
             <summary>
-            Gets the specified team set.
+            Gets the specified team set to edit.
             </summary>
             <param name="criteria">The criteria of the team set.</param>
             <returns>The requested team set.</returns>
@@ -117,6 +117,13 @@
             Creates a new instance.
             </summary>
             <param name="logger">The application logging service.</param>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.PaginationController.GetSortedTeamList(CslaModelTemplates.Contracts.SortedList.SortedTeamListCriteria)">
+            <summary>
+            Gets the specified teams sorted.
+            </summary>
+            <param name="criteria">The criteria of the team list.</param>
+            <returns>The requested team list.</returns>
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.PaginationController.GetPaginatedTeamList(CslaModelTemplates.Contracts.PaginatedList.PaginatedTeamListCriteria)">
             <summary>
@@ -217,7 +224,7 @@
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetTeamSet(CslaModelTemplates.Contracts.SimpleSet.SimpleTeamSetCriteria)">
             <summary>
-            Gets the specified team set.
+            Gets the specified team set to edit.
             </summary>
             <param name="criteria">The criteria of the team set.</param>
             <returns>The requested team set.</returns>

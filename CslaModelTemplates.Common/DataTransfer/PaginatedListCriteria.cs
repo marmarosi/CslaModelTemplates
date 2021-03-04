@@ -1,7 +1,7 @@
 using Csla;
 using System;
 
-namespace CslaModelTemplates.Contracts
+namespace CslaModelTemplates.Common.DataTransfer
 {
     /// <summary>
     /// Represents the base criteria of the read-only paginated collections.

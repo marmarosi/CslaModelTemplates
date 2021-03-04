@@ -253,7 +253,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region Read-Set
 
         /// <summary>
-        /// Gets the specified team set.
+        /// Gets the specified team set to edit.
         /// </summary>
         /// <param name="criteria">The criteria of the team set.</param>
         /// <returns>The requested team set.</returns>

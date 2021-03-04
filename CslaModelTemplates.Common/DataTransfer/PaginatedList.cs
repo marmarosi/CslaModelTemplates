@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CslaModelTemplates.Contracts
+namespace CslaModelTemplates.Common.DataTransfer
 {
     /// <summary>
     /// Represents the base class of the read-only paginated collections.

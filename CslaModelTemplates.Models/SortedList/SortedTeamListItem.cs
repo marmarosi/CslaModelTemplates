@@ -2,10 +2,10 @@ using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
-using CslaModelTemplates.Contracts.SimpleList;
+using CslaModelTemplates.Contracts.SortedList;
 using System;
 
-namespace CslaModelTemplates.Models.SimpleList
+namespace CslaModelTemplates.Models.SortedList
 {
     /// <summary>
     /// Represents an item in a read-only team collection.
@@ -51,7 +51,7 @@ namespace CslaModelTemplates.Models.SimpleList
         //{
         //    // Add authorization rules.
         //    BusinessRules.AddRule(
-        //        typeof(SimpleTeamListItem),
+        //        typeof(SortedTeamListItem),
         //        new IsInRole(AuthorizationActions.GetObject, "Manager")
         //        );
         //}
@@ -64,7 +64,7 @@ namespace CslaModelTemplates.Models.SimpleList
         { /* require use of factory methods */ }
 
         internal static SortedTeamListItem Get(
-            SimpleTeamListItemDao dao
+            SortedTeamListItemDao dao
             )
         {
             return DataPortal.FetchChild<SortedTeamListItem>(dao);
@@ -75,7 +75,7 @@ namespace CslaModelTemplates.Models.SimpleList
         #region Data Access
 
         private void Child_Fetch(
-            SimpleTeamListItemDao dao
+            SortedTeamListItemDao dao
             )
         {
             // Set values from data access object.
