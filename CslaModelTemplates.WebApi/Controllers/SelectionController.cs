@@ -13,7 +13,7 @@ using KeyModel = CslaModelTemplates.Models.SelectionWithKey;
 namespace CslaModelTemplates.WebApi.Controllers
 {
     /// <summary>
-    /// Defines the API endpoints for selections.
+    /// Contains the API endpoints for selections.
     /// </summary>
     [ApiController]
     [Route("api/selection")]

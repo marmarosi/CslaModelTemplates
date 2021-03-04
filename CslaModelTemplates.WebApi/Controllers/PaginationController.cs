@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace CslaModelTemplates.WebApi.Controllers
 {
     /// <summary>
-    /// Defines the API endpoints for pagination.
+    /// Contains the API endpoints for pagination.
     /// </summary>
     [ApiController]
     [Route("api/pagination")]

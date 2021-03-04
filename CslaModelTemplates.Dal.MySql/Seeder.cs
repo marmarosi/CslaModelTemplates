@@ -1,5 +1,6 @@
 using CslaModelTemplates.Dal.MySql.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace CslaModelTemplates.Dal.MySql
 {
@@ -58,6 +59,64 @@ namespace CslaModelTemplates.Dal.MySql
                 #region Folder data
 
                 CreateFolderLevel(ctx, 1, null, null, null);
+
+                #endregion
+
+                #region Group data
+
+                List<long> groupKeys = new List<long>();
+                for (int i = 0; i < 20; i++)
+                {
+                    int serialNumber = i + 1;
+                    Group group = new Group
+                    {
+                        GroupCode = $"G-{serialNumber.ToString("00")}",
+                        GroupName = $"Group No. {serialNumber}",
+                    };
+                    ctx.Groups.Add(group);
+                    ctx.SaveChanges();
+                    groupKeys.Add(group.GroupKey.Value);
+                }
+
+                #endregion
+
+                #region Person data
+
+                List<long> personKeys = new List<long>();
+                for (int i = 0; i < 20; i++)
+                {
+                    int serialNumber = i + 1;
+                    Person person = new Person
+                    {
+                        PersonCode = $"XY-{serialNumber.ToString("00")}",
+                        PersonName = $"Person #{serialNumber}",
+                    };
+                    ctx.Persons.Add(person);
+                    ctx.SaveChanges();
+                    personKeys.Add(person.PersonKey.Value);
+                }
+
+                #endregion
+
+                #region Membership data
+
+                foreach (long groupKey in groupKeys)
+                {
+                    int count = random.Next(1, 5);
+                    List<long> tempKeys = personKeys.GetRange(0, 20);
+                    for (int j = 0; j < count; j++)
+                    {
+                        int index = random.Next(1, 20 - j);
+                        long personKey = tempKeys[index];
+                        ctx.Memberships.Add(new Membership
+                        {
+                            GroupKey = groupKey,
+                            PersonKey = personKey
+                        });
+                        tempKeys.Remove(personKey);
+                    }
+                }
+                ctx.SaveChanges();
 
                 #endregion
             }

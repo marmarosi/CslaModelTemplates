@@ -45,6 +45,9 @@ namespace CslaModelTemplates.Dal.MySql
         public DbSet<Team> Teams { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Folder> Folders { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<Membership> Memberships { get; set; }
 
         #endregion
 
@@ -76,6 +79,29 @@ namespace CslaModelTemplates.Dal.MySql
 
             modelBuilder.Entity<Folder>()
                 .HasIndex(e => new { e.ParentKey, e.FolderOrder });
+
+            #endregion
+
+            #region Group
+
+            modelBuilder.Entity<Group>()
+                .HasIndex(e => e.GroupCode)
+                .IsUnique();
+
+            #endregion
+
+            #region Person
+
+            modelBuilder.Entity<Person>()
+                .HasIndex(e => e.PersonCode)
+                .IsUnique();
+
+            #endregion
+
+            #region Membership
+
+            modelBuilder.Entity<Membership>()
+                .HasKey(e => new { e.GroupKey, e.PersonKey });
 
             #endregion
         }

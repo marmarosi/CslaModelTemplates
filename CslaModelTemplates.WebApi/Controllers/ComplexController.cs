@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace CslaModelTemplates.WebApi.Controllers
 {
     /// <summary>
-    /// Defines the API endpoints for complex models.
+    /// Contains the API endpoints for complex models.
     /// </summary>
     [ApiController]
     [Route("api/complex")]

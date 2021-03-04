@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CslaModelTemplates.WebApi.Controllers
 {
     /// <summary>
-    /// Defines the API endpoints for trees.
+    /// Contains the API endpoints for trees.
     /// </summary>
     [ApiController]
     [Route("api/tree")]

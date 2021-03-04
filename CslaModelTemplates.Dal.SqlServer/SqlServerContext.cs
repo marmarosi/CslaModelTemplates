@@ -81,6 +81,9 @@ namespace CslaModelTemplates.Dal.SqlServer
         public DbSet<Team> Teams { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Folder> Folders { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<Membership> Memberships { get; set; }
 
         #endregion
 
@@ -118,6 +121,36 @@ namespace CslaModelTemplates.Dal.SqlServer
             modelBuilder.Entity<Folder>()
                 .Property(e => e.Timestamp)
                 .HasDefaultValue(DateTime.Now);
+
+            #endregion
+
+            #region Group
+
+            modelBuilder.Entity<Group>()
+                .HasIndex(e => e.GroupCode)
+                .IsUnique();
+            modelBuilder.Entity<Group>()
+                .Property(e => e.Timestamp)
+                .HasDefaultValue(DateTime.Now);
+
+            #endregion
+
+            #region Person
+
+            modelBuilder.Entity<Person>()
+                .HasIndex(e => e.PersonCode)
+                .IsUnique();
+            modelBuilder.Entity<Person>()
+                .Property(e => e.Timestamp)
+                .HasDefaultValue(DateTime.Now);
+
+            #endregion
+
+            #region Membership
+
+            modelBuilder.Entity<Membership>()
+                .HasKey(e => new { e.GroupKey, e.PersonKey })
+                .IsClustered();
 
             #endregion
         }
