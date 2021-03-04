@@ -132,6 +132,13 @@
             <param name="criteria">The criteria of the team list.</param>
             <returns>The requested page of the team list.</returns>
         </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.PaginationController.GetPaginatedSortedTeamList(CslaModelTemplates.Contracts.PaginatedSortedList.PaginatedSortedTeamListCriteria)">
+            <summary>
+            Gets the specified page of sorted teams.
+            </summary>
+            <param name="criteria">The criteria of the team list.</param>
+            <returns>The requested page of the sorted team list.</returns>
+        </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.SelectionController">
             <summary>
             Defines the API endpoints for selections.

@@ -3,23 +3,23 @@ using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.DataTransfer;
 using CslaModelTemplates.Common.Models;
-using CslaModelTemplates.Contracts.PaginatedList;
+using CslaModelTemplates.Contracts.PaginatedSortedList;
 using CslaModelTemplates.Dal;
 using System;
 using System.Threading.Tasks;
 
-namespace CslaModelTemplates.Models.PaginatedList
+namespace CslaModelTemplates.Models.PaginatedSortedList
 {
     /// <summary>
-    /// Represents a read-only paginated team collection.
+    /// Represents a read-only paginated sorted team collection.
     /// </summary>
     [Serializable]
-    public class PaginatedTeamList : ReadOnlyModel<PaginatedTeamList>
+    public class PaginatedSortedTeamList : ReadOnlyModel<PaginatedSortedTeamList>
     {
         #region Properties
 
-        public static readonly PropertyInfo<PaginatedTeamListItems> PlayersProperty = RegisterProperty<PaginatedTeamListItems>(c => c.Data);
-        public PaginatedTeamListItems Data
+        public static readonly PropertyInfo<PaginatedSortedTeamListItems> PlayersProperty = RegisterProperty<PaginatedSortedTeamListItems>(c => c.Data);
+        public PaginatedSortedTeamListItems Data
         {
             get { return GetProperty(PlayersProperty); }
             private set { LoadProperty(PlayersProperty, value); }
@@ -47,7 +47,7 @@ namespace CslaModelTemplates.Models.PaginatedList
         //{
         //    // Add authorization rules.
         //    BusinessRules.AddRule(
-        //        typeof(PaginatedTeamList),
+        //        typeof(PaginatedSortedTeamList),
         //        new IsInRole(AuthorizationActions.GetObject, "Manager")
         //        );
         //}
@@ -56,19 +56,19 @@ namespace CslaModelTemplates.Models.PaginatedList
 
         #region Factory Methods
 
-        private PaginatedTeamList()
+        private PaginatedSortedTeamList()
         { /* require use of factory methods */ }
 
         /// <summary>
-        /// Gets the specified read-only paginated team collection.
+        /// Gets the specified read-only paginated sorted team collection.
         /// </summary>
         /// <param name="criteria">The criteria of the read-only team.</param>
         /// <returns>The requested read-only team instance.</returns>
-        public static async Task<PaginatedTeamList> Get(
-            PaginatedTeamListCriteria criteria
+        public static async Task<PaginatedSortedTeamList> Get(
+            PaginatedSortedTeamListCriteria criteria
             )
         {
-            return await DataPortal.FetchAsync<PaginatedTeamList>(criteria);
+            return await DataPortal.FetchAsync<PaginatedSortedTeamList>(criteria);
         }
 
         #endregion
@@ -76,16 +76,16 @@ namespace CslaModelTemplates.Models.PaginatedList
         #region Data Access
 
         private void DataPortal_Fetch(
-            PaginatedTeamListCriteria criteria
+            PaginatedSortedTeamListCriteria criteria
             )
         {
             // Load values from persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IPaginatedTeamListDal dal = dm.GetProvider<IPaginatedTeamListDal>();
-                PaginatedList<PaginatedTeamListItemDao> dao = dal.Fetch(criteria);
+                IPaginatedSortedTeamListDal dal = dm.GetProvider<IPaginatedSortedTeamListDal>();
+                PaginatedList<PaginatedSortedTeamListItemDao> dao = dal.Fetch(criteria);
 
-                Data = PaginatedTeamListItems.Get(dao.Data);
+                Data = PaginatedSortedTeamListItems.Get(dao.Data);
                 TotalCount = dao.TotalCount;
             }
         }

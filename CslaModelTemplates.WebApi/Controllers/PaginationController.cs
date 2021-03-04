@@ -1,7 +1,9 @@
 using CslaModelTemplates.Common.DataTransfer;
 using CslaModelTemplates.Contracts.PaginatedList;
+using CslaModelTemplates.Contracts.PaginatedSortedList;
 using CslaModelTemplates.Contracts.SortedList;
 using CslaModelTemplates.Models.PaginatedList;
+using CslaModelTemplates.Models.PaginatedSortedList;
 using CslaModelTemplates.Models.SortedList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -76,6 +78,32 @@ namespace CslaModelTemplates.WebApi.Controllers
             {
                 PaginatedTeamList list = await PaginatedTeamList.Get(criteria);
                 return Ok(list.ToDto<PaginatedList<PaginatedTeamListItemDto>>());
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region PaginatedSortedTeamList
+
+        /// <summary>
+        /// Gets the specified page of sorted teams.
+        /// </summary>
+        /// <param name="criteria">The criteria of the team list.</param>
+        /// <returns>The requested page of the sorted team list.</returns>
+        [HttpGet("paginated-sorted")]
+        [ProducesResponseType(typeof(PaginatedList<PaginatedSortedTeamListItemDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetPaginatedSortedTeamList(
+            [FromQuery] PaginatedSortedTeamListCriteria criteria
+            )
+        {
+            try
+            {
+                PaginatedSortedTeamList list = await PaginatedSortedTeamList.Get(criteria);
+                return Ok(list.ToDto<PaginatedList<PaginatedSortedTeamListItemDto>>());
             }
             catch (Exception ex)
             {

@@ -47,6 +47,9 @@ namespace CslaModelTemplates.Dal.SqlServer.SortedList
                         break;
                     case SortedTeamListSortBy.TeamName:
                     default:
+                        query = criteria.SortDirection == SortDirection.Ascending
+                            ? query.OrderBy(e => e.TeamName)
+                            : query.OrderByDescending(e => e.TeamName);
                         break;
                 }
 

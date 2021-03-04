@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace CslaModelTemplates.Models.SortedList
 {
     /// <summary>
-    /// Represents a read-only team collection sorted.
+    /// Represents a read-only sorted team collection.
     /// </summary>
     [Serializable]
     public class SortedTeamList : ReadOnlyList<SortedTeamList, SortedTeamListItem>
@@ -35,10 +35,10 @@ namespace CslaModelTemplates.Models.SortedList
         { /* require use of factory methods */ }
 
         /// <summary>
-        /// Gets a read-only team collection that match the criteria..
+        /// Gets a read-only sorted team collection that match the criteria..
         /// </summary>
         /// <param name="criteria">The criteria of the read-only team collection.</param>
-        /// <returns>The requested read-only team collection.</returns>
+        /// <returns>The requested read-only sorted team collection.</returns>
         public static async Task<SortedTeamList> Get(
             SortedTeamListCriteria criteria
             )
