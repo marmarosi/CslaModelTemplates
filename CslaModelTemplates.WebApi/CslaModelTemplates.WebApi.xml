@@ -107,6 +107,24 @@
             <param name="dto">The data transer objects of the team set.</param>
             <returns>The updated team set.</returns>
         </member>
+        <member name="T:CslaModelTemplates.WebApi.Controllers.LookUpController">
+            <summary>
+            Contains the API endpoints for simple models.
+            </summary>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.#ctor(Microsoft.Extensions.Logging.ILogger{CslaModelTemplates.WebApi.Controllers.LookUpController})">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="logger">The application logging service.</param>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.GetGroupView(CslaModelTemplates.Contracts.LookUpView.GroupViewCriteria)">
+            <summary>
+            Gets the specified group details to display.
+            </summary>
+            <param name="criteria">The criteria of the group view.</param>
+            <returns>The requested group view.</returns>
+        </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.PaginationController">
             <summary>
             Contains the API endpoints for pagination.

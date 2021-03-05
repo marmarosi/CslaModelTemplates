@@ -5,7 +5,6 @@ using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.SqlServer.Entities;
 using CslaModelTemplates.Resources;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq;
 
 namespace CslaModelTemplates.Dal.SqlServer.Simple
@@ -29,22 +28,24 @@ namespace CslaModelTemplates.Dal.SqlServer.Simple
             using (var ctx = DbContextManager<SqlServerContext>.GetManager())
             {
                 // Get the specified team.
-                Team team = ctx.DbContext.Teams
+                SimpleTeamDao team = ctx.DbContext.Teams
                     .Where(e =>
                         e.TeamKey == criteria.TeamKey
                      )
+                    .Select(e => new SimpleTeamDao
+                    {
+                        TeamKey = e.TeamKey,
+                        TeamCode = e.TeamCode,
+                        TeamName = e.TeamName,
+                        Timestamp = e.Timestamp
+                    })
                     .AsNoTracking()
                     .FirstOrDefault();
+
                 if (team == null)
                     throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
 
-                return new SimpleTeamDao
-                {
-                    TeamKey = team.TeamKey,
-                    TeamCode = team.TeamCode,
-                    TeamName = team.TeamName,
-                    Timestamp = team.Timestamp
-                };
+                return team;
             }
         }
 

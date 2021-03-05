@@ -35,14 +35,14 @@ namespace CslaModelTemplates.Dal.SqlServer.ComplexSet
                         TeamCode = e.TeamCode,
                         TeamName = e.TeamName,
                         Players = e.Players
-                            .Select(i => new TeamSetPlayerDao
+                            .Select(p => new TeamSetPlayerDao
                             {
-                                PlayerKey = i.PlayerKey,
-                                TeamKey = i.TeamKey,
-                                PlayerCode = i.PlayerCode,
-                                PlayerName = i.PlayerName
+                                PlayerKey = p.PlayerKey,
+                                TeamKey = p.TeamKey,
+                                PlayerCode = p.PlayerCode,
+                                PlayerName = p.PlayerName
                             })
-                            .OrderBy(io => io.PlayerName)
+                            .OrderBy(p => p.PlayerName)
                             .ToList(),
                         Timestamp = e.Timestamp
                     })

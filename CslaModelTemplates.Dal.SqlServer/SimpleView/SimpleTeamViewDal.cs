@@ -1,7 +1,6 @@
 using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Contracts.SimpleView;
 using CslaModelTemplates.Dal.Exceptions;
-using CslaModelTemplates.Dal.SqlServer.Entities;
 using CslaModelTemplates.Resources;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -27,21 +26,23 @@ namespace CslaModelTemplates.Dal.SqlServer.SimpleView
             using (var ctx = DbContextManager<SqlServerContext>.GetManager())
             {
                 // Get the specified team.
-                Team team = ctx.DbContext.Teams
+                SimpleTeamViewDao team = ctx.DbContext.Teams
                     .Where(e =>
                         e.TeamKey == criteria.TeamKey
                      )
+                    .Select(e => new SimpleTeamViewDao
+                    {
+                        TeamKey = e.TeamKey,
+                        TeamCode = e.TeamCode,
+                        TeamName = e.TeamName
+                    })
                     .AsNoTracking()
                     .FirstOrDefault();
+
                 if (team == null)
                     throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
 
-                return new SimpleTeamViewDao
-                {
-                    TeamKey = team.TeamKey,
-                    TeamCode = team.TeamCode,
-                    TeamName = team.TeamName
-                };
+                return team;
             }
         }
 

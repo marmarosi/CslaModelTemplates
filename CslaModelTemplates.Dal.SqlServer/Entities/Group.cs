@@ -20,6 +20,6 @@ namespace CslaModelTemplates.Dal.SqlServer.Entities
 
         public DateTime Timestamp { get; set; }
 
-        public List<Person> Members { get; set; }
+        public List<Membership> Members { get; set; }
     }
 }

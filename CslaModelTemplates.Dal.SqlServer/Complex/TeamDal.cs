@@ -29,33 +29,35 @@ namespace CslaModelTemplates.Dal.SqlServer.Complex
             using (var ctx = DbContextManager<SqlServerContext>.GetManager())
             {
                 // Get the specified team.
-                Team team = ctx.DbContext.Teams
+                TeamDao team = ctx.DbContext.Teams
                     .Include(e => e.Players)
                     .Where(e =>
                         e.TeamKey == criteria.TeamKey
                      )
+                    .Select(e => new TeamDao
+                    {
+                        TeamKey = e.TeamKey,
+                        TeamCode = e.TeamCode,
+                        TeamName = e.TeamName,
+                        Players = e.Players
+                            .Select(p => new PlayerDao
+                            {
+                                PlayerKey = p.PlayerKey,
+                                TeamKey = p.TeamKey,
+                                PlayerCode = p.PlayerCode,
+                                PlayerName = p.PlayerName
+                            })
+                            .OrderBy(p => p.PlayerName)
+                            .ToList(),
+                        Timestamp = e.Timestamp
+                    })
                     .AsNoTracking()
                     .FirstOrDefault();
+
                 if (team == null)
                     throw new DataNotFoundException(DalText.Team_NotFound);
 
-                return new TeamDao
-                {
-                    TeamKey = team.TeamKey,
-                    TeamCode = team.TeamCode,
-                    TeamName = team.TeamName,
-                    Players = team.Players
-                        .Select(i => new PlayerDao
-                        {
-                            PlayerKey = i.PlayerKey,
-                            TeamKey = i.TeamKey,
-                            PlayerCode = i.PlayerCode,
-                            PlayerName = i.PlayerName
-                        })
-                        .OrderBy(io => io.PlayerName)
-                        .ToList(),
-                    Timestamp = team.Timestamp
-                };
+                return team;
             }
         }
 

@@ -61,6 +61,15 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The requested group has not been found..
+        /// </summary>
+        public static string Group_NotFound {
+            get {
+                return ResourceManager.GetString("Group_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleting the player with code {0} has failed..
         /// </summary>
         public static string Player_DeleteFailed {
