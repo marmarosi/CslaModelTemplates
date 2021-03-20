@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.ComplexCommand;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,7 @@ namespace CslaModelTemplates.Dal.SqlServer.ComplexCommand
     /// <summary>
     /// Implements the data access functions of the count teams by player count command.
     /// </summary>
-    public class CountTeamsDal : ICountTeamsDal
+    public class CountTeamsDal : SqlServerDal, ICountTeamsDal
     {
         private string COMMAND = typeof(CountTeamsDal).Name.CutEnd(3);
 
@@ -25,28 +24,26 @@ namespace CslaModelTemplates.Dal.SqlServer.ComplexCommand
             )
         {
             string teamName = criteria.TeamName ?? "";
-            using (var ctx = DbContextManager<SqlServerContext>.GetManager())
-            {
-                var counts = ctx.DbContext.Teams
-                    .Include(e => e.Players)
-                    .Where(e => teamName == "" || e.TeamName.Contains(teamName))
-                    .Select(e => new { e.TeamKey, Count = e.Players.Count })
-                    .AsNoTracking()
-                    .ToList();
 
-                List<CountTeamsListItemDao> list = counts
-                    .GroupBy(
-                        e => e.Count,
-                        (key, grp) => new CountTeamsListItemDao
-                        {
-                            ItemCount = key,
-                            CountOfTeams = grp.Count()
-                        })
-                    .OrderByDescending(o => o.ItemCount)
-                    .ToList();
+            var counts = DbContext.Teams
+                .Include(e => e.Players)
+                .Where(e => teamName == "" || e.TeamName.Contains(teamName))
+                .Select(e => new { e.TeamKey, Count = e.Players.Count })
+                .AsNoTracking()
+                .ToList();
 
-                return list;
-            }
+            List<CountTeamsListItemDao> list = counts
+                .GroupBy(
+                    e => e.Count,
+                    (key, grp) => new CountTeamsListItemDao
+                    {
+                        ItemCount = key,
+                        CountOfTeams = grp.Count()
+                    })
+                .OrderByDescending(o => o.ItemCount)
+                .ToList();
+
+            return list;
         }
 
         #endregion

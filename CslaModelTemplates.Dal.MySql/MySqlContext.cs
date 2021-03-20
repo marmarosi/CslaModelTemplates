@@ -87,7 +87,7 @@ namespace CslaModelTemplates.Dal.MySql
             modelBuilder.Entity<Group>()
                 .HasIndex(e => e.GroupCode)
                 .IsUnique();
-
+                
             #endregion
 
             #region Person
@@ -102,6 +102,14 @@ namespace CslaModelTemplates.Dal.MySql
 
             modelBuilder.Entity<Membership>()
                 .HasKey(e => new { e.GroupKey, e.PersonKey });
+            modelBuilder.Entity<Membership>()
+                .HasOne(e => e.Group)
+                .WithMany(g => g.Members)
+                .HasForeignKey(e => e.GroupKey);
+            modelBuilder.Entity<Membership>()
+                .HasOne(e => e.Person)
+                .WithMany(p => p.Memberships)
+                .HasForeignKey(e => e.PersonKey);
 
             #endregion
         }

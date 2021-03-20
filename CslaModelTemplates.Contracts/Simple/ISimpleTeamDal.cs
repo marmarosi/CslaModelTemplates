@@ -1,9 +1,11 @@
+using CslaModelTemplates.Common.Dal;
+
 namespace CslaModelTemplates.Contracts.Simple
 {
     /// <summary>
     /// Defines the data access functions of the editable team object.
     /// </summary>
-    public interface ISimpleTeamDal
+    public interface ISimpleTeamDal : IDal
     {
         SimpleTeamDao Fetch(SimpleTeamCriteria criteria);
         void Insert(SimpleTeamDao dao);

@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common.DataTransfer;
 using CslaModelTemplates.Contracts.PaginatedList;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,7 @@ namespace CslaModelTemplates.Dal.SqlServer.PaginatedList
     /// <summary>
     /// Implements the data access functions of the read-only paginated team collection.
     /// </summary>
-    public class PaginatedTeamListDal : IPaginatedTeamListDal
+    public class PaginatedTeamListDal : SqlServerDal, IPaginatedTeamListDal
     {
         #region Fetch
 
@@ -23,38 +22,35 @@ namespace CslaModelTemplates.Dal.SqlServer.PaginatedList
             PaginatedTeamListCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<SqlServerContext>.GetManager())
-            {
-                // Filter the teams.
-                var query = ctx.DbContext.Teams
-                    .Where(e =>
-                        criteria.TeamName == null || e.TeamName.Contains(criteria.TeamName)
-                    );
+            // Filter the teams.
+            var query = DbContext.Teams
+                .Where(e =>
+                    criteria.TeamName == null || e.TeamName.Contains(criteria.TeamName)
+                );
 
-                // Get the requested page.
-                List<PaginatedTeamListItemDao> list = query
-                    .Select(e => new PaginatedTeamListItemDao
-                    {
-                        TeamKey = e.TeamKey,
-                        TeamCode = e.TeamCode,
-                        TeamName = e.TeamName
-                    })
-                    .OrderBy(o => o.TeamName)
-                    .Skip(criteria.PageIndex * criteria.PageSize)
-                    .Take(criteria.PageSize)
-                    .AsNoTracking()
-                    .ToList();
-
-                // Count the matching teams.
-                int totalCount = query.Count();
-
-                // Return the result.
-                return new PaginatedList<PaginatedTeamListItemDao>
+            // Get the requested page.
+            List<PaginatedTeamListItemDao> list = query
+                .Select(e => new PaginatedTeamListItemDao
                 {
-                    Data = list,
-                    TotalCount = totalCount
-                };
-            }
+                    TeamKey = e.TeamKey,
+                    TeamCode = e.TeamCode,
+                    TeamName = e.TeamName
+                })
+                .OrderBy(o => o.TeamName)
+                .Skip(criteria.PageIndex * criteria.PageSize)
+                .Take(criteria.PageSize)
+                .AsNoTracking()
+                .ToList();
+
+            // Count the matching teams.
+            int totalCount = query.Count();
+
+            // Return the result.
+            return new PaginatedList<PaginatedTeamListItemDao>
+            {
+                Data = list,
+                TotalCount = totalCount
+            };
         }
 
         #endregion GetList

@@ -23,9 +23,11 @@ namespace CslaModelTemplates.Dal.MySql
         {
             using (MySqlContext ctx = new MySqlContext(DAL.MySQL))
             {
-                //if (isDevelopment)
-                //    ctx.Database.EnsureDeleted();
+                if (isDevelopment)
+                    ctx.Database.EnsureDeleted();
                 ctx.Database.EnsureCreated();
+                if (!isDevelopment)
+                    return;
 
                 #region Team data
 

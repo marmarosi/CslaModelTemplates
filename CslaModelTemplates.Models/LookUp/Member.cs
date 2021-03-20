@@ -185,6 +185,7 @@ namespace CslaModelTemplates.Models.LookUp
                     dal.Insert(dao);
 
                     // Set new data.
+                    PersonName = dao.PersonName;
                 }
                 //FieldManager.UpdateChildren(this);
             }

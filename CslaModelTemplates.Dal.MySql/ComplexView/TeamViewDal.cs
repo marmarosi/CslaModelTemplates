@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Contracts.ComplexView;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.MySql.Entities;
@@ -11,7 +10,7 @@ namespace CslaModelTemplates.Dal.MySql.ComplexView
     /// <summary>
     /// Implements the data access functions of the read-only team object.
     /// </summary>
-    public class TeamViewDal : ITeamViewDal
+    public class TeamViewDal : MySqlDal, ITeamViewDal
     {
         #region Fetch
 
@@ -24,35 +23,32 @@ namespace CslaModelTemplates.Dal.MySql.ComplexView
             TeamViewCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<MySqlContext>.GetManager())
-            {
-                // Get the specified team.
-                Team team = ctx.DbContext.Teams
-                    .Include(e => e.Players)
-                    .Where(e =>
-                        e.TeamKey == criteria.TeamKey
-                     )
-                    .AsNoTracking()
-                    .FirstOrDefault();
-                if (team == null)
-                    throw new DataNotFoundException(DalText.Team_NotFound);
+            // Get the specified team.
+            Team team = DbContext.Teams
+                .Include(e => e.Players)
+                .Where(e =>
+                    e.TeamKey == criteria.TeamKey
+                 )
+                .AsNoTracking()
+                .FirstOrDefault();
+            if (team == null)
+                throw new DataNotFoundException(DalText.Team_NotFound);
 
-                return new TeamViewDao
-                {
-                    TeamKey = team.TeamKey,
-                    TeamCode = team.TeamCode,
-                    TeamName = team.TeamName,
-                    Players = team.Players
-                        .Select(item => new PlayerViewDao
-                        {
-                            PlayerKey = item.PlayerKey,
-                            PlayerCode = item.PlayerCode,
-                            PlayerName = item.PlayerName
-                        })
-                        .OrderBy(io => io.PlayerName)
-                        .ToList()
-                };
-            }
+            return new TeamViewDao
+            {
+                TeamKey = team.TeamKey,
+                TeamCode = team.TeamCode,
+                TeamName = team.TeamName,
+                Players = team.Players
+                    .Select(item => new PlayerViewDao
+                    {
+                        PlayerKey = item.PlayerKey,
+                        PlayerCode = item.PlayerCode,
+                        PlayerName = item.PlayerName
+                    })
+                    .OrderBy(io => io.PlayerName)
+                    .ToList()
+            };
         }
 
         #endregion Fetch

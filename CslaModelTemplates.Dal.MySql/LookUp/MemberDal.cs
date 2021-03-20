@@ -1,17 +1,17 @@
 using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.LookUp;
 using CslaModelTemplates.Dal.Exceptions;
-using CslaModelTemplates.Dal.SqlServer.Entities;
+using CslaModelTemplates.Dal.MySql.Entities;
 using CslaModelTemplates.Resources;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace CslaModelTemplates.Dal.SqlServer.LookUp
+namespace CslaModelTemplates.Dal.MySql.LookUp
 {
     /// <summary>
     /// Implements the data access functions of the editable member object.
     /// </summary>
-    public class MemberDal : SqlServerDal, IMemberDal
+    public class MemberDal : MySqlDal, IMemberDal
     {
         #region Insert
 

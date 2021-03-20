@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.SelectionWithKey;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,7 @@ namespace CslaModelTemplates.Dal.SqlServer.SelectionWithKey
     /// <summary>
     /// Implements the data access functions of the read-only team choice collection.
     /// </summary>
-    public class TeamKeyChoiceDal : ITeamKeyChoiceDal
+    public class TeamKeyChoiceDal : SqlServerDal, ITeamKeyChoiceDal
     {
         #region Fetch
 
@@ -23,21 +22,18 @@ namespace CslaModelTemplates.Dal.SqlServer.SelectionWithKey
             TeamKeyChoiceCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<SqlServerContext>.GetManager())
-            {
-                List<KeyNameOptionDao> choice = ctx.DbContext.Teams
-                    .Where(e => criteria.TeamName == null || e.TeamName.Contains(criteria.TeamName))
-                    .Select(e => new KeyNameOptionDao
-                    {
-                        Key = e.TeamKey,
-                        Name = e.TeamName
-                    })
-                    .OrderBy(o => o.Name)
-                    .AsNoTracking()
-                    .ToList();
+            List<KeyNameOptionDao> choice = DbContext.Teams
+                .Where(e => criteria.TeamName == null || e.TeamName.Contains(criteria.TeamName))
+                .Select(e => new KeyNameOptionDao
+                {
+                    Key = e.TeamKey,
+                    Name = e.TeamName
+                })
+                .OrderBy(o => o.Name)
+                .AsNoTracking()
+                .ToList();
 
-                return choice;
-            }
+            return choice;
         }
 
         #endregion GetChoice

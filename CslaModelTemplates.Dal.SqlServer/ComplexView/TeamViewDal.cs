@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Contracts.ComplexView;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Resources;
@@ -10,7 +9,7 @@ namespace CslaModelTemplates.Dal.SqlServer.ComplexView
     /// <summary>
     /// Implements the data access functions of the read-only team object.
     /// </summary>
-    public class TeamViewDal : ITeamViewDal
+    public class TeamViewDal : SqlServerDal, ITeamViewDal
     {
         #region Fetch
 
@@ -23,37 +22,34 @@ namespace CslaModelTemplates.Dal.SqlServer.ComplexView
             TeamViewCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<SqlServerContext>.GetManager())
-            {
-                // Get the specified team.
-                TeamViewDao team = ctx.DbContext.Teams
-                    .Include(e => e.Players)
-                    .Where(e =>
-                        e.TeamKey == criteria.TeamKey
-                     )
-                    .Select(e => new TeamViewDao
-                    {
-                        TeamKey = e.TeamKey,
-                        TeamCode = e.TeamCode,
-                        TeamName = e.TeamName,
-                        Players = e.Players
-                            .Select(p => new PlayerViewDao
-                            {
-                                PlayerKey = p.PlayerKey,
-                                PlayerCode = p.PlayerCode,
-                                PlayerName = p.PlayerName
-                            })
-                        .OrderBy(p => p.PlayerName)
-                        .ToList()
-                    })
-                    .AsNoTracking()
-                    .FirstOrDefault();
+            // Get the specified team.
+            TeamViewDao team = DbContext.Teams
+                .Include(e => e.Players)
+                .Where(e =>
+                    e.TeamKey == criteria.TeamKey
+                 )
+                .Select(e => new TeamViewDao
+                {
+                    TeamKey = e.TeamKey,
+                    TeamCode = e.TeamCode,
+                    TeamName = e.TeamName,
+                    Players = e.Players
+                        .Select(p => new PlayerViewDao
+                        {
+                            PlayerKey = p.PlayerKey,
+                            PlayerCode = p.PlayerCode,
+                            PlayerName = p.PlayerName
+                        })
+                    .OrderBy(p => p.PlayerName)
+                    .ToList()
+                })
+                .AsNoTracking()
+                .FirstOrDefault();
 
-                if (team == null)
-                    throw new DataNotFoundException(DalText.Team_NotFound);
+            if (team == null)
+                throw new DataNotFoundException(DalText.Team_NotFound);
 
-                return team;
-            }
+            return team;
         }
 
         #endregion Fetch

@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Contracts.SimpleList;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace CslaModelTemplates.Dal.SqlServer.SimpleList
     /// <summary>
     /// Implements the data access functions of the read-only team collection.
     /// </summary>
-    public class SimpleTeamListDal : ISimpleTeamListDal
+    public class SimpleTeamListDal : SqlServerDal, ISimpleTeamListDal
     {
         #region Fetch
 
@@ -22,24 +21,21 @@ namespace CslaModelTemplates.Dal.SqlServer.SimpleList
             SimpleTeamListCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<SqlServerContext>.GetManager())
-            {
-                List<SimpleTeamListItemDao> list = ctx.DbContext.Teams
-                    .Where(e =>
-                        criteria.TeamName == null || e.TeamName.Contains(criteria.TeamName)
-                    )
-                    .Select(e => new SimpleTeamListItemDao
-                    {
-                        TeamKey = e.TeamKey,
-                        TeamCode = e.TeamCode,
-                        TeamName = e.TeamName
-                    })
-                    .OrderBy(o => o.TeamName)
-                    .AsNoTracking()
-                    .ToList();
+            List<SimpleTeamListItemDao> list = DbContext.Teams
+                .Where(e =>
+                    criteria.TeamName == null || e.TeamName.Contains(criteria.TeamName)
+                )
+                .Select(e => new SimpleTeamListItemDao
+                {
+                    TeamKey = e.TeamKey,
+                    TeamCode = e.TeamCode,
+                    TeamName = e.TeamName
+                })
+                .OrderBy(o => o.TeamName)
+                .AsNoTracking()
+                .ToList();
 
-                return list;
-            }
+            return list;
         }
 
         #endregion GetList

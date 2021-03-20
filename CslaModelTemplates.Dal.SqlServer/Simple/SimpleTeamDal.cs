@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.Dal.Exceptions;
@@ -12,7 +11,7 @@ namespace CslaModelTemplates.Dal.SqlServer.Simple
     /// <summary>
     /// Implements the data access functions of the editable team object.
     /// </summary>
-    public class SimpleTeamDal : ISimpleTeamDal
+    public class SimpleTeamDal : SqlServerDal, ISimpleTeamDal
     {
         #region Fetch
 
@@ -25,28 +24,25 @@ namespace CslaModelTemplates.Dal.SqlServer.Simple
             SimpleTeamCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<SqlServerContext>.GetManager())
-            {
-                // Get the specified team.
-                SimpleTeamDao team = ctx.DbContext.Teams
-                    .Where(e =>
-                        e.TeamKey == criteria.TeamKey
-                     )
-                    .Select(e => new SimpleTeamDao
-                    {
-                        TeamKey = e.TeamKey,
-                        TeamCode = e.TeamCode,
-                        TeamName = e.TeamName,
-                        Timestamp = e.Timestamp
-                    })
-                    .AsNoTracking()
-                    .FirstOrDefault();
+            // Get the specified team.
+            SimpleTeamDao team = DbContext.Teams
+                .Where(e =>
+                    e.TeamKey == criteria.TeamKey
+                 )
+                .Select(e => new SimpleTeamDao
+                {
+                    TeamKey = e.TeamKey,
+                    TeamCode = e.TeamCode,
+                    TeamName = e.TeamName,
+                    Timestamp = e.Timestamp
+                })
+                .AsNoTracking()
+                .FirstOrDefault();
 
-                if (team == null)
-                    throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
+            if (team == null)
+                throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
 
-                return team;
-            }
+            return team;
         }
 
         #endregion Fetch
@@ -61,32 +57,29 @@ namespace CslaModelTemplates.Dal.SqlServer.Simple
             SimpleTeamDao dao
             )
         {
-            using (var ctx = DbContextManager<SqlServerContext>.GetManager())
+            // Check unique team code.
+            Team team = DbContext.Teams
+                .Where(e =>
+                    e.TeamCode == dao.TeamCode
+                )
+                .FirstOrDefault();
+            if (team != null)
+                throw new DataExistException(DalText.SimpleTeam_TeamCodeExists.With(dao.TeamCode));
+
+            // Create the new team.
+            team = new Team
             {
-                // Check unique team code.
-                Team team = ctx.DbContext.Teams
-                    .Where(e =>
-                        e.TeamCode == dao.TeamCode
-                    )
-                    .FirstOrDefault();
-                if (team != null)
-                    throw new DataExistException(DalText.SimpleTeam_TeamCodeExists.With(dao.TeamCode));
+                TeamCode = dao.TeamCode,
+                TeamName = dao.TeamName
+            };
+            DbContext.Teams.Add(team);
+            int count = DbContext.SaveChanges();
+            if (count == 0)
+                throw new InsertFailedException(DalText.SimpleTeam_InsertFailed);
 
-                // Create the new team.
-                team = new Team
-                {
-                    TeamCode = dao.TeamCode,
-                    TeamName = dao.TeamName
-                };
-                ctx.DbContext.Teams.Add(team);
-                int count = ctx.DbContext.SaveChanges();
-                if (count == 0)
-                    throw new InsertFailedException(DalText.SimpleTeam_InsertFailed);
-
-                // Return new data.
-                dao.TeamKey = team.TeamKey;
-                dao.Timestamp = team.Timestamp;
-            }
+            // Return new data.
+            dao.TeamKey = team.TeamKey;
+            dao.Timestamp = team.Timestamp;
         }
 
         #endregion Insert
@@ -101,40 +94,37 @@ namespace CslaModelTemplates.Dal.SqlServer.Simple
             SimpleTeamDao dao
             )
         {
-            using (var ctx = DbContextManager<SqlServerContext>.GetManager())
+            // Get the specified team.
+            Team team = DbContext.Teams
+                .Where(e =>
+                    e.TeamKey == dao.TeamKey
+                )
+                .FirstOrDefault();
+            if (team == null)
+                throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
+            if (team.Timestamp != dao.Timestamp)
+                throw new ConcurrencyException(DalText.SimpleTeam_Concurrency);
+
+            // Check unique team code.
+            if (team.TeamCode != dao.TeamCode)
             {
-                // Get the specified team.
-                Team team = ctx.DbContext.Teams
-                    .Where(e =>
-                        e.TeamKey == dao.TeamKey
-                    )
-                    .FirstOrDefault();
-                if (team == null)
-                    throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
-                if (team.Timestamp != dao.Timestamp)
-                    throw new ConcurrencyException(DalText.SimpleTeam_Concurrency);
-
-                // Check unique team code.
-                if (team.TeamCode != dao.TeamCode)
-                {
-                    int exist = ctx.DbContext.Teams
-                        .Where(e => e.TeamCode == dao.TeamCode && e.TeamKey != team.TeamKey)
-                        .Count();
-                    if (exist > 0)
-                        throw new DataExistException(DalText.SimpleTeam_TeamCodeExists.With(dao.TeamCode));
-                }
-
-                // Update the team.
-                team.TeamCode = dao.TeamCode;
-                team.TeamName = dao.TeamName;
-
-                int count = ctx.DbContext.SaveChanges();
-                if (count == 0)
-                    throw new UpdateFailedException(DalText.SimpleTeam_UpdateFailed);
-
-                // Return new data.
-                dao.Timestamp = team.Timestamp;
+                int exist = DbContext.Teams
+                    .Where(e => e.TeamCode == dao.TeamCode && e.TeamKey != team.TeamKey)
+                    .Count();
+                if (exist > 0)
+                    throw new DataExistException(DalText.SimpleTeam_TeamCodeExists.With(dao.TeamCode));
             }
+
+            // Update the team.
+            team.TeamCode = dao.TeamCode;
+            team.TeamName = dao.TeamName;
+
+            int count = DbContext.SaveChanges();
+            if (count == 0)
+                throw new UpdateFailedException(DalText.SimpleTeam_UpdateFailed);
+
+            // Return new data.
+            dao.Timestamp = team.Timestamp;
         }
 
         #endregion Update
@@ -149,32 +139,29 @@ namespace CslaModelTemplates.Dal.SqlServer.Simple
             SimpleTeamCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<SqlServerContext>.GetManager())
-            {
-                // Get the specified team.
-                Team team = ctx.DbContext.Teams
-                    .Where(e =>
-                        e.TeamKey == criteria.TeamKey
-                     )
-                    .AsNoTracking()
-                    .FirstOrDefault();
+            // Get the specified team.
+            Team team = DbContext.Teams
+                .Where(e =>
+                    e.TeamKey == criteria.TeamKey
+                 )
+                .AsNoTracking()
+                .FirstOrDefault();
 
-                if (team == null)
-                    throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
+            if (team == null)
+                throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
 
-                // Check or delete references
-                //int dependents = 0;
+            // Check or delete references
+            //int dependents = 0;
 
-                //dependents = ctx.DbContext.Others.Count(e => e.TeamKey == criteria.TeamKey);
-                //if (dependents > 0)
-                //    throw new DeleteFailedException(DalText.SimpleTeam_Delete_Others);
+            //dependents = DbContext.Others.Count(e => e.TeamKey == criteria.TeamKey);
+            //if (dependents > 0)
+            //    throw new DeleteFailedException(DalText.SimpleTeam_Delete_Others);
 
-                // Delete the team.
-                ctx.DbContext.Teams.Remove(team);
-                int count = ctx.DbContext.SaveChanges();
-                if (count == 0)
-                    throw new DeleteFailedException(DalText.SimpleTeam_DeleteFailed);
-            }
+            // Delete the team.
+            DbContext.Teams.Remove(team);
+            int count = DbContext.SaveChanges();
+            if (count == 0)
+                throw new DeleteFailedException(DalText.SimpleTeam_DeleteFailed);
         }
 
         #endregion Delete

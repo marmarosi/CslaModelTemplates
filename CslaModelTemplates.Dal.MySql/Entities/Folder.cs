@@ -27,6 +27,6 @@ namespace CslaModelTemplates.Dal.MySql.Entities
         [ForeignKey("ParentKey")]
         public Folder Parent { get; set; }
 
-        public List<Folder> Children { get; set; }
+        public virtual ICollection<Folder> Children { get; set; }
     }
 }

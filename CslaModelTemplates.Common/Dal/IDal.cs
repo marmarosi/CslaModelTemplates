@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace CslaModelTemplates.Common
+namespace CslaModelTemplates.Common.Dal
 {
     public interface IDal
     {

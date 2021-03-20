@@ -26,6 +26,6 @@ namespace CslaModelTemplates.Dal.SqlServer.Entities
         [ForeignKey("ParentKey")]
         public Folder Parent { get; set; }
 
-        public List<Folder> Children { get; set; }
+        public ICollection<Folder> Children { get; set; }
     }
 }

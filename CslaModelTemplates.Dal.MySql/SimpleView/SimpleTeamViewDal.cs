@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Contracts.SimpleView;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.MySql.Entities;
@@ -11,7 +10,7 @@ namespace CslaModelTemplates.Dal.MySql.SimpleView
     /// <summary>
     /// Implements the data access functions of the read-only team object.
     /// </summary>
-    public class SimpleTeamViewDal : ISimpleTeamViewDal
+    public class SimpleTeamViewDal : MySqlDal, ISimpleTeamViewDal
     {
         #region Fetch
 
@@ -24,25 +23,22 @@ namespace CslaModelTemplates.Dal.MySql.SimpleView
             SimpleTeamViewCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<MySqlContext>.GetManager())
-            {
-                // Get the specified team.
-                Team team = ctx.DbContext.Teams
-                    .Where(e =>
-                        e.TeamKey == criteria.TeamKey
-                     )
-                    .AsNoTracking()
-                    .FirstOrDefault();
-                if (team == null)
-                    throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
+            // Get the specified team.
+            Team team = DbContext.Teams
+                .Where(e =>
+                    e.TeamKey == criteria.TeamKey
+                 )
+                .AsNoTracking()
+                .FirstOrDefault();
+            if (team == null)
+                throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
 
-                return new SimpleTeamViewDao
-                {
-                    TeamKey = team.TeamKey,
-                    TeamCode = team.TeamCode,
-                    TeamName = team.TeamName
-                };
-            }
+            return new SimpleTeamViewDao
+            {
+                TeamKey = team.TeamKey,
+                TeamCode = team.TeamCode,
+                TeamName = team.TeamName
+            };
         }
 
         #endregion Fetch

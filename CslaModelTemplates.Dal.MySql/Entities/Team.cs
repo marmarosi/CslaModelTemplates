@@ -21,6 +21,6 @@ namespace CslaModelTemplates.Dal.MySql.Entities
         [Timestamp]
         public DateTime Timestamp { get; set; }
 
-        public List<Player> Players { get; set; }
+        public virtual ICollection<Player> Players { get; set; }
     }
 }

@@ -19,6 +19,6 @@ namespace CslaModelTemplates.Dal.MySql.Entities
         public string PlayerName { get; set; }
 
         [ForeignKey("TeamKey")]
-        public Team Team { get; set; }
+        public virtual Team Team { get; set; }
     }
 }

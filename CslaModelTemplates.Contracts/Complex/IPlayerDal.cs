@@ -1,9 +1,11 @@
+using CslaModelTemplates.Common.Dal;
+
 namespace CslaModelTemplates.Contracts.Complex
 {
     /// <summary>
     /// Defines the data access functions of the editable player object.
     /// </summary>
-    public interface IPlayerDal
+    public interface IPlayerDal : IDal
     {
         void Insert(PlayerDao dao);
         void Update(PlayerDao dao);

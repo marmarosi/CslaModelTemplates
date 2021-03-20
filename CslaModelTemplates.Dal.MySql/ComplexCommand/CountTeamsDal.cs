@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.ComplexCommand;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,7 @@ namespace CslaModelTemplates.Dal.MySql.ComplexCommand
     /// <summary>
     /// Implements the data access functions of the count teams by player count command.
     /// </summary>
-    public class CountTeamsDal : ICountTeamsDal
+    public class CountTeamsDal : MySqlDal, ICountTeamsDal
     {
         private string COMMAND = typeof(CountTeamsDal).Name.CutEnd(3);
 
@@ -25,24 +24,22 @@ namespace CslaModelTemplates.Dal.MySql.ComplexCommand
             )
         {
             string teamName = criteria.TeamName ?? "";
-            using (var ctx = DbContextManager<MySqlContext>.GetManager())
-            {
-                List<CountTeamsListItemDao> list = ctx.DbContext.Teams
-                    .Include(e => e.Players)
-                    .Where(e => teamName == "" || e.TeamName.Contains(teamName))
-                    .GroupBy(
-                        e => e.Players.Count,
-                        (key, grp) => new CountTeamsListItemDao
-                        {
-                            ItemCount = key,
-                            CountOfTeams = grp.Count()
-                        })
-                    .OrderByDescending(o => o.ItemCount)
-                    .AsNoTracking()
-                    .ToList();
 
-                return list;
-            }
+            List<CountTeamsListItemDao> list = DbContext.Teams
+                .Include(e => e.Players)
+                .Where(e => teamName == "" || e.TeamName.Contains(teamName))
+                .GroupBy(
+                    e => e.Players.Count,
+                    (key, grp) => new CountTeamsListItemDao
+                    {
+                        ItemCount = key,
+                        CountOfTeams = grp.Count()
+                    })
+                .OrderByDescending(o => o.ItemCount)
+                .AsNoTracking()
+                .ToList();
+
+            return list;
         }
 
         #endregion

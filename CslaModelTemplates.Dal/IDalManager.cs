@@ -1,4 +1,4 @@
-using CslaModelTemplates.Common;
+using CslaModelTemplates.Common.Dal;
 using System;
 
 namespace CslaModelTemplates.Dal

@@ -17,8 +17,4 @@
     <ProjectReference Include="..\CslaModelTemplates.Resources\CslaModelTemplates.Resources.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="LookUp\" />
-  </ItemGroup>
-
 </Project>

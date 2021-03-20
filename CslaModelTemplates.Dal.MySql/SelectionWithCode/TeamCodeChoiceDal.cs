@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Contracts.SelectionWithCode;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,7 @@ namespace CslaModelTemplates.Dal.MySql.SelectionWithCode
     /// <summary>
     /// Implements the data access functions of the read-only team choice collection.
     /// </summary>
-    public class TeamCodeChoiceDal : ITeamCodeChoiceDal
+    public class TeamCodeChoiceDal : MySqlDal, ITeamCodeChoiceDal
     {
         #region Fetch
 
@@ -23,23 +22,20 @@ namespace CslaModelTemplates.Dal.MySql.SelectionWithCode
             TeamCodeChoiceCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<MySqlContext>.GetManager())
-            {
-                List<CodeNameOptionDao> choice = ctx.DbContext.Teams
-                    .Where(e =>
-                        criteria.TeamName == null || e.TeamName.Contains(criteria.TeamName)
-                    )
-                    .Select(e => new CodeNameOptionDao
-                    {
-                        Code = e.TeamCode,
-                        Name = e.TeamName
-                    })
-                    .OrderBy(o => o.Name)
-                    .AsNoTracking()
-                    .ToList();
+            List<CodeNameOptionDao> choice = DbContext.Teams
+                .Where(e =>
+                    criteria.TeamName == null || e.TeamName.Contains(criteria.TeamName)
+                )
+                .Select(e => new CodeNameOptionDao
+                {
+                    Code = e.TeamCode,
+                    Name = e.TeamName
+                })
+                .OrderBy(o => o.Name)
+                .AsNoTracking()
+                .ToList();
 
-                return choice;
-            }
+            return choice;
         }
 
         #endregion GetChoice

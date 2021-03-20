@@ -8,11 +8,11 @@ namespace CslaModelTemplates.Dal.MySql.Entities
         public long? GroupKey { get; set; }
 
         [ForeignKey("GroupKey")]
-        public Group Group { get; set; }
+        public virtual Group Group { get; set; }
 
         public long? PersonKey { get; set; }
 
         [ForeignKey("PersonKey")]
-        public Person Person { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

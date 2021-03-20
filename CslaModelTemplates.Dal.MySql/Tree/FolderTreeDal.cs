@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Contracts.Tree;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace CslaModelTemplates.Dal.MySql.Tree
     /// <summary>
     /// Implements the data access functions of the read-only folder tree.
     /// </summary>
-    public class FolderTreeDal : IFolderTreeDal
+    public class FolderTreeDal : MySqlDal, IFolderTreeDal
     {
         #region Fetch
 
@@ -24,31 +23,28 @@ namespace CslaModelTemplates.Dal.MySql.Tree
             FolderTreeCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<MySqlContext>.GetManager())
-            {
-                List<FolderNodeDao> tree = new List<FolderNodeDao>(); ;
+            List<FolderNodeDao> tree = new List<FolderNodeDao>(); ;
 
-                // Get all subfolders of the root foolder.
-                AllFolders = ctx.DbContext.Folders
-                    .Where(e =>
-                        e.RootKey == criteria.RootKey
-                    )
-                    .Select(e => new FolderNodeDao
-                    {
-                        FolderKey = e.FolderKey,
-                        ParentKey = e.ParentKey,
-                        FolderOrder = e.FolderOrder,
-                        FolderName = e.FolderName
-                    })
-                    .AsNoTracking()
-                    .ToList();
+            // Get all subfolders of the root foolder.
+            AllFolders = DbContext.Folders
+                .Where(e =>
+                    e.RootKey == criteria.RootKey
+                )
+                .Select(e => new FolderNodeDao
+                {
+                    FolderKey = e.FolderKey,
+                    ParentKey = e.ParentKey,
+                    FolderOrder = e.FolderOrder,
+                    FolderName = e.FolderName
+                })
+                .AsNoTracking()
+                .ToList();
 
-                // Populate the tree.
-                PopulateLevel(1, null, tree);
+            // Populate the tree.
+            PopulateLevel(1, null, tree);
 
-                // Return the result.
-                return tree;
-            }
+            // Return the result.
+            return tree;
         }
 
         private void PopulateLevel(

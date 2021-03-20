@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.Complex;
 using CslaModelTemplates.Dal.Exceptions;
@@ -12,7 +11,7 @@ namespace CslaModelTemplates.Dal.MySql.Complex
     /// <summary>
     /// Implements the data access functions of the editable player object.
     /// </summary>
-    public class PlayerDal : IPlayerDal
+    public class PlayerDal : MySqlDal, IPlayerDal
     {
         #region Insert
 
@@ -24,33 +23,30 @@ namespace CslaModelTemplates.Dal.MySql.Complex
             PlayerDao dao
             )
         {
-            using (var ctx = DbContextManager<MySqlContext>.GetManager())
+            // Check unique player code.
+            Player player = DbContext.Players
+                .Where(e =>
+                    e.TeamKey == dao.TeamKey &&
+                    e.PlayerCode == dao.PlayerCode
+                )
+                .FirstOrDefault();
+            if (player != null)
+                throw new DataExistException(DalText.Player_PlayerCodeExists.With(dao.PlayerCode));
+
+            // Create the new player.
+            player = new Player
             {
-                // Check unique player code.
-                Player player = ctx.DbContext.Players
-                    .Where(e =>
-                        e.TeamKey == dao.TeamKey &&
-                        e.PlayerCode == dao.PlayerCode
-                    )
-                    .FirstOrDefault();
-                if (player != null)
-                    throw new DataExistException(DalText.Player_PlayerCodeExists.With(dao.PlayerCode));
+                TeamKey = dao.TeamKey,
+                PlayerCode = dao.PlayerCode,
+                PlayerName = dao.PlayerName
+            };
+            DbContext.Players.Add(player);
+            int count = DbContext.SaveChanges();
+            if (count == 0)
+                throw new InsertFailedException(DalText.Player_InsertFailed.With(player.PlayerCode));
 
-                // Create the new player.
-                player = new Player
-                {
-                    TeamKey = dao.TeamKey,
-                    PlayerCode = dao.PlayerCode,
-                    PlayerName = dao.PlayerName
-                };
-                ctx.DbContext.Players.Add(player);
-                int count = ctx.DbContext.SaveChanges();
-                if (count == 0)
-                    throw new InsertFailedException(DalText.Player_InsertFailed.With(player.PlayerCode));
-
-                // Return new data.
-                dao.PlayerKey = player.PlayerKey;
-            }
+            // Return new data.
+            dao.PlayerKey = player.PlayerKey;
         }
 
         #endregion Insert
@@ -65,42 +61,40 @@ namespace CslaModelTemplates.Dal.MySql.Complex
             PlayerDao dao
             )
         {
-            using (var ctx = DbContextManager<MySqlContext>.GetManager())
+            // Get the specified player.
+            Player player = DbContext.Players
+                .Where(e =>
+                    e.PlayerKey == dao.PlayerKey
+                )
+                .FirstOrDefault();
+            if (player == null)
+                throw new DataNotFoundException(DalText.Player_NotFound);
+
+            // Check unique player code.
+            if (player.PlayerCode != dao.PlayerCode)
             {
-                // Get the specified player.
-                Player player = ctx.DbContext.Players
+                int exist = DbContext.Players
                     .Where(e =>
-                        e.PlayerKey == dao.PlayerKey
+                        e.TeamKey == dao.TeamKey &&
+                        e.PlayerCode == dao.PlayerCode &&
+                        e.PlayerKey != player.PlayerKey
                     )
-                    .FirstOrDefault();
-                if (player == null)
-                    throw new DataNotFoundException(DalText.Player_NotFound);
-
-                // Check unique player code.
-                if (player.PlayerCode != dao.PlayerCode)
-                {
-                    int exist = ctx.DbContext.Players
-                        .Where(e =>
-                            e.TeamKey == dao.TeamKey &&
-                            e.PlayerCode == dao.PlayerCode &&
-                            e.PlayerKey != player.PlayerKey
-                        )
-                        .Count();
-                    if (exist > 0)
-                        throw new DataExistException(DalText.Player_PlayerCodeExists.With(dao.PlayerCode));
-                }
-
-                // Update the player.
-                player.PlayerCode = dao.PlayerCode;
-                player.PlayerName = dao.PlayerName;
-
-                int count = ctx.DbContext.SaveChanges();
-                if (count == 0)
-                    throw new UpdateFailedException(DalText.Player_UpdateFailed.With(player.PlayerCode));
-
-                // Return new data.
+                    .Count();
+                if (exist > 0)
+                    throw new DataExistException(DalText.Player_PlayerCodeExists.With(dao.PlayerCode));
             }
+
+            // Update the player.
+            player.PlayerCode = dao.PlayerCode;
+            player.PlayerName = dao.PlayerName;
+
+            int count = DbContext.SaveChanges();
+            if (count == 0)
+                throw new UpdateFailedException(DalText.Player_UpdateFailed.With(player.PlayerCode));
+
+            // Return new data.
         }
+
         #endregion Update
 
         #region Delete
@@ -113,24 +107,21 @@ namespace CslaModelTemplates.Dal.MySql.Complex
             PlayerCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<MySqlContext>.GetManager())
-            {
-                // Get the specified player.
-                Player player = ctx.DbContext.Players
-                    .Where(e =>
-                        e.PlayerKey == criteria.PlayerKey
-                     )
-                    .AsNoTracking()
-                    .FirstOrDefault();
-                if (player == null)
-                    throw new DataNotFoundException(DalText.Player_NotFound);
+            // Get the specified player.
+            Player player = DbContext.Players
+                .Where(e =>
+                    e.PlayerKey == criteria.PlayerKey
+                 )
+                .AsNoTracking()
+                .FirstOrDefault();
+            if (player == null)
+                throw new DataNotFoundException(DalText.Player_NotFound);
 
-                // Delete the player.
-                ctx.DbContext.Players.Remove(player);
-                int count = ctx.DbContext.SaveChanges();
-                if (count == 0)
-                    throw new DeleteFailedException(DalText.Player_DeleteFailed.With(player.PlayerCode));
-            }
+            // Delete the player.
+            DbContext.Players.Remove(player);
+            int count = DbContext.SaveChanges();
+            if (count == 0)
+                throw new DeleteFailedException(DalText.Player_DeleteFailed.With(player.PlayerCode));
         }
 
         #endregion Delete

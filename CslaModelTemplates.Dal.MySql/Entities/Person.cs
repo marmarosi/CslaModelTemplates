@@ -20,6 +20,6 @@ namespace CslaModelTemplates.Dal.MySql.Entities
 
         public DateTime Timestamp { get; set; }
 
-        public List<Group> Memberships { get; set; }
+        public virtual ICollection<Membership> Memberships { get; set; }
     }
 }

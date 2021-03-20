@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Contracts.ComplexList;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace CslaModelTemplates.Dal.SqlServer.ComplexList
     /// <summary>
     /// Implements the data access functions of the read-only team collection.
     /// </summary>
-    public class TeamListDal : ITeamListDal
+    public class TeamListDal : SqlServerDal, ITeamListDal
     {
         #region Fetch
 
@@ -22,33 +21,30 @@ namespace CslaModelTemplates.Dal.SqlServer.ComplexList
             TeamListCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<SqlServerContext>.GetManager())
-            {
-                List<TeamListItemDao> list = ctx.DbContext.Teams
-                    .Include(e => e.Players)
-                    .Where(e =>
-                        criteria.TeamName == null || e.TeamName.Contains(criteria.TeamName)
-                    )
-                    .Select(e => new TeamListItemDao
+            List<TeamListItemDao> list = DbContext.Teams
+                .Include(e => e.Players)
+                .Where(e =>
+                    criteria.TeamName == null || e.TeamName.Contains(criteria.TeamName)
+                )
+                .Select(e => new TeamListItemDao
+                {
+                    TeamKey = e.TeamKey,
+                    TeamCode = e.TeamCode,
+                    TeamName = e.TeamName,
+                    Players = e.Players.Select(i => new PlayerListItemDao
                     {
-                        TeamKey = e.TeamKey,
-                        TeamCode = e.TeamCode,
-                        TeamName = e.TeamName,
-                        Players = e.Players.Select(i => new PlayerListItemDao
-                        {
-                            PlayerKey = i.PlayerKey,
-                            PlayerCode = i.PlayerCode,
-                            PlayerName = i.PlayerName
-                        })
-                        .OrderBy(io => io.PlayerName)
-                        .ToList()
+                        PlayerKey = i.PlayerKey,
+                        PlayerCode = i.PlayerCode,
+                        PlayerName = i.PlayerName
                     })
-                    .OrderBy(o => o.TeamName)
-                    .AsNoTracking()
-                    .ToList();
+                    .OrderBy(io => io.PlayerName)
+                    .ToList()
+                })
+                .OrderBy(o => o.TeamName)
+                .AsNoTracking()
+                .ToList();
 
-                return list;
-            }
+            return list;
         }
 
         #endregion GetList

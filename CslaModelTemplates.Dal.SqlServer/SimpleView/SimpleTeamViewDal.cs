@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Contracts.SimpleView;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Resources;
@@ -10,7 +9,7 @@ namespace CslaModelTemplates.Dal.SqlServer.SimpleView
     /// <summary>
     /// Implements the data access functions of the read-only team object.
     /// </summary>
-    public class SimpleTeamViewDal : ISimpleTeamViewDal
+    public class SimpleTeamViewDal : SqlServerDal, ISimpleTeamViewDal
     {
         #region Fetch
 
@@ -23,27 +22,24 @@ namespace CslaModelTemplates.Dal.SqlServer.SimpleView
             SimpleTeamViewCriteria criteria
             )
         {
-            using (var ctx = DbContextManager<SqlServerContext>.GetManager())
-            {
-                // Get the specified team.
-                SimpleTeamViewDao team = ctx.DbContext.Teams
-                    .Where(e =>
-                        e.TeamKey == criteria.TeamKey
-                     )
-                    .Select(e => new SimpleTeamViewDao
-                    {
-                        TeamKey = e.TeamKey,
-                        TeamCode = e.TeamCode,
-                        TeamName = e.TeamName
-                    })
-                    .AsNoTracking()
-                    .FirstOrDefault();
+            // Get the specified team.
+            SimpleTeamViewDao team = DbContext.Teams
+                .Where(e =>
+                    e.TeamKey == criteria.TeamKey
+                 )
+                .Select(e => new SimpleTeamViewDao
+                {
+                    TeamKey = e.TeamKey,
+                    TeamCode = e.TeamCode,
+                    TeamName = e.TeamName
+                })
+                .AsNoTracking()
+                .FirstOrDefault();
 
-                if (team == null)
-                    throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
+            if (team == null)
+                throw new DataNotFoundException(DalText.SimpleTeam_NotFound);
 
-                return team;
-            }
+            return team;
         }
 
         #endregion Fetch

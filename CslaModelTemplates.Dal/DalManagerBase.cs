@@ -1,5 +1,6 @@
 using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
+using CslaModelTemplates.Common.Dal;
 using Microsoft.EntityFrameworkCore;
 using System;
 

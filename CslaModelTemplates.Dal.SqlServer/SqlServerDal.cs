@@ -1,12 +1,12 @@
-using CslaModelTemplates.Common;
+using CslaModelTemplates.Common.Dal;
 
 namespace CslaModelTemplates.Dal.SqlServer
 {
     public class SqlServerDal : DalBase
     {
-        protected SqlServerContext Db
+        protected new SqlServerContext DbContext
         {
-            get { return DbContext as SqlServerContext; }
+            get { return base.DbContext as SqlServerContext; }
         }
     }
 }

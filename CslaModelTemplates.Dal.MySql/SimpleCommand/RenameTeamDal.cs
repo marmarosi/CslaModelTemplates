@@ -1,4 +1,3 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.SimpleCommand;
 using CslaModelTemplates.Dal.Exceptions;
@@ -11,7 +10,7 @@ namespace CslaModelTemplates.Dal.MySql.SimpleCommand
     /// <summary>
     /// Implements the data access functions of the rename team command.
     /// </summary>
-    public class RenameTeamDal : IRenameTeamDal
+    public class RenameTeamDal : MySqlDal, IRenameTeamDal
     {
         private string COMMAND = typeof(RenameTeamDal).Name.CutEnd(3);
 
@@ -25,24 +24,21 @@ namespace CslaModelTemplates.Dal.MySql.SimpleCommand
             RenameTeamDao dao
             )
         {
-            using (var ctx = DbContextManager<MySqlContext>.GetManager())
-            {
-                // Get the specified team.
-                Team team = ctx.DbContext.Teams
-                    .Where(e =>
-                        e.TeamKey == dao.TeamKey
-                    )
-                    .FirstOrDefault();
-                if (team == null)
-                    throw new DataNotFoundException(DalText.RenameTeam_NotFound);
+            // Get the specified team.
+            Team team = DbContext.Teams
+                .Where(e =>
+                    e.TeamKey == dao.TeamKey
+                )
+                .FirstOrDefault();
+            if (team == null)
+                throw new DataNotFoundException(DalText.RenameTeam_NotFound);
 
-                // Update the team.
-                team.TeamName = dao.TeamName;
+            // Update the team.
+            team.TeamName = dao.TeamName;
 
-                int count = ctx.DbContext.SaveChanges();
-                if (count == 0)
-                    throw new UpdateFailedException(DalText.RenameTeam_RenameFailed);
-            }
+            int count = DbContext.SaveChanges();
+            if (count == 0)
+                throw new UpdateFailedException(DalText.RenameTeam_RenameFailed);
         }
 
         #endregion

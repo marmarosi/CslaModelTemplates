@@ -1,4 +1,4 @@
-using CslaModelTemplates.Common;
+using CslaModelTemplates.Common.Dal;
 
 namespace CslaModelTemplates.Contracts.LookUp
 {
