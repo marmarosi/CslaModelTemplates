@@ -38,9 +38,11 @@ namespace CslaModelTemplates.Dal
             DalSettings settings = configuration.GetSection(Section).Get<DalSettings>();
             Configure(settings);
 
-            List<IDalRegistrar> dalRegistrars = GetRegistrars();
-            foreach (IDalRegistrar dalRegistrar in dalRegistrars)
-                dalRegistrar.AddDalContext(configuration, services);
+            foreach (KeyValuePair<string, Type> dalType in DalTypes)
+            {
+                IDalManager dalManager = Activator.CreateInstance(dalType.Value) as IDalManager;
+                dalManager.AddDalContext(configuration, services);
+            }
         }
 
         /// <summary>
@@ -90,47 +92,6 @@ namespace CslaModelTemplates.Dal
                 throw new ArgumentException(CommonText.DalFactory_DalManager_NotFound.With(dalTypeName));
 
             DalTypes.Add(dalName, dalType);
-        }
-
-        #endregion
-
-        #region Registrars
-
-        /// <summary>
-        /// Gets the data access registrar of the active layer.
-        /// </summary>
-        /// <returns>The data access registrar object.</returns>
-        public static IDalRegistrar GetRegistrar()
-        {
-            return GetRegistrar(ActiveLayer);
-        }
-
-        /// <summary>
-        /// Gets the data access registrar with the specified name.
-        /// </summary>
-        /// <param name="dalName">The name of the data access layer.</param>
-        /// <returns>The data access registrar object.</returns>
-        public static IDalRegistrar GetRegistrar(
-            string dalName
-            )
-        {
-            IDalManager dalManager = Activator.CreateInstance(DalTypes[dalName]) as IDalManager;
-            return dalManager.GetDalRegistrar();
-        }
-
-        /// <summary>
-        /// Gets all data access registrars.
-        /// </summary>
-        /// <returns>A collection of data access registrar objects.</returns>
-        public static List<IDalRegistrar> GetRegistrars()
-        {
-            List<IDalRegistrar> registrars = new List<IDalRegistrar>();
-            foreach (KeyValuePair<string, Type> dalType in DalTypes)
-            {
-                IDalManager dalManager = Activator.CreateInstance(dalType.Value) as IDalManager;
-                registrars.Add(dalManager.GetDalRegistrar());
-            }
-            return registrars;
         }
 
         #endregion

@@ -1,4 +1,6 @@
 using CslaModelTemplates.Common.Dal;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace CslaModelTemplates.Dal
@@ -9,6 +11,9 @@ namespace CslaModelTemplates.Dal
     public interface IDalManager : IDisposable
     {
         T GetProvider<T>() where T : class, IDal;
-        IDalRegistrar GetDalRegistrar();
+        void AddDalContext(
+            IConfiguration configuration,
+            IServiceCollection services
+            );
     }
 }

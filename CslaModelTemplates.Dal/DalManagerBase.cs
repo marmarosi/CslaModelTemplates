@@ -2,6 +2,8 @@ using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
 using CslaModelTemplates.Common.Dal;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace CslaModelTemplates.Dal
@@ -9,7 +11,7 @@ namespace CslaModelTemplates.Dal
     /// <summary>
     /// Represents a data access manager base object.
     /// </summary>
-    public class DalManagerBase<C> : IDalManager, IDisposable, ISeeder 
+    public abstract class DalManagerBase<C> : IDalManager, IDisposable, ISeeder 
         where C: DbContext
     {
         private Type RegistrarType = null;
@@ -21,13 +23,10 @@ namespace CslaModelTemplates.Dal
         /// </summary>
         /// <typeparam name="P">The type of the data access layer manager.</typeparam>
         /// <param name="dalManagerType">The classof the data access layer manager.</param>
-        public void SetTypes<R, P>()
-            where R : class
-            where P : class
+        public void SetTypes<M>()
+            where M : class
         {
-            RegistrarType = typeof(R);
-
-            Type providerType = typeof(P);
+            Type providerType = typeof(M);
             ProviderMask = string.Format(
                 "{0}, {1}",
                 providerType.FullName.Replace(providerType.Name, @"{0}.{1}"),
@@ -62,14 +61,10 @@ namespace CslaModelTemplates.Dal
                 throw new NotImplementedException(typeName);
         }
 
-        /// <summary>
-        /// Gets the database registrar.
-        /// </summary>
-        /// <returns>The database registrar.</returns>
-        public IDalRegistrar GetDalRegistrar()
-        {
-            return Activator.CreateInstance(RegistrarType) as IDalRegistrar;
-        }
+        public abstract void AddDalContext(
+            IConfiguration configuration,
+            IServiceCollection services
+            );
 
         #endregion
 
