@@ -24,7 +24,7 @@ namespace CslaModelTemplates.Dal.MySql.LookUp
             )
         {
             // Check unique membership.
-            Membership member = DbContext.Memberships
+            GroupPerson member = DbContext.GroupPersons
                 .Where(e =>
                     e.GroupKey == dao.GroupKey &&
                     e.PersonKey == dao.PersonKey
@@ -39,12 +39,12 @@ namespace CslaModelTemplates.Dal.MySql.LookUp
             if (person == null)
                 throw new DataExistException(DalText.Member_NotFound.With(dao.PersonName));
 
-            member = new Membership
+            member = new GroupPerson
             {
                 GroupKey = dao.GroupKey,
                 PersonKey = dao.PersonKey
             };
-            DbContext.Memberships.Add(member);
+            DbContext.GroupPersons.Add(member);
             int count = DbContext.SaveChanges();
             if (count == 0)
                 throw new InsertFailedException(DalText.Member_InsertFailed.With(dao.PersonName));
@@ -66,7 +66,7 @@ namespace CslaModelTemplates.Dal.MySql.LookUp
             )
         {
             // Get the specified player.
-            Membership member = DbContext.Memberships
+            GroupPerson member = DbContext.GroupPersons
                 .Where(e =>
                     e.GroupKey == dao.GroupKey &&
                     e.PersonKey == dao.PersonKey
@@ -77,7 +77,7 @@ namespace CslaModelTemplates.Dal.MySql.LookUp
                 throw new DataNotFoundException(DalText.Member_NotFound.With(dao.PersonName));
 
             // Delete the member.
-            DbContext.Memberships.Remove(member);
+            DbContext.GroupPersons.Remove(member);
             int count = DbContext.SaveChanges();
             if (count == 0)
                 throw new DeleteFailedException(DalText.Member_DeleteFailed.With(dao.PersonName));

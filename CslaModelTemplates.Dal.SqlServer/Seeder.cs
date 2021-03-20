@@ -100,7 +100,7 @@ namespace CslaModelTemplates.Dal.SqlServer
 
                 #endregion
 
-                #region Membership data
+                #region GroupPerson data
 
                 foreach (long groupKey in groupKeys)
                 {
@@ -110,7 +110,7 @@ namespace CslaModelTemplates.Dal.SqlServer
                     {
                         int index = random.Next(1, 20 - j);
                         long personKey = tempKeys[index];
-                        ctx.Memberships.Add(new Membership
+                        ctx.GroupPersons.Add(new GroupPerson
                         {
                             GroupKey = groupKey,
                             PersonKey = personKey

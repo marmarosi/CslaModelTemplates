@@ -83,7 +83,7 @@ namespace CslaModelTemplates.Dal.SqlServer
         public DbSet<Folder> Folders { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Person> Persons { get; set; }
-        public DbSet<Membership> Memberships { get; set; }
+        public DbSet<GroupPerson> GroupPersons { get; set; }
 
         #endregion
 
@@ -146,9 +146,9 @@ namespace CslaModelTemplates.Dal.SqlServer
 
             #endregion
 
-            #region Membership
+            #region GroupPerson
 
-            modelBuilder.Entity<Membership>()
+            modelBuilder.Entity<GroupPerson>()
                 .HasKey(e => new { e.GroupKey, e.PersonKey })
                 .IsClustered();
 

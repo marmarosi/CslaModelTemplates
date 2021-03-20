@@ -2,8 +2,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CslaModelTemplates.Dal.SqlServer.Entities
 {
-    [Table("Memberships")]
-    public class Membership
+    [Table("GroupPersons")]
+    public class GroupPerson
     {
         public long? GroupKey { get; set; }
 

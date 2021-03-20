@@ -47,7 +47,7 @@ namespace CslaModelTemplates.Dal.MySql
         public DbSet<Folder> Folders { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Person> Persons { get; set; }
-        public DbSet<Membership> Memberships { get; set; }
+        public DbSet<GroupPerson> GroupPersons { get; set; }
 
         #endregion
 
@@ -98,15 +98,15 @@ namespace CslaModelTemplates.Dal.MySql
 
             #endregion
 
-            #region Membership
+            #region GroupPerson
 
-            modelBuilder.Entity<Membership>()
+            modelBuilder.Entity<GroupPerson>()
                 .HasKey(e => new { e.GroupKey, e.PersonKey });
-            modelBuilder.Entity<Membership>()
+            modelBuilder.Entity<GroupPerson>()
                 .HasOne(e => e.Group)
                 .WithMany(g => g.Members)
                 .HasForeignKey(e => e.GroupKey);
-            modelBuilder.Entity<Membership>()
+            modelBuilder.Entity<GroupPerson>()
                 .HasOne(e => e.Person)
                 .WithMany(p => p.Memberships)
                 .HasForeignKey(e => e.PersonKey);
