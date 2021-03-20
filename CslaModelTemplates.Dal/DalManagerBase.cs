@@ -1,4 +1,6 @@
+using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Common;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace CslaModelTemplates.Dal
@@ -7,11 +9,11 @@ namespace CslaModelTemplates.Dal
     /// Represents a data access manager base object.
     /// </summary>
     public class DalManagerBase<C> : IDalManager, IDisposable, ISeeder 
-        where C: IDisposable
+        where C: DbContext
     {
         private Type RegistrarType = null;
         protected string ProviderMask = null;
-        public C ConnectionManager { get; protected set; }
+        public DbContextManager<C> ContextManager { get; protected set; }
 
         /// <summary>
         /// Sets the type mask of the data access layer manager.
@@ -39,7 +41,7 @@ namespace CslaModelTemplates.Dal
         /// </summary>
         /// <typeparam name="T">The type of the data access object to instantiate.</typeparam>
         /// <returns>The data access object of the specified type.</returns>
-        public T GetProvider<T>() where T : class
+        public T GetProvider<T>() where T : class, IDal
         {
             Type result = typeof(T);
             string fullName = result.FullName;
@@ -50,7 +52,11 @@ namespace CslaModelTemplates.Dal
             string typeName = ProviderMask.With(virtualPath, className);
             Type type = Type.GetType(typeName);
             if (type != null)
-                return Activator.CreateInstance(type) as T;
+            {
+                T provider = Activator.CreateInstance(type) as T;
+                provider.DbContext = ContextManager.DbContext;
+                return provider;
+            }
             else
                 throw new NotImplementedException(typeName);
         }
@@ -89,8 +95,8 @@ namespace CslaModelTemplates.Dal
         /// </summary>
         public void Dispose()
         {
-            ConnectionManager.Dispose();
-            ConnectionManager = default;
+            ContextManager.Dispose();
+            ContextManager = default;
         }
     }
 }

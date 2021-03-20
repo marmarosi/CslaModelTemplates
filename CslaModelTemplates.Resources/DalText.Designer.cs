@@ -61,11 +61,101 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The group has been changed in the meantime..
+        /// </summary>
+        public static string Group_Concurrency {
+            get {
+                return ResourceManager.GetString("Group_Concurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting the group has failed..
+        /// </summary>
+        public static string Group_DeleteFailed {
+            get {
+                return ResourceManager.GetString("Group_DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group with code {0} already exists..
+        /// </summary>
+        public static string Group_GroupCodeExists {
+            get {
+                return ResourceManager.GetString("Group_GroupCodeExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating the new group has failed..
+        /// </summary>
+        public static string Group_InsertFailed {
+            get {
+                return ResourceManager.GetString("Group_InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The requested group has not been found..
         /// </summary>
         public static string Group_NotFound {
             get {
                 return ResourceManager.GetString("Group_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating the group has failed..
+        /// </summary>
+        public static string Group_UpdateFailed {
+            get {
+                return ResourceManager.GetString("Group_UpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting the member with name {0} has failed..
+        /// </summary>
+        public static string Member_DeleteFailed {
+            get {
+                return ResourceManager.GetString("Member_DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member with name {0} already exists..
+        /// </summary>
+        public static string Member_Exists {
+            get {
+                return ResourceManager.GetString("Member_Exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating the new member with name {0} has failed..
+        /// </summary>
+        public static string Member_InsertFailed {
+            get {
+                return ResourceManager.GetString("Member_InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The requested member with name {0} has not been found..
+        /// </summary>
+        public static string Member_NotFound {
+            get {
+                return ResourceManager.GetString("Member_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating the new members has failed..
+        /// </summary>
+        public static string Membership_InsertFailed {
+            get {
+                return ResourceManager.GetString("Membership_InsertFailed", resourceCulture);
             }
         }
         

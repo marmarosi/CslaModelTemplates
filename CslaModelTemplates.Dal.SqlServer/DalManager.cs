@@ -5,7 +5,7 @@ namespace CslaModelTemplates.Dal.SqlServer
     /// <summary>
     /// Represents the data access manager object for SQL Server databases.
     /// </summary>
-    public sealed class DalManager : DalManagerBase<DbContextManager<SqlServerContext>>
+    public sealed class DalManager : DalManagerBase<SqlServerContext>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DalManager"/> class.
@@ -13,7 +13,7 @@ namespace CslaModelTemplates.Dal.SqlServer
         public DalManager()
         {
             SetTypes<DalRegistrar, DalManager>();
-            ConnectionManager = DbContextManager<SqlServerContext>.GetManager(DAL.SQLServer);
+            ContextManager = DbContextManager<SqlServerContext>.GetManager(DAL.SQLServer);
         }
 
         #region ISeeder

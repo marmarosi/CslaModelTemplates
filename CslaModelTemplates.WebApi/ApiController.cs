@@ -23,7 +23,7 @@ namespace CslaModelTemplates.WebApi
         {
             get
             {
-                return Request == null ? "" : Request.Path;
+                return Request == null ? "" : Request.Path.ToString();
             }
         }
 

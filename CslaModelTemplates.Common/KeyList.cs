@@ -1,18 +1,30 @@
 using System;
 using System.Collections.Generic;
 
-namespace CslaModelTemplates.Common.Models
+namespace CslaModelTemplates.Common
 {
     /// <summary>
-    /// Utility to convert entity key arrays.
+    /// Utility to convert entity key arrays and lists.
     /// </summary>
     public static class KeyList
     {
         /// <summary>
+        /// Converts a key list to string.
+        /// </summary>
+        /// <param name="keys">The list of the entity keys.</param>
+        /// <returns>The string of the keys.</returns>
+        public static string ToString(
+            List<long> keys
+            )
+        {
+            return ToString(keys.ToArray());
+        }
+
+        /// <summary>
         /// Converts a key array to string list.
         /// </summary>
         /// <param name="keys">The array of the entity keys.</param>
-        /// <returns>The string list of the keys.</returns>
+        /// <returns>The string of the keys.</returns>
         public static string ToString(
             long[] keys
             )
@@ -29,11 +41,23 @@ namespace CslaModelTemplates.Common.Models
         }
 
         /// <summary>
-        /// Converts a string list to key array.
+        /// Converts a string to key array.
         /// </summary>
-        /// <param name="list">The string list of the keys.</param>
+        /// <param name="list">The string of the keys.</param>
         /// <returns>The array of the entity keys.</returns>
         public static long[] ToArray(
+            string list
+            )
+        {
+            return ToList(list).ToArray();
+        }
+
+        /// <summary>
+        /// Converts a string to key list.
+        /// </summary>
+        /// <param name="list">The string of the keys.</param>
+        /// <returns>The list of the entity keys.</returns>
+        public static List<long> ToList(
             string list
             )
         {
@@ -45,7 +69,7 @@ namespace CslaModelTemplates.Common.Models
                 foreach (string item in items)
                     keys.Add(Convert.ToInt64(item));
             }
-            return keys.ToArray();
+            return keys;
         }
     }
 }

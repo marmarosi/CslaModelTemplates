@@ -4,54 +4,36 @@ using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Common.Validations;
-using CslaModelTemplates.Contracts.Complex;
+using CslaModelTemplates.Contracts.LookUp;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CslaModelTemplates.Models.Complex
+namespace CslaModelTemplates.Models.LookUp
 {
     /// <summary>
-    /// Represents an editable player object.
+    /// Represents an editable member object.
     /// </summary>
     [Serializable]
-    [ValidationResourceType(typeof(ValidationText), ObjectName = "Player")]
-    public class Player : EditableModel<Player>
+    [ValidationResourceType(typeof(ValidationText), ObjectName = "Member")]
+    public class Member : EditableModel<Member>
     {
         #region Properties
 
-        public static readonly PropertyInfo<long?> PlayerKeyProperty = RegisterProperty<long?>(c => c.PlayerKey);
-        public long? PlayerKey
+        public static readonly PropertyInfo<long?> PersonKeyProperty = RegisterProperty<long?>(c => c.PersonKey);
+        public long? PersonKey
         {
-            get { return GetProperty(PlayerKeyProperty); }
-            private set { LoadProperty(PlayerKeyProperty, value); }
+            get { return GetProperty(PersonKeyProperty); }
+            private set { LoadProperty(PersonKeyProperty, value); }
         }
 
-        public static readonly PropertyInfo<long?> TeamKeyProperty = RegisterProperty<long?>(c => c.TeamKey);
-        public long? TeamKey
+        public static readonly PropertyInfo<string> PersonNameProperty = RegisterProperty<string>(c => c.PersonName);
+        public string PersonName
         {
-            get { return GetProperty(TeamKeyProperty); }
-            private set { LoadProperty(TeamKeyProperty, value); }
-        }
-
-        public static readonly PropertyInfo<string> PlayerCodeProperty = RegisterProperty<string>(c => c.PlayerCode);
-        [Required]
-        [MaxLength(10)]
-        public string PlayerCode
-        {
-            get { return GetProperty(PlayerCodeProperty); }
-            set { SetProperty(PlayerCodeProperty, value); }
-        }
-
-        public static readonly PropertyInfo<string> PlayerNameProperty = RegisterProperty<string>(c => c.PlayerName);
-        [Required]
-        [MaxLength(100)]
-        public string PlayerName
-        {
-            get { return GetProperty(PlayerNameProperty); }
-            set { SetProperty(PlayerNameProperty, value); }
+            get { return GetProperty(PersonNameProperty); }
+            private set { LoadProperty(PersonNameProperty, value); }
         }
 
         #endregion
@@ -61,7 +43,7 @@ namespace CslaModelTemplates.Models.Complex
         protected override void AddBusinessRules()
         {
             // Add validation rules.
-            BusinessRules.AddRule(new UniquePlayerCodes(PlayerCodeProperty));
+            BusinessRules.AddRule(new UniquePersonKeys(PersonKeyProperty));
 
             // Add authorization rules.
             //BusinessRules.AddRule(new IsInRole(
@@ -77,10 +59,10 @@ namespace CslaModelTemplates.Models.Complex
         //        );
         //}
 
-        private class UniquePlayerCodes : BusinessRule
+        private class UniquePersonKeys : BusinessRule
         {
             // TODO: Add additional parameters to your rule to the constructor
-            public UniquePlayerCodes(
+            public UniquePersonKeys(
                 IPropertyInfo primaryProperty
                 )
               : base(primaryProperty)
@@ -104,14 +86,14 @@ namespace CslaModelTemplates.Models.Complex
                 //{
                 //  context.AddErrorResult("Broken rule message");
                 //}
-                Player target = (Player)context.Target;
+                Member target = (Member)context.Target;
                 if (target.Parent == null)
                     return;
 
-                Team team = (Team)target.Parent.Parent;
-                var count = team.Players.Count(player => player.PlayerCode == target.PlayerCode);
+                Group group = (Group)target.Parent.Parent;
+                var count = group.Members.Count(member => member.PersonKey == target.PersonKey);
                 if (count > 1)
-                    context.AddErrorResult(ValidationText.Player_PlayerCode_NotUnique);
+                    context.AddErrorResult(ValidationText.Member_PersonKey_NotUnique);
             }
         }
 
@@ -120,39 +102,37 @@ namespace CslaModelTemplates.Models.Complex
         #region Business Methods
 
         /// <summary>
-        /// Creates an editable player instance from the data transfer object.
+        /// Creates an editable member instance from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer object.</param>
-        /// <returns>The new editable player instance.</returns>
-        internal static async Task<Player> Create(
-            PlayerDto dto
+        /// <returns>The new editable member instance.</returns>
+        internal static async Task<Member> Create(
+            MemberDto dto
             )
         {
-            Player item = null;
-            item = await Task.Run(() => DataPortal.CreateChild<Player>());
-            item.Update(dto);
-            return item;
+            Member member = null;
+            member = await Task.Run(() => DataPortal.CreateChild<Member>());
+            member.Update(dto);
+            return member;
         }
 
         /// <summary>
-        /// Updates an editable player from the data transfer object.
+        /// Updates an editable member from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer objects.</param>
         internal void Update(
-            PlayerDto dto
+            MemberDto dto
             )
         {
-            //PlayerKey = dto.PlayerKey;
-            //TeamKey = dto.TeamKey;
-            PlayerCode = dto.PlayerCode;
-            PlayerName = dto.PlayerName;
+            PersonKey = dto.PersonKey;
+            PersonName = dto.PersonName;
         }
 
         #endregion
 
         #region Factory Methods
 
-        private Player()
+        private Member()
         { /* Require use of factory methods */ }
 
         #endregion
@@ -166,88 +146,72 @@ namespace CslaModelTemplates.Models.Complex
         //}
 
         private void Child_Fetch(
-            PlayerDao dao
+            MemberDao dao
             )
         {
             using (BypassPropertyChecks)
             {
                 // Set values from data access object.
-                PlayerKey = dao.PlayerKey;
-                TeamKey = dao.TeamKey;
-                PlayerCode = dao.PlayerCode;
-                PlayerName = dao.PlayerName;
+                PersonKey = dao.PersonKey;
+                PersonName = dao.PersonName;
             }
         }
 
-        private PlayerDao CreateDao()
+        private MemberDao CreateDao(
+            long? groupKey
+            )
         {
             // Build the data access object.
-            return new PlayerDao
+            return new MemberDao
             {
-                PlayerKey = PlayerKey,
-                TeamKey = TeamKey,
-                PlayerCode = PlayerCode,
-                PlayerName = PlayerName
+                GroupKey = groupKey,
+                PersonKey = PersonKey,
+                PersonName = PersonName
             };
         }
 
         private void Child_Insert(
-            Team parent
+            Group parent
             )
         {
             // Insert values into persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IPlayerDal dal = dm.GetProvider<IPlayerDal>();
+                IMemberDal dal = dm.GetProvider<IMemberDal>();
 
                 using (BypassPropertyChecks)
                 {
-                    TeamKey = parent.TeamKey;
-                    PlayerDao dao = CreateDao();
+                    MemberDao dao = CreateDao(parent.GroupKey);
                     dal.Insert(dao);
 
                     // Set new data.
-                    PlayerKey = dao.PlayerKey;
                 }
                 //FieldManager.UpdateChildren(this);
             }
         }
 
         private void Child_Update(
-            Team parent
+            Group parent
             )
         {
-            // Update values in persistent storage.
-            using (IDalManager dm = DalFactory.GetManager())
-            {
-                IPlayerDal dal = dm.GetProvider<IPlayerDal>();
-
-                using (BypassPropertyChecks)
-                {
-                    PlayerDao dao = CreateDao();
-                    dal.Update(dao);
-
-                    // Set new data.
-                }
-                //FieldManager.UpdateChildren(this);
-            }
+            throw new NotImplementedException();
         }
 
         private void Child_DeleteSelf(
-            Team parent
+            Group parent
             )
         {
             // TODO: delete values
             // Delete values from persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IPlayerDal dal = dm.GetProvider<IPlayerDal>();
+                IMemberDal dal = dm.GetProvider<IMemberDal>();
 
                 //Items.Clear();
                 //FieldManager.UpdateChildren(this);
 
-                PlayerCriteria criteria = new PlayerCriteria(PlayerKey.Value);
-                dal.Delete(criteria);
+                MemberDao dao = CreateDao(parent.GroupKey);
+                dal.Delete(dao);
             }
         }
 

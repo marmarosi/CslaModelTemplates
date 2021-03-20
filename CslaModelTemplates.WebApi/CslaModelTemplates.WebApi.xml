@@ -125,6 +125,39 @@
             <param name="criteria">The criteria of the group view.</param>
             <returns>The requested group view.</returns>
         </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.GetNewGroup">
+            <summary>
+            Gets a new group to edit.
+            </summary>
+            <returns>The new group.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.GetGroup(CslaModelTemplates.Contracts.LookUp.GroupCriteria)">
+            <summary>
+            Gets the specified group to edit.
+            </summary>
+            <param name="criteria">The criteria of the group.</param>
+            <returns>The requested group.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.CreateGroup(CslaModelTemplates.Contracts.LookUp.GroupDto)">
+            <summary>
+            Creates a new group.
+            </summary>
+            <param name="dto">The data transer object of the group.</param>
+            <returns>The created group.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.UpdateGroup(CslaModelTemplates.Contracts.LookUp.GroupDto)">
+            <summary>
+            Updates the specified group.
+            </summary>
+            <param name="dto">The data transer object of the group.</param>
+            <returns>The updated group.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.DeleteGroup(CslaModelTemplates.Contracts.LookUp.GroupCriteria)">
+            <summary>
+            Deletes the specified group.
+            </summary>
+            <param name="criteria">The criteria of the group.</param>
+        </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.PaginationController">
             <summary>
             Contains the API endpoints for pagination.

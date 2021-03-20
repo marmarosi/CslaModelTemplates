@@ -117,8 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Group_Concurrency" xml:space="preserve">
+    <value>The group has been changed in the meantime.</value>
+  </data>
+  <data name="Group_DeleteFailed" xml:space="preserve">
+    <value>Deleting the group has failed.</value>
+  </data>
+  <data name="Group_GroupCodeExists" xml:space="preserve">
+    <value>Group with code {0} already exists.</value>
+  </data>
+  <data name="Group_InsertFailed" xml:space="preserve">
+    <value>Creating the new group has failed.</value>
+  </data>
   <data name="Group_NotFound" xml:space="preserve">
     <value>The requested group has not been found.</value>
+  </data>
+  <data name="Group_UpdateFailed" xml:space="preserve">
+    <value>Updating the group has failed.</value>
+  </data>
+  <data name="Membership_InsertFailed" xml:space="preserve">
+    <value>Creating the new members has failed.</value>
+  </data>
+  <data name="Member_DeleteFailed" xml:space="preserve">
+    <value>Deleting the member with name {0} has failed.</value>
+  </data>
+  <data name="Member_Exists" xml:space="preserve">
+    <value>Member with name {0} already exists.</value>
+  </data>
+  <data name="Member_InsertFailed" xml:space="preserve">
+    <value>Creating the new member with name {0} has failed.</value>
+  </data>
+  <data name="Member_NotFound" xml:space="preserve">
+    <value>The requested member with name {0} has not been found.</value>
   </data>
   <data name="Player_DeleteFailed" xml:space="preserve">
     <value>Deleting the player with code {0} has failed.</value>

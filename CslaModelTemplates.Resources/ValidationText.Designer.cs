@@ -61,6 +61,15 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The person key is not unique..
+        /// </summary>
+        public static string Member_PersonKey_NotUnique {
+            get {
+                return ResourceManager.GetString("Member_PersonKey_NotUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The player code cannot exceed {1} characters..
         /// </summary>
         public static string Player_PlayerCode_MaxLength {

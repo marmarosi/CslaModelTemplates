@@ -3,7 +3,7 @@ using System;
 namespace CslaModelTemplates.Contracts.Simple
 {
     /// <summary>
-    /// Defines the editable root data.
+    /// Defines the editable team data.
     /// </summary>
     public class SimpleTeamData
     {
@@ -14,13 +14,13 @@ namespace CslaModelTemplates.Contracts.Simple
     }
 
     /// <summary>
-    /// Defines the data access object of the editable root object.
+    /// Defines the data access object of the editable team object.
     /// </summary>
     public class SimpleTeamDao : SimpleTeamData
     { }
 
     /// <summary>
-    /// Defines the data transfer object of the editable root object.
+    /// Defines the data transfer object of the editable team object.
     /// </summary>
     public class SimpleTeamDto : SimpleTeamData
     { }

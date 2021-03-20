@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CslaModelTemplates.Common\CslaModelTemplates.Common.csproj" />
     <ProjectReference Include="..\CslaModelTemplates.Contracts\CslaModelTemplates.Contracts.csproj" />
+    <ProjectReference Include="..\CslaModelTemplates.Dal.SqlServer\CslaModelTemplates.Dal.SqlServer.csproj" />
     <ProjectReference Include="..\CslaModelTemplates.Dal\CslaModelTemplates.Dal.csproj" />
     <ProjectReference Include="..\CslaModelTemplates.Resources\CslaModelTemplates.Resources.csproj" />
   </ItemGroup>

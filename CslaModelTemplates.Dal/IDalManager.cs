@@ -1,5 +1,4 @@
-using Csla.Data.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+using CslaModelTemplates.Common;
 using System;
 
 namespace CslaModelTemplates.Dal
@@ -9,7 +8,7 @@ namespace CslaModelTemplates.Dal
     /// </summary>
     public interface IDalManager : IDisposable
     {
-        T GetProvider<T>() where T : class;
+        T GetProvider<T>() where T : class, IDal;
         IDalRegistrar GetDalRegistrar();
     }
 }
