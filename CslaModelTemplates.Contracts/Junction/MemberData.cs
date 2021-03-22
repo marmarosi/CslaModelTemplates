@@ -1,4 +1,4 @@
-namespace CslaModelTemplates.Contracts.LookUp
+namespace CslaModelTemplates.Contracts.Junction
 {
     /// <summary>
     /// Defines the editable member data.

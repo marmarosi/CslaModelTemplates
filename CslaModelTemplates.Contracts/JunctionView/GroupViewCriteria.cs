@@ -1,7 +1,7 @@
 using Csla;
 using System;
 
-namespace CslaModelTemplates.Contracts.LookUpView
+namespace CslaModelTemplates.Contracts.JunctionView
 {
     /// <summary>
     /// Represents the criteria of the read-only group object.

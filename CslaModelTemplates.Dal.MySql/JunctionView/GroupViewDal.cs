@@ -1,15 +1,15 @@
-using CslaModelTemplates.Contracts.LookUpView;
+using CslaModelTemplates.Contracts.JunctionView;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Resources;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace CslaModelTemplates.Dal.SqlServer.LookUpView
+namespace CslaModelTemplates.Dal.MySql.JunctionView
 {
     /// <summary>
     /// Implements the data access functions of the read-only group object.
     /// </summary>
-    public class GroupViewDal : SqlServerDal, IGroupViewDal
+    public class GroupViewDal : MySqlDal, IGroupViewDal
     {
         #region Fetch
 

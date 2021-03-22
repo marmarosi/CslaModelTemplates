@@ -1,4 +1,4 @@
-namespace CslaModelTemplates.Contracts.LookUpView
+namespace CslaModelTemplates.Contracts.JunctionView
 {
     /// <summary>
     /// Defines the read-only member data.

@@ -1,4 +1,4 @@
-using CslaModelTemplates.Contracts.LookUpView;
+using CslaModelTemplates.Contracts.JunctionView;
 using CslaModelTemplates.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -13,8 +13,8 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<LookUpController>();
-            var sut = new LookUpController(logger);
+            var logger = setup.GetLogger<JunctionController>();
+            var sut = new JunctionController(logger);
 
             // Act
             GroupViewCriteria criteria = new GroupViewCriteria { GroupKey = 8 };

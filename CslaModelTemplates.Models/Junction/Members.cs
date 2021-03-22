@@ -2,13 +2,13 @@ using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
-using CslaModelTemplates.Contracts.LookUp;
+using CslaModelTemplates.Contracts.Junction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CslaModelTemplates.Models.LookUp
+namespace CslaModelTemplates.Models.Junction
 {
     /// <summary>
     /// Represents an editable member collection.

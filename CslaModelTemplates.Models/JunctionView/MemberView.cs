@@ -2,10 +2,10 @@ using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
-using CslaModelTemplates.Contracts.LookUpView;
+using CslaModelTemplates.Contracts.JunctionView;
 using System;
 
-namespace CslaModelTemplates.Models.LookUpView
+namespace CslaModelTemplates.Models.JunctionView
 {
     /// <summary>
     /// Represents an item in a read-only member collection.

@@ -1,7 +1,7 @@
 using Csla;
 using System;
 
-namespace CslaModelTemplates.Contracts.LookUp
+namespace CslaModelTemplates.Contracts.Junction
 {
     /// <summary>
     /// Represents the criteria of the editable group object.

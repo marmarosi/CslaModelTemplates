@@ -107,52 +107,52 @@
             <param name="dto">The data transer objects of the team set.</param>
             <returns>The updated team set.</returns>
         </member>
-        <member name="T:CslaModelTemplates.WebApi.Controllers.LookUpController">
+        <member name="T:CslaModelTemplates.WebApi.Controllers.JunctionController">
             <summary>
-            Contains the API endpoints for simple models.
+            Contains the API endpoints for junction models.
             </summary>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.#ctor(Microsoft.Extensions.Logging.ILogger{CslaModelTemplates.WebApi.Controllers.LookUpController})">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.#ctor(Microsoft.Extensions.Logging.ILogger{CslaModelTemplates.WebApi.Controllers.JunctionController})">
             <summary>
             Creates a new instance.
             </summary>
             <param name="logger">The application logging service.</param>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.GetGroupView(CslaModelTemplates.Contracts.LookUpView.GroupViewCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.GetGroupView(CslaModelTemplates.Contracts.JunctionView.GroupViewCriteria)">
             <summary>
             Gets the specified group details to display.
             </summary>
             <param name="criteria">The criteria of the group view.</param>
             <returns>The requested group view.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.GetNewGroup">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.GetNewGroup">
             <summary>
             Gets a new group to edit.
             </summary>
             <returns>The new group.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.GetGroup(CslaModelTemplates.Contracts.LookUp.GroupCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.GetGroup(CslaModelTemplates.Contracts.Junction.GroupCriteria)">
             <summary>
             Gets the specified group to edit.
             </summary>
             <param name="criteria">The criteria of the group.</param>
             <returns>The requested group.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.CreateGroup(CslaModelTemplates.Contracts.LookUp.GroupDto)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.CreateGroup(CslaModelTemplates.Contracts.Junction.GroupDto)">
             <summary>
             Creates a new group.
             </summary>
             <param name="dto">The data transer object of the group.</param>
             <returns>The created group.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.UpdateGroup(CslaModelTemplates.Contracts.LookUp.GroupDto)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.UpdateGroup(CslaModelTemplates.Contracts.Junction.GroupDto)">
             <summary>
             Updates the specified group.
             </summary>
             <param name="dto">The data transer object of the group.</param>
             <returns>The updated group.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.LookUpController.DeleteGroup(CslaModelTemplates.Contracts.LookUp.GroupCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.DeleteGroup(CslaModelTemplates.Contracts.Junction.GroupCriteria)">
             <summary>
             Deletes the specified group.
             </summary>

@@ -1,6 +1,6 @@
 using CslaModelTemplates.Common.Dal;
 
-namespace CslaModelTemplates.Contracts.LookUpView
+namespace CslaModelTemplates.Contracts.JunctionView
 {
     /// <summary>
     /// Defines the data access functions of the read-only group object.

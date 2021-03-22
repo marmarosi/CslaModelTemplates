@@ -2,11 +2,11 @@ using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
-using CslaModelTemplates.Contracts.LookUpView;
+using CslaModelTemplates.Contracts.JunctionView;
 using System;
 using System.Collections.Generic;
 
-namespace CslaModelTemplates.Models.LookUpView
+namespace CslaModelTemplates.Models.JunctionView
 {
     /// <summary>
     /// Represents a read-only player collection.

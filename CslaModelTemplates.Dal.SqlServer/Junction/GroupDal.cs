@@ -1,18 +1,18 @@
 using CslaModelTemplates.Common;
-using CslaModelTemplates.Contracts.LookUp;
+using CslaModelTemplates.Contracts.Junction;
 using CslaModelTemplates.Dal.Exceptions;
-using CslaModelTemplates.Dal.MySql.Entities;
+using CslaModelTemplates.Dal.SqlServer.Entities;
 using CslaModelTemplates.Resources;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace CslaModelTemplates.Dal.MySql.LookUp
+namespace CslaModelTemplates.Dal.SqlServer.Junction
 {
     /// <summary>
     /// Implements the data access functions of the editable group object.
     /// </summary>
-    public class GroupDal : MySqlDal, IGroupDal
+    public class GroupDal : SqlServerDal, IGroupDal
     {
         #region Fetch
 

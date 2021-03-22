@@ -1,7 +1,7 @@
-using CslaModelTemplates.Contracts.LookUp;
-using CslaModelTemplates.Contracts.LookUpView;
-using CslaModelTemplates.Models.LookUp;
-using CslaModelTemplates.Models.LookUpView;
+using CslaModelTemplates.Contracts.Junction;
+using CslaModelTemplates.Contracts.JunctionView;
+using CslaModelTemplates.Models.Junction;
+using CslaModelTemplates.Models.JunctionView;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 namespace CslaModelTemplates.WebApi.Controllers
 {
     /// <summary>
-    /// Contains the API endpoints for simple models.
+    /// Contains the API endpoints for junction models.
     /// </summary>
     [ApiController]
-    [Route("api/look-up")]
+    [Route("api/junction")]
     [Produces("application/json")]
-    public class LookUpController : ApiController
+    public class JunctionController : ApiController
     {
         #region Constructor
 
@@ -24,8 +24,8 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// Creates a new instance.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
-        public LookUpController(
-            ILogger<LookUpController> logger
+        public JunctionController(
+            ILogger<JunctionController> logger
             ) : base(logger)
         { }
 

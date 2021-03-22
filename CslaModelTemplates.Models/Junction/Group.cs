@@ -3,13 +3,13 @@ using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
 using CslaModelTemplates.Common.Validations;
-using CslaModelTemplates.Contracts.LookUp;
+using CslaModelTemplates.Contracts.Junction;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
 using System.Threading.Tasks;
 
-namespace CslaModelTemplates.Models.LookUp
+namespace CslaModelTemplates.Models.Junction
 {
     /// <summary>
     /// Represents an editable group object.

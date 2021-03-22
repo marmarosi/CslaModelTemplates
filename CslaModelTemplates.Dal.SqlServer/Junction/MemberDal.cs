@@ -1,12 +1,12 @@
 using CslaModelTemplates.Common;
-using CslaModelTemplates.Contracts.LookUp;
+using CslaModelTemplates.Contracts.Junction;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.SqlServer.Entities;
 using CslaModelTemplates.Resources;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace CslaModelTemplates.Dal.SqlServer.LookUp
+namespace CslaModelTemplates.Dal.SqlServer.Junction
 {
     /// <summary>
     /// Implements the data access functions of the editable member object.
