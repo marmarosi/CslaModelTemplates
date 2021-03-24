@@ -1,4 +1,3 @@
-using CslaModelTemplates.Dal.Exceptions;
 using System;
 
 namespace CslaModelTemplates.Dal
@@ -84,12 +83,9 @@ namespace CslaModelTemplates.Dal
             {
                 while (exception.InnerException != null)
                     exception = exception.InnerException;
+
                 Message = exception.Message;
-
-                Name = exception is CommandFailedException ?
-                    ((CommandFailedException)exception).CommandName + "Exception" :
-                    exception.GetType().Name;
-
+                Name = exception.GetType().Name;
                 Summary = summary;
                 Source = exception.TargetSite.DeclaringType?.FullName;
                 StackTrace = exception.StackTrace;

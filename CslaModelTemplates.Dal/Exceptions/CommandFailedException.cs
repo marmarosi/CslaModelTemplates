@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 
 namespace CslaModelTemplates.Dal.Exceptions
 {
@@ -8,19 +9,16 @@ namespace CslaModelTemplates.Dal.Exceptions
     [Serializable]
     public class CommandFailedException : DalException
     {
-        public string CommandName { get; set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandFailedException"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
         public CommandFailedException(
-            string message,
-            string commandName
+            string message
             )
             : base(message)
         {
-            CommandName = commandName;
+            StatusCode = (int)HttpStatusCode.BadRequest;
         }
 
         /// <summary>
@@ -30,12 +28,11 @@ namespace CslaModelTemplates.Dal.Exceptions
         /// <param name="innerException">The inner exception.</param>
         public CommandFailedException(
             string message,
-            string commandName,
             Exception innerException
             )
             : base(message, innerException)
         {
-            CommandName = commandName;
+            StatusCode = (int)HttpStatusCode.BadRequest;
         }
     }
 }

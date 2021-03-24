@@ -1,4 +1,3 @@
-using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.SimpleCommand;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.MySql.Entities;
@@ -12,8 +11,6 @@ namespace CslaModelTemplates.Dal.MySql.SimpleCommand
     /// </summary>
     public class RenameTeamDal : MySqlDal, IRenameTeamDal
     {
-        private string COMMAND = typeof(RenameTeamDal).Name.CutEnd(3);
-
         #region Execute
 
         /// <summary>
@@ -38,7 +35,7 @@ namespace CslaModelTemplates.Dal.MySql.SimpleCommand
 
             int count = DbContext.SaveChanges();
             if (count == 0)
-                throw new UpdateFailedException(DalText.RenameTeam_RenameFailed);
+                throw new CommandFailedException(DalText.RenameTeam_RenameFailed);
         }
 
         #endregion

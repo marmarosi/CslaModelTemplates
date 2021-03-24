@@ -61,6 +61,15 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Counting teams has failed..
+        /// </summary>
+        public static string CountTeams_CountFailed {
+            get {
+                return ResourceManager.GetString("CountTeams_CountFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The group has been changed in the meantime..
         /// </summary>
         public static string Group_Concurrency {

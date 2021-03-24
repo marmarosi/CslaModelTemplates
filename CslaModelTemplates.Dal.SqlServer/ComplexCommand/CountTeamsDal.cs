@@ -1,5 +1,6 @@
-using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.ComplexCommand;
+using CslaModelTemplates.Dal.Exceptions;
+using CslaModelTemplates.Resources;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,6 @@ namespace CslaModelTemplates.Dal.SqlServer.ComplexCommand
     /// </summary>
     public class CountTeamsDal : SqlServerDal, ICountTeamsDal
     {
-        private string COMMAND = typeof(CountTeamsDal).Name.CutEnd(3);
-
         #region Execute
 
         /// <summary>
@@ -43,6 +42,8 @@ namespace CslaModelTemplates.Dal.SqlServer.ComplexCommand
                 .OrderByDescending(o => o.ItemCount)
                 .ToList();
 
+            if (list.Count == 0)
+                throw new CommandFailedException(DalText.CountTeams_CountFailed);
             return list;
         }
 
