@@ -17,7 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Resource
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E392C8C5-DAB9-4F05-A6B4-52F7D5C4F8B9}"
 	ProjectSection(SolutionItems) = preProject
+		Complex.png = Complex.png
+		Junction.png = Junction.png
 		README.md = README.md
+		Simple.png = Simple.png
+		Tree.png = Tree.png
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Dal.MySql", "CslaModelTemplates.Dal.MySql\CslaModelTemplates.Dal.MySql.csproj", "{F279BD48-58A2-4A30-8402-FF3B3CFAEE97}"
