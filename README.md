@@ -1,15 +1,17 @@
 # CslaModelTemplates for Web APIs
 
 CSLA model templates to quickly setup new models, data access and contracts
-for .NET Core 3.1 applications. Provide data access templates for __MySQL__
-and __SQL Server__ databases.
+for .NET Core 3.1 applications. Provide data access templates for __MySQL__,
+__Oracle__ and __SQL Server__ databases.
 
-* [Simple Models](#simple-models)
-* [Pagination](#pagination)
-* [Selection](#selection)
-* [Complex Models](#complex-models)
-* [Tree Model](#tree-model)
-* [Junction Models](#junction-models)
+Category | Models
+---|---
+[Simple Models](#simple-models) | [SimpleList](#simplelist), [SimpleView](#simpleview), [Simple](#simple), [SimpleSet](#simpleset), [SimpleCommand](#simplecommand)
+[Pagination](#pagination) | [SortedList](#sortedlist), [PaginatedList](#paginatedlist), [PaginatedSortedList](#paginatedsortedlist)
+[Selection](#selection) | [SelectionWithKey](#selectionwithkey), [SelectionWithCode](#selectionwithcode)
+[Complex Models](#complex-models) | [ComplexList](#complexlist), [ComplexView](#complexview), [Complex](#complex), [ComplexSet](#complexset), [ComplexCommand](#complexcommand)
+[Tree Model](#tree-model) | [Tree](#tree)
+[Junction Models](#junction-models) | [JunctionView](#junctionview), [Junction](#junction)
 
 ## Simple Models
 
