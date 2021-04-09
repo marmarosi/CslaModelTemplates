@@ -18,6 +18,7 @@ namespace CslaModelTemplates.Dal.Oracle
         public OracleContext() : base()
         {
             ConnectionString = DalFactory.GetConnectionString(DAL.Oracle);
+            SubscribeStateChangeEvents();
         }
 
         /// <summary>
@@ -27,7 +28,9 @@ namespace CslaModelTemplates.Dal.Oracle
         public OracleContext(
             string dalName
             ) : base(dalName)
-        { }
+        {
+            SubscribeStateChangeEvents();
+        }
 
         #endregion
 
@@ -97,9 +100,6 @@ namespace CslaModelTemplates.Dal.Oracle
             modelBuilder.Entity<Team>()
                 .HasIndex(e => e.TeamCode)
                 .IsUnique();
-            modelBuilder.Entity<Team>()
-                .Property(e => e.Timestamp)
-                .HasDefaultValue(DateTime.Now);
 
             #endregion
 
@@ -115,9 +115,6 @@ namespace CslaModelTemplates.Dal.Oracle
 
             modelBuilder.Entity<Folder>()
                 .HasIndex(e => new { e.ParentKey, e.FolderOrder });
-            modelBuilder.Entity<Folder>()
-                .Property(e => e.Timestamp)
-                .HasDefaultValue(DateTime.Now);
 
             #endregion
 
@@ -126,9 +123,6 @@ namespace CslaModelTemplates.Dal.Oracle
             modelBuilder.Entity<Group>()
                 .HasIndex(e => e.GroupCode)
                 .IsUnique();
-            modelBuilder.Entity<Group>()
-                .Property(e => e.Timestamp)
-                .HasDefaultValue(DateTime.Now);
 
             #endregion
 
@@ -137,9 +131,6 @@ namespace CslaModelTemplates.Dal.Oracle
             modelBuilder.Entity<Person>()
                 .HasIndex(e => e.PersonCode)
                 .IsUnique();
-            modelBuilder.Entity<Person>()
-                .Property(e => e.Timestamp)
-                .HasDefaultValue(DateTime.Now);
 
             #endregion
 

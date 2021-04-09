@@ -1,10 +1,6 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Contracts.SimpleSet;
-using CslaModelTemplates.Dal;
-using CslaModelTemplates.Dal.SqlServer;
 using CslaModelTemplates.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,8 +36,8 @@ namespace CslaModelTemplates.WebApiTests
                 List<SimpleTeamSetItemDto> pristineList = okObjectResult.Value as List<SimpleTeamSetItemDto>;
                 Assert.NotNull(pristineList);
 
-                // List must contain 5 items.
-                Assert.Equal(5, pristineList.Count);
+                // List must contain 4 items.
+                Assert.Equal(4, pristineList.Count);
 
                 // --- UPDATE
                 SimpleTeamSetItemDto pristine;
