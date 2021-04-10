@@ -30,7 +30,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Dal.SqlS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.WebApiTests", "CslaModelTemplates.WebApiTests\CslaModelTemplates.WebApiTests.csproj", "{B228C225-EF42-4316-86BF-9A12FDE594D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaModelTemplates.Dal.Oracle", "CslaModelTemplates.Dal.Oracle\CslaModelTemplates.Dal.Oracle.csproj", "{E17929D0-E9F8-4A7E-9FFD-385458E5C3AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Dal.Oracle", "CslaModelTemplates.Dal.Oracle\CslaModelTemplates.Dal.Oracle.csproj", "{E17929D0-E9F8-4A7E-9FFD-385458E5C3AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaModelTemplates.Dal.PostgreSql", "CslaModelTemplates.Dal.PostgreSql\CslaModelTemplates.Dal.PostgreSql.csproj", "{F00B482C-E974-4CDB-83C1-B8D197DB4239}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +80,10 @@ Global
 		{E17929D0-E9F8-4A7E-9FFD-385458E5C3AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E17929D0-E9F8-4A7E-9FFD-385458E5C3AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E17929D0-E9F8-4A7E-9FFD-385458E5C3AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F00B482C-E974-4CDB-83C1-B8D197DB4239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F00B482C-E974-4CDB-83C1-B8D197DB4239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F00B482C-E974-4CDB-83C1-B8D197DB4239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F00B482C-E974-4CDB-83C1-B8D197DB4239}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

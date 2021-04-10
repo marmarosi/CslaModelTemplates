@@ -7,7 +7,7 @@ namespace CslaModelTemplates.Dal.MySql
     /// <summary>
     /// Database seeder.
     /// </summary>
-    public static class Seeder
+    public static class MySqlSeeder
     {
         private static Random random = new Random(DateTime.Now.Millisecond);
 

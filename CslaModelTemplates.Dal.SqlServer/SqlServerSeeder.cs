@@ -1,13 +1,13 @@
-using CslaModelTemplates.Dal.Oracle.Entities;
+using CslaModelTemplates.Dal.SqlServer.Entities;
 using System;
 using System.Collections.Generic;
 
-namespace CslaModelTemplates.Dal.Oracle
+namespace CslaModelTemplates.Dal.SqlServer
 {
     /// <summary>
     /// Database seeder.
     /// </summary>
-    public static class Seeder
+    public static class SqlServerSeeder
     {
         private static Random random = new Random(DateTime.Now.Millisecond);
 
@@ -21,7 +21,7 @@ namespace CslaModelTemplates.Dal.Oracle
             bool isDevelopment
             )
         {
-            using (OracleContext ctx = new OracleContext(DAL.Oracle))
+            using (SqlServerContext ctx = new SqlServerContext(DAL.SQLServer))
             {
                 if (isDevelopment)
                     ctx.Database.EnsureDeleted();
@@ -127,7 +127,7 @@ namespace CslaModelTemplates.Dal.Oracle
         #region Folder helpers
 
         private static void CreateFolderLevel(
-            OracleContext ctx,
+            SqlServerContext ctx,
             int level,
             long? parentKey,
             long? rootKey,

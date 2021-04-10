@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CslaModelTemplates.Dal.Oracle
+namespace CslaModelTemplates.Dal.PostgreSql
 {
     /// <summary>
-    /// Represents the data access manager object for Oracle databases.
+    /// Represents the data access manager object for SQL Server databases.
     /// </summary>
-    public sealed class DalManager : DalManagerBase<OracleContext>
+    public sealed class DalManager : DalManagerBase<PostgreSqlContext>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DalManager"/> class.
@@ -16,7 +16,7 @@ namespace CslaModelTemplates.Dal.Oracle
         public DalManager()
         {
             SetTypes<DalManager>();
-            ContextManager = DbContextManager<OracleContext>.GetManager(DAL.Oracle);
+            ContextManager = DbContextManager<PostgreSqlContext>.GetManager(DAL.PostgreSQL);
         }
 
         /// <summary>
@@ -29,11 +29,11 @@ namespace CslaModelTemplates.Dal.Oracle
             IServiceCollection services
             )
         {
-            services.AddDbContext<OracleContext>(options =>
-                options.UseOracle(
-                    configuration.GetConnectionString(DAL.Oracle)
-                )
-            );
+            services.AddDbContext<PostgreSqlContext>(options =>
+                options.UseNpgsql(
+                    configuration.GetConnectionString(DAL.PostgreSQL)
+                    )
+                );
         }
 
         #region ISeeder
@@ -46,7 +46,7 @@ namespace CslaModelTemplates.Dal.Oracle
             string contentRootPath
             )
         {
-            OracleSeeder.Run(contentRootPath, false);
+            PostgreSqlSeeder.Run(contentRootPath, false);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace CslaModelTemplates.Dal.Oracle
             string contentRootPath
             )
         {
-            OracleSeeder.Run(contentRootPath, true);
+            PostgreSqlSeeder.Run(contentRootPath, true);
         }
 
         #endregion

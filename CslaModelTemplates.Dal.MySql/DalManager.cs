@@ -46,7 +46,7 @@ namespace CslaModelTemplates.Dal.MySql
             string contentRootPath
             )
         {
-            Seeder.Run(contentRootPath, false);
+            MySqlSeeder.Run(contentRootPath, false);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace CslaModelTemplates.Dal.MySql
             string contentRootPath
             )
         {
-            Seeder.Run(contentRootPath, true);
+            MySqlSeeder.Run(contentRootPath, true);
         }
 
         #endregion

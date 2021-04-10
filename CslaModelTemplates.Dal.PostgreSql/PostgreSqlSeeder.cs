@@ -1,13 +1,13 @@
-using CslaModelTemplates.Dal.SqlServer.Entities;
+using CslaModelTemplates.Dal.PostgreSql.Entities;
 using System;
 using System.Collections.Generic;
 
-namespace CslaModelTemplates.Dal.SqlServer
+namespace CslaModelTemplates.Dal.PostgreSql
 {
     /// <summary>
     /// Database seeder.
     /// </summary>
-    public static class Seeder
+    public static class PostgreSqlSeeder
     {
         private static Random random = new Random(DateTime.Now.Millisecond);
 
@@ -21,7 +21,7 @@ namespace CslaModelTemplates.Dal.SqlServer
             bool isDevelopment
             )
         {
-            using (SqlServerContext ctx = new SqlServerContext(DAL.SQLServer))
+            using (PostgreSqlContext ctx = new PostgreSqlContext(DAL.PostgreSQL))
             {
                 if (isDevelopment)
                     ctx.Database.EnsureDeleted();
@@ -127,7 +127,7 @@ namespace CslaModelTemplates.Dal.SqlServer
         #region Folder helpers
 
         private static void CreateFolderLevel(
-            SqlServerContext ctx,
+            PostgreSqlContext ctx,
             int level,
             long? parentKey,
             long? rootKey,

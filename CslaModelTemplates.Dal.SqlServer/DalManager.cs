@@ -35,6 +35,7 @@ namespace CslaModelTemplates.Dal.SqlServer
                     )
                 );
         }
+
         #region ISeeder
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace CslaModelTemplates.Dal.SqlServer
             string contentRootPath
             )
         {
-            Seeder.Run(contentRootPath, false);
+            SqlServerSeeder.Run(contentRootPath, false);
         }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace CslaModelTemplates.Dal.SqlServer
             string contentRootPath
             )
         {
-            Seeder.Run(contentRootPath, true);
+            SqlServerSeeder.Run(contentRootPath, true);
         }
 
         #endregion
