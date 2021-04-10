@@ -2,7 +2,7 @@
 
 CSLA model templates to quickly setup new models, data access and contracts
 for .NET Core 3.1 applications. Provide data access templates for __MySQL__,
-__Oracle__ and __SQL Server__ databases.
+__Oracle__, __PostgreSQL__ and __SQL Server__ databases.
 
 Category | Models
 ---|---

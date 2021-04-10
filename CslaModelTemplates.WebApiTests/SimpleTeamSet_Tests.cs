@@ -36,8 +36,8 @@ namespace CslaModelTemplates.WebApiTests
                 List<SimpleTeamSetItemDto> pristineList = okObjectResult.Value as List<SimpleTeamSetItemDto>;
                 Assert.NotNull(pristineList);
 
-                // List must contain 4 items.
-                Assert.Equal(4, pristineList.Count);
+                // List must contain 5 items.
+                Assert.Equal(5, pristineList.Count);
 
                 // --- UPDATE
                 SimpleTeamSetItemDto pristine;
