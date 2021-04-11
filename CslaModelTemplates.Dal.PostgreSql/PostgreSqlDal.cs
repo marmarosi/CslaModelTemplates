@@ -2,6 +2,9 @@ using CslaModelTemplates.Common.Dal;
 
 namespace CslaModelTemplates.Dal.PostgreSql
 {
+    /// <summary>
+    /// Represents the data access layer.
+    /// </summary>
     public class PostgreSqlDal : DalBase
     {
         protected new PostgreSqlContext DbContext

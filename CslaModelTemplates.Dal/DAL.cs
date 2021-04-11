@@ -8,6 +8,7 @@ namespace CslaModelTemplates.Dal
         public const string MySQL = "MySql";
         public const string Oracle = "Oracle";
         public const string PostgreSQL = "PostgreSql";
+        public const string SQLite = "SQLite";
         public const string SQLServer = "SQLServer";
     }
 }
