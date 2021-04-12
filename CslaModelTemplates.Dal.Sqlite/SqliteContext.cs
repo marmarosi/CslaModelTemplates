@@ -1,6 +1,7 @@
 using CslaModelTemplates.Dal.Sqlite.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 
 namespace CslaModelTemplates.Dal.Sqlite
@@ -43,6 +44,9 @@ namespace CslaModelTemplates.Dal.Sqlite
             )
         {
             optionsBuilder.UseSqlite(ConnectionString);
+            optionsBuilder.ConfigureWarnings(warnings =>
+                warnings.Ignore(RelationalEventId.AmbientTransactionWarning)
+                );
         }
 
         #region Auto update timestamps

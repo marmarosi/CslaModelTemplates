@@ -1,6 +1,8 @@
 using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Dal.MySql;
+using CslaModelTemplates.Dal.Oracle;
+using CslaModelTemplates.Dal.Sqlite;
 using CslaModelTemplates.Dal.SqlServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,13 +31,10 @@ namespace CslaModelTemplates.WebApiTests
             // Initializes a new instance of ServiceProvider class.
             _serviceProvider = _serviceCollection.BuildServiceProvider();
 
-            //// Configure strongly typed settings object.
-            //IConfigurationSection dalSettingsSection = configuration.GetSection(DalFactory.Section);
-            //DalSettings dalSettings = dalSettingsSection.Get<DalSettings>();
-
-            //// Create configured DAL manager types.
-            //DalFactory.Configure(dalSettings);
+            // Configure data access layers.
             DalFactory.Configure(configuration, _serviceCollection);
+            if (DalFactory.ActiveLayer == DAL.SQLite)
+                DalFactory.DevelopmentSeed(null);
         }
 
         public static SetupService GetInstance() => _setupServiceInstance;
@@ -74,6 +73,10 @@ namespace CslaModelTemplates.WebApiTests
             {
                 case DAL.MySQL:
                     return DbContextManager<MySqlContext>.GetManager();
+                case DAL.Oracle:
+                    return DbContextManager<OracleContext>.GetManager();
+                case DAL.SQLite:
+                    return DbContextManager<SqliteContext>.GetManager();
                 case DAL.SQLServer:
                 default:
                     return DbContextManager<SqlServerContext>.GetManager();
