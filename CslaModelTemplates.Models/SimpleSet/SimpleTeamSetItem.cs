@@ -56,15 +56,19 @@ namespace CslaModelTemplates.Models.SimpleSet
 
         #region Business Rules
 
-        //protected override void AddBusinessRules()
-        //{
-        //    // Add validation rules.
-        //    BusinessRules.AddRule(new Required(TeamNameProperty));
+        protected override void AddBusinessRules()
+        {
+            // Call base class implementation to add data annotation rules to BusinessRules.
+            // NOTE: DataAnnotation rules is always added with Priority = 0.
+            base.AddBusinessRules();
 
-        //    // Add authorization rules.
-        //    BusinessRules.AddRule(new IsInRole(
-        //        AuthorizationActions.WriteProperty, TeamNameProperty, "Manager"));
-        //}
+            //// Add validation rules.
+            //BusinessRules.AddRule(new Required(TeamNameProperty));
+
+            //// Add authorization rules.
+            //BusinessRules.AddRule(new IsInRole(
+            //    AuthorizationActions.WriteProperty, TeamNameProperty, "Manager"));
+        }
 
         //private static void AddObjectAuthorizationRules()
         //{
@@ -124,6 +128,9 @@ namespace CslaModelTemplates.Models.SimpleSet
             SimpleTeamSetItem team = null;
             await Task.Run(() => team = DataPortal.CreateChild<SimpleTeamSetItem>());
             team.Update(dto);
+
+            team.MarkDirty();
+            team.BusinessRules.CheckRules();
             return team;
         }
 

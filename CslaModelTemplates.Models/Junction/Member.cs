@@ -42,12 +42,17 @@ namespace CslaModelTemplates.Models.Junction
 
         protected override void AddBusinessRules()
         {
-            // Add validation rules.
+            // Call base class implementation to add data annotation rules to BusinessRules.
+            // NOTE: DataAnnotation rules is always added with Priority = 0.
+            base.AddBusinessRules();
+
+            //// Add validation rules.
+            //BusinessRules.AddRule(new Required(PersonNameProperty));
             BusinessRules.AddRule(new UniquePersonKeys(PersonKeyProperty));
 
-            // Add authorization rules.
+            //// Add authorization rules.
             //BusinessRules.AddRule(new IsInRole(
-            //    AuthorizationActions.WriteProperty, PlayerCodeProperty, "Manager"));
+            //    AuthorizationActions.WriteProperty, PersonNameProperty, "Manager"));
         }
 
         //private static void AddObjectAuthorizationRules()
@@ -81,11 +86,6 @@ namespace CslaModelTemplates.Models.Junction
                 IRuleContext context
                 )
             {
-                // TODO: Add actual rule code here. 
-                //if (broken condition)
-                //{
-                //  context.AddErrorResult("Broken rule message");
-                //}
                 Member target = (Member)context.Target;
                 if (target.Parent == null)
                     return;
@@ -102,6 +102,28 @@ namespace CslaModelTemplates.Models.Junction
         #region Business Methods
 
         /// <summary>
+        /// Updates an editable member from the data transfer object.
+        /// </summary>
+        /// <param name="dto">The data transfer objects.</param>
+        internal void Update(
+            MemberDto dto
+            )
+        {
+            PersonKey = dto.PersonKey;
+            PersonName = dto.PersonName;
+
+            MarkDirty();
+            BusinessRules.CheckRules();
+        }
+
+        #endregion
+
+        #region Factory Methods
+
+        private Member()
+        { /* Require use of factory methods */ }
+
+        /// <summary>
         /// Creates an editable member instance from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer object.</param>
@@ -115,25 +137,6 @@ namespace CslaModelTemplates.Models.Junction
             member.Update(dto);
             return member;
         }
-
-        /// <summary>
-        /// Updates an editable member from the data transfer object.
-        /// </summary>
-        /// <param name="dto">The data transfer objects.</param>
-        internal void Update(
-            MemberDto dto
-            )
-        {
-            PersonKey = dto.PersonKey;
-            PersonName = dto.PersonName;
-        }
-
-        #endregion
-
-        #region Factory Methods
-
-        private Member()
-        { /* Require use of factory methods */ }
 
         #endregion
 

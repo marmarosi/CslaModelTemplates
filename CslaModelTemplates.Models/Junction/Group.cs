@@ -63,15 +63,19 @@ namespace CslaModelTemplates.Models.Junction
 
         #region Business Rules
 
-        //protected override void AddBusinessRules()
-        //{
-        //    // Add validation rules.
-        //    BusinessRules.AddRule(new Required(GroupNameProperty));
+        protected override void AddBusinessRules()
+        {
+            // Call base class implementation to add data annotation rules to BusinessRules.
+            // NOTE: DataAnnotation rules is always added with Priority = 0.
+            base.AddBusinessRules();
 
-        //    // Add authorization rules.
-        //    BusinessRules.AddRule(new IsInRole(
-        //        AuthorizationActions.WriteProperty, GroupNameProperty, "Manager"));
-        //}
+            //// Add validation rules.
+            //BusinessRules.AddRule(new Required(GroupNameProperty));
+
+            //// Add authorization rules.
+            //BusinessRules.AddRule(new IsInRole(
+            //    AuthorizationActions.WriteProperty, GroupNameProperty, "Manager"));
+        }
 
         //private static void AddObjectAuthorizationRules()
         //{
@@ -147,6 +151,8 @@ namespace CslaModelTemplates.Models.Junction
             await group.Members.Update(dto.Members);
             //group.Timestamp = dto.Timestamp;
 
+            group.MarkDirty();
+            group.BusinessRules.CheckRules();
             return group;
         }
 

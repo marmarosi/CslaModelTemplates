@@ -56,15 +56,19 @@ namespace CslaModelTemplates.Models.Simple
 
         #region Business Rules
 
-        //protected override void AddBusinessRules()
-        //{
-        //    // Add validation rules.
-        //    BusinessRules.AddRule(new Required(TeamNameProperty));
+        protected override void AddBusinessRules()
+        {
+            // Call base class implementation to add data annotation rules to BusinessRules.
+            // NOTE: DataAnnotation rules is always added with Priority = 0.
+            base.AddBusinessRules();
 
-        //    // Add authorization rules.
-        //    BusinessRules.AddRule(new IsInRole(
-        //        AuthorizationActions.WriteProperty, TeamNameProperty, "Manager"));
-        //}
+            //// Add validation rules.
+            //BusinessRules.AddRule(new Required(TeamNameProperty));
+
+            //// Add authorization rules.
+            //BusinessRules.AddRule(new IsInRole(
+            //    AuthorizationActions.WriteProperty, TeamNameProperty, "Manager"));
+        }
 
         //private static void AddObjectAuthorizationRules()
         //{
@@ -139,6 +143,8 @@ namespace CslaModelTemplates.Models.Simple
             team.TeamName = dto.TeamName;
             //team.Timestamp = dto.Timestamp;
 
+            team.MarkDirty();
+            team.BusinessRules.CheckRules();
             return team;
         }
 

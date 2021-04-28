@@ -60,10 +60,15 @@ namespace CslaModelTemplates.Models.Complex
 
         protected override void AddBusinessRules()
         {
-            // Add validation rules.
+            // Call base class implementation to add data annotation rules to BusinessRules.
+            // NOTE: DataAnnotation rules is always added with Priority = 0.
+            base.AddBusinessRules();
+
+            //// Add validation rules.
+            //BusinessRules.AddRule(new Required(PlayerCodeProperty));
             BusinessRules.AddRule(new UniquePlayerCodes(PlayerCodeProperty));
 
-            // Add authorization rules.
+            //// Add authorization rules.
             //BusinessRules.AddRule(new IsInRole(
             //    AuthorizationActions.WriteProperty, PlayerCodeProperty, "Manager"));
         }
@@ -99,11 +104,6 @@ namespace CslaModelTemplates.Models.Complex
                 IRuleContext context
                 )
             {
-                // TODO: Add actual rule code here. 
-                //if (broken condition)
-                //{
-                //  context.AddErrorResult("Broken rule message");
-                //}
                 Player target = (Player)context.Target;
                 if (target.Parent == null)
                     return;
@@ -120,6 +120,30 @@ namespace CslaModelTemplates.Models.Complex
         #region Business Methods
 
         /// <summary>
+        /// Updates an editable player from the data transfer object.
+        /// </summary>
+        /// <param name="dto">The data transfer objects.</param>
+        internal void Update(
+            PlayerDto dto
+            )
+        {
+            //PlayerKey = dto.PlayerKey;
+            //TeamKey = dto.TeamKey;
+            PlayerCode = dto.PlayerCode;
+            PlayerName = dto.PlayerName;
+
+            MarkDirty();
+            BusinessRules.CheckRules();
+        }
+
+        #endregion
+
+        #region Factory Methods
+
+        private Player()
+        { /* Require use of factory methods */ }
+
+        /// <summary>
         /// Creates an editable player instance from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer object.</param>
@@ -133,27 +157,6 @@ namespace CslaModelTemplates.Models.Complex
             item.Update(dto);
             return item;
         }
-
-        /// <summary>
-        /// Updates an editable player from the data transfer object.
-        /// </summary>
-        /// <param name="dto">The data transfer objects.</param>
-        internal void Update(
-            PlayerDto dto
-            )
-        {
-            //PlayerKey = dto.PlayerKey;
-            //TeamKey = dto.TeamKey;
-            PlayerCode = dto.PlayerCode;
-            PlayerName = dto.PlayerName;
-        }
-
-        #endregion
-
-        #region Factory Methods
-
-        private Player()
-        { /* Require use of factory methods */ }
 
         #endregion
 

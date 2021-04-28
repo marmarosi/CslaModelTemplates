@@ -60,10 +60,15 @@ namespace CslaModelTemplates.Models.ComplexSet
 
         protected override void AddBusinessRules()
         {
-            // Add validation rules.
+            // Call base class implementation to add data annotation rules to BusinessRules.
+            // NOTE: DataAnnotation rules is always added with Priority = 0.
+            base.AddBusinessRules();
+
+            //// Add validation rules.
+            //BusinessRules.AddRule(new Required(PlayerCodeProperty));
             BusinessRules.AddRule(new UniquePlayerCodes(PlayerCodeProperty));
 
-            // Add authorization rules.
+            //// Add authorization rules.
             //BusinessRules.AddRule(new IsInRole(
             //    AuthorizationActions.WriteProperty, PlayerCodeProperty, "Manager"));
         }
@@ -97,11 +102,6 @@ namespace CslaModelTemplates.Models.ComplexSet
 
             protected override void Execute(IRuleContext context)
             {
-                // TODO: Add actual rule code here. 
-                //if (broken condition)
-                //{
-                //  context.AddErrorResult("Broken rule message");
-                //}
                 TeamSetPlayer target = (TeamSetPlayer)context.Target;
                 if (target.Parent == null)
                     return;
@@ -129,6 +129,9 @@ namespace CslaModelTemplates.Models.ComplexSet
             //TeamKey = dto.TeamKey;
             PlayerCode = dto.PlayerCode;
             PlayerName = dto.PlayerName;
+
+            MarkDirty();
+            BusinessRules.CheckRules();
         }
 
         #endregion
