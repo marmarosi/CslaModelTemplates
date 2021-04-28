@@ -132,7 +132,6 @@ namespace CslaModelTemplates.Models.Complex
             PlayerCode = dto.PlayerCode;
             PlayerName = dto.PlayerName;
 
-            MarkDirty();
             BusinessRules.CheckRules();
         }
 
@@ -146,14 +145,17 @@ namespace CslaModelTemplates.Models.Complex
         /// <summary>
         /// Creates an editable player instance from the data transfer object.
         /// </summary>
+        /// <param name="parent">The parent collection.</param>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The new editable player instance.</returns>
         internal static async Task<Player> Create(
+            IParent parent,
             PlayerDto dto
             )
         {
             Player item = null;
             item = await Task.Run(() => DataPortal.CreateChild<Player>());
+            item.SetParent(parent);
             item.Update(dto);
             return item;
         }
@@ -162,10 +164,11 @@ namespace CslaModelTemplates.Models.Complex
 
         #region Data Access
 
+        //[RunLocal]
         //protected override void Child_Create()
         //{
-        //    // TODO: load default values
-        //    // omit this override if you have no defaults to set
+        //    // Load default values.
+        //    // Omit this override if you have no defaults to set.
         //}
 
         private void Child_Fetch(

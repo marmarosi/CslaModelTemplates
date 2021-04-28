@@ -151,7 +151,6 @@ namespace CslaModelTemplates.Models.Complex
             await team.Players.Update(dto.Players);
             //team.Timestamp = dto.Timestamp;
 
-            team.MarkDirty();
             team.BusinessRules.CheckRules();
             return team;
         }

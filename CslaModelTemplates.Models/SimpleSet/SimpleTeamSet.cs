@@ -6,6 +6,7 @@ using CslaModelTemplates.Contracts.SimpleSet;
 using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.SimpleSet
@@ -26,6 +27,36 @@ namespace CslaModelTemplates.Models.SimpleSet
         //        new IsInRole(AuthorizationActions.GetObject, "Manager")
         //        );
         //}
+
+        #endregion
+
+        #region Business Methods
+
+        /// <summary>
+        /// Rebuilds an editable team collection from the data transfer objects.
+        /// </summary>
+        /// <param name="list">The list of data transfer objects.</param>
+        /// <returns>The rebuilt editable team collection.</returns>
+        internal async Task Update(
+            List<SimpleTeamSetItemDto> list
+            )
+        {
+            List<int> indeces = Enumerable.Range(0, list.Count).ToList();
+            for (int i = Items.Count - 1; i > -1; i--)
+            {
+                SimpleTeamSetItem item = Items[i];
+                SimpleTeamSetItemDto dto = list.Find(o => o.TeamKey == item.TeamKey);
+                if (dto == null)
+                    RemoveItem(i);
+                else
+                {
+                    item.Update(dto);
+                    indeces.Remove(list.IndexOf(dto));
+                }
+            }
+            foreach (int index in indeces)
+                Items.Add(await SimpleTeamSetItem.Create(this, list[index]));
+        }
 
         #endregion
 
@@ -67,22 +98,7 @@ namespace CslaModelTemplates.Models.SimpleSet
             )
         {
             SimpleTeamSet set = await DataPortal.FetchAsync<SimpleTeamSet>(criteria);
-
-            for (int i = set.Items.Count - 1; i > -1; i--)
-            {
-                SimpleTeamSetItem item = set[i];
-                SimpleTeamSetItemDto dto = list.Find(o => o.TeamKey == item.TeamKey);
-                if (dto == null)
-                    set.Remove(item);
-                else
-                {
-                    item.Update(dto);
-                    list.Remove(dto);
-                }
-            }
-            foreach (SimpleTeamSetItemDto dto in list)
-                set.Add(await SimpleTeamSetItem.Create(dto));
-
+            await set.Update(list);
             return set;
         }
 

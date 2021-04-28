@@ -151,7 +151,6 @@ namespace CslaModelTemplates.Models.Junction
             await group.Members.Update(dto.Members);
             //group.Timestamp = dto.Timestamp;
 
-            group.MarkDirty();
             group.BusinessRules.CheckRules();
             return group;
         }

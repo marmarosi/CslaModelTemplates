@@ -1,4 +1,5 @@
 using Csla;
+using Csla.Core;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Common.Models;
@@ -107,6 +108,8 @@ namespace CslaModelTemplates.Models.SimpleSet
             TeamCode = dto.TeamCode;
             TeamName = dto.TeamName;
             //Timestamp = dto.Timestamp;
+
+            BusinessRules.CheckRules();
         }
 
         #endregion
@@ -119,18 +122,18 @@ namespace CslaModelTemplates.Models.SimpleSet
         /// <summary>
         /// Creates an editable team instance from the data transfer object.
         /// </summary>
+        /// <param name="parent">The parent collection.</param>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The new editable team instance.</returns>
         internal static async Task<SimpleTeamSetItem> Create(
+            IParent parent,
             SimpleTeamSetItemDto dto
             )
         {
             SimpleTeamSetItem team = null;
             await Task.Run(() => team = DataPortal.CreateChild<SimpleTeamSetItem>());
+            team.SetParent(parent);
             team.Update(dto);
-
-            team.MarkDirty();
-            team.BusinessRules.CheckRules();
             return team;
         }
 
@@ -138,10 +141,11 @@ namespace CslaModelTemplates.Models.SimpleSet
 
         #region Data Access
 
+        //[RunLocal]
         //protected override void Child_Create()
         //{
-        //    // TODO: load default values
-        //    // omit this override if you have no defaults to set
+        //    // Load default values.
+        //    // Omit this override if you have no defaults to set.
         //}
 
         private void Child_Fetch(

@@ -112,7 +112,6 @@ namespace CslaModelTemplates.Models.Junction
             PersonKey = dto.PersonKey;
             PersonName = dto.PersonName;
 
-            MarkDirty();
             BusinessRules.CheckRules();
         }
 
@@ -126,14 +125,17 @@ namespace CslaModelTemplates.Models.Junction
         /// <summary>
         /// Creates an editable member instance from the data transfer object.
         /// </summary>
+        /// <param name="parent">The parent collection.</param>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The new editable member instance.</returns>
         internal static async Task<Member> Create(
+            IParent parent,
             MemberDto dto
             )
         {
             Member member = null;
             member = await Task.Run(() => DataPortal.CreateChild<Member>());
+            member.SetParent(parent);
             member.Update(dto);
             return member;
         }
@@ -142,10 +144,11 @@ namespace CslaModelTemplates.Models.Junction
 
         #region Data Access
 
+        //[RunLocal]
         //protected override void Child_Create()
         //{
-        //    // TODO: load default values
-        //    // omit this override if you have no defaults to set
+        //    // Load default values.
+        //    // Omit this override if you have no defaults to set.
         //}
 
         private void Child_Fetch(

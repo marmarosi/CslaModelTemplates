@@ -32,15 +32,6 @@ namespace CslaModelTemplates.Models.Junction
         #region Business Methods
 
         /// <summary>
-        /// Creates a new editable player collection.
-        /// </summary>
-        /// <returns>The editable player collection.</returns>
-        internal static Members Create()
-        {
-            return DataPortal.CreateChild<Members>();
-        }
-
-        /// <summary>
         /// Rebuilds an editable player collection from the data transfer objects.
         /// </summary>
         /// <param name="list">The list of data transfer objects.</param>
@@ -63,7 +54,7 @@ namespace CslaModelTemplates.Models.Junction
                 }
             }
             foreach (int index in indeces)
-                Items.Add(await Member.Create(list[index]));
+                Items.Add(await Member.Create(this, list[index]));
         }
 
         #endregion
@@ -72,6 +63,15 @@ namespace CslaModelTemplates.Models.Junction
 
         private Members()
         { /* Require use of factory methods */ }
+
+        /// <summary>
+        /// Creates a new editable player collection.
+        /// </summary>
+        /// <returns>The editable player collection.</returns>
+        internal static Members Create()
+        {
+            return DataPortal.CreateChild<Members>();
+        }
 
         #endregion
 

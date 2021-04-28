@@ -143,7 +143,6 @@ namespace CslaModelTemplates.Models.Simple
             team.TeamName = dto.TeamName;
             //team.Timestamp = dto.Timestamp;
 
-            team.MarkDirty();
             team.BusinessRules.CheckRules();
             return team;
         }
@@ -152,13 +151,12 @@ namespace CslaModelTemplates.Models.Simple
 
         #region Data Access
 
-        [RunLocal]
-        protected override void DataPortal_Create()
-        {
-            // Load default values.
-            // Omit this override if you have no defaults to set.
-            base.DataPortal_Create();
-        }
+        //[RunLocal]
+        //protected override void DataPortal_Create()
+        //{
+        //    // Load default values.
+        //    // Omit this override if you have no defaults to set.
+        //}
 
         private void DataPortal_Fetch(
             SimpleTeamCriteria criteria

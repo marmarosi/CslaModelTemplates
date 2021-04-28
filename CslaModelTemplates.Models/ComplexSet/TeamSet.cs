@@ -53,7 +53,7 @@ namespace CslaModelTemplates.Models.ComplexSet
                 }
             }
             foreach (int index in indeces)
-                Items.Add(await TeamSetItem.Create(list[index]));
+                Items.Add(await TeamSetItem.Create(this, list[index]));
         }
 
         #endregion
