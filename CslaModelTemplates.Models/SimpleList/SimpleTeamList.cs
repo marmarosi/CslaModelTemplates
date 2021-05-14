@@ -6,6 +6,7 @@ using CslaModelTemplates.Contracts.SimpleList;
 using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.SimpleList
@@ -14,7 +15,7 @@ namespace CslaModelTemplates.Models.SimpleList
     /// Represents a read-only team collection.
     /// </summary>
     [Serializable]
-    public class SortedTeamList : ReadOnlyList<SortedTeamList, SortedTeamListItem>
+    public class SimpleTeamList : ReadOnlyList<SimpleTeamList, SimpleTeamListItem>
     {
         #region Business Rules
 
@@ -31,7 +32,7 @@ namespace CslaModelTemplates.Models.SimpleList
 
         #region Factory Methods
 
-        private SortedTeamList()
+        private SimpleTeamList()
         { /* require use of factory methods */ }
 
         /// <summary>
@@ -39,11 +40,11 @@ namespace CslaModelTemplates.Models.SimpleList
         /// </summary>
         /// <param name="criteria">The criteria of the read-only team collection.</param>
         /// <returns>The requested read-only team collection.</returns>
-        public static async Task<SortedTeamList> Get(
+        public static async Task<SimpleTeamList> Get(
             SimpleTeamListCriteria criteria
             )
         {
-            return await DataPortal.FetchAsync<SortedTeamList>(criteria);
+            return await DataPortal.FetchAsync<SimpleTeamList>(criteria);
         }
 
         #endregion
@@ -66,7 +67,7 @@ namespace CslaModelTemplates.Models.SimpleList
 
                 // Create items from data access objects.
                 foreach (SimpleTeamListItemDao dao in list)
-                    Add(SortedTeamListItem.Get(dao));
+                    Add(SimpleTeamListItem.Get(dao));
             }
             IsReadOnly = true;
             RaiseListChangedEvents = rlce;

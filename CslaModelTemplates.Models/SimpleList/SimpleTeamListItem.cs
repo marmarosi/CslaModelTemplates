@@ -11,7 +11,7 @@ namespace CslaModelTemplates.Models.SimpleList
     /// Represents an item in a read-only team collection.
     /// </summary>
     [Serializable]
-    public class SortedTeamListItem : ReadOnlyModel<SortedTeamListItem>
+    public class SimpleTeamListItem : ReadOnlyModel<SimpleTeamListItem>
     {
         #region Properties
 
@@ -60,14 +60,14 @@ namespace CslaModelTemplates.Models.SimpleList
 
         #region Factory Methods
 
-        private SortedTeamListItem()
+        private SimpleTeamListItem()
         { /* require use of factory methods */ }
 
-        internal static SortedTeamListItem Get(
+        internal static SimpleTeamListItem Get(
             SimpleTeamListItemDao dao
             )
         {
-            return DataPortal.FetchChild<SortedTeamListItem>(dao);
+            return DataPortal.FetchChild<SimpleTeamListItem>(dao);
         }
 
         #endregion

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ardalis.ApiEndpoints" Version="3.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CslaModelTemplates.Common\CslaModelTemplates.Common.csproj" />
+    <ProjectReference Include="..\CslaModelTemplates.Contracts\CslaModelTemplates.Contracts.csproj" />
+    <ProjectReference Include="..\CslaModelTemplates.Dal.MySql\CslaModelTemplates.Dal.MySql.csproj" />
+    <ProjectReference Include="..\CslaModelTemplates.Dal.Oracle\CslaModelTemplates.Dal.Oracle.csproj" />
+    <ProjectReference Include="..\CslaModelTemplates.Dal.PostgreSql\CslaModelTemplates.Dal.PostgreSql.csproj" />
+    <ProjectReference Include="..\CslaModelTemplates.Dal.Sqlite\CslaModelTemplates.Dal.Sqlite.csproj" />
+    <ProjectReference Include="..\CslaModelTemplates.Dal.SqlServer\CslaModelTemplates.Dal.SqlServer.csproj" />
+    <ProjectReference Include="..\CslaModelTemplates.Models\CslaModelTemplates.Models.csproj" />
+    <ProjectReference Include="..\CslaModelTemplates.Resources\CslaModelTemplates.Resources.csproj" />
+  </ItemGroup>
+
+
+</Project>

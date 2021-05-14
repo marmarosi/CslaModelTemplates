@@ -6,9 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using System.IO;
 
-namespace CslaModelTemplates.WebApi
+namespace CslaModelTemplates.Endpoints
 {
     /// <summary>
     /// The application launcher.
@@ -47,22 +46,16 @@ namespace CslaModelTemplates.WebApi
         {
             DalFactory.Configure(Configuration, services);
 
-            services.AddControllers()
-                .AddJsonOptions(options => {
-                    options.JsonSerializerOptions.IncludeFields = true;
-                });
+            services.AddControllers();
 
-            services.AddSwaggerGen(c =>
-            {
+            services.AddSwaggerGen(c => {
                 c.SwaggerDoc(
                     "v1",
                     new OpenApiInfo {
-                        Title = "CslaModelTemplates.WebApi",
+                        Title = "CslaModelTemplates.Endpoints",
                         Version = "v1"
-                    });
-                string xmlFile = $"{Environment.ApplicationName}.xml";
-                string xmlPath = Path.Combine(Environment.ContentRootPath, xmlFile);
-                c.IncludeXmlComments(xmlPath, true);
+                });
+                c.EnableAnnotations();
             });
         }
 

@@ -53,7 +53,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                SortedTeamList list = await SortedTeamList.Get(criteria);
+                SimpleTeamList list = await SimpleTeamList.Get(criteria);
                 return Ok(list.ToDto<SimpleTeamListItemDto>());
             }
             catch (Exception ex)
