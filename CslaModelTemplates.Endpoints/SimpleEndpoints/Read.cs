@@ -1,6 +1,8 @@
+using Ardalis.ApiEndpoints;
 using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.Models.Simple;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Net.Mime;
@@ -12,8 +14,24 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
     /// <summary>
     /// Gets the specified team to edit.
     /// </summary>
-    public class Read : SimpleAsyncEndpoint<SimpleTeamCriteria, SimpleTeamDto>
+    [Route(Routes.Simple)]
+    public class Read : BaseAsyncEndpoint
+        .WithRequest<SimpleTeamCriteria>
+        .WithResponse<SimpleTeamDto>
     {
+        internal ILogger logger { get; set; }
+
+        /// <summary>
+        /// Creates a new instance of the endpoint.
+        /// </summary>
+        /// <param name="logger">The application logging service.</param>
+        public Read(
+            ILogger logger
+            )
+        {
+            this.logger = logger;
+        }
+
         /// <summary>
         /// Gets the specified team to edit.
         /// </summary>
@@ -43,7 +61,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return Helper.HandleError(this, logger, ex);
             }
         }
     }

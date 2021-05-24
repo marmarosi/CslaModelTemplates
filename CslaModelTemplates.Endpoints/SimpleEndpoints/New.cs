@@ -1,6 +1,8 @@
+using Ardalis.ApiEndpoints;
 using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.Models.Simple;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Net.Mime;
@@ -12,12 +14,27 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
     /// <summary>
     /// Gets e new team to edit.
     /// </summary>
-    public class New : SimpleAsyncEndpoint<object, SimpleTeamDto>
+    [Route(Routes.Simple)]
+    public class New : BaseAsyncEndpoint
+        .WithoutRequest
+        .WithResponse<SimpleTeamDto>
     {
+        internal ILogger logger { get; set; }
+
+        /// <summary>
+        /// Creates a new instance of the endpoint.
+        /// </summary>
+        /// <param name="logger">The application logging service.</param>
+        public New(
+            ILogger logger
+            )
+        {
+            this.logger = logger;
+        }
+
         /// <summary>
         /// Gets e new team to edit.
         /// </summary>
-        /// <param name="criteria">The criteria of the team list.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A new team..</returns>
         [HttpGet("new")]
@@ -30,7 +47,6 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
             Tags = new[] { "Simple Endpoints" })
         ]
         public override async Task<ActionResult<SimpleTeamDto>> HandleAsync(
-            object nothing,
             CancellationToken cancellationToken
             )
         {
@@ -41,7 +57,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return Helper.HandleError(this, logger, ex);
             }
         }
     }

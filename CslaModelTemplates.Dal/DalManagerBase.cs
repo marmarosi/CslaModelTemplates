@@ -14,7 +14,6 @@ namespace CslaModelTemplates.Dal
     public abstract class DalManagerBase<C> : IDalManager, IDisposable, ISeeder 
         where C: DbContext
     {
-        private Type RegistrarType = null;
         protected string ProviderMask = null;
         public DbContextManager<C> ContextManager { get; protected set; }
 

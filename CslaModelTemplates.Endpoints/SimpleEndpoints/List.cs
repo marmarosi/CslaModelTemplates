@@ -1,6 +1,8 @@
+using Ardalis.ApiEndpoints;
 using CslaModelTemplates.Contracts.SimpleList;
 using CslaModelTemplates.Models.SimpleList;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
@@ -13,8 +15,24 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
     /// <summary>
     /// Gets a list of teams.
     /// </summary>
-    public class List : SimpleAsyncEndpoint<SimpleTeamListCriteria, IList<SimpleTeamListItemDto>>
+    [Route(Routes.Simple)]
+    public class List : BaseAsyncEndpoint
+        .WithRequest<SimpleTeamListCriteria>
+        .WithResponse<IList<SimpleTeamListItemDto>>
     {
+        internal ILogger logger { get; set; }
+
+        /// <summary>
+        /// Creates a new instance of the endpoint.
+        /// </summary>
+        /// <param name="logger">The application logging service.</param>
+        public List(
+            ILogger logger
+            )
+        {
+            this.logger = logger;
+        }
+
         /// <summary>
         /// Gets a list of teams.
         /// </summary>
@@ -44,7 +62,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return Helper.HandleError(this, logger, ex);
             }
         }
     }

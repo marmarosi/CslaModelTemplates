@@ -1,6 +1,6 @@
 using Ardalis.ApiEndpoints;
-using CslaModelTemplates.Contracts.SimpleView;
-using CslaModelTemplates.Models.SimpleView;
+using CslaModelTemplates.Contracts.SimpleCommand;
+using CslaModelTemplates.Models.SimpleCommand;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 namespace CslaModelTemplates.Endpoints.SimpleEndpoints
 {
     /// <summary>
-    /// Gets the specified team details to display.
+    /// Renames the specified team.
     /// </summary>
     [Route(Routes.Simple)]
-    public class View : BaseAsyncEndpoint
-        .WithRequest<SimpleTeamViewCriteria>
-        .WithResponse<SimpleTeamViewDto>
+    public class Rename : BaseAsyncEndpoint
+        .WithRequest<RenameTeamDto>
+        .WithResponse<bool>
     {
         internal ILogger logger { get; set; }
 
@@ -25,7 +25,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
-        public View(
+        public Rename(
             ILogger logger
             )
         {
@@ -33,31 +33,30 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         }
 
         /// <summary>
-        /// Gets the specified team details to display.
+        /// Renames the specified team.
         /// </summary>
-        /// <param name="criteria">The criteria of the team.</param>
+        /// <param name="dto">The data transer object of the rename team command.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>A list of teams.</returns>
-        [HttpGet("view")]
+        /// <returns>True when the team was renamed; otherwise false.</returns>
+        [HttpPatch("")]
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
-            Summary = "Gets the specified team details to display.",
-            Description = "Gets the specified team details to display. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: long" +
-                "<br>}<br>" +
-                "Result: SimpleTeamViewDto",
-            OperationId = "SimpleTeam.View",
+            Summary = "Renames the specified team.",
+            Description = "Renames the specified team.<br>" +
+                "Data: RenameTeamDto<br>" +
+                "Result: boolean",
+            OperationId = "SimpleTeam.Rename",
             Tags = new[] { "Simple Endpoints" })
         ]
-        public override async Task<ActionResult<SimpleTeamViewDto>> HandleAsync(
-            [FromQuery] SimpleTeamViewCriteria criteria,
+        public override async Task<ActionResult<bool>> HandleAsync(
+            [FromBody] RenameTeamDto dto,
             CancellationToken cancellationToken
             )
         {
             try
             {
-                SimpleTeamView team = await SimpleTeamView.Get(criteria);
-                return Ok(team.ToDto<SimpleTeamViewDto>());
+                bool result = await RenameTeam.Execute(dto);
+                return Ok(result);
             }
             catch (Exception ex)
             {

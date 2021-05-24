@@ -1,6 +1,6 @@
 using Ardalis.ApiEndpoints;
-using CslaModelTemplates.Contracts.SimpleView;
-using CslaModelTemplates.Models.SimpleView;
+using CslaModelTemplates.Contracts.Simple;
+using CslaModelTemplates.Models.Simple;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 namespace CslaModelTemplates.Endpoints.SimpleEndpoints
 {
     /// <summary>
-    /// Gets the specified team details to display.
+    /// Creates a new team.
     /// </summary>
     [Route(Routes.Simple)]
-    public class View : BaseAsyncEndpoint
-        .WithRequest<SimpleTeamViewCriteria>
-        .WithResponse<SimpleTeamViewDto>
+    public class Create : BaseAsyncEndpoint
+        .WithRequest<SimpleTeamDto>
+        .WithResponse<SimpleTeamDto>
     {
         internal ILogger logger { get; set; }
 
@@ -25,7 +25,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
-        public View(
+        internal Create(
             ILogger logger
             )
         {
@@ -33,31 +33,34 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         }
 
         /// <summary>
-        /// Gets the specified team details to display.
+        /// Creates a new team.
         /// </summary>
-        /// <param name="criteria">The criteria of the team.</param>
+        /// <param name="dto">The data transer object of the team.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>A list of teams.</returns>
-        [HttpGet("view")]
+        /// <returns>The created team.</returns>
+        [HttpPost("")]
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
-            Summary = "Gets the specified team details to display.",
-            Description = "Gets the specified team details to display. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: long" +
-                "<br>}<br>" +
-                "Result: SimpleTeamViewDto",
-            OperationId = "SimpleTeam.View",
+            Summary = "Creates a new team.",
+            Description = "Creates a new team.<br>" +
+                "Data: SimpleTeamDto<br>" +
+                "Result: SimpleTeamDto",
+            OperationId = "SimpleTeam.Create",
             Tags = new[] { "Simple Endpoints" })
         ]
-        public override async Task<ActionResult<SimpleTeamViewDto>> HandleAsync(
-            [FromQuery] SimpleTeamViewCriteria criteria,
+        public override async Task<ActionResult<SimpleTeamDto>> HandleAsync(
+            [FromBody] SimpleTeamDto dto,
             CancellationToken cancellationToken
             )
         {
             try
             {
-                SimpleTeamView team = await SimpleTeamView.Get(criteria);
-                return Ok(team.ToDto<SimpleTeamViewDto>());
+                SimpleTeam team = await SimpleTeam.FromDto(dto);
+                if (team.IsValid)
+                {
+                    team = await team.SaveAsync();
+                }
+                return Created(Helper.Uri(Request), team.ToDto<SimpleTeamDto>());
             }
             catch (Exception ex)
             {

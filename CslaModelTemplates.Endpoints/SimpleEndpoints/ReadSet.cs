@@ -1,10 +1,11 @@
 using Ardalis.ApiEndpoints;
-using CslaModelTemplates.Contracts.SimpleView;
-using CslaModelTemplates.Models.SimpleView;
+using CslaModelTemplates.Contracts.SimpleSet;
+using CslaModelTemplates.Models.SimpleSet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,12 +13,12 @@ using System.Threading.Tasks;
 namespace CslaModelTemplates.Endpoints.SimpleEndpoints
 {
     /// <summary>
-    /// Gets the specified team details to display.
+    /// Gets the specified team set to edit.
     /// </summary>
     [Route(Routes.Simple)]
-    public class View : BaseAsyncEndpoint
-        .WithRequest<SimpleTeamViewCriteria>
-        .WithResponse<SimpleTeamViewDto>
+    public class ReadSet : BaseAsyncEndpoint
+        .WithRequest<SimpleTeamSetCriteria>
+        .WithResponse<IList<SimpleTeamSetItemDto>>
     {
         internal ILogger logger { get; set; }
 
@@ -25,7 +26,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
-        public View(
+        public ReadSet(
             ILogger logger
             )
         {
@@ -33,31 +34,31 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         }
 
         /// <summary>
-        /// Gets the specified team details to display.
+        /// Gets the specified team set to edit.
         /// </summary>
-        /// <param name="criteria">The criteria of the team.</param>
+        /// <param name="criteria">The criteria of the team set.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>A list of teams.</returns>
-        [HttpGet("view")]
+        /// <returns>The requested team set.</returns>
+        [HttpGet("set")]
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
-            Summary = "Gets the specified team details to display.",
-            Description = "Gets the specified team details to display. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: long" +
+            Summary = "Gets the specified team set to edit.",
+            Description = "Gets the specified team set to edit. Criteria:<br>{" +
+                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamName: string" +
                 "<br>}<br>" +
-                "Result: SimpleTeamViewDto",
-            OperationId = "SimpleTeam.View",
+                "Result: SimpleTeamSetItemDto[]",
+            OperationId = "SimpleTeam.ReadSet",
             Tags = new[] { "Simple Endpoints" })
         ]
-        public override async Task<ActionResult<SimpleTeamViewDto>> HandleAsync(
-            [FromQuery] SimpleTeamViewCriteria criteria,
+        public override async Task<ActionResult<IList<SimpleTeamSetItemDto>>> HandleAsync(
+            [FromQuery] SimpleTeamSetCriteria criteria,
             CancellationToken cancellationToken
             )
         {
             try
             {
-                SimpleTeamView team = await SimpleTeamView.Get(criteria);
-                return Ok(team.ToDto<SimpleTeamViewDto>());
+                SimpleTeamSet set = await SimpleTeamSet.Get(criteria);
+                return Ok(set.ToDto<SimpleTeamSetItemDto>());
             }
             catch (Exception ex)
             {
