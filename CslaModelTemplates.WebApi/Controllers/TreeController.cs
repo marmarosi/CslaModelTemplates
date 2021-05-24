@@ -29,7 +29,7 @@ namespace CslaModelTemplates.WebApi.Controllers
 
         #endregion
 
-        #region Tree
+        #region View
 
         /// <summary>
         /// Gets the specified folder tree.

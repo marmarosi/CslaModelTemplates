@@ -47,7 +47,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
                 "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamName: string" +
                 "<br>}<br>" +
                 "Result: SimpleTeamSetItemDto[]",
-            OperationId = "SimpleTeam.ReadSet",
+            OperationId = "SimpleTeamSet.Read",
             Tags = new[] { "Simple Endpoints" })
         ]
         public override async Task<ActionResult<IList<SimpleTeamSetItemDto>>> HandleAsync(
