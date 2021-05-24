@@ -45,7 +45,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="criteria">The criteria of the team list.</param>
         /// <returns>A list of teams.</returns>
-        [HttpGet("")]
+        [HttpGet]
         [ProducesResponseType(typeof(List<SimpleTeamListItemDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTeamList(
             [FromQuery] SimpleTeamListCriteria criteria
@@ -146,7 +146,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="dto">The data transer object of the team.</param>
         /// <returns>The created team.</returns>
-        [HttpPost("")]
+        [HttpPost]
         [ProducesResponseType(typeof(SimpleTeamDto), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateTeam(
             [FromBody] SimpleTeamDto dto
@@ -176,7 +176,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="dto">The data transer object of the team.</param>
         /// <returns>The updated team.</returns>
-        [HttpPut("")]
+        [HttpPut]
         [ProducesResponseType(typeof(SimpleTeamDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateTeam(
             [FromBody] SimpleTeamDto dto
@@ -205,7 +205,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// Deletes the specified team.
         /// </summary>
         /// <param name="criteria">The criteria of the team.</param>
-        [HttpDelete("")]
+        [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteTeam(
             [FromQuery] SimpleTeamCriteria criteria
@@ -231,7 +231,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="dto">The data transer object of the rename team command.</param>
         /// <returns>True when the team was renamed; otherwise false.</returns>
-        [HttpPatch("")]
+        [HttpPatch]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         public async Task<IActionResult> RenameTeamCommand(
             [FromBody] RenameTeamDto dto

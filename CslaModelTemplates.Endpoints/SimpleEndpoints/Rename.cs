@@ -38,7 +38,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         /// <param name="dto">The data transer object of the rename team command.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>True when the team was renamed; otherwise false.</returns>
-        [HttpPatch("")]
+        [HttpPatch]
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Renames the specified team.",

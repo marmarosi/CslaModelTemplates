@@ -206,7 +206,7 @@
             Gets the key-name choice of the teams.
             </summary>
             <param name="criteria">The criteria of the team choice.</param>
-            <returns>The key-name choice of the tenants.</returns>
+            <returns>The key-name choice of the teams.</returns>
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.SelectionController.GetTeamChoiceWithCode(CslaModelTemplates.Contracts.SelectionWithCode.TeamCodeChoiceCriteria)">
             <summary>

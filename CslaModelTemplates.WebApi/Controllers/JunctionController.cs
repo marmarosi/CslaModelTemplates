@@ -113,7 +113,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="dto">The data transer object of the group.</param>
         /// <returns>The created group.</returns>
-        [HttpPost("")]
+        [HttpPost]
         [ProducesResponseType(typeof(GroupDto), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateGroup(
             [FromBody] GroupDto dto
@@ -143,7 +143,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="dto">The data transer object of the group.</param>
         /// <returns>The updated group.</returns>
-        [HttpPut("")]
+        [HttpPut]
         [ProducesResponseType(typeof(GroupDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateGroup(
             [FromBody] GroupDto dto
@@ -172,7 +172,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// Deletes the specified group.
         /// </summary>
         /// <param name="criteria">The criteria of the group.</param>
-        [HttpDelete("")]
+        [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteGroup(
             [FromQuery] GroupCriteria criteria

@@ -39,7 +39,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// Gets the key-name choice of the teams.
         /// </summary>
         /// <param name="criteria">The criteria of the team choice.</param>
-        /// <returns>The key-name choice of the tenants.</returns>
+        /// <returns>The key-name choice of the teams.</returns>
         [HttpGet("with-key")]
         [ProducesResponseType(typeof(List<KeyNameOptionDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTeamChoiceWithKey(

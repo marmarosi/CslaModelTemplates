@@ -38,7 +38,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         /// <param name="criteria">The criteria of the team.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A list of teams.</returns>
-        [HttpDelete("")]
+        [HttpDelete]
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Deletes the specified team.",

@@ -38,7 +38,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         /// <param name="dto">The data transer object of the team.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The updated team.</returns>
-        [HttpPut("")]
+        [HttpPut]
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Updates the specified team.",

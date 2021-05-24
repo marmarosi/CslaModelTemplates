@@ -14,5 +14,10 @@ namespace CslaModelTemplates.Endpoints
         /// The root path of the tree endpoints.
         /// </summary>
         public const string Tree = "/api/tree";
+
+        /// <summary>
+        /// The root path of the selection endpoints.
+        /// </summary>
+        public const string Selection = "/api/selection";
     }
 }

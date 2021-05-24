@@ -45,7 +45,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="criteria">The criteria of the team list.</param>
         /// <returns>A list of teams.</returns>
-        [HttpGet("")]
+        [HttpGet]
         [ProducesResponseType(typeof(List<TeamListItemDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTeamList(
             [FromQuery] TeamListCriteria criteria
@@ -146,7 +146,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="dto">The data transer object of the team.</param>
         /// <returns>The created team.</returns>
-        [HttpPost("")]
+        [HttpPost]
         [ProducesResponseType(typeof(TeamDto), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateTeam(
             [FromBody] TeamDto dto
@@ -176,7 +176,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="dto">The data transer object of the team.</param>
         /// <returns>The updated team.</returns>
-        [HttpPut("")]
+        [HttpPut]
         [ProducesResponseType(typeof(TeamDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateTeam(
             [FromBody] TeamDto dto
@@ -205,7 +205,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// Deletes the specified team.
         /// </summary>
         /// <param name="criteria">The criteria of the team.</param>
-        [HttpDelete("")]
+        [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteTeam(
             [FromQuery] TeamCriteria criteria
@@ -231,7 +231,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// </summary>
         /// <param name="criteria">The criteria of the count teams by item count command.</param>
         /// <returns>The list of the team counts.</returns>
-        [HttpPatch("")]
+        [HttpPatch]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         public async Task<IActionResult> CountTeamsCommand(
             [FromBody] CountTeamsCriteria criteria
