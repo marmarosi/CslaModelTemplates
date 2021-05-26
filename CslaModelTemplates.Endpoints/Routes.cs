@@ -19,5 +19,10 @@ namespace CslaModelTemplates.Endpoints
         /// The root path of the selection endpoints.
         /// </summary>
         public const string Selection = "/api/selection";
+
+        /// <summary>
+        /// The root path of the pagination endpoints.
+        /// </summary>
+        public const string Pagination = "/api/pagination";
     }
 }

@@ -43,7 +43,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         [SwaggerOperation(
             Summary = "Deletes the specified team.",
             Description = "Deletes the specified team. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: long" +
+                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: number" +
                 "<br>}",
             OperationId = "SimpleTeam.Delete",
             Tags = new[] { "Simple Endpoints" })

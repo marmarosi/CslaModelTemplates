@@ -43,7 +43,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         [SwaggerOperation(
             Summary = "Gets the specified team details to display.",
             Description = "Gets the specified team details to display. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: long" +
+                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: number" +
                 "<br>}<br>" +
                 "Result: SimpleTeamViewDto",
             OperationId = "SimpleTeam.View",
