@@ -129,7 +129,7 @@
             <summary>
             Gets a new group to edit.
             </summary>
-            <returns>The new group.</returns>
+            <returns>A new group.</returns>
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.GetGroup(CslaModelTemplates.Contracts.Junction.GroupCriteria)">
             <summary>

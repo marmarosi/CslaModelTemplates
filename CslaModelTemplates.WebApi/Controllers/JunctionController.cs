@@ -62,7 +62,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <summary>
         /// Gets a new group to edit.
         /// </summary>
-        /// <returns>The new group.</returns>
+        /// <returns>A new group.</returns>
         [HttpGet("new")]
         [ProducesResponseType(typeof(GroupDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetNewGroup()

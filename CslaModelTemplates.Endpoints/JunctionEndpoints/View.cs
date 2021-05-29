@@ -1,6 +1,6 @@
 using Ardalis.ApiEndpoints;
-using CslaModelTemplates.Contracts.SimpleView;
-using CslaModelTemplates.Models.SimpleView;
+using CslaModelTemplates.Contracts.JunctionView;
+using CslaModelTemplates.Models.JunctionView;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
@@ -9,15 +9,15 @@ using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CslaModelTemplates.Endpoints.SimpleEndpoints
+namespace CslaModelTemplates.Endpoints.JunctionEndpoints
 {
     /// <summary>
-    /// Gets the specified team details to display.
+    /// Gets the specified group details to display.
     /// </summary>
-    [Route(Routes.Simple)]
+    [Route(Routes.Junction)]
     public class View : BaseAsyncEndpoint
-        .WithRequest<SimpleTeamViewCriteria>
-        .WithResponse<SimpleTeamViewDto>
+        .WithRequest<GroupViewCriteria>
+        .WithResponse<GroupViewDto>
     {
         internal ILogger logger { get; set; }
 
@@ -33,31 +33,31 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         }
 
         /// <summary>
-        /// Gets the specified team details to display.
+        /// Gets the specified group details to display.
         /// </summary>
-        /// <param name="criteria">The criteria of the team.</param>
+        /// <param name="criteria">The criteria of the group.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The requested team view.</returns>
+        /// <returns>The requested group view.</returns>
         [HttpGet("view")]
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
-            Summary = "Gets the specified team details to display.",
-            Description = "Gets the specified team details to display. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: number" +
+            Summary = "Gets the specified group details to display.",
+            Description = "Gets the specified group details to display. Criteria:<br>{" +
+                "<br>&nbsp;&nbsp;&nbsp;&nbsp;GroupKey: number" +
                 "<br>}<br>" +
-                "Result: SimpleTeamViewDto",
-            OperationId = "SimpleTeam.View",
-            Tags = new[] { "Simple Endpoints" })
+                "Result: GroupViewDto",
+            OperationId = "Group.View",
+            Tags = new[] { "Junction Endpoints" })
         ]
-        public override async Task<ActionResult<SimpleTeamViewDto>> HandleAsync(
-            [FromQuery] SimpleTeamViewCriteria criteria,
+        public override async Task<ActionResult<GroupViewDto>> HandleAsync(
+            [FromQuery] GroupViewCriteria criteria,
             CancellationToken cancellationToken
             )
         {
             try
             {
-                SimpleTeamView team = await SimpleTeamView.Get(criteria);
-                return Ok(team.ToDto<SimpleTeamViewDto>());
+                GroupView group = await GroupView.Get(criteria);
+                return Ok(group.ToDto<GroupViewDto>());
             }
             catch (Exception ex)
             {

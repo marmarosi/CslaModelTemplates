@@ -1,6 +1,6 @@
 using Ardalis.ApiEndpoints;
-using CslaModelTemplates.Contracts.Simple;
-using CslaModelTemplates.Models.Simple;
+using CslaModelTemplates.Contracts.Junction;
+using CslaModelTemplates.Models.Junction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
@@ -9,15 +9,15 @@ using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CslaModelTemplates.Endpoints.SimpleEndpoints
+namespace CslaModelTemplates.Endpoints.JunctionEndpoints
 {
     /// <summary>
-    /// Deletes the specified team.
+    /// Gets a new group to edit.
     /// </summary>
-    [Route(Routes.Simple)]
-    public class Delete : BaseAsyncEndpoint
-        .WithRequest<SimpleTeamCriteria>
-        .WithoutResponse
+    [Route(Routes.Junction)]
+    public class New : BaseAsyncEndpoint
+        .WithoutRequest
+        .WithResponse<GroupDto>
     {
         internal ILogger logger { get; set; }
 
@@ -25,7 +25,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
-        public Delete(
+        public New(
             ILogger logger
             )
         {
@@ -33,29 +33,27 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         }
 
         /// <summary>
-        /// Deletes the specified team.
+        /// Gets a new group to edit.
         /// </summary>
-        /// <param name="criteria">The criteria of the team.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        [HttpDelete]
+        /// <returns>A new group.</returns>
+        [HttpGet("new")]
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
-            Summary = "Deletes the specified team.",
-            Description = "Deletes the specified team. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: number" +
-                "<br>}",
-            OperationId = "SimpleTeam.Delete",
-            Tags = new[] { "Simple Endpoints" })
+            Summary = "Gets a new group to edit.",
+            Description = "Gets a new group to edit.<br><br>" +
+                "Result: GroupDto",
+            OperationId = "Group.New",
+            Tags = new[] { "Junction Endpoints" })
         ]
-        public override async Task<ActionResult> HandleAsync(
-            [FromQuery] SimpleTeamCriteria criteria,
+        public override async Task<ActionResult<GroupDto>> HandleAsync(
             CancellationToken cancellationToken
             )
         {
             try
             {
-                await Task.Run(() => SimpleTeam.Delete(criteria));
-                return NoContent();
+                Group group = await Group.Create();
+                return Ok(group.ToDto<GroupDto>());
             }
             catch (Exception ex)
             {

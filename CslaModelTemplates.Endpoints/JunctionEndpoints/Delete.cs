@@ -1,6 +1,6 @@
 using Ardalis.ApiEndpoints;
-using CslaModelTemplates.Contracts.Simple;
-using CslaModelTemplates.Models.Simple;
+using CslaModelTemplates.Contracts.Junction;
+using CslaModelTemplates.Models.Junction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
@@ -9,14 +9,14 @@ using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CslaModelTemplates.Endpoints.SimpleEndpoints
+namespace CslaModelTemplates.Endpoints.JunctionEndpoints
 {
     /// <summary>
-    /// Deletes the specified team.
+    /// Deletes the specified group.
     /// </summary>
-    [Route(Routes.Simple)]
+    [Route(Routes.Junction)]
     public class Delete : BaseAsyncEndpoint
-        .WithRequest<SimpleTeamCriteria>
+        .WithRequest<GroupCriteria>
         .WithoutResponse
     {
         internal ILogger logger { get; set; }
@@ -33,28 +33,28 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         }
 
         /// <summary>
-        /// Deletes the specified team.
+        /// Deletes the specified group.
         /// </summary>
-        /// <param name="criteria">The criteria of the team.</param>
+        /// <param name="criteria">The criteria of the group.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         [HttpDelete]
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
-            Summary = "Deletes the specified team.",
-            Description = "Deletes the specified team. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: number" +
+            Summary = "Deletes the specified group.",
+            Description = "Deletes the specified group. Criteria:<br>{" +
+                "<br>&nbsp;&nbsp;&nbsp;&nbsp;GroupKey: number" +
                 "<br>}",
-            OperationId = "SimpleTeam.Delete",
-            Tags = new[] { "Simple Endpoints" })
+            OperationId = "Group.Delete",
+            Tags = new[] { "Junction Endpoints" })
         ]
         public override async Task<ActionResult> HandleAsync(
-            [FromQuery] SimpleTeamCriteria criteria,
+            [FromQuery] GroupCriteria criteria,
             CancellationToken cancellationToken
             )
         {
             try
             {
-                await Task.Run(() => SimpleTeam.Delete(criteria));
+                await Task.Run(() => Group.Delete(criteria));
                 return NoContent();
             }
             catch (Exception ex)

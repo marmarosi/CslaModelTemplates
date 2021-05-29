@@ -1,6 +1,6 @@
 using Ardalis.ApiEndpoints;
-using CslaModelTemplates.Contracts.Simple;
-using CslaModelTemplates.Models.Simple;
+using CslaModelTemplates.Contracts.Junction;
+using CslaModelTemplates.Models.Junction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
@@ -9,15 +9,15 @@ using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CslaModelTemplates.Endpoints.SimpleEndpoints
+namespace CslaModelTemplates.Endpoints.JunctionEndpoints
 {
     /// <summary>
-    /// Gets the specified team to edit.
+    /// Gets the specified group to edit.
     /// </summary>
-    [Route(Routes.Simple)]
+    [Route(Routes.Junction)]
     public class Read : BaseAsyncEndpoint
-        .WithRequest<SimpleTeamCriteria>
-        .WithResponse<SimpleTeamDto>
+        .WithRequest<GroupCriteria>
+        .WithResponse<GroupDto>
     {
         internal ILogger logger { get; set; }
 
@@ -33,31 +33,31 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         }
 
         /// <summary>
-        /// Gets the specified team to edit.
+        /// Gets the specified group to edit.
         /// </summary>
-        /// <param name="criteria">The criteria of the team.</param>
+        /// <param name="criteria">The criteria of the group.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The requested team.</returns>
+        /// <returns>The requested group.</returns>
         [HttpGet("read")]
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
-            Summary = "Gets the specified team to edit.",
-            Description = "Gets the specified team details to edit. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: number" +
+            Summary = "Gets the specified group to edit.",
+            Description = "Gets the specified group to edit. Criteria:<br>{" +
+                "<br>&nbsp;&nbsp;&nbsp;&nbsp;GroupKey: number" +
                 "<br>}<br>" +
-                "Result: SimpleTeamDto",
-            OperationId = "SimpleTeam.Read",
-            Tags = new[] { "Simple Endpoints" })
+                "Result: GroupDto",
+            OperationId = "Group.Read",
+            Tags = new[] { "Junction Endpoints" })
         ]
-        public override async Task<ActionResult<SimpleTeamDto>> HandleAsync(
-            [FromQuery] SimpleTeamCriteria criteria,
+        public override async Task<ActionResult<GroupDto>> HandleAsync(
+            [FromQuery] GroupCriteria criteria,
             CancellationToken cancellationToken
             )
         {
             try
             {
-                SimpleTeam team = await SimpleTeam.Get(criteria);
-                return Ok(team.ToDto<SimpleTeamDto>());
+                Group group = await Group.Get(criteria);
+                return Ok(group.ToDto<GroupDto>());
             }
             catch (Exception ex)
             {

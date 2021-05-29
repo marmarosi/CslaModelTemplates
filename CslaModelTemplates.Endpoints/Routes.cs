@@ -24,5 +24,10 @@ namespace CslaModelTemplates.Endpoints
         /// The root path of the pagination endpoints.
         /// </summary>
         public const string Pagination = "/api/pagination";
+
+        /// <summary>
+        /// The root path of the junction endpoints.
+        /// </summary>
+        public const string Junction = "/api/junction";
     }
 }
