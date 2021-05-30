@@ -6,7 +6,7 @@ using CslaModelTemplates.Contracts.ComplexCommand;
 using System;
 using System.Collections.Generic;
 
-namespace CslaModelTemplates.Models.Command
+namespace CslaModelTemplates.Models.ComplexCommand
 {
     /// <summary>
     /// Represents a read-only count teams collection.

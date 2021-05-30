@@ -15,7 +15,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
     /// Renames the specified team.
     /// </summary>
     [Route(Routes.Simple)]
-    public class Rename : BaseAsyncEndpoint
+    public class Command : BaseAsyncEndpoint
         .WithRequest<RenameTeamDto>
         .WithResponse<bool>
     {
@@ -25,7 +25,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
-        public Rename(
+        public Command(
             ILogger logger
             )
         {

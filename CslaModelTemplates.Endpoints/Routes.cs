@@ -26,6 +26,11 @@ namespace CslaModelTemplates.Endpoints
         public const string Pagination = "/api/pagination";
 
         /// <summary>
+        /// The root path of the complex endpoints.
+        /// </summary>
+        public const string Complex = "/api/complex";
+
+        /// <summary>
         /// The root path of the junction endpoints.
         /// </summary>
         public const string Junction = "/api/junction";
