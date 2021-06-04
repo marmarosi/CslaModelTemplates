@@ -30,11 +30,11 @@ namespace CslaModelTemplates.WebApiTests
             // The code and name must end with 17.
             Assert.Equal("G-08", group.GroupCode);
             Assert.EndsWith("8", group.GroupName);
-            Assert.True(group.Members.Count > 0);
+            Assert.True(group.Persons.Count > 0);
 
             // The code and name must end with 17.
-            MemberViewDto member = group.Members[0];
-            Assert.StartsWith("Person #", member.PersonName);
+            GroupPersonViewDto groupPerson = group.Persons[0];
+            Assert.StartsWith("Person #", groupPerson.PersonName);
         }
     }
 }

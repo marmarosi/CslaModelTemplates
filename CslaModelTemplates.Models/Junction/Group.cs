@@ -45,11 +45,11 @@ namespace CslaModelTemplates.Models.Junction
             set { SetProperty(GroupNameProperty, value); }
         }
 
-        public static readonly PropertyInfo<Members> MembersProperty = RegisterProperty<Members>(c => c.Members, RelationshipTypes.Child);
-        public Members Members
+        public static readonly PropertyInfo<GroupPersons> GroupPersonsProperty = RegisterProperty<GroupPersons>(c => c.GroupPersons, RelationshipTypes.Child);
+        public GroupPersons GroupPersons
         {
-            get { return GetProperty(MembersProperty); }
-            private set { LoadProperty(MembersProperty, value); }
+            get { return GetProperty(GroupPersonsProperty); }
+            private set { LoadProperty(GroupPersonsProperty, value); }
         }
 
         public static readonly PropertyInfo<DateTime?> TimestampProperty = RegisterProperty<DateTime?>(c => c.Timestamp);
@@ -148,7 +148,7 @@ namespace CslaModelTemplates.Models.Junction
             //group.GroupKey = dto.GroupKey;
             group.GroupCode = dto.GroupCode;
             group.GroupName = dto.GroupName;
-            await group.Members.Update(dto.Members);
+            await group.GroupPersons.Update(dto.Persons);
             //group.Timestamp = dto.Timestamp;
 
             group.BusinessRules.CheckRules();
@@ -164,7 +164,7 @@ namespace CslaModelTemplates.Models.Junction
         {
             // Load default values.
             // Omit this override if you have no defaults to set.
-            Members = Members.Create();
+            GroupPersons = GroupPersons.Create();
         }
 
         private void DataPortal_Fetch(
@@ -182,7 +182,7 @@ namespace CslaModelTemplates.Models.Junction
                     GroupKey = dao.GroupKey;
                     GroupCode = dao.GroupCode;
                     GroupName = dao.GroupName;
-                    Members = DataPortal.FetchChild<Members>(dao.Members);
+                    GroupPersons = DataPortal.FetchChild<GroupPersons>(dao.Persons);
                     Timestamp = dao.Timestamp;
                 }
             }
@@ -260,7 +260,7 @@ namespace CslaModelTemplates.Models.Junction
                 if (!GroupKey.HasValue)
                     DataPortal_Fetch(criteria);
 
-                Members.Clear();
+                GroupPersons.Clear();
                 FieldManager.UpdateChildren(this);
 
                 dal.Delete(criteria);

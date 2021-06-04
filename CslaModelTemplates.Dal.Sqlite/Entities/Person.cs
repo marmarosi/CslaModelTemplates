@@ -20,6 +20,6 @@ namespace CslaModelTemplates.Dal.Sqlite.Entities
 
         public DateTime Timestamp { get; set; }
 
-        public ICollection<GroupPerson> Memberships { get; set; }
+        public ICollection<GroupPerson> Groups { get; set; }
     }
 }

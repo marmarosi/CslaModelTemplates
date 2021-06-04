@@ -223,8 +223,8 @@ a read-only member collection.
 Component | Description
 --------- | -----------
 GroupView | read-only root object
-MemberViews | read-only child collection
-MemberView | read-only child object
+GroupPersonViews | read-only child collection
+GroupPersonView | read-only child object
 
 ### Junction
 
@@ -234,6 +234,6 @@ an editable member collection.
 Component | Description
 --------- | -----------
 Group | editable root object
-Members | editable child collection
-Member | editable child object
+GroupPersons | editable child collection
+GroupPerson | editable child object
 

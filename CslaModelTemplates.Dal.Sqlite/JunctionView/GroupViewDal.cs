@@ -24,7 +24,7 @@ namespace CslaModelTemplates.Dal.Sqlite.JunctionView
         {
             // Get the specified group.
             GroupViewDao group = DbContext.Groups
-                .Include(e => e.Members)
+                .Include(e => e.Persons)
                 .Where(e =>
                     e.GroupKey == criteria.GroupKey
                  )
@@ -33,8 +33,8 @@ namespace CslaModelTemplates.Dal.Sqlite.JunctionView
                     GroupKey = e.GroupKey,
                     GroupCode = e.GroupCode,
                     GroupName = e.GroupName,
-                    Members = e.Members
-                        .Select(m => new MemberViewDao
+                    Persons = e.Persons
+                        .Select(m => new GroupPersonViewDao
                         {
                             PersonKey = m.PersonKey,
                             PersonName = m.Person.PersonName

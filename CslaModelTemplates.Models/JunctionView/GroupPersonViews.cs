@@ -9,10 +9,10 @@ using System.Collections.Generic;
 namespace CslaModelTemplates.Models.JunctionView
 {
     /// <summary>
-    /// Represents a read-only player collection.
+    /// Represents a read-only group-person collection.
     /// </summary>
     [Serializable]
-    public class MemberViews : ReadOnlyList<MemberViews, MemberView>
+    public class GroupPersonViews : ReadOnlyList<GroupPersonViews, GroupPersonView>
     {
         #region Business Rules
 
@@ -20,7 +20,7 @@ namespace CslaModelTemplates.Models.JunctionView
         //{
         //    // Add authorization rules.
         //    BusinessRules.AddRule(
-        //        typeof(MemberViews),
+        //        typeof(GroupPersonViews),
         //        new IsInRole(AuthorizationActions.GetObject, "Manager")
         //        );
         //}
@@ -29,14 +29,14 @@ namespace CslaModelTemplates.Models.JunctionView
 
         #region Factory Methods
 
-        private MemberViews()
+        private GroupPersonViews()
         { /* require use of factory methods */ }
 
-        internal static MemberViews Get(
-            List<MemberViewDao> list
+        internal static GroupPersonViews Get(
+            List<GroupPersonViewDao> list
             )
         {
-            return DataPortal.FetchChild<MemberViews>(list);
+            return DataPortal.FetchChild<GroupPersonViews>(list);
         }
 
         #endregion
@@ -44,7 +44,7 @@ namespace CslaModelTemplates.Models.JunctionView
         #region Data Access
 
         private void Child_Fetch(
-            List<MemberViewDao> list
+            List<GroupPersonViewDao> list
             )
         {
             var rlce = RaiseListChangedEvents;
@@ -52,8 +52,8 @@ namespace CslaModelTemplates.Models.JunctionView
             IsReadOnly = false;
 
             // Create items from data access objects.
-            foreach (MemberViewDao dao in list)
-                Add(MemberView.Get(dao));
+            foreach (GroupPersonViewDao dao in list)
+                Add(GroupPersonView.Get(dao));
 
             IsReadOnly = true;
             RaiseListChangedEvents = rlce;

@@ -38,11 +38,11 @@ namespace CslaModelTemplates.Models.JunctionView
             private set { LoadProperty(GroupNameProperty, value); }
         }
 
-        public static readonly PropertyInfo<MemberViews> MembersProperty = RegisterProperty<MemberViews>(c => c.Members);
-        public MemberViews Members
+        public static readonly PropertyInfo<GroupPersonViews> PersonsProperty = RegisterProperty<GroupPersonViews>(c => c.Persons);
+        public GroupPersonViews Persons
         {
-            get { return GetProperty(MembersProperty); }
-            private set { LoadProperty(MembersProperty, value); }
+            get { return GetProperty(PersonsProperty); }
+            private set { LoadProperty(PersonsProperty, value); }
         }
 
         #endregion
@@ -101,7 +101,7 @@ namespace CslaModelTemplates.Models.JunctionView
                 GroupKey = dao.GroupKey;
                 GroupCode = dao.GroupCode;
                 GroupName = dao.GroupName;
-                Members = MemberViews.Get(dao.Members);
+                Persons = GroupPersonViews.Get(dao.Persons);
             }
         }
 

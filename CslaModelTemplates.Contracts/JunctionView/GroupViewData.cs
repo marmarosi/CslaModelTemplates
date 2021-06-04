@@ -17,7 +17,7 @@ namespace CslaModelTemplates.Contracts.JunctionView
     /// </summary>
     public class GroupViewDao : GroupViewData
     {
-        public List<MemberViewDao> Members { get; set; }
+        public List<GroupPersonViewDao> Persons { get; set; }
     }
 
     /// <summary>
@@ -25,6 +25,6 @@ namespace CslaModelTemplates.Contracts.JunctionView
     /// </summary>
     public class GroupViewDto : GroupViewData
     {
-        public List<MemberViewDto> Members { get; set; }
+        public List<GroupPersonViewDto> Persons { get; set; }
     }
 }

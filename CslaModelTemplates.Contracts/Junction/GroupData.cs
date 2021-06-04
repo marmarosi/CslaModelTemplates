@@ -1,4 +1,3 @@
-using CslaModelTemplates.Common.Models;
 using System;
 using System.Collections.Generic;
 
@@ -20,11 +19,11 @@ namespace CslaModelTemplates.Contracts.Junction
     /// </summary>
     public class GroupDao : GroupData
     {
-        public List<MemberDao> Members { get; set; }
+        public List<GroupPersonDao> Persons { get; set; }
 
         public GroupDao()
         {
-            Members = new List<MemberDao>();
+            Persons = new List<GroupPersonDao>();
         }
     }
 
@@ -33,11 +32,11 @@ namespace CslaModelTemplates.Contracts.Junction
     /// </summary>
     public class GroupDto : GroupData
     {
-        public List<MemberDto> Members { get; set; }
+        public List<GroupPersonDto> Persons { get; set; }
 
         public GroupDto()
         {
-            Members = new List<MemberDto>();
+            Persons = new List<GroupPersonDto>();
         }
     }
 }

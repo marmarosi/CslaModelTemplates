@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 namespace CslaModelTemplates.Models.Junction
 {
     /// <summary>
-    /// Represents an editable member object.
+    /// Represents an editable group-person object.
     /// </summary>
     [Serializable]
-    [ValidationResourceType(typeof(ValidationText), ObjectName = "Member")]
-    public class Member : EditableModel<Member>
+    [ValidationResourceType(typeof(ValidationText), ObjectName = "GroupPerson")]
+    public class GroupPerson : EditableModel<GroupPerson>
     {
         #region Properties
 
@@ -59,7 +59,7 @@ namespace CslaModelTemplates.Models.Junction
         //{
         //    // Add authorization rules.
         //    BusinessRules.AddRule(
-        //        typeof(Player),
+        //        typeof(GroupPerson),
         //        new IsInRole(AuthorizationActions.EditObject, "Manager")
         //        );
         //}
@@ -86,14 +86,14 @@ namespace CslaModelTemplates.Models.Junction
                 IRuleContext context
                 )
             {
-                Member target = (Member)context.Target;
+                GroupPerson target = (GroupPerson)context.Target;
                 if (target.Parent == null)
                     return;
 
                 Group group = (Group)target.Parent.Parent;
-                var count = group.Members.Count(member => member.PersonKey == target.PersonKey);
+                var count = group.GroupPersons.Count(gp => gp.PersonKey == target.PersonKey);
                 if (count > 1)
-                    context.AddErrorResult(ValidationText.Member_PersonKey_NotUnique);
+                    context.AddErrorResult(ValidationText.GroupPerson_PersonKey_NotUnique);
             }
         }
 
@@ -102,11 +102,11 @@ namespace CslaModelTemplates.Models.Junction
         #region Business Methods
 
         /// <summary>
-        /// Updates an editable member from the data transfer object.
+        /// Updates an editable group-person from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer objects.</param>
         internal void Update(
-            MemberDto dto
+            GroupPersonDto dto
             )
         {
             PersonKey = dto.PersonKey;
@@ -119,25 +119,25 @@ namespace CslaModelTemplates.Models.Junction
 
         #region Factory Methods
 
-        private Member()
+        private GroupPerson()
         { /* Require use of factory methods */ }
 
         /// <summary>
-        /// Creates an editable member instance from the data transfer object.
+        /// Creates an editable group-person instance from the data transfer object.
         /// </summary>
         /// <param name="parent">The parent collection.</param>
         /// <param name="dto">The data transfer object.</param>
-        /// <returns>The new editable member instance.</returns>
-        internal static async Task<Member> Create(
+        /// <returns>The new editable group-person instance.</returns>
+        internal static async Task<GroupPerson> Create(
             IParent parent,
-            MemberDto dto
+            GroupPersonDto dto
             )
         {
-            Member member = null;
-            member = await Task.Run(() => DataPortal.CreateChild<Member>());
-            member.SetParent(parent);
-            member.Update(dto);
-            return member;
+            GroupPerson groupPerson = null;
+            groupPerson = await Task.Run(() => DataPortal.CreateChild<GroupPerson>());
+            groupPerson.SetParent(parent);
+            groupPerson.Update(dto);
+            return groupPerson;
         }
 
         #endregion
@@ -152,7 +152,7 @@ namespace CslaModelTemplates.Models.Junction
         //}
 
         private void Child_Fetch(
-            MemberDao dao
+            GroupPersonDao dao
             )
         {
             using (BypassPropertyChecks)
@@ -163,12 +163,12 @@ namespace CslaModelTemplates.Models.Junction
             }
         }
 
-        private MemberDao CreateDao(
+        private GroupPersonDao CreateDao(
             long? groupKey
             )
         {
             // Build the data access object.
-            return new MemberDao
+            return new GroupPersonDao
             {
                 GroupKey = groupKey,
                 PersonKey = PersonKey,
@@ -183,11 +183,11 @@ namespace CslaModelTemplates.Models.Junction
             // Insert values into persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IMemberDal dal = dm.GetProvider<IMemberDal>();
+                IGroupPersonDal dal = dm.GetProvider<IGroupPersonDal>();
 
                 using (BypassPropertyChecks)
                 {
-                    MemberDao dao = CreateDao(parent.GroupKey);
+                    GroupPersonDao dao = CreateDao(parent.GroupKey);
                     dal.Insert(dao);
 
                     // Set new data.
@@ -212,12 +212,12 @@ namespace CslaModelTemplates.Models.Junction
             // Delete values from persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IMemberDal dal = dm.GetProvider<IMemberDal>();
+                IGroupPersonDal dal = dm.GetProvider<IGroupPersonDal>();
 
                 //Items.Clear();
                 //FieldManager.UpdateChildren(this);
 
-                MemberDao dao = CreateDao(parent.GroupKey);
+                GroupPersonDao dao = CreateDao(parent.GroupKey);
                 dal.Delete(dao);
             }
         }

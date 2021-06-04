@@ -140,11 +140,11 @@ namespace CslaModelTemplates.Dal.Oracle
                 .HasKey(e => new { e.GroupKey, e.PersonKey });
             modelBuilder.Entity<GroupPerson>()
                 .HasOne(e => e.Group)
-                .WithMany(g => g.Members)
+                .WithMany(g => g.Persons)
                 .HasForeignKey(e => e.GroupKey);
             modelBuilder.Entity<GroupPerson>()
                 .HasOne(e => e.Person)
-                .WithMany(p => p.Memberships)
+                .WithMany(p => p.Groups)
                 .HasForeignKey(e => e.PersonKey);
 
             #endregion

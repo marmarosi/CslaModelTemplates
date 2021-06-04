@@ -35,7 +35,7 @@ namespace CslaModelTemplates.Dal.Sqlite.Junction
                     GroupKey = e.GroupKey,
                     GroupCode = e.GroupCode,
                     GroupName = e.GroupName,
-                    Members = e.Members.Select(m => new MemberDao
+                    Persons = e.Persons.Select(m => new GroupPersonDao
                     {
                         GroupKey = m.GroupKey,
                         PersonKey = m.PersonKey,

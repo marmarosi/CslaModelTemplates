@@ -20,6 +20,6 @@ namespace CslaModelTemplates.Dal.Oracle.Entities
 
         public DateTime Timestamp { get; set; }
 
-        public virtual ICollection<GroupPerson> Memberships { get; set; }
+        public virtual ICollection<GroupPerson> Groups { get; set; }
     }
 }

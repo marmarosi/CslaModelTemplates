@@ -33,7 +33,7 @@ namespace CslaModelTemplates.WebApiTests
             Assert.Empty(group.GroupCode);
             Assert.Empty(group.GroupName);
             Assert.Null(group.Timestamp);
-            Assert.Empty(group.Members);
+            Assert.Empty(group.Persons);
         }
 
         #endregion
@@ -51,8 +51,8 @@ namespace CslaModelTemplates.WebApiTests
             // Act
             IActionResult actionResult;
             GroupDto pristineGroup;
-            MemberDto pristineMember1;
-            MemberDto pristineMember2;
+            GroupPersonDto pristineMember1;
+            GroupPersonDto pristineMember2;
 
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
@@ -63,18 +63,18 @@ namespace CslaModelTemplates.WebApiTests
                     GroupName = "Test group number 9201",
                     Timestamp = null
                 };
-                pristineMember1 = new MemberDto
+                pristineMember1 = new GroupPersonDto
                 {
                     PersonKey = 11,
                     PersonName = "Person #11"
                 };
-                pristineGroup.Members.Add(pristineMember1);
-                pristineMember2 = new MemberDto
+                pristineGroup.Persons.Add(pristineMember1);
+                pristineMember2 = new GroupPersonDto
                 {
                     PersonKey = 17,
                     PersonName = "Person #17"
                 };
-                pristineGroup.Members.Add(pristineMember2);
+                pristineGroup.Persons.Add(pristineMember2);
                 actionResult = await sut.CreateGroup(pristineGroup);
 
                 scope.Dispose();
@@ -94,13 +94,13 @@ namespace CslaModelTemplates.WebApiTests
             Assert.NotNull(createdGroup.Timestamp);
 
             // The persons must have new values.
-            Assert.Equal(2, createdGroup.Members.Count);
+            Assert.Equal(2, createdGroup.Persons.Count);
 
-            MemberDto createdMember1 = createdGroup.Members[0];
+            GroupPersonDto createdMember1 = createdGroup.Persons[0];
             Assert.Equal(pristineMember1.PersonKey, createdMember1.PersonKey);
             Assert.Equal(pristineMember1.PersonName, createdMember1.PersonName);
 
-            MemberDto createdMember2 = createdGroup.Members[1];
+            GroupPersonDto createdMember2 = createdGroup.Persons[1];
             Assert.Equal(pristineMember2.PersonKey, createdMember2.PersonKey);
             Assert.Equal(pristineMember2.PersonName, createdMember2.PersonName);
         }
@@ -141,27 +141,27 @@ namespace CslaModelTemplates.WebApiTests
                 Assert.NotNull(pristineGroup.Timestamp);
 
                 // The person name must start with Person.
-                Assert.True(pristineGroup.Members.Count > 0);
-                MemberDto pristineMember1 = pristineGroup.Members[0];
-                foreach (MemberDto member in pristineGroup.Members)
+                Assert.True(pristineGroup.Persons.Count > 0);
+                GroupPersonDto pristineMember1 = pristineGroup.Persons[0];
+                foreach (GroupPersonDto groupPerson in pristineGroup.Persons)
                 {
-                    Assert.StartsWith("Person", member.PersonName);
+                    Assert.StartsWith("Person", groupPerson.PersonName);
                 }
 
                 // --- UPDATE
-                MemberDto pristineMemberNew;
+                GroupPersonDto pristineMemberNew;
 
                 using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
                     pristineGroup.GroupCode = "G-1212";
                     pristineGroup.GroupName = "Group No. 1212";
 
-                    pristineMemberNew = new MemberDto
+                    pristineMemberNew = new GroupPersonDto
                     {
                         PersonKey = 1,
                         PersonName = "New member",
                     };
-                    pristineGroup.Members.Add(pristineMemberNew);
+                    pristineGroup.Persons.Add(pristineMemberNew);
                     actionResult = await sut.UpdateGroup(pristineGroup);
 
                     scope.Dispose();
@@ -180,14 +180,14 @@ namespace CslaModelTemplates.WebApiTests
                 Assert.Equal(pristineGroup.GroupName, updatedGroup.GroupName);
                 Assert.NotEqual(pristineGroup.Timestamp, updatedGroup.Timestamp);
 
-                Assert.Equal(pristineGroup.Members.Count, updatedGroup.Members.Count);
+                Assert.Equal(pristineGroup.Persons.Count, updatedGroup.Persons.Count);
 
                 // Persons must reflect the changes.
-                MemberDto updatedMember1 = updatedGroup.Members[0];
+                GroupPersonDto updatedMember1 = updatedGroup.Persons[0];
                 Assert.Equal(pristineMember1.PersonKey, updatedMember1.PersonKey);
                 Assert.Equal(pristineMember1.PersonName, updatedMember1.PersonName);
 
-                MemberDto createdMemberNew = updatedGroup.Members[pristineGroup.Members.Count - 1];
+                GroupPersonDto createdMemberNew = updatedGroup.Persons[pristineGroup.Persons.Count - 1];
                 Assert.Equal(pristineMemberNew.PersonKey, createdMemberNew.PersonKey);
                 Assert.StartsWith("Person", createdMemberNew.PersonName);
             }

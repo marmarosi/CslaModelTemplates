@@ -9,45 +9,45 @@ using System.Linq;
 namespace CslaModelTemplates.Dal.SqlServer.Junction
 {
     /// <summary>
-    /// Implements the data access functions of the editable member object.
+    /// Implements the data access functions of the editable group-person object.
     /// </summary>
-    public class MemberDal : SqlServerDal, IMemberDal
+    public class GroupPersonDal : SqlServerDal, IGroupPersonDal
     {
         #region Insert
 
         /// <summary>
-        /// Creates a new member using the specified data.
+        /// Creates a new group-person using the specified data.
         /// </summary>
-        /// <param name="dao">The data of the member.</param>
+        /// <param name="dao">The data of the group-person.</param>
         public void Insert(
-            MemberDao dao
+            GroupPersonDao dao
             )
         {
-            // Check unique membership.
-            GroupPerson member = DbContext.GroupPersons
+            // Check unique group-person.
+            GroupPerson groupPerson = DbContext.GroupPersons
                 .Where(e =>
                     e.GroupKey == dao.GroupKey &&
                     e.PersonKey == dao.PersonKey
                 )
                 .AsNoTracking()
                 .FirstOrDefault();
-            if (member != null)
-                throw new DataExistException(DalText.Member_Exists.With(dao.PersonName));
+            if (groupPerson != null)
+                throw new DataExistException(DalText.GroupPerson_Exists.With(dao.PersonName));
 
-            // Create the new member.
+            // Create the new group-person.
             Person person = DbContext.Persons.Find(dao.PersonKey);
             if (person == null)
-                throw new DataExistException(DalText.Member_NotFound.With(dao.PersonName));
+                throw new DataExistException(DalText.GroupPerson_NotFound.With(dao.PersonName));
 
-            member = new GroupPerson
+            groupPerson = new GroupPerson
             {
                 GroupKey = dao.GroupKey,
                 PersonKey = dao.PersonKey
             };
-            DbContext.GroupPersons.Add(member);
+            DbContext.GroupPersons.Add(groupPerson);
             int count = DbContext.SaveChanges();
             if (count == 0)
-                throw new InsertFailedException(DalText.Member_InsertFailed.With(dao.PersonName));
+                throw new InsertFailedException(DalText.GroupPerson_InsertFailed.With(dao.PersonName));
 
             // Return new data.
             dao.PersonName = person.PersonName;
@@ -58,29 +58,29 @@ namespace CslaModelTemplates.Dal.SqlServer.Junction
         #region Delete
 
         /// <summary>
-        /// Deletes the specified member.
+        /// Deletes the specified group-person.
         /// </summary>
-        /// <param name="criteria">The criteria of the member.</param>
+        /// <param name="criteria">The criteria of the group-person.</param>
         public void Delete(
-            MemberDao dao
+            GroupPersonDao dao
             )
         {
-            // Get the specified player.
-            GroupPerson member = DbContext.GroupPersons
+            // Get the specified group-person.
+            GroupPerson groupPerson = DbContext.GroupPersons
                 .Where(e =>
                     e.GroupKey == dao.GroupKey &&
                     e.PersonKey == dao.PersonKey
                     )
                 .AsNoTracking()
                 .FirstOrDefault();
-            if (member == null)
-                throw new DataNotFoundException(DalText.Member_NotFound.With(dao.PersonName));
+            if (groupPerson == null)
+                throw new DataNotFoundException(DalText.GroupPerson_NotFound.With(dao.PersonName));
 
-            // Delete the member.
-            DbContext.GroupPersons.Remove(member);
+            // Delete the group-person.
+            DbContext.GroupPersons.Remove(groupPerson);
             int count = DbContext.SaveChanges();
             if (count == 0)
-                throw new DeleteFailedException(DalText.Member_DeleteFailed.With(dao.PersonName));
+                throw new DeleteFailedException(DalText.GroupPerson_DeleteFailed.With(dao.PersonName));
         }
 
         #endregion Delete

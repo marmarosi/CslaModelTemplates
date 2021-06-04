@@ -20,6 +20,6 @@ namespace CslaModelTemplates.Dal.PostgreSql.Entities
 
         public DateTime Timestamp { get; set; }
 
-        public ICollection<GroupPerson> Members { get; set; }
+        public ICollection<GroupPerson> Persons { get; set; }
     }
 }

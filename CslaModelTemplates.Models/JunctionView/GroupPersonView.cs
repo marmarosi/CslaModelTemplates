@@ -8,10 +8,10 @@ using System;
 namespace CslaModelTemplates.Models.JunctionView
 {
     /// <summary>
-    /// Represents an item in a read-only member collection.
+    /// Represents an item in a read-only group-person collection.
     /// </summary>
     [Serializable]
-    public class MemberView : ReadOnlyModel<MemberView>
+    public class GroupPersonView : ReadOnlyModel<GroupPersonView>
     {
         #region Properties
 
@@ -44,7 +44,7 @@ namespace CslaModelTemplates.Models.JunctionView
         //{
         //    // Add authorization rules.
         //    BusinessRules.AddRule(
-        //        typeof(MemberView),
+        //        typeof(GroupPersonView),
         //        new IsInRole(AuthorizationActions.GetObject, "Manager")
         //        );
         //}
@@ -53,14 +53,14 @@ namespace CslaModelTemplates.Models.JunctionView
 
         #region Factory Methods
 
-        private MemberView()
+        private GroupPersonView()
         { /* require use of factory methods */ }
 
-        internal static MemberView Get(
-            MemberViewDao dao
+        internal static GroupPersonView Get(
+            GroupPersonViewDao dao
             )
         {
-            return DataPortal.FetchChild<MemberView>(dao);
+            return DataPortal.FetchChild<GroupPersonView>(dao);
         }
 
         #endregion
@@ -68,7 +68,7 @@ namespace CslaModelTemplates.Models.JunctionView
         #region Data Access
 
         private void Child_Fetch(
-            MemberViewDao dao
+            GroupPersonViewDao dao
             )
         {
             // Set values from data access object.

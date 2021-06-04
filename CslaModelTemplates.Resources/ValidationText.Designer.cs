@@ -63,9 +63,9 @@ namespace CslaModelTemplates.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The person key is not unique..
         /// </summary>
-        public static string Member_PersonKey_NotUnique {
+        public static string GroupPerson_PersonKey_NotUnique {
             get {
-                return ResourceManager.GetString("Member_PersonKey_NotUnique", resourceCulture);
+                return ResourceManager.GetString("GroupPerson_PersonKey_NotUnique", resourceCulture);
             }
         }
         

@@ -124,47 +124,38 @@ namespace CslaModelTemplates.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting the member with name {0} has failed..
+        ///   Looks up a localized string similar to Deleting the person with name {0} has failed..
         /// </summary>
-        public static string Member_DeleteFailed {
+        public static string GroupPerson_DeleteFailed {
             get {
-                return ResourceManager.GetString("Member_DeleteFailed", resourceCulture);
+                return ResourceManager.GetString("GroupPerson_DeleteFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Member with name {0} already exists..
+        ///   Looks up a localized string similar to Person with name {0} already exists..
         /// </summary>
-        public static string Member_Exists {
+        public static string GroupPerson_Exists {
             get {
-                return ResourceManager.GetString("Member_Exists", resourceCulture);
+                return ResourceManager.GetString("GroupPerson_Exists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating the new member with name {0} has failed..
+        ///   Looks up a localized string similar to Creating the new person with name {0} has failed..
         /// </summary>
-        public static string Member_InsertFailed {
+        public static string GroupPerson_InsertFailed {
             get {
-                return ResourceManager.GetString("Member_InsertFailed", resourceCulture);
+                return ResourceManager.GetString("GroupPerson_InsertFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The requested member with name {0} has not been found..
+        ///   Looks up a localized string similar to The requested person with name {0} has not been found..
         /// </summary>
-        public static string Member_NotFound {
+        public static string GroupPerson_NotFound {
             get {
-                return ResourceManager.GetString("Member_NotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Creating the new members has failed..
-        /// </summary>
-        public static string Membership_InsertFailed {
-            get {
-                return ResourceManager.GetString("Membership_InsertFailed", resourceCulture);
+                return ResourceManager.GetString("GroupPerson_NotFound", resourceCulture);
             }
         }
         
