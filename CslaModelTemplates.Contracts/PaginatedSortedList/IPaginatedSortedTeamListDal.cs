@@ -8,6 +8,6 @@ namespace CslaModelTemplates.Contracts.PaginatedSortedList
     /// </summary>
     public interface IPaginatedSortedTeamListDal : IDal
     {
-        PaginatedList<PaginatedSortedTeamListItemDao> Fetch(PaginatedSortedTeamListCriteria criteria);
+        IPaginatedList<PaginatedSortedTeamListItemDao> Fetch(PaginatedSortedTeamListCriteria criteria);
     }
 }

@@ -83,7 +83,7 @@ namespace CslaModelTemplates.Models.PaginatedSortedList
             using (IDalManager dm = DalFactory.GetManager())
             {
                 IPaginatedSortedTeamListDal dal = dm.GetProvider<IPaginatedSortedTeamListDal>();
-                PaginatedList<PaginatedSortedTeamListItemDao> dao = dal.Fetch(criteria);
+                IPaginatedList<PaginatedSortedTeamListItemDao> dao = dal.Fetch(criteria);
 
                 Data = PaginatedSortedTeamListItems.Get(dao.Data);
                 TotalCount = dao.TotalCount;

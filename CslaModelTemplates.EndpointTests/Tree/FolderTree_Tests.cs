@@ -1,11 +1,12 @@
 using CslaModelTemplates.Contracts.Tree;
-using CslaModelTemplates.WebApi.Controllers;
+using CslaModelTemplates.Endpoints.TreeEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.EndpointTests.Tree
 {
     public class FolderTree_Tests
     {
@@ -14,15 +15,15 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<TreeController>();
-            var sut = new TreeController(logger);
+            var logger = setup.GetLogger<TreeView>();
+            var sut = new TreeView(logger);
 
             // Act
             FolderTreeCriteria criteria = new FolderTreeCriteria { RootKey = 1 };
-            IActionResult actionResult = await sut.GetFolderTree(criteria);
+            ActionResult<FolderNodeDto> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             List<FolderNodeDto> tree = okObjectResult.Value as List<FolderNodeDto>;

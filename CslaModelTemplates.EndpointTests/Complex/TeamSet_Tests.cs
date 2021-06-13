@@ -1,13 +1,14 @@
 using CslaModelTemplates.Contracts.ComplexSet;
-using CslaModelTemplates.WebApi.Controllers;
+using CslaModelTemplates.Endpoints.ComplexEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.EndpointTests.Complex
 {
     public class TeamSet_Tests
     {
@@ -16,21 +17,23 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<ComplexController>();
-            var sut = new ComplexController(logger);
+            var loggerRead = setup.GetLogger<ReadSet>();
+            var sutRead = new ReadSet(loggerRead);
+            var loggerUpdate = setup.GetLogger<UpdateSet>();
+            var sutUpdate = new UpdateSet(loggerUpdate);
 
             using (var uow = setup.UnitOfWork())
             {
                 // --- READ
-                IActionResult actionResult;
+                ActionResult<IList<TeamSetItemDto>> actionResult;
                 OkObjectResult okObjectResult;
 
                 // Act
                 TeamSetCriteria criteria = new TeamSetCriteria { TeamName = "7" };
-                actionResult = await sut.GetTeamSet(criteria);
+                actionResult = await sutRead.HandleAsync(criteria, new CancellationToken());
 
                 // Assert
-                okObjectResult = actionResult as OkObjectResult;
+                okObjectResult = actionResult.Result as OkObjectResult;
                 Assert.NotNull(okObjectResult);
 
                 List<TeamSetItemDto> pristineList = okObjectResult.Value as List<TeamSetItemDto>;
@@ -85,13 +88,18 @@ namespace CslaModelTemplates.WebApiTests
                     pristineList.Remove(pristineTeam4);
 
                     // Act
-                    actionResult = await sut.UpdateTeamSet(criteria, pristineList);
+                    TeamSetRequest request = new TeamSetRequest
+                    {
+                        Criteria = criteria,
+                        Dto = pristineList
+                    };
+                    actionResult = await sutUpdate.HandleAsync(request, new CancellationToken());
 
                     scope.Dispose();
                 }
 
                 // Assert
-                okObjectResult = actionResult as OkObjectResult;
+                okObjectResult = actionResult.Result as OkObjectResult;
                 Assert.NotNull(okObjectResult);
 
                 List<TeamSetItemDto> updatedList = okObjectResult.Value as List<TeamSetItemDto>;

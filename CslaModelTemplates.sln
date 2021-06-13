@@ -36,7 +36,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Dal.Post
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Dal.Sqlite", "CslaModelTemplates.Dal.Sqlite\CslaModelTemplates.Dal.Sqlite.csproj", "{9F79E610-80D3-4B8F-B60B-E7CBF1FEB17D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaModelTemplates.Endpoints", "CslaModelTemplates.Endpoints\CslaModelTemplates.Endpoints.csproj", "{81F9AC8E-E0AA-4370-861B-8F19B8B05E31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Endpoints", "CslaModelTemplates.Endpoints\CslaModelTemplates.Endpoints.csproj", "{81F9AC8E-E0AA-4370-861B-8F19B8B05E31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaModelTemplates.EndpointTests", "CslaModelTemplates.EndpointTests\CslaModelTemplates.EndpointTests.csproj", "{7B19DB0A-E626-4175-BAD2-3C2F4427C90A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,6 +98,10 @@ Global
 		{81F9AC8E-E0AA-4370-861B-8F19B8B05E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81F9AC8E-E0AA-4370-861B-8F19B8B05E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81F9AC8E-E0AA-4370-861B-8F19B8B05E31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B19DB0A-E626-4175-BAD2-3C2F4427C90A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B19DB0A-E626-4175-BAD2-3C2F4427C90A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B19DB0A-E626-4175-BAD2-3C2F4427C90A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B19DB0A-E626-4175-BAD2-3C2F4427C90A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,10 +1,11 @@
 using CslaModelTemplates.Contracts.ComplexView;
-using CslaModelTemplates.WebApi.Controllers;
+using CslaModelTemplates.Endpoints.ComplexEndpoints;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.EndpointTests.Complex
 {
     public class TeamView_Tests
     {
@@ -13,15 +14,15 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<ComplexController>();
-            var sut = new ComplexController(logger);
+            var logger = setup.GetLogger<View>();
+            var sut = new View(logger);
 
             // Act
             TeamViewCriteria criteria = new TeamViewCriteria { TeamKey = 17 };
-            IActionResult actionResult = await sut.GetTeamView(criteria);
+            ActionResult<TeamViewDto> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             TeamViewDto team = okObjectResult.Value as TeamViewDto;

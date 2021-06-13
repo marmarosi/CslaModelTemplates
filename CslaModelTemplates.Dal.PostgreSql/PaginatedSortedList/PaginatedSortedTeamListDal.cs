@@ -18,7 +18,7 @@ namespace CslaModelTemplates.Dal.PostgreSql.PaginatedSortedList
         /// </summary>
         /// <param name="criteria">The criteria of the team list.</param>
         /// <returns>The requested page of the sorted team list.</returns>
-        public PaginatedList<PaginatedSortedTeamListItemDao> Fetch(
+        public IPaginatedList<PaginatedSortedTeamListItemDao> Fetch(
             PaginatedSortedTeamListCriteria criteria
             )
         {

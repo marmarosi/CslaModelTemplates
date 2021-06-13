@@ -1,10 +1,11 @@
 using CslaModelTemplates.Contracts.JunctionView;
-using CslaModelTemplates.WebApi.Controllers;
+using CslaModelTemplates.Endpoints.JunctionEndpoints;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.EndpointTests.Junction
 {
     public class GroupView_Tests
     {
@@ -13,15 +14,15 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<JunctionController>();
-            var sut = new JunctionController(logger);
+            var logger = setup.GetLogger<View>();
+            var sut = new View(logger);
 
             // Act
             GroupViewCriteria criteria = new GroupViewCriteria { GroupKey = 8 };
-            IActionResult actionResult = await sut.GetGroupView(criteria);
+            ActionResult<GroupViewDto> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             GroupViewDto group = okObjectResult.Value as GroupViewDto;

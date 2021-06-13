@@ -1,11 +1,12 @@
 using CslaModelTemplates.Common.DataTransfer;
 using CslaModelTemplates.Contracts.PaginatedSortedList;
-using CslaModelTemplates.WebApi.Controllers;
+using CslaModelTemplates.Endpoints.PaginationEndpoints;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.EndpointTests.Pagination
 {
     public class PaginatedSortedTeamList_Tests
     {
@@ -14,8 +15,8 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<PaginationController>();
-            var sut = new PaginationController(logger);
+            var logger = setup.GetLogger<PaginatedSortedList>();
+            var sut = new PaginatedSortedList(logger);
 
             // Act
             PaginatedSortedTeamListCriteria criteria = new PaginatedSortedTeamListCriteria
@@ -26,10 +27,10 @@ namespace CslaModelTemplates.WebApiTests
                 SortBy = PaginatedSortedTeamListSortBy.TeamCode,
                 SortDirection = SortDirection.Descending
             };
-            IActionResult actionResult = await sut.GetPaginatedSortedTeamList(criteria);
+            ActionResult<IPaginatedList<PaginatedSortedTeamListItemDto>> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             PaginatedList<PaginatedSortedTeamListItemDto> list = okObjectResult.Value as PaginatedList<PaginatedSortedTeamListItemDto>;

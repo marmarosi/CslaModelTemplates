@@ -7,7 +7,7 @@ namespace CslaModelTemplates.Common.DataTransfer
     /// Represents the base class of the read-only paginated collections.
     /// </summary>
     [Serializable]
-    public class PaginatedList<T>
+    public class PaginatedList<T> : IPaginatedList<T>
         where T : class
     {
         public List<T> Data { get; set; }

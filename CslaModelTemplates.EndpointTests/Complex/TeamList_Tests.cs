@@ -1,12 +1,12 @@
 using CslaModelTemplates.Contracts.ComplexList;
-using CslaModelTemplates.Models.ComplexList;
-using CslaModelTemplates.WebApi.Controllers;
+using CslaModelTemplates.Endpoints.ComplexEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.EndpointTests.Complex
 {
     public class TeamList_Tests
     {
@@ -15,15 +15,15 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<ComplexController>();
-            var sut = new ComplexController(logger);
+            var logger = setup.GetLogger<List>();
+            var sut = new List(logger);
 
             // Act
             TeamListCriteria criteria = new TeamListCriteria { TeamName = "6" };
-            IActionResult actionResult = await sut.GetTeamList(criteria);
+            ActionResult<IList<TeamListItemDto>> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             List<TeamListItemDto> list = okObjectResult.Value as List<TeamListItemDto>;

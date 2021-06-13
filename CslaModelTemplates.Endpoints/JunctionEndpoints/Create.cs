@@ -25,7 +25,7 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
-        internal Create(
+        public Create(
             ILogger logger
             )
         {

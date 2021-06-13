@@ -43,7 +43,7 @@ namespace CslaModelTemplates.WebApi
         /// </summary>
         /// <param name="exception">The exception thrown by the backend.</param>
         /// <returns>The error information to send to the frontend.</returns>
-        protected IActionResult HandleError(
+        protected ObjectResult HandleError(
             Exception exception
             )
         {

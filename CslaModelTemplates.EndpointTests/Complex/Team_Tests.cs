@@ -1,11 +1,12 @@
 using CslaModelTemplates.Contracts.Complex;
-using CslaModelTemplates.WebApi.Controllers;
+using CslaModelTemplates.Endpoints.ComplexEndpoints;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.EndpointTests.Complex
 {
     public class Team_Tests
     {
@@ -16,14 +17,14 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<ComplexController>();
-            var sut = new ComplexController(logger);
+            var logger = setup.GetLogger<New>();
+            var sut = new New(logger);
 
             // Act
-            IActionResult actionResult = await sut.GetNewTeam();
+            ActionResult<TeamDto> actionResult = await sut.HandleAsync(new CancellationToken());
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             TeamDto team = okObjectResult.Value as TeamDto;
@@ -45,11 +46,11 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<ComplexController>();
-            var sut = new ComplexController(logger);
+            var logger = setup.GetLogger<Create>();
+            var sut = new Create(logger);
 
             // Act
-            IActionResult actionResult;
+            ActionResult<TeamDto> actionResult;
             TeamDto pristineTeam;
             PlayerDto pristinePlayer1;
             PlayerDto pristinePlayer2;
@@ -79,13 +80,13 @@ namespace CslaModelTemplates.WebApiTests
                     PlayerName = "Test player #2"
                 };
                 pristineTeam.Players.Add(pristinePlayer2);
-                actionResult = await sut.CreateTeam(pristineTeam);
+                actionResult = await sut.HandleAsync(pristineTeam, new CancellationToken());
 
                 scope.Dispose();
             }
 
             // Assert
-            CreatedResult createdResult = actionResult as CreatedResult;
+            CreatedResult createdResult = actionResult.Result as CreatedResult;
             Assert.NotNull(createdResult);
 
             TeamDto createdTeam = createdResult.Value as TeamDto;
@@ -122,21 +123,23 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<ComplexController>();
-            var sut = new ComplexController(logger);
+            var loggerRead = setup.GetLogger<Read>();
+            var sutRead = new Read(loggerRead);
+            var loggerUpdate = setup.GetLogger<Update>();
+            var sutUpdate = new Update(loggerUpdate);
 
             using (var uow = setup.UnitOfWork())
             {
                 // --- READ
-                IActionResult actionResult;
+                ActionResult<TeamDto> actionResult;
                 OkObjectResult okObjectResult;
 
                 // Act
                 TeamCriteria criteria = new TeamCriteria { TeamKey = 19 };
-                actionResult = await sut.GetTeam(criteria);
+                actionResult = await sutRead.HandleAsync(criteria, new CancellationToken());
 
                 // Assert
-                okObjectResult = actionResult as OkObjectResult;
+                okObjectResult = actionResult.Result as OkObjectResult;
                 Assert.NotNull(okObjectResult);
 
                 TeamDto pristineTeam = okObjectResult.Value as TeamDto;
@@ -176,13 +179,13 @@ namespace CslaModelTemplates.WebApiTests
                         PlayerName = "Test player #9202.X"
                     };
                     pristineTeam.Players.Add(pristinePlayerNew);
-                    actionResult = await sut.UpdateTeam(pristineTeam);
+                    actionResult = await sutUpdate.HandleAsync(pristineTeam, new CancellationToken());
 
                     scope.Dispose();
                 }
 
                 // Assert
-                okObjectResult = actionResult as OkObjectResult;
+                okObjectResult = actionResult.Result as OkObjectResult;
                 Assert.NotNull(okObjectResult);
 
                 TeamDto updatedTeam = okObjectResult.Value as TeamDto;
@@ -216,15 +219,15 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<ComplexController>();
-            var sut = new ComplexController(logger);
+            var logger = setup.GetLogger<Delete>();
+            var sut = new Delete(logger);
 
             // Act
             IActionResult actionResult;
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 TeamCriteria criteria = new TeamCriteria { TeamKey = 8 };
-                actionResult = await sut.DeleteTeam(criteria);
+                actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
                 scope.Dispose();
             }

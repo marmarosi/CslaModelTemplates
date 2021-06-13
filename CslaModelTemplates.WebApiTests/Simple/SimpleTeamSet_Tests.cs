@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.WebApiTests.Simple
 {
     public class SimpleTeamSet_Tests
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.WebApiTests.Junction
 {
     public class Group_Tests
     {

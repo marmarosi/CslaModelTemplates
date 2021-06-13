@@ -1,11 +1,12 @@
 using CslaModelTemplates.Contracts.SimpleList;
-using CslaModelTemplates.WebApi.Controllers;
+using CslaModelTemplates.Endpoints.SimpleEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.EndpointTests.Simple
 {
     public class SimpleTeamList_Tests
     {
@@ -14,15 +15,15 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<SimpleController>();
-            var sut = new SimpleController(logger);
+            var logger = setup.GetLogger<List>();
+            var sut = new List(logger);
 
             // Act
             SimpleTeamListCriteria criteria = new SimpleTeamListCriteria { TeamName = "9" };
-            IActionResult actionResult = await sut.GetTeamList(criteria);
+            ActionResult<IList<SimpleTeamListItemDto>> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             List<SimpleTeamListItemDto> list = okObjectResult.Value as List<SimpleTeamListItemDto>;

@@ -26,7 +26,7 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
-        internal UpdateSet(
+        public UpdateSet(
             ILogger logger
             )
         {

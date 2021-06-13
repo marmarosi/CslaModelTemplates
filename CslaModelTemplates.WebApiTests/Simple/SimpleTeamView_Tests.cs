@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.WebApiTests.Simple
 {
     public class SimpleTeamView_Tests
     {
@@ -18,10 +18,10 @@ namespace CslaModelTemplates.WebApiTests
 
             // Act
             SimpleTeamViewCriteria criteria = new SimpleTeamViewCriteria { TeamKey = 31 };
-            IActionResult actionResult = await sut.GetTeamView(criteria);
+            ActionResult<SimpleTeamViewDto> actionResult = await sut.GetTeamView(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             SimpleTeamViewDto team = okObjectResult.Value as SimpleTeamViewDto;

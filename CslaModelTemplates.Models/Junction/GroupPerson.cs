@@ -91,7 +91,7 @@ namespace CslaModelTemplates.Models.Junction
                     return;
 
                 Group group = (Group)target.Parent.Parent;
-                var count = group.GroupPersons.Count(gp => gp.PersonKey == target.PersonKey);
+                var count = group.Persons.Count(gp => gp.PersonKey == target.PersonKey);
                 if (count > 1)
                     context.AddErrorResult(ValidationText.GroupPerson_PersonKey_NotUnique);
             }

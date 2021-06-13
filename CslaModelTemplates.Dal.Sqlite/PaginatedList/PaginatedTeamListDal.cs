@@ -18,7 +18,7 @@ namespace CslaModelTemplates.Dal.Sqlite.PaginatedList
         /// </summary>
         /// <param name="criteria">The criteria of the team list.</param>
         /// <returns>The requested page of the team list.</returns>
-        public PaginatedList<PaginatedTeamListItemDao> Fetch(
+        public IPaginatedList<PaginatedTeamListItemDao> Fetch(
             PaginatedTeamListCriteria criteria
             )
         {

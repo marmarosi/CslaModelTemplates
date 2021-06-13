@@ -1,11 +1,11 @@
 using Ardalis.ApiEndpoints;
+using CslaModelTemplates.Common.DataTransfer;
 using CslaModelTemplates.Contracts.PaginatedList;
 using CslaModelTemplates.Models.PaginatedList;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,7 +18,7 @@ namespace CslaModelTemplates.Endpoints.PaginationEndpoints
     [Route(Routes.Pagination)]
     public class PaginatedList : BaseAsyncEndpoint
         .WithRequest<PaginatedTeamListCriteria>
-        .WithResponse<IList<PaginatedTeamListItemDto>>
+        .WithResponse<IPaginatedList<PaginatedTeamListItemDto>>
     {
         internal ILogger logger { get; set; }
 
@@ -52,7 +52,7 @@ namespace CslaModelTemplates.Endpoints.PaginationEndpoints
             OperationId = "PaginatedTeam.List",
             Tags = new[] { "Pagination Endpoints" })
         ]
-        public override async Task<ActionResult<IList<PaginatedTeamListItemDto>>> HandleAsync(
+        public override async Task<ActionResult<IPaginatedList<PaginatedTeamListItemDto>>> HandleAsync(
             [FromQuery] PaginatedTeamListCriteria criteria,
             CancellationToken cancellationToken
             )
@@ -60,7 +60,7 @@ namespace CslaModelTemplates.Endpoints.PaginationEndpoints
             try
             {
                 PaginatedTeamList list = await PaginatedTeamList.Get(criteria);
-                return Ok(list.ToDto<PaginatedTeamListItemDto>());
+                return Ok(list.ToPaginatedDto<PaginatedTeamListItemDto>());
             }
             catch (Exception ex)
             {

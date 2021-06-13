@@ -47,7 +47,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>A list of teams.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(List<SimpleTeamListItemDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetTeamList(
+        public async Task<ActionResult<IList<SimpleTeamListItemDto>>> GetTeamList(
             [FromQuery] SimpleTeamListCriteria criteria
             )
         {
@@ -73,7 +73,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The requested team view.</returns>
         [HttpGet("view")]
         [ProducesResponseType(typeof(SimpleTeamViewDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetTeamView(
+        public async Task<ActionResult<SimpleTeamViewDto>> GetTeamView(
             [FromQuery] SimpleTeamViewCriteria criteria
             )
         {

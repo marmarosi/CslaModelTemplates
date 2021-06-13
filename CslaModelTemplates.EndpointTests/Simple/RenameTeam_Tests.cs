@@ -1,11 +1,12 @@
 using CslaModelTemplates.Contracts.SimpleCommand;
-using CslaModelTemplates.WebApi.Controllers;
+using CslaModelTemplates.Endpoints.SimpleEndpoints;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.EndpointTests.Simple
 {
     public class RenameTeam_Tests
     {
@@ -14,21 +15,21 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<SimpleController>();
-            var sut = new SimpleController(logger);
+            var logger = setup.GetLogger<Command>();
+            var sut = new Command(logger);
 
             // Act
-            IActionResult actionResult;
+            ActionResult<bool> actionResult;
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 RenameTeamDto dto = new RenameTeamDto { TeamKey = 37, TeamName = "Team Thirty Seven" };
-                actionResult = await sut.RenameTeamCommand(dto);
+                actionResult = await sut.HandleAsync(dto, new CancellationToken());
 
                 scope.Dispose();
             }
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             bool success = (bool)okObjectResult.Value;

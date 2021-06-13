@@ -45,8 +45,8 @@ namespace CslaModelTemplates.Models.Junction
             set { SetProperty(GroupNameProperty, value); }
         }
 
-        public static readonly PropertyInfo<GroupPersons> GroupPersonsProperty = RegisterProperty<GroupPersons>(c => c.GroupPersons, RelationshipTypes.Child);
-        public GroupPersons GroupPersons
+        public static readonly PropertyInfo<GroupPersons> GroupPersonsProperty = RegisterProperty<GroupPersons>(c => c.Persons, RelationshipTypes.Child);
+        public GroupPersons Persons
         {
             get { return GetProperty(GroupPersonsProperty); }
             private set { LoadProperty(GroupPersonsProperty, value); }
@@ -148,7 +148,7 @@ namespace CslaModelTemplates.Models.Junction
             //group.GroupKey = dto.GroupKey;
             group.GroupCode = dto.GroupCode;
             group.GroupName = dto.GroupName;
-            await group.GroupPersons.Update(dto.Persons);
+            await group.Persons.Update(dto.Persons);
             //group.Timestamp = dto.Timestamp;
 
             group.BusinessRules.CheckRules();
@@ -164,7 +164,7 @@ namespace CslaModelTemplates.Models.Junction
         {
             // Load default values.
             // Omit this override if you have no defaults to set.
-            GroupPersons = GroupPersons.Create();
+            Persons = GroupPersons.Create();
         }
 
         private void DataPortal_Fetch(
@@ -182,7 +182,7 @@ namespace CslaModelTemplates.Models.Junction
                     GroupKey = dao.GroupKey;
                     GroupCode = dao.GroupCode;
                     GroupName = dao.GroupName;
-                    GroupPersons = DataPortal.FetchChild<GroupPersons>(dao.Persons);
+                    Persons = DataPortal.FetchChild<GroupPersons>(dao.Persons);
                     Timestamp = dao.Timestamp;
                 }
             }
@@ -260,7 +260,7 @@ namespace CslaModelTemplates.Models.Junction
                 if (!GroupKey.HasValue)
                     DataPortal_Fetch(criteria);
 
-                GroupPersons.Clear();
+                Persons.Clear();
                 FieldManager.UpdateChildren(this);
 
                 dal.Delete(criteria);

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.WebApiTests.Selection
 {
     public class TeamKeyChoice_Tests
     {

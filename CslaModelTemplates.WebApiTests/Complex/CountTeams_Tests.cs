@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.WebApiTests.Complex
 {
     public class CountTeams_Tests
     {

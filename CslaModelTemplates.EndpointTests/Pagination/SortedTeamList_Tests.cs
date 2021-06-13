@@ -1,12 +1,13 @@
 using CslaModelTemplates.Common.DataTransfer;
 using CslaModelTemplates.Contracts.SortedList;
-using CslaModelTemplates.WebApi.Controllers;
+using CslaModelTemplates.Endpoints.PaginationEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CslaModelTemplates.WebApiTests
+namespace CslaModelTemplates.EndpointTests.Pagination
 {
     public class SortedTeamList_Tests
     {
@@ -15,8 +16,8 @@ namespace CslaModelTemplates.WebApiTests
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<PaginationController>();
-            var sut = new PaginationController(logger);
+            var logger = setup.GetLogger<SortedList>();
+            var sut = new SortedList(logger);
 
             // Act
             SortedTeamListCriteria criteria = new SortedTeamListCriteria
@@ -25,10 +26,10 @@ namespace CslaModelTemplates.WebApiTests
                 SortBy = SortedTeamListSortBy.TeamCode,
                 SortDirection = SortDirection.Descending
             };
-            IActionResult actionResult = await sut.GetSortedTeamList(criteria);
+            ActionResult<IList<SortedTeamListItemDto>> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             List<SortedTeamListItemDto> list = okObjectResult.Value as List<SortedTeamListItemDto>;
