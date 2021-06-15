@@ -20,14 +20,14 @@ namespace CslaModelTemplates.Endpoints.PaginationEndpoints
         .WithRequest<PaginatedSortedTeamListCriteria>
         .WithResponse<IPaginatedList<PaginatedSortedTeamListItemDto>>
     {
-        internal ILogger logger { get; set; }
+        internal ILogger logger { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
         public PaginatedSortedList(
-            ILogger logger
+            ILogger<PaginatedSortedList> logger
             )
         {
             this.logger = logger;

@@ -19,14 +19,14 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         .WithRequest<RenameTeamDto>
         .WithResponse<bool>
     {
-        internal ILogger logger { get; set; }
+        internal ILogger logger { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
         public Command(
-            ILogger logger
+            ILogger<Command> logger
             )
         {
             this.logger = logger;

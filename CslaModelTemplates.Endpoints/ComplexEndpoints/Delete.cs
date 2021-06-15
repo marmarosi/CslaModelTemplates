@@ -19,14 +19,14 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
         .WithRequest<TeamCriteria>
         .WithoutResponse
     {
-        internal ILogger logger { get; set; }
+        internal ILogger logger { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
         public Delete(
-            ILogger logger
+            ILogger<Delete> logger
             )
         {
             this.logger = logger;

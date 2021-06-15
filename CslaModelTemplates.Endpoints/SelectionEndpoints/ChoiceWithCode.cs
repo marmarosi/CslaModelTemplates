@@ -21,14 +21,14 @@ namespace CslaModelTemplates.Endpoints.SelectionEndpoints
         .WithRequest<TeamCodeChoiceCriteria>
         .WithResponse<IList<CodeNameOptionDto>>
     {
-        internal ILogger logger { get; set; }
+        internal ILogger logger { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
         public ChoiceWithCode(
-            ILogger logger
+            ILogger<ChoiceWithCode> logger
             )
         {
             this.logger = logger;

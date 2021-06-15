@@ -19,14 +19,14 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         .WithRequest<SimpleTeamCriteria>
         .WithResponse<SimpleTeamDto>
     {
-        internal ILogger logger { get; set; }
+        internal ILogger logger { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
         public Read(
-            ILogger logger
+            ILogger<Read> logger
             )
         {
             this.logger = logger;

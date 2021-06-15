@@ -19,14 +19,14 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
         .WithoutRequest
         .WithResponse<GroupDto>
     {
-        internal ILogger logger { get; set; }
+        internal ILogger logger { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
         public New(
-            ILogger logger
+            ILogger<New> logger
             )
         {
             this.logger = logger;

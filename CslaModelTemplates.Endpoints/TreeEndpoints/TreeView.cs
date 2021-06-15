@@ -19,17 +19,17 @@ namespace CslaModelTemplates.Endpoints.TreeEndpoints
         .WithRequest<FolderTreeCriteria>
         .WithResponse<FolderNodeDto>
     {
-        internal ILogger logger { get; set; }
+        internal ILogger Logger { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
         public TreeView(
-            ILogger logger
+            ILogger<TreeView> logger
             )
         {
-            this.logger = logger;
+            Logger = logger;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace CslaModelTemplates.Endpoints.TreeEndpoints
             }
             catch (Exception ex)
             {
-                return Helper.HandleError(this, logger, ex);
+                return Helper.HandleError(this, Logger, ex);
             }
         }
     }

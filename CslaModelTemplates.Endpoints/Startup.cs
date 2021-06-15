@@ -1,11 +1,9 @@
-using CslaModelTemplates.Dal;
+using CslaModelTemplates.Endpoints.Extension;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace CslaModelTemplates.Endpoints
 {
@@ -25,7 +23,7 @@ namespace CslaModelTemplates.Endpoints
         /// Application startup constructor.
         /// </summary>
         /// <param name="environment">The hosting environment.</param>
-        /// <param name="configuration">The application configuration.</param>
+        /// <param name="configuration">The configuration of the application.</param>
         public Startup(
             IWebHostEnvironment environment,
             IConfiguration configuration
@@ -44,19 +42,11 @@ namespace CslaModelTemplates.Endpoints
             IServiceCollection services
             )
         {
-            DalFactory.Configure(Configuration, services);
+            services.AddDalConfig(Configuration);
 
             services.AddControllers();
 
-            services.AddSwaggerGen(c => {
-                c.SwaggerDoc(
-                    "v1",
-                    new OpenApiInfo {
-                        Title = "CslaModelTemplates.Endpoints",
-                        Version = "v1"
-                });
-                c.EnableAnnotations();
-            });
+            services.AddSwaggerConfig();
         }
 
         /// <summary>
@@ -71,21 +61,11 @@ namespace CslaModelTemplates.Endpoints
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                DalFactory.DevelopmentSeed(Environment.ContentRootPath);
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint(
-                        "/swagger/v1/swagger.json",
-                        "CslaModelTemplates.WebApi v1"
-                        );
-                    c.DocExpansion(DocExpansion.None);
-                });
             }
-            else
-            {
-                DalFactory.ProductionSeed(Environment.ContentRootPath);
-            }
+
+            app.RunSeeders(Environment);
+
+            app.UseSwaggerConfig(Environment);
 
             app.UseHttpsRedirection();
 
