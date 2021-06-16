@@ -38,7 +38,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Dal.Sqli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Endpoints", "CslaModelTemplates.Endpoints\CslaModelTemplates.Endpoints.csproj", "{81F9AC8E-E0AA-4370-861B-8F19B8B05E31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaModelTemplates.EndpointTests", "CslaModelTemplates.EndpointTests\CslaModelTemplates.EndpointTests.csproj", "{7B19DB0A-E626-4175-BAD2-3C2F4427C90A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.EndpointTests", "CslaModelTemplates.EndpointTests\CslaModelTemplates.EndpointTests.csproj", "{7B19DB0A-E626-4175-BAD2-3C2F4427C90A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data ACcess", "Data ACcess", "{24C220F3-1FC2-4C7E-A81B-B1702A170DF6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2AEBA4F0-EA52-43AE-AC46-D06DA3E98E08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +109,16 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AF683A00-7411-4429-8B7F-3ECE17811922} = {24C220F3-1FC2-4C7E-A81B-B1702A170DF6}
+		{F279BD48-58A2-4A30-8402-FF3B3CFAEE97} = {24C220F3-1FC2-4C7E-A81B-B1702A170DF6}
+		{07EE08BE-C634-44CF-A0ED-7142876CE47A} = {24C220F3-1FC2-4C7E-A81B-B1702A170DF6}
+		{B228C225-EF42-4316-86BF-9A12FDE594D1} = {2AEBA4F0-EA52-43AE-AC46-D06DA3E98E08}
+		{E17929D0-E9F8-4A7E-9FFD-385458E5C3AA} = {24C220F3-1FC2-4C7E-A81B-B1702A170DF6}
+		{F00B482C-E974-4CDB-83C1-B8D197DB4239} = {24C220F3-1FC2-4C7E-A81B-B1702A170DF6}
+		{9F79E610-80D3-4B8F-B60B-E7CBF1FEB17D} = {24C220F3-1FC2-4C7E-A81B-B1702A170DF6}
+		{7B19DB0A-E626-4175-BAD2-3C2F4427C90A} = {2AEBA4F0-EA52-43AE-AC46-D06DA3E98E08}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD15353F-6B0B-4CBA-BAE0-54F2B4D75374}
