@@ -242,7 +242,7 @@
         </member>
         <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetNewTeam">
             <summary>
-            Gets e new team to edit.
+            Gets a new team to edit.
             </summary>
             <returns>The new team.</returns>
         </member>

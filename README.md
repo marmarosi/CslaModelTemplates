@@ -29,6 +29,10 @@ Component | Description
 SimpleTeamList | read-only root collection
 SimpleTeamListItem | read-only child object
 
+Endpoint:
+
+- [ ] GET ​/api​/simple --- *Gets a list of teams.*
+
 ### SimpleView
 
 The simple view template implements a read-only business object.
@@ -37,6 +41,10 @@ Component | Description
 --------- | -----------
 SimpleTeamView | read-only root object
 
+Endpoint:
+
+- [ ] GET ​/api​/simple​/view --- *Gets the specified team details to display.**
+
 ### Simple
 
 The simple template implements an editable business object.
@@ -44,6 +52,14 @@ The simple template implements an editable business object.
 Component | Description
 --------- | -----------
 SimpleTeam | read-only editable object
+
+Endpoints:
+
+- [ ] GET ​/api​/simple​/new --- *Gets e new team to edit.*<br>
+- [ ] POST ​/api​/simple --- *Creates a new team.*<br>
+- [ ] GET ​/api​/simple​/read --- *Gets the specified team to edit.*<br>
+- [ ] PUT ​/api​/simple --- *Updates the specified team.*<br>
+- [ ] DELETE ​/api​/simple --- *Deletes the specified team.*
 
 ### SimpleSet
 
@@ -54,6 +70,11 @@ Component | Description
 SimpleTeamSet | editable root collection
 SimpleTeamSetItem | editable child object
 
+Endpoints:
+
+- [ ] GET ​/api​/simple​/set --- *Gets the specified team set to edit.*<br>
+- [ ] PUT ​/api​/simple​/set --- *Updates the specified team set.*
+
 ### SimpleCommand
 
 The simple command template implements a command object.
@@ -61,6 +82,10 @@ The simple command template implements a command object.
 Component | Description
 --------- | -----------
 RenameTeam | command object
+
+Endpoint:
+
+- [ ] PATCH ​/api​/simple --- *Renames the specified team.*
 
 ## Pagination
 
@@ -76,6 +101,10 @@ Component | Description
 SortedTeamList | read-only root collection
 SortedTeamListItem | read-only child object
 
+Endpoint:
+
+- [ ] GET ​/api​/pagination​/sorted --- *Gets the specified teams sorted.**
+
 ### PaginatedList
 
 The paginated list template implements a read-only business collection
@@ -89,6 +118,10 @@ PaginatedTeamList | read-only root object
 PaginatedTeamListItems | read-only child collection
 PaginatedTeamListItem | read-only child object
 
+Endpoint:
+
+- [ ] GET ​/api​/pagination​/paginated --- *Gets the specified page of teams.**
+
 ### PaginatedSortedList
 
 The paginated & sorted list template implements a read-only business
@@ -101,6 +134,10 @@ Component | Description
 PaginatedSortedTeamList | read-only root object
 PaginatedSortedTeamListItems | read-only child collection
 PaginatedSortedTeamListItem | read-only child object
+
+Endpoint:
+
+- [ ] GET ​/api​/pagination​/paginated-sorted --- *Gets the specified page of sorted teams.**
 
 ## Selection
 
@@ -118,6 +155,10 @@ Component | Description
 TeamKeyChoice | read-only root collection
 KeyNameOption | read-only child object
 
+Endpoint:
+
+- [ ] GET ​/api​/selection​/with-key --- *Gets the key-name choice of the teams.**
+
 ### SelectionWithCode
 
 The template implements the selection list with a value property name Code
@@ -127,6 +168,10 @@ Component | Description
 --------- | -----------
 TeamCodeChoice | read-only root collection
 CodeNameOption | read-only child object
+
+Endpoint:
+
+- [ ] GET ​/api​/selection​/with-code --- *Gets the code-name choice of the teams.**
 
 ## Complex Models
 
@@ -147,6 +192,10 @@ TeamListItem | read-only child object
 PlayerListItems | read-only child collection
 PlayerListItem | read-only child object
 
+Endpoint:
+
+- [ ] GET ​/api​/complex --- *Gets a list of teams.*
+
 ### ComplexView
 
 The complex view template implements a read-only business object with
@@ -158,6 +207,10 @@ TeamView | read-only root object
 PlayerViews | read-only child collection
 PlayerView | read-only child object
 
+Endpoint:
+
+- [ ] GET ​/api​/complex​/view --- *Gets the specified team details to display.*
+
 ### Complex
 
 The complex template implements an editable business object with
@@ -168,6 +221,14 @@ Component | Description
 Team | editable root object
 Players | editable child collection
 Player | editable child object
+
+Endpoints:
+
+- [ ] GET ​/api​/complex​/new --- *Gets e new team to edit.*
+- [ ] POST ​/api​/complex --- *Creates a new team.*
+- [ ] GET ​/api​/complex​/read --- *Gets the specified team to edit.*
+- [ ] PUT ​/api​/complex --- *Updates the specified team.*
+- [ ] DELETE ​/api​/complex --- *Deletes the specified team.*
 
 ### ComplexSet
 
@@ -181,6 +242,11 @@ TeamSetItem | editable child object
 TeamSetPlayers | editable child collection
 TeamSetPlayer | editable child object
 
+Endpoints:
+
+- [ ] GET ​/api​/complex​/set --- *Gets the specified team set to edit.*
+- [ ] PUT ​/api​/complex​/set --- *Updates the specified team set.*
+
 ### ComplexCommand
 
 The complex command template implements a command object with a resulting
@@ -191,6 +257,10 @@ Component | Description
 CountTeams | command object
 CountTeamsList | read-only child collection
 CountTeamsListItem | read-only child object
+
+Endpoint:
+
+- [ ] PATCH ​/api​/complex --- *Counts the teams grouped by the number of their items.*
 
 ## Tree Model
 
@@ -206,6 +276,10 @@ Component | Description
 FolderTree | read-only root object
 FolderNodeList | read-only child collection
 FolderNode | read-only child object
+
+Endpoint:
+
+- [ ] GET ​/api​/tree​/view --- *Gets the specified folder tree.*
 
 ## Junction Models
 
@@ -226,6 +300,10 @@ GroupView | read-only root object
 GroupPersonViews | read-only child collection
 GroupPersonView | read-only child object
 
+Endpoint:
+
+- [ ] GET ​/api​/junction​/view --- *Gets the specified group details to display.**
+
 ### Junction
 
 The junction template implements an editable business object with
@@ -237,3 +315,10 @@ Group | editable root object
 GroupPersons | editable child collection
 GroupPerson | editable child object
 
+Endpoints:
+
+- [ ] GET ​/api​/junction​/new --- *Gets a new group to edit.*
+- [ ] POST ​/api​/junction --- *Creates a new group.*
+- [ ] GET ​/api​/junction​/read --- *Gets the specified group to edit.*
+- [ ] PUT ​/api​/junction --- *Updates the specified group.*
+- [ ] DELETE ​/api​/junction --- *Deletes the specified group.*

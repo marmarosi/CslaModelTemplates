@@ -40,7 +40,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Endpoint
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.EndpointTests", "CslaModelTemplates.EndpointTests\CslaModelTemplates.EndpointTests.csproj", "{7B19DB0A-E626-4175-BAD2-3C2F4427C90A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data ACcess", "Data ACcess", "{24C220F3-1FC2-4C7E-A81B-B1702A170DF6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Access", "Data Access", "{24C220F3-1FC2-4C7E-A81B-B1702A170DF6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2AEBA4F0-EA52-43AE-AC46-D06DA3E98E08}"
 EndProject

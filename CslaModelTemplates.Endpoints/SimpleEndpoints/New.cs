@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace CslaModelTemplates.Endpoints.SimpleEndpoints
 {
     /// <summary>
-    /// Gets e new team to edit.
+    /// Gets a new team to edit.
     /// </summary>
     [Route(Routes.Simple)]
     public class New : BaseAsyncEndpoint
@@ -33,15 +33,15 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         }
 
         /// <summary>
-        /// Gets e new team to edit.
+        /// Gets a new team to edit.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A new team..</returns>
         [HttpGet("new")]
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
-            Summary = "Gets e new team to edit.",
-            Description = "Gets e new team to edit.<br><br>" +
+            Summary = "Gets a new team to edit.",
+            Description = "Gets a new team to edit.<br><br>" +
                 "Result: SimpleTeamDto",
             OperationId = "SimpleTeam.New",
             Tags = new[] { "Simple Endpoints" })

@@ -93,7 +93,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         #region New
 
         /// <summary>
-        /// Gets e new team to edit.
+        /// Gets a new team to edit.
         /// </summary>
         /// <returns>The new team.</returns>
         [HttpGet("new")]
