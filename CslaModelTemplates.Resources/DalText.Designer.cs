@@ -342,6 +342,60 @@ namespace CslaModelTemplates.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The team has been changed in the meantime..
         /// </summary>
+        public static string SimpleTeamUpsert_Concurrency {
+            get {
+                return ResourceManager.GetString("SimpleTeamUpsert_Concurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting the team has failed..
+        /// </summary>
+        public static string SimpleTeamUpsert_DeleteFailed {
+            get {
+                return ResourceManager.GetString("SimpleTeamUpsert_DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating the new team has failed..
+        /// </summary>
+        public static string SimpleTeamUpsert_InsertFailed {
+            get {
+                return ResourceManager.GetString("SimpleTeamUpsert_InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The requested team has not been found..
+        /// </summary>
+        public static string SimpleTeamUpsert_NotFound {
+            get {
+                return ResourceManager.GetString("SimpleTeamUpsert_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team with code {0} already exists..
+        /// </summary>
+        public static string SimpleTeamUpsert_TeamCodeExists {
+            get {
+                return ResourceManager.GetString("SimpleTeamUpsert_TeamCodeExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating the team has failed..
+        /// </summary>
+        public static string SimpleTeamUpsert_UpdateFailed {
+            get {
+                return ResourceManager.GetString("SimpleTeamUpsert_UpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The team has been changed in the meantime..
+        /// </summary>
         public static string Team_Concurrency {
             get {
                 return ResourceManager.GetString("Team_Concurrency", resourceCulture);
