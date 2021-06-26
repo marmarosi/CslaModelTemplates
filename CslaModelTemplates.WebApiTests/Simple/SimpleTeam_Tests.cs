@@ -2,7 +2,6 @@ using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System.Transactions;
 using Xunit;
 
 namespace CslaModelTemplates.WebApiTests.Simple
@@ -48,10 +47,8 @@ namespace CslaModelTemplates.WebApiTests.Simple
             var sut = new SimpleController(logger);
 
             // Act
-            IActionResult actionResult;
-            SimpleTeamDto pristineTeam;
-
-            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            SimpleTeamDto pristineTeam = null;
+            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
             {
                 pristineTeam = new SimpleTeamDto
                 {
@@ -60,10 +57,8 @@ namespace CslaModelTemplates.WebApiTests.Simple
                     TeamName = "Test team number 9001",
                     Timestamp = null
                 };
-                actionResult = await sut.CreateTeam(pristineTeam);
-
-                scope.Dispose();
-            }
+                return await sut.CreateTeam(pristineTeam);
+            });
 
             // Assert
             CreatedResult createdResult = actionResult as CreatedResult;
@@ -81,7 +76,37 @@ namespace CslaModelTemplates.WebApiTests.Simple
 
         #endregion
 
-        #region Read & Update
+        #region Read
+
+        [Fact]
+        public async Task ReadTeam_ReturnsCurrentModel()
+        {
+            // Arrange
+            SetupService setup = SetupService.GetInstance();
+            var logger = setup.GetLogger<SimpleController>();
+            var sut = new SimpleController(logger);
+
+            // Act
+            SimpleTeamCriteria criteria = new SimpleTeamCriteria { TeamKey = 22 };
+            IActionResult actionResult = await sut.GetTeam(criteria);
+
+            // Assert
+            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            Assert.NotNull(okObjectResult);
+
+            SimpleTeamDto pristine = okObjectResult.Value as SimpleTeamDto;
+            Assert.NotNull(pristine);
+
+            // The code and name must end with 22.
+            Assert.Equal(22, pristine.TeamKey);
+            Assert.Equal("T-0022", pristine.TeamCode);
+            Assert.EndsWith("22", pristine.TeamName);
+            Assert.NotNull(pristine.Timestamp);
+        }
+
+        #endregion
+
+        #region Update
 
         [Fact]
         public async Task UpdateTeam_ReturnsUpdatedModel()
@@ -89,54 +114,35 @@ namespace CslaModelTemplates.WebApiTests.Simple
             // Arrange
             SetupService setup = SetupService.GetInstance();
             var logger = setup.GetLogger<SimpleController>();
-            var sut = new SimpleController(logger);
+            var sutR = new SimpleController(logger);
+            var sutU = new SimpleController(logger);
 
-            using (var uow = setup.UnitOfWork())
+            // Act
+            SimpleTeamDto pristine = null;
+            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
             {
-                // --- READ
-                IActionResult actionResult;
-                OkObjectResult okObjectResult;
-
-                // Act
                 SimpleTeamCriteria criteria = new SimpleTeamCriteria { TeamKey = 22 };
-                actionResult = await sut.GetTeam(criteria);
+                IActionResult actionResult = await sutR.GetTeam(criteria);
+                OkObjectResult okObjectResult = actionResult as OkObjectResult;
+                pristine = okObjectResult.Value as SimpleTeamDto;
 
-                // Assert
-                okObjectResult = actionResult as OkObjectResult;
-                Assert.NotNull(okObjectResult);
+                pristine.TeamCode = "T-9002";
+                pristine.TeamName = "Test team number 9002";
+                return await sutU.UpdateTeam(pristine);
+            });
 
-                SimpleTeamDto pristine = okObjectResult.Value as SimpleTeamDto;
-                Assert.NotNull(pristine);
+            // Assert
+            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            Assert.NotNull(okObjectResult);
 
-                // The code and name must end with 22.
-                Assert.Equal(22, pristine.TeamKey);
-                Assert.Equal("T-0022", pristine.TeamCode);
-                Assert.EndsWith("22", pristine.TeamName);
-                Assert.NotNull(pristine.Timestamp);
+            SimpleTeamDto updated = okObjectResult.Value as SimpleTeamDto;
+            Assert.NotNull(updated);
 
-                // --- UPDATE
-                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    pristine.TeamCode = "T-9002";
-                    pristine.TeamName = "Test team number 9002";
-                    actionResult = await sut.UpdateTeam(pristine);
-
-                    scope.Dispose();
-                }
-
-                // Assert
-                okObjectResult = actionResult as OkObjectResult;
-                Assert.NotNull(okObjectResult);
-
-                SimpleTeamDto updated = okObjectResult.Value as SimpleTeamDto;
-                Assert.NotNull(updated);
-
-                // The team must have new values.
-                Assert.Equal(pristine.TeamKey, updated.TeamKey);
-                Assert.Equal(pristine.TeamCode, updated.TeamCode);
-                Assert.Equal(pristine.TeamName, updated.TeamName);
-                Assert.NotEqual(pristine.Timestamp, updated.Timestamp);
-            }
+            // The team must have new values.
+            Assert.Equal(pristine.TeamKey, updated.TeamKey);
+            Assert.Equal(pristine.TeamCode, updated.TeamCode);
+            Assert.Equal(pristine.TeamName, updated.TeamName);
+            Assert.NotEqual(pristine.Timestamp, updated.Timestamp);
         }
 
         #endregion
@@ -152,14 +158,11 @@ namespace CslaModelTemplates.WebApiTests.Simple
             var sut = new SimpleController(logger);
 
             // Act
-            IActionResult actionResult;
-            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
             {
                 SimpleTeamCriteria criteria = new SimpleTeamCriteria { TeamKey = 44 };
-                actionResult = await sut.DeleteTeam(criteria);
-
-                scope.Dispose();
-            }
+                return await sut.DeleteTeam(criteria);
+            });
 
             // Assert
             NoContentResult noContentResult = actionResult as NoContentResult;

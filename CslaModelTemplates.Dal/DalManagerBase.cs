@@ -65,6 +65,8 @@ namespace CslaModelTemplates.Dal
             IServiceCollection services
             );
 
+        public abstract bool HasDeadlock(Exception ex);
+
         #endregion
 
         #region ISeeder

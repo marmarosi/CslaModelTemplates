@@ -33,7 +33,6 @@ namespace CslaModelTemplates.Dal.SqlServer.SimpleSet
                     Timestamp = e.Timestamp
                 })
                 .OrderBy(o => o.TeamName)
-                .AsNoTracking()
                 .ToList();
 
             return list;

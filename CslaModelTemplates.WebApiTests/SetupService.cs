@@ -1,15 +1,15 @@
-using Csla.Data.EntityFrameworkCore;
 using CslaModelTemplates.Dal;
-using CslaModelTemplates.Dal.MySql;
-using CslaModelTemplates.Dal.Oracle;
-using CslaModelTemplates.Dal.Sqlite;
-using CslaModelTemplates.Dal.SqlServer;
+using CslaModelTemplates.Dal.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Transactions;
 using Xunit;
 
 [assembly: CollectionBehavior(MaxParallelThreads = 1)]
@@ -37,7 +37,11 @@ namespace CslaModelTemplates.WebApiTests
                 DalFactory.DevelopmentSeed(null);
         }
 
-        public static SetupService GetInstance() => _setupServiceInstance;
+        //public static SetupService GetInstance() => _setupServiceInstance;
+        public static SetupService GetInstance()
+        {
+            return _setupServiceInstance;
+        }
 
         private IConfiguration GetConfig()
         {
@@ -60,27 +64,35 @@ namespace CslaModelTemplates.WebApiTests
             return _serviceProvider.CreateScope();
         }
 
-        public IDisposable UnitOfWork()
-        {
-            return UnitOfWork(DalFactory.ActiveLayer);
-        }
-
-        public IDisposable UnitOfWork(
-            string dalName
+        public async Task<IActionResult> RetryOnDeadlock(
+            Func<Task<IActionResult>> businessMethod,
+            int maxRetries = 3
             )
         {
-            switch (dalName)
+            var retryCount = 0;
+            IActionResult result = null;
+
+            while (retryCount < maxRetries)
             {
-                case DAL.MySQL:
-                    return DbContextManager<MySqlContext>.GetManager();
-                case DAL.Oracle:
-                    return DbContextManager<OracleContext>.GetManager();
-                case DAL.SQLite:
-                    return DbContextManager<SqliteContext>.GetManager();
-                case DAL.SQLServer:
-                default:
-                    return DbContextManager<SqlServerContext>.GetManager();
+                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    result = await businessMethod();
+                    scope.Dispose();
+                }
+
+                if ((result as OkObjectResult) == null &&
+                    (result as ObjectResult)?.Value is DeadlockException)
+                {
+                    retryCount++;
+                    result = null;
+                    Console.Beep();
+                    Thread.Sleep(_random.Next(100, 200));
+                }
+                else
+                    retryCount = maxRetries;
             }
+
+            return result;
         }
     }
 }

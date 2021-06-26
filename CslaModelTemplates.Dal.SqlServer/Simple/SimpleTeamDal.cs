@@ -36,7 +36,6 @@ namespace CslaModelTemplates.Dal.SqlServer.Simple
                     TeamName = e.TeamName,
                     Timestamp = e.Timestamp
                 })
-                .AsNoTracking()
                 .FirstOrDefault();
 
             if (team == null)

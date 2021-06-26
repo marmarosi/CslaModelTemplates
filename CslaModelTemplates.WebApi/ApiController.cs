@@ -1,6 +1,7 @@
 using CslaModelTemplates.Common;
 using CslaModelTemplates.Common.Validations;
 using CslaModelTemplates.Dal;
+using CslaModelTemplates.Dal.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -47,37 +48,43 @@ namespace CslaModelTemplates.WebApi
             Exception exception
             )
         {
+            // Check validation exception.
             if (exception is ValidationException)
-            {
                 // Status code 422 = Unprocesssable Entity
                 return StatusCode(422, new ValidationError((ValidationException)exception));
-            }
-            else
+
+            // Check deadlock exception.
+            Exception firstEx = exception;
+            while (firstEx.InnerException != null)
+                firstEx = firstEx.InnerException;
+            if (DalFactory.HasDeadlock(firstEx))
+                // Status code 423 = Locked
+                return StatusCode(423, new DeadlockException(firstEx.Message));
+
+            // Check other exceptions.
+            int statusCode = (int)HttpStatusCode.InternalServerError;
+            Exception ex = exception;
+            string prefix = ">>> WebAPI";
+            string summary = string.Empty;
+
+            while (ex != null)
             {
-                int statusCode = (int)HttpStatusCode.InternalServerError;
-                Exception ex = exception;
-                string prefix = ">>> WebAPI";
-                string summary = string.Empty;
+                string line = "{0} {1} * {2}".With(prefix, ex.GetType().Name, ex.Message);
+                if (ex.Source != null)
+                    line += " [ {0} ]".With(ex.Source);
+                Debug.WriteLine(line);
 
-                while (ex != null)
-                {
-                    string line = "{0} {1} * {2}".With(prefix, ex.GetType().Name, ex.Message);
-                    if (ex.Source != null)
-                        line += " [ {0} ]".With(ex.Source);
-                    Debug.WriteLine(line);
+                if (summary.Length > 0) summary += "\n";
+                summary += line;
 
-                    if (summary.Length > 0) summary += "\n";
-                    summary += line;
+                if (ex is BackendException)
+                    statusCode = (ex as BackendException).StatusCode;
 
-                    if (ex is BackendException)
-                        statusCode = (ex as BackendException).StatusCode;
-
-                    ex = ex.InnerException;
-                    prefix = "        ";
-                }
-                Logger.LogError(exception, summary, null);
-                return StatusCode(statusCode, new BackendError(exception, summary));
+                ex = ex.InnerException;
+                prefix = "        ";
             }
+            Logger.LogError(exception, summary, null);
+            return StatusCode(statusCode, new BackendError(exception, summary));
         }
     }
 }

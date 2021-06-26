@@ -1,7 +1,9 @@
 using Csla.Data.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace CslaModelTemplates.Dal.SqlServer
 {
@@ -34,6 +36,16 @@ namespace CslaModelTemplates.Dal.SqlServer
                     configuration.GetConnectionString(DAL.SQLServer)
                     )
                 );
+        }
+
+        /// <summary>
+        /// CHecks whether the reason of the exception is a deadlock.
+        /// </summary>
+        /// <param name="ex">The original exception thrown.</param>
+        /// <returns>True when the reason is a deadlock; otherwise false;</returns>
+        public override bool HasDeadlock(Exception ex)
+        {
+            return ex is SqlException && (ex as SqlException).Number == 1205;
         }
 
         #region ISeeder

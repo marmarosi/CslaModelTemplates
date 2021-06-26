@@ -44,7 +44,6 @@ namespace CslaModelTemplates.Dal.SqlServer.ComplexSet
                     Timestamp = e.Timestamp
                 })
                 .OrderBy(o => o.TeamName)
-                .AsNoTracking()
                 .ToList();
 
             return list;

@@ -119,6 +119,28 @@ namespace CslaModelTemplates.Dal
             return Activator.CreateInstance(DalTypes[dalName]) as IDalManager;
         }
 
+        /// <summary>
+        /// CHecks whether the reason of the exception is a deadlock.
+        /// </summary>
+        /// <param name="ex">The original exception thrown.</param>
+        /// <returns>True when the reason is a deadlock; otherwise false;</returns>
+        public static bool HasDeadlock(Exception ex)
+        {
+            IDalManager dalManager = GetManager();
+            if (dalManager.HasDeadlock(ex))
+                return true;
+
+            foreach (KeyValuePair<string, Type> dalType in DalTypes)
+            {
+                if (dalType.Key == ActiveLayer)
+                    continue;
+                dalManager = GetManager(dalType.Key);
+                if (dalManager.HasDeadlock(ex))
+                    return true;
+            }
+            return false;
+        }
+
         #endregion
 
         #region ConnectionString

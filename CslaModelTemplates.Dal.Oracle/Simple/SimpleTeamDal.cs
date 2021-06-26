@@ -36,7 +36,6 @@ namespace CslaModelTemplates.Dal.Oracle.Simple
                     TeamName = e.TeamName,
                     Timestamp = e.Timestamp
                 })
-                .AsNoTracking()
                 .FirstOrDefault();
 
             if (team == null)

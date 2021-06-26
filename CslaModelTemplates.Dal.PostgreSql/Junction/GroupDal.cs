@@ -43,7 +43,6 @@ namespace CslaModelTemplates.Dal.PostgreSql.Junction
                     }).ToList(),
                     Timestamp = e.Timestamp
                 })
-                .AsNoTracking()
                 .FirstOrDefault();
 
             if (group == null)

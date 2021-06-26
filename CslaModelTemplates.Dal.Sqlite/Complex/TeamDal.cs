@@ -48,7 +48,6 @@ namespace CslaModelTemplates.Dal.Sqlite.Complex
                         .ToList(),
                     Timestamp = e.Timestamp
                 })
-                .AsNoTracking()
                 .FirstOrDefault();
 
             if (team == null)

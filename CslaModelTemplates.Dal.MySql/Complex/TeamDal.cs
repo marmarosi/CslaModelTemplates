@@ -31,7 +31,6 @@ namespace CslaModelTemplates.Dal.MySql.Complex
                 .Where(e =>
                     e.TeamKey == criteria.TeamKey
                  )
-                .AsNoTracking()
                 .FirstOrDefault();
             if (team == null)
                 throw new DataNotFoundException(DalText.Team_NotFound);
