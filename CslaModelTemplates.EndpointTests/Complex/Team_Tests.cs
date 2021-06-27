@@ -3,7 +3,6 @@ using CslaModelTemplates.Endpoints.ComplexEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Transactions;
 using Xunit;
 
 namespace CslaModelTemplates.EndpointTests.Complex
@@ -13,7 +12,7 @@ namespace CslaModelTemplates.EndpointTests.Complex
         #region New
 
         [Fact]
-        public async Task CreateTeam_ReturnsNewModel()
+        public async Task NewTeam_ReturnsNewModel()
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
@@ -50,12 +49,10 @@ namespace CslaModelTemplates.EndpointTests.Complex
             var sut = new Create(logger);
 
             // Act
-            ActionResult<TeamDto> actionResult;
-            TeamDto pristineTeam;
-            PlayerDto pristinePlayer1;
-            PlayerDto pristinePlayer2;
-
-            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            TeamDto pristineTeam = null;
+            PlayerDto pristinePlayer1 = null;
+            PlayerDto pristinePlayer2 = null;
+            var actionResult = await Call<TeamDto>.RetryOnDeadlock(async () =>
             {
                 pristineTeam = new TeamDto
                 {
@@ -80,10 +77,9 @@ namespace CslaModelTemplates.EndpointTests.Complex
                     PlayerName = "Test player #2"
                 };
                 pristineTeam.Players.Add(pristinePlayer2);
-                actionResult = await sut.HandleAsync(pristineTeam, new CancellationToken());
 
-                scope.Dispose();
-            }
+                return await sut.HandleAsync(pristineTeam, new CancellationToken());
+            });
 
             // Assert
             CreatedResult createdResult = actionResult.Result as CreatedResult;
@@ -116,98 +112,110 @@ namespace CslaModelTemplates.EndpointTests.Complex
 
         #endregion
 
-        #region Read & Update
+        #region Read
+
+        [Fact]
+        public async Task ReadTeam_ReturnsCurrentModel()
+        {
+            // Arrange
+            SetupService setup = SetupService.GetInstance();
+            var logger = setup.GetLogger<Read>();
+            var sut = new Read(logger);
+
+            // Act
+            TeamCriteria criteria = new TeamCriteria { TeamKey = 19 };
+            ActionResult<TeamDto> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
+
+            // Assert
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
+            Assert.NotNull(okObjectResult);
+
+            TeamDto pristineTeam = okObjectResult.Value as TeamDto;
+            Assert.NotNull(pristineTeam);
+
+            // The team code and name must end with 19.
+            Assert.Equal(19, pristineTeam.TeamKey);
+            Assert.Equal("T-0019", pristineTeam.TeamCode);
+            Assert.EndsWith("19", pristineTeam.TeamName);
+            Assert.NotNull(pristineTeam.Timestamp);
+
+            // The player codes and names must contain 19.
+            Assert.True(pristineTeam.Players.Count > 0);
+            PlayerDto pristinePlayer1 = pristineTeam.Players[0];
+            foreach (PlayerDto player in pristineTeam.Players)
+            {
+                Assert.Equal(19, player.TeamKey);
+                Assert.Contains("19", player.PlayerCode);
+                Assert.Contains("19", player.PlayerName);
+            }
+        }
+
+        #endregion
+
+        #region Update
 
         [Fact]
         public async Task UpdateTeam_ReturnsUpdatedModel()
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var loggerRead = setup.GetLogger<Read>();
-            var sutRead = new Read(loggerRead);
-            var loggerUpdate = setup.GetLogger<Update>();
-            var sutUpdate = new Update(loggerUpdate);
+            var loggerR = setup.GetLogger<Read>();
+            var loggerU = setup.GetLogger<Update>();
+            var sutR = new Read(loggerR);
+            var sutU = new Update(loggerU);
 
-            using (var uow = setup.UnitOfWork())
+            // Act
+            TeamDto pristineTeam = null;
+            PlayerDto pristinePlayer1 = null;
+            PlayerDto pristinePlayerNew = null;
+            var actionResult = await Call<TeamDto>.RetryOnDeadlock(async () =>
             {
-                // --- READ
-                ActionResult<TeamDto> actionResult;
-                OkObjectResult okObjectResult;
-
-                // Act
                 TeamCriteria criteria = new TeamCriteria { TeamKey = 19 };
-                actionResult = await sutRead.HandleAsync(criteria, new CancellationToken());
+                ActionResult<TeamDto> actionResult = await sutR.HandleAsync(criteria, new CancellationToken());
+                OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
+                pristineTeam = okObjectResult.Value as TeamDto;
+                pristinePlayer1 = pristineTeam.Players[0];
 
-                // Assert
-                okObjectResult = actionResult.Result as OkObjectResult;
-                Assert.NotNull(okObjectResult);
+                pristineTeam.TeamCode = "T-9202";
+                pristineTeam.TeamName = "Test team number 9202";
+                pristinePlayer1.PlayerCode = "P-9202-1";
+                pristinePlayer1.PlayerName = "Test player #9202.1";
 
-                TeamDto pristineTeam = okObjectResult.Value as TeamDto;
-                Assert.NotNull(pristineTeam);
-
-                // The team code and name must end with 19.
-                Assert.Equal(19, pristineTeam.TeamKey);
-                Assert.Equal("T-0019", pristineTeam.TeamCode);
-                Assert.EndsWith("19", pristineTeam.TeamName);
-                Assert.NotNull(pristineTeam.Timestamp);
-
-                // The player codes and names must contain 19.
-                Assert.True(pristineTeam.Players.Count > 0);
-                PlayerDto pristinePlayer1 = pristineTeam.Players[0];
-                foreach (PlayerDto player in pristineTeam.Players)
+                pristinePlayerNew = new PlayerDto
                 {
-                    Assert.Equal(19, player.TeamKey);
-                    Assert.Contains("19", player.PlayerCode);
-                    Assert.Contains("19", player.PlayerName);
-                }
+                    PlayerKey = null,
+                    TeamKey = null,
+                    PlayerCode = "P-9202-X",
+                    PlayerName = "Test player #9202.X"
+                };
+                pristineTeam.Players.Add(pristinePlayerNew);
 
-                // --- UPDATE
-                PlayerDto pristinePlayerNew;
+                return await sutU.HandleAsync(pristineTeam, new CancellationToken());
+            });
 
-                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    pristineTeam.TeamCode = "T-9202";
-                    pristineTeam.TeamName = "Test team number 9202";
-                    pristinePlayer1.PlayerCode = "P-9202-1";
-                    pristinePlayer1.PlayerName = "Test player #9202.1";
+            // Assert
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
+            Assert.NotNull(okObjectResult);
 
-                    pristinePlayerNew = new PlayerDto
-                    {
-                        PlayerKey = null,
-                        TeamKey = null,
-                        PlayerCode = "P-9202-X",
-                        PlayerName = "Test player #9202.X"
-                    };
-                    pristineTeam.Players.Add(pristinePlayerNew);
-                    actionResult = await sutUpdate.HandleAsync(pristineTeam, new CancellationToken());
+            TeamDto updatedTeam = okObjectResult.Value as TeamDto;
+            Assert.NotNull(updatedTeam);
 
-                    scope.Dispose();
-                }
+            // The team must have new values.
+            Assert.Equal(pristineTeam.TeamKey, updatedTeam.TeamKey);
+            Assert.Equal(pristineTeam.TeamCode, updatedTeam.TeamCode);
+            Assert.Equal(pristineTeam.TeamName, updatedTeam.TeamName);
+            Assert.NotEqual(pristineTeam.Timestamp, updatedTeam.Timestamp);
 
-                // Assert
-                okObjectResult = actionResult.Result as OkObjectResult;
-                Assert.NotNull(okObjectResult);
+            Assert.Equal(pristineTeam.Players.Count, updatedTeam.Players.Count);
 
-                TeamDto updatedTeam = okObjectResult.Value as TeamDto;
-                Assert.NotNull(updatedTeam);
+            // Players must reflect the changes.
+            PlayerDto updatedPlayer1 = updatedTeam.Players[0];
+            Assert.Equal(pristinePlayer1.PlayerCode, updatedPlayer1.PlayerCode);
+            Assert.Equal(pristinePlayer1.PlayerName, updatedPlayer1.PlayerName);
 
-                // The team must have new values.
-                Assert.Equal(pristineTeam.TeamKey, updatedTeam.TeamKey);
-                Assert.Equal(pristineTeam.TeamCode, updatedTeam.TeamCode);
-                Assert.Equal(pristineTeam.TeamName, updatedTeam.TeamName);
-                Assert.NotEqual(pristineTeam.Timestamp, updatedTeam.Timestamp);
-
-                Assert.Equal(pristineTeam.Players.Count, updatedTeam.Players.Count);
-
-                // Players must reflect the changes.
-                PlayerDto updatedPlayer1 = updatedTeam.Players[0];
-                Assert.Equal(pristinePlayer1.PlayerCode, updatedPlayer1.PlayerCode);
-                Assert.Equal(pristinePlayer1.PlayerName, updatedPlayer1.PlayerName);
-
-                PlayerDto createdPlayerNew = updatedTeam.Players[pristineTeam.Players.Count - 1];
-                Assert.Equal(pristinePlayerNew.PlayerCode, createdPlayerNew.PlayerCode);
-                Assert.Equal(pristinePlayerNew.PlayerName, createdPlayerNew.PlayerName);
-            }
+            PlayerDto createdPlayerNew = updatedTeam.Players[pristineTeam.Players.Count - 1];
+            Assert.Equal(pristinePlayerNew.PlayerCode, createdPlayerNew.PlayerCode);
+            Assert.Equal(pristinePlayerNew.PlayerName, createdPlayerNew.PlayerName);
         }
 
         #endregion
@@ -223,14 +231,11 @@ namespace CslaModelTemplates.EndpointTests.Complex
             var sut = new Delete(logger);
 
             // Act
-            IActionResult actionResult;
-            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            ActionResult actionResult = await Run.RetryOnDeadlock(async () =>
             {
                 TeamCriteria criteria = new TeamCriteria { TeamKey = 8 };
-                actionResult = await sut.HandleAsync(criteria, new CancellationToken());
-
-                scope.Dispose();
-            }
+                return await sut.HandleAsync(criteria, new CancellationToken());
+            });
 
             // Assert
             NoContentResult noContentResult = actionResult as NoContentResult;

@@ -11,7 +11,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
         #region New
 
         [Fact]
-        public async Task CreateTeam_ReturnsNewModel()
+        public async Task NewTeam_ReturnsNewModel()
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
@@ -128,6 +128,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
 
                 pristine.TeamCode = "T-9002";
                 pristine.TeamName = "Test team number 9002";
+
                 return await sutU.UpdateTeam(pristine);
             });
 

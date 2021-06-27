@@ -3,7 +3,6 @@ using CslaModelTemplates.Endpoints.JunctionEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Transactions;
 using Xunit;
 
 namespace CslaModelTemplates.EndpointTests.Junction
@@ -13,7 +12,7 @@ namespace CslaModelTemplates.EndpointTests.Junction
         #region New
 
         [Fact]
-        public async Task CreateGroup_ReturnsNewModel()
+        public async Task NewGroup_ReturnsNewModel()
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
@@ -50,12 +49,10 @@ namespace CslaModelTemplates.EndpointTests.Junction
             var sut = new Create(logger);
 
             // Act
-            ActionResult<GroupDto> actionResult;
-            GroupDto pristineGroup;
-            GroupPersonDto pristineMember1;
-            GroupPersonDto pristineMember2;
-
-            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            GroupDto pristineGroup = null;
+            GroupPersonDto pristineMember1 = null;
+            GroupPersonDto pristineMember2 = null;
+            var actionResult = await Call<GroupDto>.RetryOnDeadlock(async () =>
             {
                 pristineGroup = new GroupDto
                 {
@@ -76,10 +73,9 @@ namespace CslaModelTemplates.EndpointTests.Junction
                     PersonName = "Person #17"
                 };
                 pristineGroup.Persons.Add(pristineMember2);
-                actionResult = await sut.HandleAsync(pristineGroup, new CancellationToken());
 
-                scope.Dispose();
-            }
+                return await sut.HandleAsync(pristineGroup, new CancellationToken());
+            });
 
             // Assert
             CreatedResult createdResult = actionResult.Result as CreatedResult;
@@ -108,92 +104,105 @@ namespace CslaModelTemplates.EndpointTests.Junction
 
         #endregion
 
-        #region Read & Update
+        #region Read
+
+        [Fact]
+        public async Task ReadGroup_ReturnsCurrentModel()
+        {
+            // Arrange
+            SetupService setup = SetupService.GetInstance();
+            var logger = setup.GetLogger<Read>();
+            var sut = new Read(logger);
+
+            // Act
+            GroupCriteria criteria = new GroupCriteria { GroupKey = 12 };
+            ActionResult<GroupDto> actionResult =
+                await sut.HandleAsync(criteria, new CancellationToken());
+
+            // Assert
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
+            Assert.NotNull(okObjectResult);
+
+            GroupDto pristineGroup = okObjectResult.Value as GroupDto;
+            Assert.NotNull(pristineGroup);
+
+            // The group code and name must end with 12.
+            Assert.Equal(12, pristineGroup.GroupKey);
+            Assert.Equal("G-12", pristineGroup.GroupCode);
+            Assert.EndsWith("12", pristineGroup.GroupName);
+            Assert.NotNull(pristineGroup.Timestamp);
+
+            // The person name must start with Person.
+            Assert.True(pristineGroup.Persons.Count > 0);
+            GroupPersonDto pristineMember1 = pristineGroup.Persons[0];
+            foreach (GroupPersonDto groupPerson in pristineGroup.Persons)
+            {
+                Assert.StartsWith("Person", groupPerson.PersonName);
+            }
+        }
+
+        #endregion
+
+        #region Update
 
         [Fact]
         public async Task UpdateGroup_ReturnsUpdatedModel()
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var loggerRead = setup.GetLogger<Read>();
-            var sutRead = new Read(loggerRead);
-            var loggerUpdate = setup.GetLogger<Update>();
-            var sutUpdate = new Update(loggerUpdate);
+            var loggerR = setup.GetLogger<Read>();
+            var loggerU = setup.GetLogger<Update>();
+            var sutR = new Read(loggerR);
+            var sutU = new Update(loggerU);
 
-            using (var uow = setup.UnitOfWork())
+            // Act
+            GroupDto pristineGroup = null;
+            GroupPersonDto pristineMember1 = null;
+            GroupPersonDto pristineMemberNew = null;
+            var actionResult = await Call<GroupDto>.RetryOnDeadlock(async () =>
             {
-                // --- READ
-                ActionResult<GroupDto> actionResult;
-                OkObjectResult okObjectResult;
-
-                // Act
                 GroupCriteria criteria = new GroupCriteria { GroupKey = 12 };
-                actionResult = await sutRead.HandleAsync(criteria, new CancellationToken());
+                ActionResult<GroupDto> actionResult = await sutR.HandleAsync(criteria, new CancellationToken());
+                OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
+                pristineGroup = okObjectResult.Value as GroupDto;
+                pristineMember1 = pristineGroup.Persons[0];
 
-                // Assert
-                okObjectResult = actionResult.Result as OkObjectResult;
-                Assert.NotNull(okObjectResult);
+                pristineGroup.GroupCode = "G-1212";
+                pristineGroup.GroupName = "Group No. 1212";
 
-                GroupDto pristineGroup = okObjectResult.Value as GroupDto;
-                Assert.NotNull(pristineGroup);
-
-                // The group code and name must end with 12.
-                Assert.Equal(12, pristineGroup.GroupKey);
-                Assert.Equal("G-12", pristineGroup.GroupCode);
-                Assert.EndsWith("12", pristineGroup.GroupName);
-                Assert.NotNull(pristineGroup.Timestamp);
-
-                // The person name must start with Person.
-                Assert.True(pristineGroup.Persons.Count > 0);
-                GroupPersonDto pristineMember1 = pristineGroup.Persons[0];
-                foreach (GroupPersonDto groupPerson in pristineGroup.Persons)
+                pristineMemberNew = new GroupPersonDto
                 {
-                    Assert.StartsWith("Person", groupPerson.PersonName);
-                }
+                    PersonKey = 1,
+                    PersonName = "New member",
+                };
+                pristineGroup.Persons.Add(pristineMemberNew);
 
-                // --- UPDATE
-                GroupPersonDto pristineMemberNew;
+                return await sutU.HandleAsync(pristineGroup, new CancellationToken());
+            });
 
-                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    pristineGroup.GroupCode = "G-1212";
-                    pristineGroup.GroupName = "Group No. 1212";
+            // Assert
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
+            Assert.NotNull(okObjectResult);
 
-                    pristineMemberNew = new GroupPersonDto
-                    {
-                        PersonKey = 1,
-                        PersonName = "New member",
-                    };
-                    pristineGroup.Persons.Add(pristineMemberNew);
-                    actionResult = await sutUpdate.HandleAsync(pristineGroup, new CancellationToken());
+            GroupDto updatedGroup = okObjectResult.Value as GroupDto;
+            Assert.NotNull(updatedGroup);
 
-                    scope.Dispose();
-                }
+            // The group must have new values.
+            Assert.Equal(pristineGroup.GroupKey, updatedGroup.GroupKey);
+            Assert.Equal(pristineGroup.GroupCode, updatedGroup.GroupCode);
+            Assert.Equal(pristineGroup.GroupName, updatedGroup.GroupName);
+            Assert.NotEqual(pristineGroup.Timestamp, updatedGroup.Timestamp);
 
-                // Assert
-                okObjectResult = actionResult.Result as OkObjectResult;
-                Assert.NotNull(okObjectResult);
+            Assert.Equal(pristineGroup.Persons.Count, updatedGroup.Persons.Count);
 
-                GroupDto updatedGroup = okObjectResult.Value as GroupDto;
-                Assert.NotNull(updatedGroup);
+            // Persons must reflect the changes.
+            GroupPersonDto updatedMember1 = updatedGroup.Persons[0];
+            Assert.Equal(pristineMember1.PersonKey, updatedMember1.PersonKey);
+            Assert.Equal(pristineMember1.PersonName, updatedMember1.PersonName);
 
-                // The group must have new values.
-                Assert.Equal(pristineGroup.GroupKey, updatedGroup.GroupKey);
-                Assert.Equal(pristineGroup.GroupCode, updatedGroup.GroupCode);
-                Assert.Equal(pristineGroup.GroupName, updatedGroup.GroupName);
-                Assert.NotEqual(pristineGroup.Timestamp, updatedGroup.Timestamp);
-
-                Assert.Equal(pristineGroup.Persons.Count, updatedGroup.Persons.Count);
-
-                // Persons must reflect the changes.
-                GroupPersonDto updatedMember1 = updatedGroup.Persons[0];
-                Assert.Equal(pristineMember1.PersonKey, updatedMember1.PersonKey);
-                Assert.Equal(pristineMember1.PersonName, updatedMember1.PersonName);
-
-                GroupPersonDto createdMemberNew = updatedGroup.Persons[pristineGroup.Persons.Count - 1];
-                Assert.Equal(pristineMemberNew.PersonKey, createdMemberNew.PersonKey);
-                Assert.StartsWith("Person", createdMemberNew.PersonName);
-            }
+            GroupPersonDto createdMemberNew = updatedGroup.Persons[pristineGroup.Persons.Count - 1];
+            Assert.Equal(pristineMemberNew.PersonKey, createdMemberNew.PersonKey);
+            Assert.StartsWith("Person", createdMemberNew.PersonName);
         }
 
         #endregion
@@ -209,14 +218,12 @@ namespace CslaModelTemplates.EndpointTests.Junction
             var sut = new Delete(logger);
 
             // Act
-            IActionResult actionResult;
-            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            //IActionResult actionResult;
+            ActionResult actionResult = await Run.RetryOnDeadlock(async () =>
             {
                 GroupCriteria criteria = new GroupCriteria { GroupKey = 4 };
-                actionResult = await sut.HandleAsync(criteria, new CancellationToken());
-
-                scope.Dispose();
-            }
+                return await sut.HandleAsync(criteria, new CancellationToken());
+            });
 
             // Assert
             NoContentResult noContentResult = actionResult as NoContentResult;

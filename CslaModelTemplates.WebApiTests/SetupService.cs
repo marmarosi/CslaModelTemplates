@@ -85,7 +85,6 @@ namespace CslaModelTemplates.WebApiTests
                 {
                     retryCount++;
                     result = null;
-                    Console.Beep();
                     Thread.Sleep(_random.Next(100, 200));
                 }
                 else
