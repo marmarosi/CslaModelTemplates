@@ -1,4 +1,5 @@
 using Csla.Data.EntityFrameworkCore;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,7 +45,7 @@ namespace CslaModelTemplates.Dal.Sqlite
         /// <returns>True when the reason is a deadlock; otherwise false;</returns>
         public override bool HasDeadlock(Exception ex)
         {
-            return false;
+            return ex is SqliteException && (ex as SqliteException).ErrorCode == 6; // SQLITE_LOCKED
         }
 
         #region ISeeder

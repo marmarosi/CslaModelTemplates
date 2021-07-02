@@ -2,6 +2,7 @@ using Csla.Data.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MySql.Data.MySqlClient;
 using System;
 
 namespace CslaModelTemplates.Dal.MySql
@@ -44,7 +45,7 @@ namespace CslaModelTemplates.Dal.MySql
         /// <returns>True when the reason is a deadlock; otherwise false;</returns>
         public override bool HasDeadlock(Exception ex)
         {
-            return false;
+            return ex is MySqlException && (ex as MySqlException).Number == 1213;
         }
 
         #region ISeeder

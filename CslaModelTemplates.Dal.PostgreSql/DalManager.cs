@@ -2,6 +2,7 @@ using Csla.Data.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 using System;
 
 namespace CslaModelTemplates.Dal.PostgreSql
@@ -44,7 +45,8 @@ namespace CslaModelTemplates.Dal.PostgreSql
         /// <returns>True when the reason is a deadlock; otherwise false;</returns>
         public override bool HasDeadlock(Exception ex)
         {
-            return false;
+            //return ex is PostgresException && (ex as PostgresException).Message == "deadlock detected";
+            return ex is PostgresException && (ex as PostgresException).SqlState == "40P01";
         }
 
         #region ISeeder

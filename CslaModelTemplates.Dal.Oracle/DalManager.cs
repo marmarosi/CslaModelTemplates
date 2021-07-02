@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Oracle.ManagedDataAccess.Client;
 
 namespace CslaModelTemplates.Dal.Oracle
 {
@@ -44,6 +45,27 @@ namespace CslaModelTemplates.Dal.Oracle
         /// <returns>True when the reason is a deadlock; otherwise false;</returns>
         public override bool HasDeadlock(Exception ex)
         {
+            if (ex is OracleException)
+            {
+                switch ((ex as OracleException).Number)
+                {
+                    //case -2: /* Client Timeout */
+                    //case 701: /* Out of Memory */
+                    //case 1204: /* Lock Issue */
+                    //case 1205: /* Deadlock Victim */
+                    //case 1222: /* Lock Request Timeout */
+                    //case 8645: /* Timeout waiting for memory resource */
+                    //case 8651: /* Low memory condition */
+
+                    case 104:  /* Deadlock detected; all public servers blocked waiting for resources */
+                    case 1013: /* User requested cancel of current operation */
+                    case 2087: /* Object locked by another process in same transaction */
+                    case 60:   /* Deadlock detected while waiting for resource */
+                        return true;
+                    default:
+                        break;
+                }
+            }
             return false;
         }
 
