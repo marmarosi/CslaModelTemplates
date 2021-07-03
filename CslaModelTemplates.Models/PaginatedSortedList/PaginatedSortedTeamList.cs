@@ -1,9 +1,9 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.Common.DataTransfer;
-using CslaModelTemplates.Common.Models;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.PaginatedSortedList;
+using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Dal;
 using System;
 using System.Threading.Tasks;
@@ -40,7 +40,7 @@ namespace CslaModelTemplates.Models.PaginatedSortedList
         //{
         //    // Add authorization rules.
         //    BusinessRules.AddRule(new IsInRole(
-        //        AuthorizationActions.ReadProperty, TeamNameProperty, "Manager"));
+        //        AuthorizationActions.ReadProperty, Data, "Manager"));
         //}
 
         //private static void AddObjectAuthorizationRules()

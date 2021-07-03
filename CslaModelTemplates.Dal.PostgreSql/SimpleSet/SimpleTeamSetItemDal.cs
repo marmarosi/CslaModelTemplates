@@ -1,4 +1,3 @@
-using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.SimpleSet;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.PostgreSql.Entities;

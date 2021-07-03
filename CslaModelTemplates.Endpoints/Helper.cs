@@ -1,7 +1,7 @@
-using CslaModelTemplates.Common;
-using CslaModelTemplates.Common.Validations;
+using CslaModelTemplates.CslaExtensions.Validations;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Dal.Exceptions;
+using CslaModelTemplates.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

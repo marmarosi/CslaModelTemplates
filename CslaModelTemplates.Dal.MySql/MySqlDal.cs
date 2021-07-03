@@ -1,4 +1,4 @@
-using CslaModelTemplates.Common.Dal;
+using CslaModelTemplates.Dal;
 
 namespace CslaModelTemplates.Dal.MySql
 {

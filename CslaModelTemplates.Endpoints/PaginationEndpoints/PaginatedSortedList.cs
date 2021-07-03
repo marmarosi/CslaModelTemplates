@@ -1,5 +1,5 @@
 using Ardalis.ApiEndpoints;
-using CslaModelTemplates.Common.DataTransfer;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.PaginatedSortedList;
 using CslaModelTemplates.Models.PaginatedSortedList;
 using Microsoft.AspNetCore.Mvc;

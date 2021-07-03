@@ -1,4 +1,3 @@
-using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.MySql.Entities;

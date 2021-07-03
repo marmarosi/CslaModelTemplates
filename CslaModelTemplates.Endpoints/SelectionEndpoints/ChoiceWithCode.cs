@@ -1,5 +1,5 @@
 using Ardalis.ApiEndpoints;
-using CslaModelTemplates.Common.Models;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.SelectionWithCode;
 using CslaModelTemplates.Models.SelectionWithCode;
 using Microsoft.AspNetCore.Mvc;

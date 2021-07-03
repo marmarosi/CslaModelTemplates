@@ -2,7 +2,7 @@ using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Dal;
-using CslaModelTemplates.Common.Models;
+using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Contracts.ComplexView;
 using System;
 using System.Threading.Tasks;

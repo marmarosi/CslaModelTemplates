@@ -29,8 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CslaModelTemplates.Dal.MySql\CslaModelTemplates.Dal.MySql.csproj" />
-    <ProjectReference Include="..\CslaModelTemplates.Dal.SqlServer\CslaModelTemplates.Dal.SqlServer.csproj" />
     <ProjectReference Include="..\CslaModelTemplates.Dal\CslaModelTemplates.Dal.csproj" />
     <ProjectReference Include="..\CslaModelTemplates.WebApi\CslaModelTemplates.WebApi.csproj" />
   </ItemGroup>

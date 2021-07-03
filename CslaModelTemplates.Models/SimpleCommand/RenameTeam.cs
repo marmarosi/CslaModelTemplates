@@ -1,7 +1,7 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.Common.Validations;
+using CslaModelTemplates.CslaExtensions.Validations;
 using CslaModelTemplates.Contracts.SimpleCommand;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;

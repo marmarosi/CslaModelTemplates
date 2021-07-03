@@ -1,4 +1,3 @@
-using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.Junction;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.PostgreSql.Entities;

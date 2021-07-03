@@ -1,4 +1,3 @@
-using CslaModelTemplates.Common;
 using CslaModelTemplates.Contracts.Complex;
 using CslaModelTemplates.Dal.Exceptions;
 using CslaModelTemplates.Dal.Sqlite.Entities;

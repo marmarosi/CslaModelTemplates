@@ -1,6 +1,5 @@
 using Csla.Data.EntityFrameworkCore;
-using CslaModelTemplates.Common;
-using CslaModelTemplates.Common.Dal;
+using CslaModelTemplates.Resources;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

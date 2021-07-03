@@ -1,4 +1,3 @@
-using CslaModelTemplates.Common.Models;
 using System;
 
 namespace CslaModelTemplates.Contracts.SelectionWithCode

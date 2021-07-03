@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.WebApi", "CslaModelTemplates.WebApi\CslaModelTemplates.WebApi.csproj", "{3F6B97BD-100C-4C0C-AC62-1F095AE42A59}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Common", "CslaModelTemplates.Common\CslaModelTemplates.Common.csproj", "{F87E3749-CE8B-47FB-8CBF-752A987EDD39}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Contracts", "CslaModelTemplates.Contracts\CslaModelTemplates.Contracts.csproj", "{FA91D4DA-F52A-4BB5-BB02-36165368B50D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.Dal", "CslaModelTemplates.Dal\CslaModelTemplates.Dal.csproj", "{AF683A00-7411-4429-8B7F-3ECE17811922}"
@@ -44,6 +42,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Access", "Data Access"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2AEBA4F0-EA52-43AE-AC46-D06DA3E98E08}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.CslaExtensions", "CslaModelTemplates.CslaExtensions\CslaModelTemplates.CslaExtensions.csproj", "{59EF88E0-A4E5-4A37-B105-4F92CF717145}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,10 +54,6 @@ Global
 		{3F6B97BD-100C-4C0C-AC62-1F095AE42A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F6B97BD-100C-4C0C-AC62-1F095AE42A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F6B97BD-100C-4C0C-AC62-1F095AE42A59}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F87E3749-CE8B-47FB-8CBF-752A987EDD39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F87E3749-CE8B-47FB-8CBF-752A987EDD39}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F87E3749-CE8B-47FB-8CBF-752A987EDD39}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F87E3749-CE8B-47FB-8CBF-752A987EDD39}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA91D4DA-F52A-4BB5-BB02-36165368B50D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA91D4DA-F52A-4BB5-BB02-36165368B50D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA91D4DA-F52A-4BB5-BB02-36165368B50D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -106,6 +102,10 @@ Global
 		{7B19DB0A-E626-4175-BAD2-3C2F4427C90A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B19DB0A-E626-4175-BAD2-3C2F4427C90A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B19DB0A-E626-4175-BAD2-3C2F4427C90A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59EF88E0-A4E5-4A37-B105-4F92CF717145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59EF88E0-A4E5-4A37-B105-4F92CF717145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59EF88E0-A4E5-4A37-B105-4F92CF717145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59EF88E0-A4E5-4A37-B105-4F92CF717145}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

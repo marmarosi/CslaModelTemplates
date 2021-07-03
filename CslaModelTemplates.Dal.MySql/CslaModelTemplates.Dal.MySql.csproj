@@ -5,13 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CSLA-EntityFrameworkCore" Version="4.11.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.13" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
+    <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CslaModelTemplates.Common\CslaModelTemplates.Common.csproj" />
     <ProjectReference Include="..\CslaModelTemplates.Contracts\CslaModelTemplates.Contracts.csproj" />
     <ProjectReference Include="..\CslaModelTemplates.Dal\CslaModelTemplates.Dal.csproj" />
     <ProjectReference Include="..\CslaModelTemplates.Resources\CslaModelTemplates.Resources.csproj" />

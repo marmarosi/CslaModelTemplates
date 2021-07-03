@@ -1,4 +1,3 @@
-using CslaModelTemplates.Common.Models;
 using System.Collections.Generic;
 
 namespace CslaModelTemplates.Contracts.SelectionWithCode

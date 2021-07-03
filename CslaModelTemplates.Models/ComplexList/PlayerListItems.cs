@@ -1,7 +1,7 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.Common.Models;
+using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Contracts.ComplexList;
 using System;
 using System.Collections.Generic;

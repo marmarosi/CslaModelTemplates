@@ -1,4 +1,4 @@
-using CslaModelTemplates.Common.DataTransfer;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.PaginatedList;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

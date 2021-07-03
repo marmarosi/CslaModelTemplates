@@ -1,4 +1,4 @@
-using CslaModelTemplates.Common.Dal;
+using CslaModelTemplates.Dal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;

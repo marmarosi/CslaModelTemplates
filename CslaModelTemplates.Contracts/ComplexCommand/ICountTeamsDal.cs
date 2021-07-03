@@ -1,4 +1,4 @@
-using CslaModelTemplates.Common.Dal;
+using CslaModelTemplates.Dal;
 using System.Collections.Generic;
 
 namespace CslaModelTemplates.Contracts.ComplexCommand

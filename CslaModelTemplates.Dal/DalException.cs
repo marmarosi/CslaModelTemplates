@@ -1,13 +1,13 @@
-using CslaModelTemplates.Common;
+using CslaModelTemplates.Resources;
 using System;
 using System.Runtime.Serialization;
 
 namespace CslaModelTemplates.Dal
 {
-  /// <summary>
-  /// Represents an exception thrown by the data access layer.
-  /// </summary>
-  [Serializable]
+    /// <summary>
+    /// Represents an exception thrown by the data access layer.
+    /// </summary>
+    [Serializable]
     public class DalException : BackendException
     {
         #region Constructors

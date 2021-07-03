@@ -1,4 +1,4 @@
-using CslaModelTemplates.Common.DataTransfer;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.PaginatedList;
 using CslaModelTemplates.Contracts.PaginatedSortedList;
 using CslaModelTemplates.Contracts.SortedList;

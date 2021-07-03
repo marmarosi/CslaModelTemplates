@@ -1,4 +1,4 @@
-using CslaModelTemplates.Common.DataTransfer;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.PaginatedSortedList;
 using CslaModelTemplates.Endpoints.PaginationEndpoints;
 using Microsoft.AspNetCore.Mvc;

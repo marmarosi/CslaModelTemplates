@@ -1,4 +1,4 @@
-using CslaModelTemplates.Common.DataTransfer;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.SortedList;
 using CslaModelTemplates.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,4 @@
-using CslaModelTemplates.Common.Models;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.SelectionWithCode;
 using CslaModelTemplates.Endpoints.SelectionEndpoints;
 using Microsoft.AspNetCore.Mvc;
