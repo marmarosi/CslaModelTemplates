@@ -1,12 +1,9 @@
-using CslaModelTemplates.CslaExtensions.Validations;
-using CslaModelTemplates.Dal;
-using CslaModelTemplates.Dal.Exceptions;
-using CslaModelTemplates.Resources;
+using CslaModelTemplates.CslaExtensions;
+using CslaModelTemplates.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Diagnostics;
 
 namespace CslaModelTemplates.Endpoints
 {
@@ -33,47 +30,32 @@ namespace CslaModelTemplates.Endpoints
             Exception exception
             )
         {
+            ObjectResult result = null;
+
             // Check validation exception.
             if (exception is ValidationException)
                 // Status code 422 = Unprocesssable Entity
-                return endpoint.UnprocessableEntity(new ValidationError((ValidationException)exception));
+                return endpoint.UnprocessableEntity(
+                    new ValidationError(exception as ValidationException)
+                    );
 
             // Check deadlock exception.
-            Exception firstEx = exception;
-            while (firstEx.InnerException != null)
-                firstEx = firstEx.InnerException;
-            if (DalFactory.HasDeadlock(firstEx))
+            DeadlockError deadlock = DeadlockError.CheckException(exception);
+            if (deadlock != null)
             {
                 // Status code 423 = Locked
-                ObjectResult deadlock = new ObjectResult(new DeadlockException(firstEx.Message));
-                deadlock.StatusCode = StatusCodes.Status423Locked;
-                return deadlock;
+                result = new ObjectResult(deadlock);
+                result.StatusCode = StatusCodes.Status423Locked;
+                return result;
             }
 
-            // Check other exceptions.
-            Exception ex = exception;
-            string prefix = ">>> WebAPI";
-            string summary = string.Empty;
-            int statusCode = StatusCodes.Status500InternalServerError;
+            // Evaluate other exceptions.
+            int statusCode;
+            BackendError backend = BackendError.Evaluate(exception, out statusCode);
 
-            while (ex != null)
-            {
-                string line = "{0} {1} * {2}".With(prefix, ex.GetType().Name, ex.Message);
-                if (ex.Source != null)
-                    line += " [ {0} ]".With(ex.Source);
-                Debug.WriteLine(line);
+            logger.LogError(exception, backend.Summary, null);
 
-                if (summary.Length > 0) summary += "\n";
-                summary += line;
-
-                if (ex is BackendException)
-                    statusCode = (ex as BackendException).StatusCode;
-
-                ex = ex.InnerException;
-                prefix = "        ";
-            }
-            logger.LogError(exception, summary, null);
-            ObjectResult result = new ObjectResult(new BackendError(exception, summary));
+            result = new ObjectResult(backend);
             result.StatusCode = statusCode;
             return result;
         }

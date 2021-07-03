@@ -1,6 +1,8 @@
+using CslaModelTemplates.Resources;
 using System;
+using System.Diagnostics;
 
-namespace CslaModelTemplates.Dal
+namespace CslaModelTemplates.Models
 {
     /// <summary>
     /// Represents an error occurred on the backend.
@@ -93,6 +95,35 @@ namespace CslaModelTemplates.Dal
         }
 
         #endregion
+
+        public static BackendError Evaluate(
+            Exception exception,
+            out int statusCode
+            )
+        {
+            Exception ex = exception;
+            string prefix = ">>> Web API";
+            string summary = string.Empty;
+            statusCode = 500; // StatusCodes.Status500InternalServerError
+
+            while (ex != null)
+            {
+                string line = "{0} {1} * {2}".With(prefix, ex.GetType().Name, ex.Message);
+                if (ex.Source != null)
+                    line += " [ {0} ]".With(ex.Source);
+                Debug.WriteLine(line);
+
+                if (summary.Length > 0) summary += "\n";
+                summary += line;
+
+                if (ex is BackendException)
+                    statusCode = (ex as BackendException).StatusCode;
+
+                ex = ex.InnerException;
+                prefix = "        ";
+            }
+            return new BackendError(exception, summary);
+        }
     }
 }
 

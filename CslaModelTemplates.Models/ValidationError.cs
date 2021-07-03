@@ -1,7 +1,9 @@
+using CslaModelTemplates.CslaExtensions;
+using CslaModelTemplates.CslaExtensions.Validations;
 using System;
 using System.Collections.Generic;
 
-namespace CslaModelTemplates.CslaExtensions.Validations
+namespace CslaModelTemplates.Models
 {
     /// <summary>
     /// Represents a validation error.

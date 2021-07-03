@@ -1,5 +1,5 @@
 using CslaModelTemplates.Dal;
-using CslaModelTemplates.Dal.Exceptions;
+using CslaModelTemplates.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -81,7 +81,7 @@ namespace CslaModelTemplates.WebApiTests
                 }
 
                 if ((result as OkObjectResult) == null &&
-                    (result as ObjectResult)?.Value is DeadlockException)
+                    (result as ObjectResult)?.Value is DeadlockError)
                 {
                     retryCount++;
                     result = null;

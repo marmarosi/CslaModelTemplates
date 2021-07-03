@@ -1,38 +1,26 @@
 using CslaModelTemplates.Resources;
 using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace CslaModelTemplates.CslaExtensions.Validations
+namespace CslaModelTemplates.CslaExtensions
 {
     /// <summary>
-    /// Represents an exception thrown by a business object for failed validations.
+    /// Represents an exception thrown by a command for failed validations.
     /// </summary>
     [Serializable]
-    public class ValidationException : BackendException
+    public class CommandException : BackendException
     {
-        #region Properties
-
-        /// <summary>
-        /// Gets information about the broken validation rules.
-        /// </summary>
-        public List<ValidationMessage> Messages { get; private set; }
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValidationException"/> class.
+        /// Initializes a new instance of the <see cref="CommandException"/> class.
         /// </summary>
-        /// <param name="messages">Information v the failed validations.</param>
-        public ValidationException(
-            List<ValidationMessage> messages
+        /// <param name="message">Information of the failed validation.</param>
+        public CommandException(
+            string message
             )
-            : base()
-        {
-            Messages = messages;
-        }
+            : base(message)
+        { }
 
         #endregion
 

@@ -1,12 +1,9 @@
-using CslaModelTemplates.CslaExtensions.Validations;
-using CslaModelTemplates.Dal;
-using CslaModelTemplates.Dal.Exceptions;
-using CslaModelTemplates.Resources;
+using CslaModelTemplates.CslaExtensions;
+using CslaModelTemplates.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Diagnostics;
-using System.Net;
 
 namespace CslaModelTemplates.WebApi
 {
@@ -48,43 +45,32 @@ namespace CslaModelTemplates.WebApi
             Exception exception
             )
         {
+            ObjectResult result = null;
+
             // Check validation exception.
             if (exception is ValidationException)
                 // Status code 422 = Unprocesssable Entity
                 return StatusCode(422, new ValidationError((ValidationException)exception));
 
             // Check deadlock exception.
-            Exception firstEx = exception;
-            while (firstEx.InnerException != null)
-                firstEx = firstEx.InnerException;
-            if (DalFactory.HasDeadlock(firstEx))
-                // Status code 423 = Locked
-                return StatusCode(423, new DeadlockException(firstEx.Message));
-
-            // Check other exceptions.
-            int statusCode = (int)HttpStatusCode.InternalServerError;
-            Exception ex = exception;
-            string prefix = ">>> WebAPI";
-            string summary = string.Empty;
-
-            while (ex != null)
+            DeadlockError deadlock = DeadlockError.CheckException(exception);
+            if (deadlock != null)
             {
-                string line = "{0} {1} * {2}".With(prefix, ex.GetType().Name, ex.Message);
-                if (ex.Source != null)
-                    line += " [ {0} ]".With(ex.Source);
-                Debug.WriteLine(line);
-
-                if (summary.Length > 0) summary += "\n";
-                summary += line;
-
-                if (ex is BackendException)
-                    statusCode = (ex as BackendException).StatusCode;
-
-                ex = ex.InnerException;
-                prefix = "        ";
+                // Status code 423 = Locked
+                result = new ObjectResult(deadlock);
+                result.StatusCode = StatusCodes.Status423Locked;
+                return result;
             }
-            Logger.LogError(exception, summary, null);
-            return StatusCode(statusCode, new BackendError(exception, summary));
+
+            // Evaluate other exceptions.
+            int statusCode;
+            BackendError backend = BackendError.Evaluate(exception, out statusCode);
+
+            Logger.LogError(exception, backend.Summary, null);
+
+            result = new ObjectResult(backend);
+            result.StatusCode = statusCode;
+            return result;
         }
     }
 }

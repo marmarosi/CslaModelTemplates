@@ -1,4 +1,4 @@
-using CslaModelTemplates.Dal.Exceptions;
+using CslaModelTemplates.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading;
@@ -28,7 +28,7 @@ namespace CslaModelTemplates.EndpointTests
                 }
 
                 if ((result as OkObjectResult) == null &&
-                    (result as OkObjectResult)?.Value is DeadlockException)
+                    (result as OkObjectResult)?.Value is DeadlockError)
                 {
                     retryCount++;
                     result = null;
@@ -64,7 +64,7 @@ namespace CslaModelTemplates.EndpointTests
                 }
 
                 if ((result.Result as ObjectResult) != null &&
-                    (result.Result as ObjectResult).Value is DeadlockException)
+                    (result.Result as ObjectResult).Value is DeadlockError)
                 {
                     retryCount++;
                     result = null;

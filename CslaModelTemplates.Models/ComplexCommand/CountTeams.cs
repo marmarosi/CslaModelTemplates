@@ -1,8 +1,8 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.CslaExtensions.Validations;
 using CslaModelTemplates.Contracts.ComplexCommand;
+using CslaModelTemplates.CslaExtensions;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;

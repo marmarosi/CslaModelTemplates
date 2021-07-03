@@ -1,12 +1,12 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.CslaExtensions.Validations;
 using CslaModelTemplates.Contracts.SimpleCommand;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
 using System.Threading.Tasks;
+using CslaModelTemplates.CslaExtensions;
 
 namespace CslaModelTemplates.Models.SimpleCommand
 {
