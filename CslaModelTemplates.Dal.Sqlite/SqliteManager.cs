@@ -1,24 +1,24 @@
 using Csla.Data.EntityFrameworkCore;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MySql.Data.MySqlClient;
 using System;
 
-namespace CslaModelTemplates.Dal.MySql
+namespace CslaModelTemplates.Dal.Sqlite
 {
     /// <summary>
-    /// Represents the data access manager object for MySQL databases.
+    /// Represents the data access manager object for SQL Server databases.
     /// </summary>
-    public sealed class DalManager : DalManagerBase<MySqlContext>
+    public sealed class SqliteManager : DalManagerBase<SqliteContext>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DalManager"/> class.
+        /// Initializes a new instance of the <see cref="SqliteManager"/> class.
         /// </summary>
-        public DalManager()
+        public SqliteManager()
         {
-            SetTypes<DalManager>();
-            ContextManager = DbContextManager<MySqlContext>.GetManager(DAL.MySQL);
+            SetTypes<SqliteManager>();
+            ContextManager = DbContextManager<SqliteContext>.GetManager(DAL.SQLite);
         }
 
         /// <summary>
@@ -31,9 +31,9 @@ namespace CslaModelTemplates.Dal.MySql
             IServiceCollection services
             )
         {
-            services.AddDbContext<MySqlContext>(options =>
-                options.UseMySQL(
-                    configuration.GetConnectionString(DAL.MySQL)
+            services.AddDbContext<SqliteContext>(options =>
+                options.UseSqlite(
+                    configuration.GetConnectionString(DAL.SQLite)
                     )
                 );
         }
@@ -45,7 +45,7 @@ namespace CslaModelTemplates.Dal.MySql
         /// <returns>True when the reason is a deadlock; otherwise false;</returns>
         public override bool HasDeadlock(Exception ex)
         {
-            return ex is MySqlException && (ex as MySqlException).Number == 1213;
+            return ex is SqliteException && (ex as SqliteException).ErrorCode == 6; // SQLITE_LOCKED
         }
 
         #region ISeeder
@@ -54,22 +54,22 @@ namespace CslaModelTemplates.Dal.MySql
         /// Ensures the database schema and fills it with initial data.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public override void ProductionSeed(
+        public override void SeedProductionData(
             string contentRootPath
             )
         {
-            MySqlSeeder.Run(contentRootPath, false);
+            SqliteSeeder.Run(contentRootPath, false);
         }
 
         /// <summary>
         /// Ensures the database schema and fills it with demo data.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public override void DevelopmentSeed(
+        public override void SeedDevelopmentData(
             string contentRootPath
             )
         {
-            MySqlSeeder.Run(contentRootPath, true);
+            SqliteSeeder.Run(contentRootPath, true);
         }
 
         #endregion

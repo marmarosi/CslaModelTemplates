@@ -1,9 +1,8 @@
-using CslaModelTemplates.Endpoints.Extension;
+using CslaModelTemplates.Endpoints.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace CslaModelTemplates.Endpoints
 {
@@ -43,10 +42,8 @@ namespace CslaModelTemplates.Endpoints
             )
         {
             services.AddDalConfig(Configuration);
-
-            services.AddControllers();
-
-            services.AddSwaggerConfig();
+            services.AddEndpointServices();
+            services.AddSwaggerDocuments();
         }
 
         /// <summary>
@@ -58,25 +55,13 @@ namespace CslaModelTemplates.Endpoints
             IApplicationBuilder app
             )
         {
-            if (Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
+            app.ShowExceptionDetails(Environment);
             app.RunSeeders(Environment);
-
-            app.UseSwaggerConfig(Environment);
-
+            app.UseSwaggerEndpoint(Environment);
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpointServices();
         }
     }
 }

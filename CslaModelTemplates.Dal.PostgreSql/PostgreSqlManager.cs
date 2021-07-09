@@ -1,24 +1,24 @@
 using Csla.Data.EntityFrameworkCore;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 using System;
 
-namespace CslaModelTemplates.Dal.SqlServer
+namespace CslaModelTemplates.Dal.PostgreSql
 {
     /// <summary>
     /// Represents the data access manager object for SQL Server databases.
     /// </summary>
-    public sealed class DalManager : DalManagerBase<SqlServerContext>
+    public sealed class PostgreSqlManager : DalManagerBase<PostgreSqlContext>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DalManager"/> class.
+        /// Initializes a new instance of the <see cref="PostgreSqlManager"/> class.
         /// </summary>
-        public DalManager()
+        public PostgreSqlManager()
         {
-            SetTypes<DalManager>();
-            ContextManager = DbContextManager<SqlServerContext>.GetManager(DAL.SQLServer);
+            SetTypes<PostgreSqlManager>();
+            ContextManager = DbContextManager<PostgreSqlContext>.GetManager(DAL.PostgreSQL);
         }
 
         /// <summary>
@@ -31,9 +31,9 @@ namespace CslaModelTemplates.Dal.SqlServer
             IServiceCollection services
             )
         {
-            services.AddDbContext<SqlServerContext>(options =>
-                options.UseSqlServer(
-                    configuration.GetConnectionString(DAL.SQLServer)
+            services.AddDbContext<PostgreSqlContext>(options =>
+                options.UseNpgsql(
+                    configuration.GetConnectionString(DAL.PostgreSQL)
                     )
                 );
         }
@@ -45,7 +45,8 @@ namespace CslaModelTemplates.Dal.SqlServer
         /// <returns>True when the reason is a deadlock; otherwise false;</returns>
         public override bool HasDeadlock(Exception ex)
         {
-            return ex is SqlException && (ex as SqlException).Number == 1205;
+            //return ex is PostgresException && (ex as PostgresException).Message == "deadlock detected";
+            return ex is PostgresException && (ex as PostgresException).SqlState == "40P01";
         }
 
         #region ISeeder
@@ -54,22 +55,22 @@ namespace CslaModelTemplates.Dal.SqlServer
         /// Ensures the database schema and fills it with initial data.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public override void ProductionSeed(
+        public override void SeedProductionData(
             string contentRootPath
             )
         {
-            SqlServerSeeder.Run(contentRootPath, false);
+            PostgreSqlSeeder.Run(contentRootPath, false);
         }
 
         /// <summary>
         /// Ensures the database schema and fills it with demo data.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public override void DevelopmentSeed(
+        public override void SeedDevelopmentData(
             string contentRootPath
             )
         {
-            SqlServerSeeder.Run(contentRootPath, true);
+            PostgreSqlSeeder.Run(contentRootPath, true);
         }
 
         #endregion

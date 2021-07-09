@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace CslaModelTemplates.Endpoints.Extension
+namespace CslaModelTemplates.WebApi.Extensions
 {
     /// <summary>
     /// Provides methods to configure data access layers.
@@ -13,7 +13,7 @@ namespace CslaModelTemplates.Endpoints.Extension
     public static class DalExtensions
     {
         /// <summary>
-        /// Add configuration for data access layers.
+        /// Adds configuration for data access layers.
         /// </summary>
         /// <param name="services">The container of the application services.</param>
         /// <param name="configuration">The configuration of the application.</param>
@@ -26,7 +26,7 @@ namespace CslaModelTemplates.Endpoints.Extension
         }
 
         /// <summary>
-        /// Run seeders of persistent storages.
+        /// Runs seeders of persistent storages.
         /// </summary>
         /// <param name="app">The application builder.</param>
         /// <param name="environment">The hosting environment.</param>
@@ -37,11 +37,11 @@ namespace CslaModelTemplates.Endpoints.Extension
         {
             if ((environment as IHostEnvironment).IsDevelopment())
             {
-                DalFactory.DevelopmentSeed(environment.ContentRootPath);
+                DalFactory.SeedDevelopmentData(environment.ContentRootPath);
             }
             else
             {
-                DalFactory.ProductionSeed(environment.ContentRootPath);
+                DalFactory.SeedProductionData(environment.ContentRootPath);
             }
         }
     }

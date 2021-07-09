@@ -164,11 +164,11 @@ namespace CslaModelTemplates.Dal
         /// Ensures the initial data of the active layer.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public static void ProductionSeed(
+        public static void SeedProductionData(
             string contentRootPath
             )
         {
-            ProductionSeed(contentRootPath, ActiveLayer);
+            SeedProductionData(contentRootPath, ActiveLayer);
         }
 
         /// <summary>
@@ -176,25 +176,25 @@ namespace CslaModelTemplates.Dal
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
         /// <param name="dalName">The name of the data access layer.</param>
-        public static void ProductionSeed(
+        public static void SeedProductionData(
             string contentRootPath,
             string dalName
             )
         {
             ISeeder seeder = Activator.CreateInstance(DalTypes[dalName]) as ISeeder;
-            seeder.ProductionSeed(contentRootPath);
+            seeder.SeedProductionData(contentRootPath);
         }
 
         /// <summary>
         /// Ensures the initial data of all layers.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public static void ProductionSeedForAll(
+        public static void SeedProductionDataForAll(
             string contentRootPath
             )
         {
             foreach (KeyValuePair<string, Type> dalType in DalTypes)
-                ProductionSeed(dalType.Key, contentRootPath);
+                SeedProductionData(dalType.Key, contentRootPath);
         }
 
         #endregion
@@ -205,11 +205,11 @@ namespace CslaModelTemplates.Dal
         /// Ensures the demo data of the active layer.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public static void DevelopmentSeed(
+        public static void SeedDevelopmentData(
             string contentRootPath
             )
         {
-            DevelopmentSeed(contentRootPath, ActiveLayer);
+            SeedDevelopmentData(contentRootPath, ActiveLayer);
         }
 
         /// <summary>
@@ -217,25 +217,25 @@ namespace CslaModelTemplates.Dal
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
         /// <param name="dalName">The name of the data access layer.</param>
-        public static void DevelopmentSeed(
+        public static void SeedDevelopmentData(
             string contentRootPath,
             string dalName
             )
         {
             ISeeder seeder = Activator.CreateInstance(DalTypes[dalName ?? ActiveLayer]) as ISeeder;
-            seeder.DevelopmentSeed(contentRootPath);
+            seeder.SeedDevelopmentData(contentRootPath);
         }
 
         /// <summary>
         /// Ensures the demo data of all layers.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public static void DevelopmentSeedForAll(
+        public static void SeedDevelopmentDataForAll(
             string contentRootPath
             )
         {
             foreach (KeyValuePair<string, Type> dalType in DalTypes)
-                DevelopmentSeed(contentRootPath, dalType.Key);
+                SeedDevelopmentData(contentRootPath, dalType.Key);
         }
 
         #endregion

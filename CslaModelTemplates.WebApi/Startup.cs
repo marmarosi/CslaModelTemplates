@@ -1,12 +1,8 @@
-using CslaModelTemplates.Dal;
+using CslaModelTemplates.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerUI;
-using System.IO;
 
 namespace CslaModelTemplates.WebApi
 {
@@ -45,25 +41,9 @@ namespace CslaModelTemplates.WebApi
             IServiceCollection services
             )
         {
-            DalFactory.Configure(Configuration, services);
-
-            services.AddControllers()
-                .AddJsonOptions(options => {
-                    options.JsonSerializerOptions.IncludeFields = true;
-                });
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc(
-                    "v1",
-                    new OpenApiInfo {
-                        Title = "CslaModelTemplates.WebApi",
-                        Version = "v1"
-                    });
-                string xmlFile = $"{Environment.ApplicationName}.xml";
-                string xmlPath = Path.Combine(Environment.ContentRootPath, xmlFile);
-                c.IncludeXmlComments(xmlPath, true);
-            });
+            services.AddDalConfig(Configuration);
+            services.AddEndpointServices();
+            services.AddSwaggerDocuments(Environment);
         }
 
         /// <summary>
@@ -75,35 +55,13 @@ namespace CslaModelTemplates.WebApi
             IApplicationBuilder app
             )
         {
-            if (Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                DalFactory.DevelopmentSeed(Environment.ContentRootPath);
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint(
-                        "/swagger/v1/swagger.json",
-                        "CslaModelTemplates.WebApi v1"
-                        );
-                    c.DocExpansion(DocExpansion.None);
-                });
-            }
-            else
-            {
-                DalFactory.ProductionSeed(Environment.ContentRootPath);
-            }
-
+            app.ShowExceptionDetails(Environment);
+            app.RunSeeders(Environment);
+            app.UseSwaggerEndpoint(Environment);
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpointServices();
         }
     }
 }

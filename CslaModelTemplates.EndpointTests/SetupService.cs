@@ -26,7 +26,7 @@ namespace CslaModelTemplates.EndpointTests
             // Configure data access layers.
             DalFactory.Configure(configuration, _serviceCollection);
             if (DalFactory.ActiveLayer == DAL.SQLite)
-                DalFactory.DevelopmentSeed(null);
+                DalFactory.SeedDevelopmentData(null);
         }
 
         public static SetupService GetInstance() => _setupServiceInstance;

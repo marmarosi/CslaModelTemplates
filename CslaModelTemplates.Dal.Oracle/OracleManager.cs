@@ -10,14 +10,14 @@ namespace CslaModelTemplates.Dal.Oracle
     /// <summary>
     /// Represents the data access manager object for Oracle databases.
     /// </summary>
-    public sealed class DalManager : DalManagerBase<OracleContext>
+    public sealed class OracleManager : DalManagerBase<OracleContext>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DalManager"/> class.
+        /// Initializes a new instance of the <see cref="OracleManager"/> class.
         /// </summary>
-        public DalManager()
+        public OracleManager()
         {
-            SetTypes<DalManager>();
+            SetTypes<OracleManager>();
             ContextManager = DbContextManager<OracleContext>.GetManager(DAL.Oracle);
         }
 
@@ -75,7 +75,7 @@ namespace CslaModelTemplates.Dal.Oracle
         /// Ensures the database schema and fills it with initial data.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public override void ProductionSeed(
+        public override void SeedProductionData(
             string contentRootPath
             )
         {
@@ -86,7 +86,7 @@ namespace CslaModelTemplates.Dal.Oracle
         /// Ensures the database schema and fills it with demo data.
         /// </summary>
         /// <param name="contentRootPath">The root path of the web site.</param>
-        public override void DevelopmentSeed(
+        public override void SeedDevelopmentData(
             string contentRootPath
             )
         {
