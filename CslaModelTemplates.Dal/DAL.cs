@@ -10,6 +10,5 @@ namespace CslaModelTemplates.Dal
         public const string PostgreSQL = "PostgreSql";
         public const string SQLite = "SQLite";
         public const string SQLServer = "SQLServer";
-        public const string Csaba = "Csaba";
     }
 }
