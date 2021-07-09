@@ -5,10 +5,11 @@ namespace CslaModelTemplates.Dal
     /// </summary>
     public static class DAL
     {
-        public const string MySQL = "MySql";
+        public const string MySQL = "MySQL";
         public const string Oracle = "Oracle";
         public const string PostgreSQL = "PostgreSql";
         public const string SQLite = "SQLite";
         public const string SQLServer = "SQLServer";
+        public const string Csaba = "Csaba";
     }
 }

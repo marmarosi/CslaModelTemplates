@@ -1,24 +1,24 @@
 using Csla.Data.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MySql.Data.MySqlClient;
 using System;
 
-namespace CslaModelTemplates.Dal.MySql
+namespace CslaModelTemplates.Dal.SqlServer
 {
     /// <summary>
-    /// Represents the data access manager object for MySQL databases.
+    /// Represents the data access manager object for SQL Server databases.
     /// </summary>
-    public sealed class DalManager : DalManagerBase<MySqlContext>
+    public sealed class SqlServerManager : DalManagerBase<SqlServerContext>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DalManager"/> class.
+        /// Initializes a new instance of the <see cref="SqlServerManager"/> class.
         /// </summary>
-        public DalManager()
+        public SqlServerManager()
         {
-            SetTypes<DalManager>();
-            ContextManager = DbContextManager<MySqlContext>.GetManager(DAL.MySQL);
+            SetTypes<SqlServerManager>();
+            ContextManager = DbContextManager<SqlServerContext>.GetManager(DAL.SQLServer);
         }
 
         /// <summary>
@@ -31,9 +31,9 @@ namespace CslaModelTemplates.Dal.MySql
             IServiceCollection services
             )
         {
-            services.AddDbContext<MySqlContext>(options =>
-                options.UseMySQL(
-                    configuration.GetConnectionString(DAL.MySQL)
+            services.AddDbContext<SqlServerContext>(options =>
+                options.UseSqlServer(
+                    configuration.GetConnectionString(DAL.SQLServer)
                     )
                 );
         }
@@ -45,7 +45,7 @@ namespace CslaModelTemplates.Dal.MySql
         /// <returns>True when the reason is a deadlock; otherwise false;</returns>
         public override bool HasDeadlock(Exception ex)
         {
-            return ex is MySqlException && (ex as MySqlException).Number == 1213;
+            return ex is SqlException && (ex as SqlException).Number == 1205;
         }
 
         #region ISeeder
@@ -58,7 +58,7 @@ namespace CslaModelTemplates.Dal.MySql
             string contentRootPath
             )
         {
-            MySqlSeeder.Run(contentRootPath, false);
+            SqlServerSeeder.Run(contentRootPath, false);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace CslaModelTemplates.Dal.MySql
             string contentRootPath
             )
         {
-            MySqlSeeder.Run(contentRootPath, true);
+            SqlServerSeeder.Run(contentRootPath, true);
         }
 
         #endregion

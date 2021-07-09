@@ -10,14 +10,14 @@ namespace CslaModelTemplates.Dal.PostgreSql
     /// <summary>
     /// Represents the data access manager object for SQL Server databases.
     /// </summary>
-    public sealed class DalManager : DalManagerBase<PostgreSqlContext>
+    public sealed class PostgreSqlManager : DalManagerBase<PostgreSqlContext>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DalManager"/> class.
+        /// Initializes a new instance of the <see cref="PostgreSqlManager"/> class.
         /// </summary>
-        public DalManager()
+        public PostgreSqlManager()
         {
-            SetTypes<DalManager>();
+            SetTypes<PostgreSqlManager>();
             ContextManager = DbContextManager<PostgreSqlContext>.GetManager(DAL.PostgreSQL);
         }
 

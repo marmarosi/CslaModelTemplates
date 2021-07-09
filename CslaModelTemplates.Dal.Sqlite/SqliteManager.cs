@@ -10,14 +10,14 @@ namespace CslaModelTemplates.Dal.Sqlite
     /// <summary>
     /// Represents the data access manager object for SQL Server databases.
     /// </summary>
-    public sealed class DalManager : DalManagerBase<SqliteContext>
+    public sealed class SqliteManager : DalManagerBase<SqliteContext>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DalManager"/> class.
+        /// Initializes a new instance of the <see cref="SqliteManager"/> class.
         /// </summary>
-        public DalManager()
+        public SqliteManager()
         {
-            SetTypes<DalManager>();
+            SetTypes<SqliteManager>();
             ContextManager = DbContextManager<SqliteContext>.GetManager(DAL.SQLite);
         }
 
