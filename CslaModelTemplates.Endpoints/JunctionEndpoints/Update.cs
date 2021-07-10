@@ -55,12 +55,15 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
         {
             try
             {
-                Group group = await Group.FromDto(dto);
-                if (group.IsSavable)
+                return await Call<GroupDto>.RetryOnDeadlock(async () =>
                 {
-                    group = await group.SaveAsync();
-                }
-                return Ok(group.ToDto<GroupDto>());
+                    Group group = await Group.FromDto(dto);
+                    if (group.IsSavable)
+                    {
+                        group = await group.SaveAsync();
+                    }
+                    return Ok(group.ToDto<GroupDto>());
+                });
             }
             catch (Exception ex)
             {

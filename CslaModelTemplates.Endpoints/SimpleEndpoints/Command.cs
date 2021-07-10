@@ -55,8 +55,11 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         {
             try
             {
-                bool result = await RenameTeam.Execute(dto);
-                return Ok(result);
+                return await Run.RetryOnDeadlock(async () =>
+                {
+                    bool result = await RenameTeam.Execute(dto);
+                    return Ok(result);
+                });
             }
             catch (Exception ex)
             {

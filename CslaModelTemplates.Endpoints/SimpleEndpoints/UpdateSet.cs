@@ -59,12 +59,15 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         {
             try
             {
-                SimpleTeamSet team = await SimpleTeamSet.FromDto(request.Criteria, request.Dto);
-                if (team.IsSavable)
+                return await Call<IList<SimpleTeamSetItemDto>>.RetryOnDeadlock(async () =>
                 {
-                    team = await team.SaveAsync();
-                }
-                return Ok(team.ToDto<SimpleTeamSetItemDto>());
+                    SimpleTeamSet team = await SimpleTeamSet.FromDto(request.Criteria, request.Dto);
+                    if (team.IsSavable)
+                    {
+                        team = await team.SaveAsync();
+                    }
+                    return Ok(team.ToDto<SimpleTeamSetItemDto>());
+                });
             }
             catch (Exception ex)
             {

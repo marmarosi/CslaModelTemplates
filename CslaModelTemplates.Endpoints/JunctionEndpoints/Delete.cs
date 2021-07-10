@@ -54,8 +54,11 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
         {
             try
             {
-                await Task.Run(() => Group.Delete(criteria));
-                return NoContent();
+                return await Run.RetryOnDeadlock(async () =>
+                {
+                    await Task.Run(() => Group.Delete(criteria));
+                    return NoContent();
+                });
             }
             catch (Exception ex)
             {

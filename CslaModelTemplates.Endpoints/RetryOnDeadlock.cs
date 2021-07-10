@@ -5,11 +5,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace CslaModelTemplates.EndpointTests
+namespace CslaModelTemplates.Endpoints
 {
     internal static class RUN
     {
-        internal const int MAX_RETRIES = 2;
+        internal const int MAX_RETRIES = 1;
         internal const int MIN_DELAY_MS = 100;
         internal const int MAX_DELAY_MS = 200;
     }
@@ -28,16 +28,11 @@ namespace CslaModelTemplates.EndpointTests
 
             while (retryCount < maxRetries)
             {
-                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    result = await businessMethod();
-                    scope.Dispose();
-                }
+                result = await businessMethod();
 
                 if ((result as OkObjectResult) != null &&
                     (result as OkObjectResult)?.Value is DeadlockError)
                 {
-                    Console.Beep(170, 1500);
                     retryCount++;
                     result = null;
                     Thread.Sleep(_random.Next(RUN.MIN_DELAY_MS, RUN.MAX_DELAY_MS));
@@ -50,7 +45,7 @@ namespace CslaModelTemplates.EndpointTests
         }
     }
 
-    public static class Call<T> where T: class
+    public static class Call<T> where T : class
     {
         private static readonly Random _random = new Random(DateTime.Now.Millisecond);
 
@@ -64,11 +59,7 @@ namespace CslaModelTemplates.EndpointTests
 
             while (retryCount < maxRetries)
             {
-                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    result = await businessMethod();
-                    scope.Dispose();
-                }
+                result = await businessMethod();
 
                 if ((result.Result as ObjectResult) != null &&
                     (result.Result as ObjectResult).Value is DeadlockError)

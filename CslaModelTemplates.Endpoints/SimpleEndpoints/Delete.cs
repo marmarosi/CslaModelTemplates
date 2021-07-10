@@ -54,8 +54,11 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         {
             try
             {
-                await Task.Run(() => SimpleTeam.Delete(criteria));
-                return NoContent();
+                return await Run.RetryOnDeadlock(async () =>
+                {
+                    await Task.Run(() => SimpleTeam.Delete(criteria));
+                    return NoContent();
+                });
             }
             catch (Exception ex)
             {

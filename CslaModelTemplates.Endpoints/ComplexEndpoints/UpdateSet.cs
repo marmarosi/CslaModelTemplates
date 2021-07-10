@@ -59,12 +59,15 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
         {
             try
             {
-                TeamSet team = await TeamSet.FromDto(request.Criteria, request.Dto);
-                if (team.IsSavable)
+                return await Call<IList<TeamSetItemDto>>.RetryOnDeadlock(async () =>
                 {
-                    team = await team.SaveAsync();
-                }
-                return Ok(team.ToDto<TeamSetItemDto>());
+                    TeamSet team = await TeamSet.FromDto(request.Criteria, request.Dto);
+                    if (team.IsSavable)
+                    {
+                        team = await team.SaveAsync();
+                    }
+                    return Ok(team.ToDto<TeamSetItemDto>());
+                });
             }
             catch (Exception ex)
             {

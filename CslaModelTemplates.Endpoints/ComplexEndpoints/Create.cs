@@ -55,12 +55,15 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
         {
             try
             {
-                Team team = await Team.FromDto(dto);
-                if (team.IsValid)
+                return await Call<TeamDto>.RetryOnDeadlock(async () =>
                 {
-                    team = await team.SaveAsync();
-                }
-                return Created(Helper.Uri(Request), team.ToDto<TeamDto>());
+                    Team team = await Team.FromDto(dto);
+                    if (team.IsValid)
+                    {
+                        team = await team.SaveAsync();
+                    }
+                    return Created(Helper.Uri(Request), team.ToDto<TeamDto>());
+                });
             }
             catch (Exception ex)
             {
