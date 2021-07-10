@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Transactions;
 
 namespace CslaModelTemplates.Endpoints
 {
@@ -14,10 +13,19 @@ namespace CslaModelTemplates.Endpoints
         internal const int MAX_DELAY_MS = 200;
     }
 
+    /// <summary>
+    /// Provides method to execute a function and handle deadlock.
+    /// </summary>
     public static class Run
     {
         private static readonly Random _random = new Random(DateTime.Now.Millisecond);
 
+        /// <summary>
+        /// Executes a function, and retries when it fails due to deadlock.
+        /// </summary>
+        /// <param name="businessMethod">The function to execute.</param>
+        /// <param name="maxRetries">The number of attempts, defaults to 3.</param>
+        /// <returns>The result of the action.</returns>
         public async static Task<ActionResult> RetryOnDeadlock(
             Func<Task<ActionResult>> businessMethod,
             int maxRetries = RUN.MAX_RETRIES
@@ -31,7 +39,7 @@ namespace CslaModelTemplates.Endpoints
                 result = await businessMethod();
 
                 if ((result as OkObjectResult) != null &&
-                    (result as OkObjectResult)?.Value is DeadlockError)
+                    (result as OkObjectResult).Value is DeadlockError)
                 {
                     retryCount++;
                     result = null;
@@ -45,10 +53,20 @@ namespace CslaModelTemplates.Endpoints
         }
     }
 
+    /// <summary>
+    /// Provides method to execute a function and handle deadlock.
+    /// </summary>
+    /// <typeparam name="T">The type of the action result.</typeparam>
     public static class Call<T> where T : class
     {
         private static readonly Random _random = new Random(DateTime.Now.Millisecond);
 
+        /// <summary>
+        /// Executes a function, and retries when it fails due to deadlock.
+        /// </summary>
+        /// <param name="businessMethod">The function to execute.</param>
+        /// <param name="maxRetries">The number of attempts, defaults to 3.</param>
+        /// <returns>The result of the action.</returns>
         public async static Task<ActionResult<T>> RetryOnDeadlock(
             Func<Task<ActionResult<T>>> businessMethod,
             int maxRetries = RUN.MAX_RETRIES

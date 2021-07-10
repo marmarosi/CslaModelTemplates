@@ -35,7 +35,7 @@ namespace CslaModelTemplates.EndpointTests
                 }
 
                 if ((result as OkObjectResult) != null &&
-                    (result as OkObjectResult)?.Value is DeadlockError)
+                    (result as OkObjectResult).Value is DeadlockError)
                 {
                     Console.Beep(170, 1500);
                     retryCount++;

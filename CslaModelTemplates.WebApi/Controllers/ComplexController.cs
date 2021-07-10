@@ -154,12 +154,15 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                Team team = await Team.FromDto(dto);
-                if (team.IsValid)
+                return await RetryOnDeadlock(async () =>
                 {
-                    team = await team.SaveAsync();
-                }
-                return Created(Uri, team.ToDto<TeamDto>());
+                    Team team = await Team.FromDto(dto);
+                    if (team.IsValid)
+                    {
+                        team = await team.SaveAsync();
+                    }
+                    return Created(Uri, team.ToDto<TeamDto>());
+                });
             }
             catch (Exception ex)
             {
@@ -184,12 +187,15 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                Team team = await Team.FromDto(dto);
-                if (team.IsSavable)
+                return await RetryOnDeadlock(async () =>
                 {
-                    team = await team.SaveAsync();
-                }
-                return Ok(team.ToDto<TeamDto>());
+                    Team team = await Team.FromDto(dto);
+                    if (team.IsSavable)
+                    {
+                        team = await team.SaveAsync();
+                    }
+                    return Ok(team.ToDto<TeamDto>());
+                });
             }
             catch (Exception ex)
             {
@@ -213,8 +219,11 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                await Task.Run(() => Team.Delete(criteria));
-                return NoContent();
+                return await RetryOnDeadlock(async () =>
+                {
+                    await Task.Run(() => Team.Delete(criteria));
+                    return NoContent();
+                });
             }
             catch (Exception ex)
             {
@@ -293,12 +302,15 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                TeamSet set = await TeamSet.FromDto(criteria, dto);
-                if (set.IsSavable)
+                return await RetryOnDeadlock(async () =>
                 {
-                    set = await set.SaveAsync();
-                }
-                return Ok(set.ToDto<TeamSetItemDto>());
+                    TeamSet set = await TeamSet.FromDto(criteria, dto);
+                    if (set.IsSavable)
+                    {
+                        set = await set.SaveAsync();
+                    }
+                    return Ok(set.ToDto<TeamSetItemDto>());
+                });
             }
             catch (Exception ex)
             {

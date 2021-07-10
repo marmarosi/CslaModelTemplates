@@ -27,6 +27,14 @@
             <param name="exception">The exception thrown by the backend.</param>
             <returns>The error information to send to the frontend.</returns>
         </member>
+        <member name="M:CslaModelTemplates.WebApi.ApiController.RetryOnDeadlock(System.Func{System.Threading.Tasks.Task{Microsoft.AspNetCore.Mvc.IActionResult}},System.Int32)">
+            <summary>
+            Executes a function, and retries when it fails due to deadlock.
+            </summary>
+            <param name="businessMethod">The function to execute.</param>
+            <param name="maxRetries">The number of attempts, defaults to 3.</param>
+            <returns>The result of the action.</returns>
+        </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.ComplexController">
             <summary>
             Contains the API endpoints for complex models.

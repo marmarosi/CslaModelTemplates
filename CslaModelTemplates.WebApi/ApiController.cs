@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.WebApi
 {
@@ -12,6 +14,12 @@ namespace CslaModelTemplates.WebApi
     /// </summary>
     public class ApiController : ControllerBase
     {
+        private const int MAX_RETRIES = 1;
+        private const int MIN_DELAY_MS = 100;
+        private const int MAX_DELAY_MS = 200;
+
+        private static readonly Random _random = new Random(DateTime.Now.Millisecond);
+
         internal ILogger Logger { get; set; }
 
         /// <summary>
@@ -70,6 +78,38 @@ namespace CslaModelTemplates.WebApi
 
             result = new ObjectResult(backend);
             result.StatusCode = statusCode;
+            return result;
+        }
+
+        /// <summary>
+        /// Executes a function, and retries when it fails due to deadlock.
+        /// </summary>
+        /// <param name="businessMethod">The function to execute.</param>
+        /// <param name="maxRetries">The number of attempts, defaults to 3.</param>
+        /// <returns>The result of the action.</returns>
+        public async Task<IActionResult> RetryOnDeadlock(
+            Func<Task<IActionResult>> businessMethod,
+            int maxRetries = MAX_RETRIES
+            )
+        {
+            var retryCount = 0;
+            IActionResult result = null;
+
+            while (retryCount < maxRetries)
+            {
+                result = await businessMethod();
+
+                if ((result as OkObjectResult) != null &&
+                    (result as ObjectResult).Value is DeadlockError)
+                {
+                    retryCount++;
+                    result = null;
+                    Thread.Sleep(_random.Next(MIN_DELAY_MS, MAX_DELAY_MS));
+                }
+                else
+                    retryCount = maxRetries;
+            }
+
             return result;
         }
     }

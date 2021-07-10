@@ -121,12 +121,15 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                Group group = await Group.FromDto(dto);
-                if (group.IsValid)
+                return await RetryOnDeadlock(async () =>
                 {
-                    group = await group.SaveAsync();
-                }
-                return Created(Uri, group.ToDto<GroupDto>());
+                    Group group = await Group.FromDto(dto);
+                    if (group.IsValid)
+                    {
+                        group = await group.SaveAsync();
+                    }
+                    return Created(Uri, group.ToDto<GroupDto>());
+                });
             }
             catch (Exception ex)
             {
@@ -151,12 +154,15 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                Group group = await Group.FromDto(dto);
-                if (group.IsSavable)
+                return await RetryOnDeadlock(async () =>
                 {
-                    group = await group.SaveAsync();
-                }
-                return Ok(group.ToDto<GroupDto>());
+                    Group group = await Group.FromDto(dto);
+                    if (group.IsSavable)
+                    {
+                        group = await group.SaveAsync();
+                    }
+                    return Ok(group.ToDto<GroupDto>());
+                });
             }
             catch (Exception ex)
             {
@@ -180,8 +186,11 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                await Task.Run(() => Group.Delete(criteria));
-                return NoContent();
+                return await RetryOnDeadlock(async () =>
+                {
+                    await Task.Run(() => Group.Delete(criteria));
+                    return NoContent();
+                });
             }
             catch (Exception ex)
             {

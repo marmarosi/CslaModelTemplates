@@ -154,12 +154,15 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                SimpleTeam team = await SimpleTeam.FromDto(dto);
-                if (team.IsValid)
+                return await RetryOnDeadlock(async () =>
                 {
-                    team = await team.SaveAsync();
-                }
-                return Created(Uri, team.ToDto<SimpleTeamDto>());
+                    SimpleTeam team = await SimpleTeam.FromDto(dto);
+                    if (team.IsValid)
+                    {
+                        team = await team.SaveAsync();
+                    }
+                    return Created(Uri, team.ToDto<SimpleTeamDto>());
+                });
             }
             catch (Exception ex)
             {
@@ -184,12 +187,15 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                SimpleTeam team = await SimpleTeam.FromDto(dto);
-                if (team.IsSavable)
+                return await RetryOnDeadlock(async () =>
                 {
-                    team = await team.SaveAsync();
-                }
-                return Ok(team.ToDto<SimpleTeamDto>());
+                    SimpleTeam team = await SimpleTeam.FromDto(dto);
+                    if (team.IsSavable)
+                    {
+                        team = await team.SaveAsync();
+                    }
+                    return Ok(team.ToDto<SimpleTeamDto>());
+                });
             }
             catch (Exception ex)
             {
@@ -213,8 +219,11 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                await Task.Run(() => SimpleTeam.Delete(criteria));
-                return NoContent();
+                return await RetryOnDeadlock(async () =>
+                {
+                    await Task.Run(() => SimpleTeam.Delete(criteria));
+                    return NoContent();
+                });
             }
             catch (Exception ex)
             {
@@ -293,12 +302,15 @@ namespace CslaModelTemplates.WebApi.Controllers
         {
             try
             {
-                SimpleTeamSet team = await SimpleTeamSet.FromDto(criteria, dto);
-                if (team.IsSavable)
+                return await RetryOnDeadlock(async () =>
                 {
-                    team = await team.SaveAsync();
-                }
-                return Ok(team.ToDto<SimpleTeamSetItemDto>());
+                    SimpleTeamSet team = await SimpleTeamSet.FromDto(criteria, dto);
+                    if (team.IsSavable)
+                    {
+                        team = await team.SaveAsync();
+                    }
+                    return Ok(team.ToDto<SimpleTeamSetItemDto>());
+                });
             }
             catch (Exception ex)
             {

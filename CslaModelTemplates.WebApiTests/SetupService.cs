@@ -17,6 +17,10 @@ namespace CslaModelTemplates.WebApiTests
 {
     internal class SetupService
     {
+        private const int MAX_RETRIES = 1;
+        private const int MIN_DELAY_MS = 100;
+        private const int MAX_DELAY_MS = 200;
+
         private static readonly SetupService _setupServiceInstance = new SetupService();
         private static readonly Random _random = new Random(DateTime.Now.Millisecond);
 
@@ -66,7 +70,7 @@ namespace CslaModelTemplates.WebApiTests
 
         public async Task<IActionResult> RetryOnDeadlock(
             Func<Task<IActionResult>> businessMethod,
-            int maxRetries = 3
+            int maxRetries = MAX_RETRIES
             )
         {
             var retryCount = 0;
@@ -80,12 +84,12 @@ namespace CslaModelTemplates.WebApiTests
                     scope.Dispose();
                 }
 
-                if ((result as OkObjectResult) == null &&
-                    (result as ObjectResult)?.Value is DeadlockError)
+                if ((result as OkObjectResult) != null &&
+                    (result as ObjectResult).Value is DeadlockError)
                 {
                     retryCount++;
                     result = null;
-                    Thread.Sleep(_random.Next(100, 200));
+                    Thread.Sleep(_random.Next(MIN_DELAY_MS, MAX_DELAY_MS));
                 }
                 else
                     retryCount = maxRetries;
