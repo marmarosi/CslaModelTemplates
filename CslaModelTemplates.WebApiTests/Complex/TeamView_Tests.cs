@@ -18,10 +18,10 @@ namespace CslaModelTemplates.WebApiTests.Complex
 
             // Act
             TeamViewCriteria criteria = new TeamViewCriteria { TeamKey = 17 };
-            IActionResult actionResult = await sut.GetTeamView(criteria);
+            ActionResult<TeamViewDto> actionResult = await sut.GetTeamView(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             TeamViewDto team = okObjectResult.Value as TeamViewDto;

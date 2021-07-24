@@ -18,10 +18,10 @@ namespace CslaModelTemplates.WebApiTests.Junction
 
             // Act
             GroupViewCriteria criteria = new GroupViewCriteria { GroupKey = 8 };
-            IActionResult actionResult = await sut.GetGroupView(criteria);
+            ActionResult<GroupViewDto> actionResult = await sut.GetGroupView(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             GroupViewDto group = okObjectResult.Value as GroupViewDto;

@@ -40,7 +40,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The requested group view.</returns>
         [HttpGet("view")]
         [ProducesResponseType(typeof(GroupViewDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetGroupView(
+        public async Task<ActionResult<GroupViewDto>> GetGroupView(
             [FromQuery] GroupViewCriteria criteria
             )
         {
@@ -65,7 +65,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>A new group.</returns>
         [HttpGet("new")]
         [ProducesResponseType(typeof(GroupDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetNewGroup()
+        public async Task<ActionResult<GroupDto>> GetNewGroup()
         {
             try
             {
@@ -89,7 +89,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The requested group.</returns>
         [HttpGet("fetch")]
         [ProducesResponseType(typeof(GroupDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetGroup(
+        public async Task<ActionResult<GroupDto>> GetGroup(
             [FromQuery] GroupCriteria criteria
             )
         {
@@ -115,13 +115,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The created group.</returns>
         [HttpPost]
         [ProducesResponseType(typeof(GroupDto), StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateGroup(
+        public async Task<ActionResult<GroupDto>> CreateGroup(
             [FromBody] GroupDto dto
             )
         {
             try
             {
-                return await RetryOnDeadlock(async () =>
+                return await Call<GroupDto>.RetryOnDeadlock(async () =>
                 {
                     Group group = await Group.FromDto(dto);
                     if (group.IsValid)
@@ -148,13 +148,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The updated group.</returns>
         [HttpPut]
         [ProducesResponseType(typeof(GroupDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateGroup(
+        public async Task<ActionResult<GroupDto>> UpdateGroup(
             [FromBody] GroupDto dto
             )
         {
             try
             {
-                return await RetryOnDeadlock(async () =>
+                return await Call<GroupDto>.RetryOnDeadlock(async () =>
                 {
                     Group group = await Group.FromDto(dto);
                     if (group.IsSavable)
@@ -180,13 +180,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="criteria">The criteria of the group.</param>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteGroup(
+        public async Task<ActionResult> DeleteGroup(
             [FromQuery] GroupCriteria criteria
             )
         {
             try
             {
-                return await RetryOnDeadlock(async () =>
+                return await Run.RetryOnDeadlock(async () =>
                 {
                     await Task.Run(() => Group.Delete(criteria));
                     return NoContent();

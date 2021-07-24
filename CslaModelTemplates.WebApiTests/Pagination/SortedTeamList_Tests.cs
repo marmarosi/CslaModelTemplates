@@ -25,13 +25,13 @@ namespace CslaModelTemplates.WebApiTests.Pagination
                 SortBy = SortedTeamListSortBy.TeamCode,
                 SortDirection = SortDirection.Descending
             };
-            IActionResult actionResult = await sut.GetSortedTeamList(criteria);
+            ActionResult<List<SortedTeamListItemDto>> actionResult = await sut.GetSortedTeamList(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
-            List<SortedTeamListItemDto> list = okObjectResult.Value as List<SortedTeamListItemDto>;
+            IList<SortedTeamListItemDto> list = okObjectResult.Value as IList<SortedTeamListItemDto>;
             Assert.NotNull(list);
 
             // The list must have 6 items.

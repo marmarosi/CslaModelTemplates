@@ -26,13 +26,13 @@ namespace CslaModelTemplates.WebApiTests.Pagination
                 SortBy = PaginatedSortedTeamListSortBy.TeamCode,
                 SortDirection = SortDirection.Descending
             };
-            IActionResult actionResult = await sut.GetPaginatedSortedTeamList(criteria);
+            ActionResult<PaginatedList<PaginatedSortedTeamListItemDto>> actionResult = await sut.GetPaginatedSortedTeamList(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
-            PaginatedList<PaginatedSortedTeamListItemDto> list = okObjectResult.Value as PaginatedList<PaginatedSortedTeamListItemDto>;
+            IPaginatedList<PaginatedSortedTeamListItemDto> list = okObjectResult.Value as IPaginatedList<PaginatedSortedTeamListItemDto>;
             Assert.NotNull(list);
 
             // The list must have 4 items and 14 total items.

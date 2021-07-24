@@ -20,10 +20,10 @@ namespace CslaModelTemplates.WebApiTests.Complex
 
             // Act
             TeamListCriteria criteria = new TeamListCriteria { TeamName = "6" };
-            IActionResult actionResult = await sut.GetTeamList(criteria);
+            ActionResult<List<TeamListItemDto>> actionResult = await sut.GetTeamList(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             List<TeamListItemDto> list = okObjectResult.Value as List<TeamListItemDto>;

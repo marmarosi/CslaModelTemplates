@@ -19,7 +19,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
 
             // Act
             SimpleTeamListCriteria criteria = new SimpleTeamListCriteria { TeamName = "9" };
-            ActionResult<IList<SimpleTeamListItemDto>> actionResult = await sut.GetTeamList(criteria);
+            ActionResult<List<SimpleTeamListItemDto>> actionResult = await sut.GetTeamList(criteria);
 
             // Assert
             OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;

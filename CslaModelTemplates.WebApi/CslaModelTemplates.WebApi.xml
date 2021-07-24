@@ -27,14 +27,6 @@
             <param name="exception">The exception thrown by the backend.</param>
             <returns>The error information to send to the frontend.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.ApiController.RetryOnDeadlock(System.Func{System.Threading.Tasks.Task{Microsoft.AspNetCore.Mvc.IActionResult}},System.Int32)">
-            <summary>
-            Executes a function, and retries when it fails due to deadlock.
-            </summary>
-            <param name="businessMethod">The function to execute.</param>
-            <param name="maxRetries">The number of attempts, defaults to 3.</param>
-            <returns>The result of the action.</returns>
-        </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.ComplexController">
             <summary>
             Contains the API endpoints for complex models.
@@ -405,6 +397,33 @@
             </summary>
             <param name = "args" > The startup arguments.</param>
             <returns>The web host builder.</returns>
+        </member>
+        <member name="T:CslaModelTemplates.WebApi.Run">
+            <summary>
+            Provides method to execute a function and handle deadlock.
+            </summary>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Run.RetryOnDeadlock(System.Func{System.Threading.Tasks.Task{Microsoft.AspNetCore.Mvc.ActionResult}},System.Int32)">
+            <summary>
+            Executes a function, and retries when it fails due to deadlock.
+            </summary>
+            <param name="businessMethod">The function to execute.</param>
+            <param name="maxRetries">The number of attempts, defaults to 3.</param>
+            <returns>The result of the action.</returns>
+        </member>
+        <member name="T:CslaModelTemplates.WebApi.Call`1">
+            <summary>
+            Provides method to execute a function and handle deadlock.
+            </summary>
+            <typeparam name="T">The type of the action result.</typeparam>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Call`1.RetryOnDeadlock(System.Func{System.Threading.Tasks.Task{Microsoft.AspNetCore.Mvc.ActionResult{`0}}},System.Int32)">
+            <summary>
+            Executes a function, and retries when it fails due to deadlock.
+            </summary>
+            <param name="businessMethod">The function to execute.</param>
+            <param name="maxRetries">The number of attempts, defaults to 3.</param>
+            <returns>The result of the action.</returns>
         </member>
         <member name="T:CslaModelTemplates.WebApi.Startup">
             <summary>

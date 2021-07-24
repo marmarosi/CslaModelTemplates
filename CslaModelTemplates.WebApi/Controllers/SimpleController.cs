@@ -47,7 +47,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>A list of teams.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(List<SimpleTeamListItemDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IList<SimpleTeamListItemDto>>> GetTeamList(
+        public async Task<ActionResult<List<SimpleTeamListItemDto>>> GetTeamList(
             [FromQuery] SimpleTeamListCriteria criteria
             )
         {
@@ -98,7 +98,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The new team.</returns>
         [HttpGet("new")]
         [ProducesResponseType(typeof(SimpleTeamDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetNewTeam()
+        public async Task<ActionResult<SimpleTeamDto>> GetNewTeam()
         {
             try
             {
@@ -122,7 +122,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The requested team.</returns>
         [HttpGet("fetch")]
         [ProducesResponseType(typeof(SimpleTeamDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetTeam(
+        public async Task<ActionResult<SimpleTeamDto>> GetTeam(
             [FromQuery] SimpleTeamCriteria criteria
             )
         {
@@ -148,13 +148,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The created team.</returns>
         [HttpPost]
         [ProducesResponseType(typeof(SimpleTeamDto), StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateTeam(
+        public async Task<ActionResult<SimpleTeamDto>> CreateTeam(
             [FromBody] SimpleTeamDto dto
             )
         {
             try
             {
-                return await RetryOnDeadlock(async () =>
+                return await Call<SimpleTeamDto>.RetryOnDeadlock(async () =>
                 {
                     SimpleTeam team = await SimpleTeam.FromDto(dto);
                     if (team.IsValid)
@@ -181,13 +181,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The updated team.</returns>
         [HttpPut]
         [ProducesResponseType(typeof(SimpleTeamDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateTeam(
+        public async Task<ActionResult<SimpleTeamDto>> UpdateTeam(
             [FromBody] SimpleTeamDto dto
             )
         {
             try
             {
-                return await RetryOnDeadlock(async () =>
+                return await Call<SimpleTeamDto>.RetryOnDeadlock(async () =>
                 {
                     SimpleTeam team = await SimpleTeam.FromDto(dto);
                     if (team.IsSavable)
@@ -213,13 +213,13 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <param name="criteria">The criteria of the team.</param>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteTeam(
+        public async Task<ActionResult> DeleteTeam(
             [FromQuery] SimpleTeamCriteria criteria
             )
         {
             try
             {
-                return await RetryOnDeadlock(async () =>
+                return await Run.RetryOnDeadlock(async () =>
                 {
                     await Task.Run(() => SimpleTeam.Delete(criteria));
                     return NoContent();
@@ -242,7 +242,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>True when the team was renamed; otherwise false.</returns>
         [HttpPatch]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        public async Task<IActionResult> RenameTeamCommand(
+        public async Task<ActionResult<bool>> RenameTeamCommand(
             [FromBody] RenameTeamDto dto
             )
         {
@@ -268,7 +268,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The requested team set.</returns>
         [HttpGet("set")]
         [ProducesResponseType(typeof(List<SimpleTeamSetItemDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetTeamSet(
+        public async Task<ActionResult<List<SimpleTeamSetItemDto>>> GetTeamSet(
             [FromQuery] SimpleTeamSetCriteria criteria
             )
         {
@@ -295,14 +295,14 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The updated team set.</returns>
         [HttpPut("set")]
         [ProducesResponseType(typeof(List<SimpleTeamSetItemDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateTeamSet(
+        public async Task<ActionResult<List<SimpleTeamSetItemDto>>> UpdateTeamSet(
             [FromQuery] SimpleTeamSetCriteria criteria,
             [FromBody] List<SimpleTeamSetItemDto> dto
             )
         {
             try
             {
-                return await RetryOnDeadlock(async () =>
+                return await Call<List<SimpleTeamSetItemDto>>.RetryOnDeadlock(async () =>
                 {
                     SimpleTeamSet team = await SimpleTeamSet.FromDto(criteria, dto);
                     if (team.IsSavable)

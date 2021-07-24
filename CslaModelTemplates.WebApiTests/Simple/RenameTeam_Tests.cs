@@ -18,7 +18,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
             var sut = new SimpleController(logger);
 
             // Act
-            IActionResult actionResult;
+            ActionResult<bool> actionResult;
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 RenameTeamDto dto = new RenameTeamDto { TeamKey = 37, TeamName = "Team Thirty Seven" };
@@ -28,7 +28,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
             }
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             bool success = (bool)okObjectResult.Value;

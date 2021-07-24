@@ -24,13 +24,13 @@ namespace CslaModelTemplates.WebApiTests.Pagination
                 PageIndex = 1,
                 PageSize = 10
             };
-            IActionResult actionResult = await sut.GetPaginatedTeamList(criteria);
+            ActionResult<PaginatedList<PaginatedTeamListItemDto>> actionResult = await sut.GetPaginatedTeamList(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
-            PaginatedList<PaginatedTeamListItemDto> list = okObjectResult.Value as PaginatedList<PaginatedTeamListItemDto>;
+            IPaginatedList<PaginatedTeamListItemDto> list = okObjectResult.Value as IPaginatedList<PaginatedTeamListItemDto>;
             Assert.NotNull(list);
 
             // The list must have 4 items and 14 total items.

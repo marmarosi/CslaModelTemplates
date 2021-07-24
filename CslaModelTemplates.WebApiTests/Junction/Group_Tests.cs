@@ -19,10 +19,10 @@ namespace CslaModelTemplates.WebApiTests.Junction
             var sut = new JunctionController(logger);
 
             // Act
-            IActionResult actionResult = await sut.GetNewGroup();
+            ActionResult<GroupDto> actionResult = await sut.GetNewGroup();
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             GroupDto group = okObjectResult.Value as GroupDto;
@@ -51,7 +51,7 @@ namespace CslaModelTemplates.WebApiTests.Junction
             GroupDto pristineGroup = null;
             GroupPersonDto pristineMember1 = null;
             GroupPersonDto pristineMember2 = null;
-            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
+            ActionResult<GroupDto> actionResult = await Call<GroupDto>.RetryOnDeadlock(async () =>
             {
                 pristineGroup = new GroupDto
                 {
@@ -77,7 +77,7 @@ namespace CslaModelTemplates.WebApiTests.Junction
             });
 
             // Assert
-            CreatedResult createdResult = actionResult as CreatedResult;
+            CreatedResult createdResult = actionResult.Result as CreatedResult;
             Assert.NotNull(createdResult);
 
             GroupDto createdGroup = createdResult.Value as GroupDto;
@@ -115,10 +115,10 @@ namespace CslaModelTemplates.WebApiTests.Junction
 
             // Act
             GroupCriteria criteria = new GroupCriteria { GroupKey = 12 };
-            IActionResult actionResult = await sut.GetGroup(criteria);
+            ActionResult<GroupDto> actionResult = await sut.GetGroup(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             GroupDto pristineGroup = okObjectResult.Value as GroupDto;
@@ -156,11 +156,11 @@ namespace CslaModelTemplates.WebApiTests.Junction
             GroupDto pristineGroup = null;
             GroupPersonDto pristineMember1 = null;
             GroupPersonDto pristineMemberNew = null;
-            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
+            ActionResult<GroupDto> actionResult = await Call<GroupDto>.RetryOnDeadlock(async () =>
             {
                 GroupCriteria criteria = new GroupCriteria { GroupKey = 12 };
-                IActionResult actionResult = await sutR.GetGroup(criteria);
-                OkObjectResult okObjectResult = actionResult as OkObjectResult;
+                ActionResult<GroupDto> actionResult = await sutR.GetGroup(criteria);
+                OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
                 pristineGroup = okObjectResult.Value as GroupDto;
                 pristineMember1 = pristineGroup.Persons[0];
 
@@ -177,7 +177,7 @@ namespace CslaModelTemplates.WebApiTests.Junction
             });
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             GroupDto updatedGroup = okObjectResult.Value as GroupDto;
@@ -214,7 +214,7 @@ namespace CslaModelTemplates.WebApiTests.Junction
             var sut = new JunctionController(logger);
 
             // Act
-            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
+            ActionResult actionResult = await Run.RetryOnDeadlock(async () =>
             {
                 GroupCriteria criteria = new GroupCriteria { GroupKey = 4 };
                 return await sut.DeleteGroup(criteria);

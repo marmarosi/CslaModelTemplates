@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CslaModelTemplates.WebApi
 {
@@ -78,38 +76,6 @@ namespace CslaModelTemplates.WebApi
 
             result = new ObjectResult(backend);
             result.StatusCode = statusCode;
-            return result;
-        }
-
-        /// <summary>
-        /// Executes a function, and retries when it fails due to deadlock.
-        /// </summary>
-        /// <param name="businessMethod">The function to execute.</param>
-        /// <param name="maxRetries">The number of attempts, defaults to 3.</param>
-        /// <returns>The result of the action.</returns>
-        public async Task<IActionResult> RetryOnDeadlock(
-            Func<Task<IActionResult>> businessMethod,
-            int maxRetries = MAX_RETRIES
-            )
-        {
-            var retryCount = 0;
-            IActionResult result = null;
-
-            while (retryCount < maxRetries)
-            {
-                result = await businessMethod();
-
-                if ((result as OkObjectResult) != null &&
-                    (result as ObjectResult).Value is DeadlockError)
-                {
-                    retryCount++;
-                    result = null;
-                    Thread.Sleep(_random.Next(MIN_DELAY_MS, MAX_DELAY_MS));
-                }
-                else
-                    retryCount = maxRetries;
-            }
-
             return result;
         }
     }

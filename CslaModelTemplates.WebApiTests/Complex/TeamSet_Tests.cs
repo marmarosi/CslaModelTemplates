@@ -22,10 +22,10 @@ namespace CslaModelTemplates.WebApiTests.Complex
 
             // Act
             TeamSetCriteria criteria = new TeamSetCriteria { TeamName = "7" };
-            IActionResult actionResult = await sut.GetTeamSet(criteria);
+            ActionResult<List<TeamSetItemDto>> actionResult = await sut.GetTeamSet(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             List<TeamSetItemDto> pristineList = okObjectResult.Value as List<TeamSetItemDto>;
@@ -57,11 +57,11 @@ namespace CslaModelTemplates.WebApiTests.Complex
             TeamSetItemDto pristineTeamNew = null;
             TeamSetPlayerDto pristinePlayerNew = null;
             long? deletedTeamKey = null;
-            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
+            ActionResult<List<TeamSetItemDto>> actionResult = await Call<List<TeamSetItemDto>>.RetryOnDeadlock(async () =>
             {
                 TeamSetCriteria criteria = new TeamSetCriteria { TeamName = "7" };
-                IActionResult actionResult = await sut.GetTeamSet(criteria);
-                OkObjectResult okObjectResult = actionResult as OkObjectResult;
+                ActionResult<List<TeamSetItemDto>> actionResult = await sut.GetTeamSet(criteria);
+                OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
                 List<TeamSetItemDto> pristineList = okObjectResult.Value as List<TeamSetItemDto>;
 
                 // Modify an item.
@@ -73,8 +73,8 @@ namespace CslaModelTemplates.WebApiTests.Complex
                 pristinePlayer31.PlayerCode = "P-9301-1";
                 pristinePlayer31.PlayerName = "Test player #9301.1";
 
-                    // Create new item.
-                    pristineTeamNew = new TeamSetItemDto
+                // Create new item.
+                pristineTeamNew = new TeamSetItemDto
                 {
                     TeamKey = null,
                     TeamCode = "T-9302",
@@ -91,17 +91,17 @@ namespace CslaModelTemplates.WebApiTests.Complex
                 pristineTeamNew.Players.Add(pristinePlayerNew);
                 pristineList.Add(pristineTeamNew);
 
-                    // Delete an item.
-                    TeamSetItemDto pristineTeam4 = pristineList[3];
+                // Delete an item.
+                TeamSetItemDto pristineTeam4 = pristineList[3];
                 deletedTeamKey = pristineTeam4.TeamKey;
                 pristineList.Remove(pristineTeam4);
 
-                    // Act
-                    return await sut.UpdateTeamSet(criteria, pristineList);
+                // Act
+                return await sut.UpdateTeamSet(criteria, pristineList);
             });
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             List<TeamSetItemDto> updatedList = okObjectResult.Value as List<TeamSetItemDto>;

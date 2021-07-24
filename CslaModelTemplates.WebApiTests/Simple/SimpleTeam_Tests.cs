@@ -19,10 +19,10 @@ namespace CslaModelTemplates.WebApiTests.Simple
             var sut = new SimpleController(logger);
 
             // Act
-            IActionResult actionResult = await sut.GetNewTeam();
+            ActionResult<SimpleTeamDto> actionResult = await sut.GetNewTeam();
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             SimpleTeamDto team = okObjectResult.Value as SimpleTeamDto;
@@ -48,7 +48,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
 
             // Act
             SimpleTeamDto pristineTeam = null;
-            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
+            ActionResult<SimpleTeamDto> actionResult = await Call<SimpleTeamDto>.RetryOnDeadlock(async () =>
             {
                 pristineTeam = new SimpleTeamDto
                 {
@@ -61,7 +61,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
             });
 
             // Assert
-            CreatedResult createdResult = actionResult as CreatedResult;
+            CreatedResult createdResult = actionResult.Result as CreatedResult;
             Assert.NotNull(createdResult);
 
             SimpleTeamDto createdTeam = createdResult.Value as SimpleTeamDto;
@@ -88,10 +88,10 @@ namespace CslaModelTemplates.WebApiTests.Simple
 
             // Act
             SimpleTeamCriteria criteria = new SimpleTeamCriteria { TeamKey = 22 };
-            IActionResult actionResult = await sut.GetTeam(criteria);
+            ActionResult<SimpleTeamDto> actionResult = await sut.GetTeam(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             SimpleTeamDto pristine = okObjectResult.Value as SimpleTeamDto;
@@ -119,11 +119,11 @@ namespace CslaModelTemplates.WebApiTests.Simple
 
             // Act
             SimpleTeamDto pristine = null;
-            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
+            ActionResult<SimpleTeamDto> actionResult = await Call<SimpleTeamDto>.RetryOnDeadlock(async () =>
             {
                 SimpleTeamCriteria criteria = new SimpleTeamCriteria { TeamKey = 22 };
-                IActionResult actionResult = await sutR.GetTeam(criteria);
-                OkObjectResult okObjectResult = actionResult as OkObjectResult;
+                ActionResult<SimpleTeamDto> actionResult = await sutR.GetTeam(criteria);
+                OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
                 pristine = okObjectResult.Value as SimpleTeamDto;
 
                 pristine.TeamCode = "T-9002";
@@ -133,7 +133,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
             });
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             SimpleTeamDto updated = okObjectResult.Value as SimpleTeamDto;
@@ -159,7 +159,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
             var sut = new SimpleController(logger);
 
             // Act
-            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
+            ActionResult actionResult = await Run.RetryOnDeadlock(async () =>
             {
                 SimpleTeamCriteria criteria = new SimpleTeamCriteria { TeamKey = 44 };
                 return await sut.DeleteTeam(criteria);

@@ -20,13 +20,13 @@ namespace CslaModelTemplates.WebApiTests.Selection
 
             // Act
             TeamKeyChoiceCriteria criteria = new TeamKeyChoiceCriteria { TeamName = "7" };
-            IActionResult actionResult = await sut.GetTeamChoiceWithKey(criteria);
+            ActionResult<List<KeyNameOptionDto>> actionResult = await sut.GetTeamChoiceWithKey(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
-            List<KeyNameOptionDto> choice = okObjectResult.Value as List<KeyNameOptionDto>;
+            IList<KeyNameOptionDto> choice = okObjectResult.Value as IList<KeyNameOptionDto>;
             Assert.NotNull(choice);
 
             // The choice must have 5 items.

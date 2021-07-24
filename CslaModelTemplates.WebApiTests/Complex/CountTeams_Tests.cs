@@ -19,7 +19,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             var sut = new ComplexController(logger);
 
             // Act
-            IActionResult actionResult;
+            ActionResult<List<CountTeamsListItemDto>> actionResult;
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 CountTeamsCriteria criteria = new CountTeamsCriteria();
@@ -29,7 +29,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             }
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             List<CountTeamsListItemDto> list = okObjectResult.Value as List<CountTeamsListItemDto>;

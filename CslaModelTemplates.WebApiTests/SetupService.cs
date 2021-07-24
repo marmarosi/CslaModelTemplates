@@ -1,15 +1,10 @@
 using CslaModelTemplates.Dal;
-using CslaModelTemplates.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Transactions;
 using Xunit;
 
 [assembly: CollectionBehavior(MaxParallelThreads = 1)]
@@ -66,36 +61,6 @@ namespace CslaModelTemplates.WebApiTests
         public IServiceScope GetScope()
         {
             return _serviceProvider.CreateScope();
-        }
-
-        public async Task<IActionResult> RetryOnDeadlock(
-            Func<Task<IActionResult>> businessMethod,
-            int maxRetries = MAX_RETRIES
-            )
-        {
-            var retryCount = 0;
-            IActionResult result = null;
-
-            while (retryCount < maxRetries)
-            {
-                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    result = await businessMethod();
-                    scope.Dispose();
-                }
-
-                if ((result as OkObjectResult) != null &&
-                    (result as ObjectResult).Value is DeadlockError)
-                {
-                    retryCount++;
-                    result = null;
-                    Thread.Sleep(_random.Next(MIN_DELAY_MS, MAX_DELAY_MS));
-                }
-                else
-                    retryCount = maxRetries;
-            }
-
-            return result;
         }
     }
 }

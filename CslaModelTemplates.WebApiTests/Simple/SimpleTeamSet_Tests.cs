@@ -22,10 +22,10 @@ namespace CslaModelTemplates.WebApiTests.Simple
 
             // Act
             SimpleTeamSetCriteria criteria = new SimpleTeamSetCriteria { TeamName = "8" };
-            IActionResult actionResult = await sut.GetTeamSet(criteria);
+            ActionResult<List<SimpleTeamSetItemDto>> actionResult = await sut.GetTeamSet(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             List<SimpleTeamSetItemDto> pristineList = okObjectResult.Value as List<SimpleTeamSetItemDto>;
@@ -52,11 +52,12 @@ namespace CslaModelTemplates.WebApiTests.Simple
             SimpleTeamSetItemDto pristine = null;
             SimpleTeamSetItemDto pristineNew = null;
             long? deletedKey = null;
-            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
+            ActionResult<List<SimpleTeamSetItemDto>> actionResult =
+                await Call<List<SimpleTeamSetItemDto>>.RetryOnDeadlock(async () =>
             {
                 SimpleTeamSetCriteria criteria = new SimpleTeamSetCriteria { TeamName = "8" };
-                IActionResult actionResult = await sutR.GetTeamSet(criteria);
-                OkObjectResult okObjectResult = actionResult as OkObjectResult;
+                ActionResult<List<SimpleTeamSetItemDto>> actionResult = await sutR.GetTeamSet(criteria);
+                OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
                 List<SimpleTeamSetItemDto> pristineList = okObjectResult.Value as List<SimpleTeamSetItemDto>;
 
                 // Modify an item.
@@ -79,11 +80,11 @@ namespace CslaModelTemplates.WebApiTests.Simple
                 deletedKey = pristine3.TeamKey;
                 pristineList.Remove(pristine3);
 
-                return actionResult = await sutU.UpdateTeamSet(criteria, pristineList);
+                return await sutU.UpdateTeamSet(criteria, pristineList);
             });
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             List<SimpleTeamSetItemDto> updatedList = okObjectResult.Value as List<SimpleTeamSetItemDto>;

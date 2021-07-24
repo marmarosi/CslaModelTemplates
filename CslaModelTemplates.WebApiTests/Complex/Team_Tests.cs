@@ -19,10 +19,10 @@ namespace CslaModelTemplates.WebApiTests.Complex
             var sut = new ComplexController(logger);
 
             // Act
-            IActionResult actionResult = await sut.GetNewTeam();
+            ActionResult<TeamDto> actionResult = await sut.GetNewTeam();
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             TeamDto team = okObjectResult.Value as TeamDto;
@@ -51,7 +51,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             TeamDto pristineTeam = null;
             PlayerDto pristinePlayer1 = null;
             PlayerDto pristinePlayer2 = null;
-            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
+            ActionResult<TeamDto> actionResult = await Call<TeamDto>.RetryOnDeadlock(async () =>
             {
                 pristineTeam = new TeamDto
                 {
@@ -81,7 +81,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             });
 
             // Assert
-            CreatedResult createdResult = actionResult as CreatedResult;
+            CreatedResult createdResult = actionResult.Result as CreatedResult;
             Assert.NotNull(createdResult);
 
             TeamDto createdTeam = createdResult.Value as TeamDto;
@@ -123,10 +123,10 @@ namespace CslaModelTemplates.WebApiTests.Complex
 
             // Act
             TeamCriteria criteria = new TeamCriteria { TeamKey = 19 };
-            IActionResult actionResult = await sut.GetTeam(criteria);
+            ActionResult<TeamDto> actionResult = await sut.GetTeam(criteria);
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             TeamDto pristineTeam = okObjectResult.Value as TeamDto;
@@ -166,11 +166,11 @@ namespace CslaModelTemplates.WebApiTests.Complex
             PlayerDto pristinePlayerNew = null;
             TeamDto pristineTeam = null;
             PlayerDto pristinePlayer1 = null;
-            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
+            ActionResult<TeamDto> actionResult = await Call<TeamDto>.RetryOnDeadlock(async () =>
             {
                 TeamCriteria criteria = new TeamCriteria { TeamKey = 19 };
-                IActionResult actionResult = await sutR.GetTeam(criteria);
-                OkObjectResult okObjectResult = actionResult as OkObjectResult;
+                ActionResult<TeamDto> actionResult = await sutR.GetTeam(criteria);
+                OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
                 pristineTeam = okObjectResult.Value as TeamDto;
                 pristinePlayer1 = pristineTeam.Players[0];
 
@@ -191,7 +191,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             });
 
             // Assert
-            OkObjectResult okObjectResult = actionResult as OkObjectResult;
+            OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
             Assert.NotNull(okObjectResult);
 
             TeamDto updatedTeam = okObjectResult.Value as TeamDto;
@@ -228,7 +228,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             var sut = new ComplexController(logger);
 
             // Act
-            IActionResult actionResult = await setup.RetryOnDeadlock(async () =>
+            ActionResult actionResult = await Run.RetryOnDeadlock(async () =>
             {
                 TeamCriteria criteria = new TeamCriteria { TeamKey = 8 };
                 return await sut.DeleteTeam(criteria);

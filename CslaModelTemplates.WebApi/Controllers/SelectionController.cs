@@ -42,7 +42,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The key-name choice of the teams.</returns>
         [HttpGet("with-key")]
         [ProducesResponseType(typeof(List<KeyNameOptionDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetTeamChoiceWithKey(
+        public async Task<ActionResult<List<KeyNameOptionDto>>> GetTeamChoiceWithKey(
             [FromQuery] KeyDef.TeamKeyChoiceCriteria criteria
             )
         {
@@ -68,7 +68,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         /// <returns>The code-name choice of the tenants.</returns>
         [HttpGet("with-code")]
         [ProducesResponseType(typeof(List<CodeNameOptionDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetTeamChoiceWithCode(
+        public async Task<ActionResult<List<CodeNameOptionDto>>> GetTeamChoiceWithCode(
             [FromQuery] CodeDef.TeamCodeChoiceCriteria criteria
             )
         {
