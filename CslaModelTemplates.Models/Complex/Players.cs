@@ -36,25 +36,31 @@ namespace CslaModelTemplates.Models.Complex
         /// </summary>
         /// <param name="list">The list of data transfer objects.</param>
         /// <returns>The rebuilt editable player collection.</returns>
+        //internal async Task Update(
+        //    List<PlayerDto> list
+        //    )
+        //{
+        //    List<int> indeces = Enumerable.Range(0, list.Count).ToList();
+        //    for (int i = Items.Count - 1; i > -1; i--)
+        //    {
+        //        Player item = Items[i];
+        //        PlayerDto dto = list.Find(o => o.PlayerKey == item.PlayerKey);
+        //        if (dto == null)
+        //            RemoveItem(i);
+        //        else
+        //        {
+        //            item.Update(dto);
+        //            indeces.Remove(list.IndexOf(dto));
+        //        }
+        //    }
+        //    foreach (int index in indeces)
+        //        Items.Add(await Player.Create(this, list[index]));
+        //}
         internal async Task Update(
             List<PlayerDto> list
             )
         {
-            List<int> indeces = Enumerable.Range(0, list.Count).ToList();
-            for (int i = Items.Count - 1; i > -1; i--)
-            {
-                Player item = Items[i];
-                PlayerDto dto = list.Find(o => o.PlayerKey == item.PlayerKey);
-                if (dto == null)
-                    RemoveItem(i);
-                else
-                {
-                    item.Update(dto);
-                    indeces.Remove(list.IndexOf(dto));
-                }
-            }
-            foreach (int index in indeces)
-                Items.Add(await Player.Create(this, list[index]));
+            await Update(list, "PlayerKey");
         }
 
         #endregion

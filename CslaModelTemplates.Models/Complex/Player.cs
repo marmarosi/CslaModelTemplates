@@ -122,7 +122,7 @@ namespace CslaModelTemplates.Models.Complex
         /// Updates an editable player from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer objects.</param>
-        internal void Update(
+        public override void Update<PlayerDto>(
             PlayerDto dto
             )
         {
@@ -147,15 +147,22 @@ namespace CslaModelTemplates.Models.Complex
         /// <param name="parent">The parent collection.</param>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The new editable player instance.</returns>
+        //internal static async Task<Player> Create(
+        //    IParent parent,
+        //    PlayerDto dto
+        //    )
+        //{
+        //    Player item = await Task.Run(() => DataPortal.CreateChild<Player>());
+        //    item.SetParent(parent);
+        //    item.Update(dto);
+        //    return item;
+        //}
         internal static async Task<Player> Create(
             IParent parent,
             PlayerDto dto
             )
         {
-            Player item = await Task.Run(() => DataPortal.CreateChild<Player>());
-            item.SetParent(parent);
-            item.Update(dto);
-            return item;
+            return await Create<PlayerDto>(parent, dto);
         }
 
         #endregion

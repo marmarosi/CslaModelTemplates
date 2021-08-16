@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.CslaExtensions.Models
 {
@@ -184,5 +185,23 @@ namespace CslaModelTemplates.CslaExtensions.Models
         }
 
         #endregion
+
+        public virtual void Update<D>(
+            D dto
+            )
+            where D : class
+        { }
+
+        public static async Task<T> Create<D>(
+            IParent parent,
+            D dto
+            )
+            where D : class
+        {
+            T item = await Task.Run(() => DataPortal.CreateChild<T>());
+            (item as EditableModel<T>).SetParent(parent);
+            (item as EditableModel<T>).Update(dto);
+            return item;
+        }
     }
 }

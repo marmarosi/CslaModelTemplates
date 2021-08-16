@@ -1,6 +1,8 @@
 using Csla;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.CslaExtensions.Models
 {
@@ -12,7 +14,7 @@ namespace CslaModelTemplates.CslaExtensions.Models
     [Serializable]
     public abstract class EditableList<T, C> : BusinessListBase<T, C>, IEditableList
         where T : BusinessListBase<T, C>, IEditableList
-        where C : BusinessBase<C>
+        where C : EditableModel<C>
     {
         /// <summary>
         /// Converts the business collection to data transfer object list.
@@ -33,6 +35,45 @@ namespace CslaModelTemplates.CslaExtensions.Models
                 instance.Add(child);
             }
             return instance;
+        }
+
+        public async Task Update<D>(
+            List<D> list,
+            string keyName
+            )
+            where D : class
+        {
+            List<int> indeces = Enumerable.Range(0, list.Count).ToList();
+            for (int i = Items.Count - 1; i > -1; i--)
+            {
+                C item = Items[i];
+                Predicate<D> match = (D o) => GetValue(o, keyName) == GetValue(item, keyName);
+                D dto = list.Find(match);
+
+                if (dto == null)
+                    RemoveItem(i);
+                else
+                {
+                    item.Update(dto);
+                    indeces.Remove(list.IndexOf(dto));
+                }
+            }
+            foreach (int index in indeces)
+            {
+                C child = await (typeof(C)
+                    .GetMethod("Create")
+                    .MakeGenericMethod(typeof(D))
+                    .Invoke(null, new object[] { list[index] }) as Task<C>);
+                Items.Add(child);
+            }
+        }
+
+        private object GetValue(
+            object something,
+            string propertyName
+            )
+        {
+            return something.GetType().GetProperty(propertyName).GetValue(something);
         }
     }
 }
