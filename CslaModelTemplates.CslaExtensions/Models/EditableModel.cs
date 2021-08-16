@@ -186,12 +186,28 @@ namespace CslaModelTemplates.CslaExtensions.Models
 
         #endregion
 
-        public virtual void Update<D>(
-            D dto
+        #region Update
+
+        /// <summary>
+        /// Updates an editable model from the data transfer object.
+        /// </summary>
+        /// <param name="data">The data transfer object.</param>
+        public virtual void Update(
+            object data
             )
-            where D : class
         { }
 
+        #endregion
+
+        #region Create
+
+        /// <summary>
+        /// Creates an editable model instance from the data transfer object.
+        /// </summary>
+        /// <typeparam name="D">The type of the data transfer object.</typeparam>
+        /// <param name="parent">The parent collection.</param>
+        /// <param name="dto">The data transfer object.</param>
+        /// <returns>The new editable model instance.</returns>
         public static async Task<T> Create<D>(
             IParent parent,
             D dto
@@ -203,5 +219,7 @@ namespace CslaModelTemplates.CslaExtensions.Models
             (item as EditableModel<T>).Update(dto);
             return item;
         }
+
+        #endregion
     }
 }

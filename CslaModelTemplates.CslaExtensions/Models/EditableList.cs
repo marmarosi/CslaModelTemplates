@@ -16,6 +16,8 @@ namespace CslaModelTemplates.CslaExtensions.Models
         where T : BusinessListBase<T, C>, IEditableList
         where C : EditableModel<C>
     {
+        #region ToDto
+
         /// <summary>
         /// Converts the business collection to data transfer object list.
         /// </summary>
@@ -37,6 +39,16 @@ namespace CslaModelTemplates.CslaExtensions.Models
             return instance;
         }
 
+        #endregion
+
+        #region Update
+
+        /// <summary>
+        /// Updates an editable collection from the data transfer objects.
+        /// </summary>
+        /// <typeparam name="D">The type of the data transfer objects.</typeparam>
+        /// <param name="list">The list of data transfer objects.</param>
+        /// <param name="keyName">The name of the key property.</param>
         public async Task Update<D>(
             List<D> list,
             string keyName
@@ -59,13 +71,12 @@ namespace CslaModelTemplates.CslaExtensions.Models
                 }
             }
             foreach (int index in indeces)
-            {
-                C child = await (typeof(C)
+                Items.Add(await (
+                    typeof(EditableModel<C>)
                     .GetMethod("Create")
                     .MakeGenericMethod(typeof(D))
-                    .Invoke(null, new object[] { list[index] }) as Task<C>);
-                Items.Add(child);
-            }
+                    .Invoke(null, new object[] { this, list[index] })
+                    as Task<C>));
         }
 
         private object GetValue(
@@ -75,5 +86,7 @@ namespace CslaModelTemplates.CslaExtensions.Models
         {
             return something.GetType().GetProperty(propertyName).GetValue(something);
         }
+
+        #endregion
     }
 }
