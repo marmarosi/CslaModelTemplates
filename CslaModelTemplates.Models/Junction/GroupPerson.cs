@@ -66,20 +66,19 @@ namespace CslaModelTemplates.Models.Junction
 
         private class UniquePersonKeys : BusinessRule
         {
-            // TODO: Add additional parameters to your rule to the constructor
+            // Add additional parameters to your rule to the constructor.
             public UniquePersonKeys(
                 IPropertyInfo primaryProperty
                 )
               : base(primaryProperty)
             {
-                // TODO: If you are  going to add InputProperties make sure to
+                // If you are  going to add InputProperties make sure to
                 // uncomment line below as InputProperties is NULL by default.
                 //if (InputProperties == null) InputProperties = new List<IPropertyInfo>();
 
-                // TODO: Add additional constructor code here 
+                // Add additional constructor code here.
 
-                // TODO: Marke rule for IsAsync if Execute contains asyncronous code 
-                // IsAsync = true; 
+                // Marke rule for IsAsync if Execute contains asyncronous code IsAsync = true; 
             }
 
             protected override void Execute(
@@ -133,8 +132,7 @@ namespace CslaModelTemplates.Models.Junction
             GroupPersonDto dto
             )
         {
-            GroupPerson groupPerson = null;
-            groupPerson = await Task.Run(() => DataPortal.CreateChild<GroupPerson>());
+            GroupPerson groupPerson = await Task.Run(() => DataPortal.CreateChild<GroupPerson>());
             groupPerson.SetParent(parent);
             groupPerson.Update(dto);
             return groupPerson;
@@ -208,7 +206,6 @@ namespace CslaModelTemplates.Models.Junction
             Group parent
             )
         {
-            // TODO: delete values
             // Delete values from persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {

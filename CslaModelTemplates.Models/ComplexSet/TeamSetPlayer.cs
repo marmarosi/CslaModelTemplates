@@ -75,7 +75,7 @@ namespace CslaModelTemplates.Models.ComplexSet
 
         //private static void AddObjectAuthorizationRules()
         //{
-        //    // TODO: add authorization rules
+        //    // Add authorization rules.
         //    BusinessRules.AddRule(
         //        typeof(TeamSetPlayer),
         //        new IsInRole(AuthorizationActions.EditObject, "Manager")
@@ -84,20 +84,19 @@ namespace CslaModelTemplates.Models.ComplexSet
 
         private class UniquePlayerCodes : BusinessRule
         {
-            // TODO: Add additional parameters to your rule to the constructor
+            // Add additional parameters to your rule to the constructor,
             public UniquePlayerCodes(
                 IPropertyInfo primaryProperty
                 )
               : base(primaryProperty)
             {
-                // TODO: If you are  going to add InputProperties make sure to
+                // If you are  going to add InputProperties make sure to
                 // uncomment line below as InputProperties is NULL by default.
                 //if (InputProperties == null) InputProperties = new List<IPropertyInfo>();
 
-                // TODO: Add additional constructor code here 
+                // Add additional constructor code here.
 
-                // TODO: Marke rule for IsAsync if Execute contains asyncronous code 
-                // IsAsync = true; 
+                // Marke rule for IsAsync if Execute contains asyncronous code IsAsync = true; 
             }
 
             protected override void Execute(IRuleContext context)
@@ -151,8 +150,7 @@ namespace CslaModelTemplates.Models.ComplexSet
             TeamSetPlayerDto dto
             )
         {
-            TeamSetPlayer item = null;
-            item = await Task.Run(() => DataPortal.CreateChild<TeamSetPlayer>());
+            TeamSetPlayer item = await Task.Run(() => DataPortal.CreateChild<TeamSetPlayer>());
             item.SetParent(parent);
             item.Update(dto);
             return item;

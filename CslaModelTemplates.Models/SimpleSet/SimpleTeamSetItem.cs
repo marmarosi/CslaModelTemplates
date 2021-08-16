@@ -130,8 +130,7 @@ namespace CslaModelTemplates.Models.SimpleSet
             SimpleTeamSetItemDto dto
             )
         {
-            SimpleTeamSetItem team = null;
-            await Task.Run(() => team = DataPortal.CreateChild<SimpleTeamSetItem>());
+            SimpleTeamSetItem team = await Task.Run(() => DataPortal.CreateChild<SimpleTeamSetItem>());
             team.SetParent(parent);
             team.Update(dto);
             return team;
@@ -213,7 +212,6 @@ namespace CslaModelTemplates.Models.SimpleSet
 
         private void Child_DeleteSelf()
         {
-            // TODO: delete values
             // Delete values from persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
