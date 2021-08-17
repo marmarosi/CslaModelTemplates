@@ -59,7 +59,8 @@ namespace CslaModelTemplates.CslaExtensions.Models
             for (int i = Items.Count - 1; i > -1; i--)
             {
                 C item = Items[i];
-                Predicate<D> match = (D o) => GetValue(o, keyName) == GetValue(item, keyName);
+                long? keyValue = GetValue(item, keyName);
+                Predicate<D> match = (D o) => GetValue(o, keyName) == keyValue;
                 D dto = list.Find(match);
 
                 if (dto == null)
@@ -84,11 +85,9 @@ namespace CslaModelTemplates.CslaExtensions.Models
             string propertyName
             )
         {
-            //return something.GetType().GetProperty(propertyName).GetValue(something);
-            var type = something.GetType();
-            var pi = type.GetProperty(propertyName);
-            var value = pi.GetValue(something);
-            return value as long?;
+            return something.GetType()
+                .GetProperty(propertyName)
+                .GetValue(something) as long?;
         }
 
         #endregion

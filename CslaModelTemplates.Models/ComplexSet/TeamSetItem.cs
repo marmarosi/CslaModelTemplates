@@ -92,18 +92,6 @@ namespace CslaModelTemplates.Models.ComplexSet
         #region Business Methods
 
         /// <summary>
-        /// Gets an existing editable team instance.
-        /// </summary>
-        /// <param name="dao">The data access objects.</param>
-        /// <returns>The requested editable team instance.</returns>
-        internal static TeamSetItem Get(
-            TeamSetItemDao dao
-            )
-        {
-            return DataPortal.FetchChild<TeamSetItem>(dao);
-        }
-
-        /// <summary>
         /// Updates an editable team from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer objects.</param>
@@ -130,6 +118,18 @@ namespace CslaModelTemplates.Models.ComplexSet
         { /* Require use of factory methods */ }
 
         /// <summary>
+        /// Gets an existing editable team instance.
+        /// </summary>
+        /// <param name="dao">The data access objects.</param>
+        /// <returns>The requested editable team instance.</returns>
+        internal static TeamSetItem Get(
+            TeamSetItemDao dao
+            )
+        {
+            return DataPortal.FetchChild<TeamSetItem>(dao);
+        }
+
+        /// <summary>
         /// Creates an editable team instance from the data transfer object.
         /// </summary>
         /// <param name="parent">The parent collection.</param>
@@ -140,10 +140,6 @@ namespace CslaModelTemplates.Models.ComplexSet
             TeamSetItemDto dto
             )
         {
-            //TeamSetItem team = await Task.Run(() => DataPortal.CreateChild<TeamSetItem>());
-            //team.SetParent(parent);
-            //await Task.Run(() => team.Update(dto));
-            //return team;
             return await Create<TeamSetItemDto>(parent, dto);
         }
 

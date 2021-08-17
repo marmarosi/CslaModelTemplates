@@ -1,6 +1,7 @@
 using Csla.Core;
 using CslaModelTemplates.CslaExtensions.Validations;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.CslaExtensions.Models
 {
@@ -15,5 +16,6 @@ namespace CslaModelTemplates.CslaExtensions.Models
             ref List<ValidationMessage> messages
             );
         T ToDto<T>() where T : class;
+        Task Update(object data);
     }
 }

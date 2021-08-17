@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CslaModelTemplates.CslaExtensions.Models
 {
@@ -8,5 +9,6 @@ namespace CslaModelTemplates.CslaExtensions.Models
     public interface IEditableList
     {
         IList<T> ToDto<T>() where T : class;
+        Task Update<D>(List<D> list, string keyName) where D : class;
     }
 }

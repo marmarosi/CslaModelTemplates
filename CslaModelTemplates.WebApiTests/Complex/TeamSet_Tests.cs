@@ -108,7 +108,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             Assert.NotNull(updatedList);
 
             // The updated team must have new values.
-            TeamSetItemDto updatedTeam3 = updatedList[3];
+            TeamSetItemDto updatedTeam3 = updatedList[2];
 
             Assert.Equal(pristineTeam3.TeamKey, updatedTeam3.TeamKey);
             Assert.Equal(pristineTeam3.TeamCode, updatedTeam3.TeamCode);

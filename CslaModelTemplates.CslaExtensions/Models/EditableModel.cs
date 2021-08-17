@@ -228,7 +228,7 @@ namespace CslaModelTemplates.CslaExtensions.Models
         {
             T item = await Task.Run(() => DataPortal.CreateChild<T>());
             (item as EditableModel<T>).SetParent(parent);
-            (item as EditableModel<T>).Update(dto);
+            await (item as EditableModel<T>).Update(dto);
             return item;
         }
 
