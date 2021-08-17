@@ -107,17 +107,19 @@ namespace CslaModelTemplates.Models.ComplexSet
         /// Updates an editable team from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer objects.</param>
-        internal async Task Update(
-            TeamSetItemDto dto
+        public override async Task Update(
+            object data
             )
         {
+            TeamSetItemDto dto = data as TeamSetItemDto;
+
             //TeamKey = dto.TeamKey;
             TeamCode = dto.TeamCode;
             TeamName = dto.TeamName;
             await Players.Update(dto.Players);
             //Timestamp = dto.Timestamp;
 
-            BusinessRules.CheckRules();
+            await base.Update(data);
         }
 
         #endregion
@@ -138,10 +140,11 @@ namespace CslaModelTemplates.Models.ComplexSet
             TeamSetItemDto dto
             )
         {
-            TeamSetItem team = await Task.Run(() => DataPortal.CreateChild<TeamSetItem>());
-            team.SetParent(parent);
-            await Task.Run(() => team.Update(dto));
-            return team;
+            //TeamSetItem team = await Task.Run(() => DataPortal.CreateChild<TeamSetItem>());
+            //team.SetParent(parent);
+            //await Task.Run(() => team.Update(dto));
+            //return team;
+            return await Create<TeamSetItemDto>(parent, dto);
         }
 
         #endregion

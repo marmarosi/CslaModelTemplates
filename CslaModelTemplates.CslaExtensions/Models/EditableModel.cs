@@ -192,10 +192,22 @@ namespace CslaModelTemplates.CslaExtensions.Models
         /// Updates an editable model from the data transfer object.
         /// </summary>
         /// <param name="data">The data transfer object.</param>
-        public virtual void Update(
+        //public virtual void Update(
+        //    object data
+        //    )
+        //{ }
+
+        /// <summary>
+        /// Updates an editable model from the data transfer object.
+        /// </summary>
+        /// <param name="data">The data transfer object.</param>
+        public virtual async Task Update(
             object data
             )
-        { }
+        {
+            BusinessRules.CheckRules();
+            await Task.CompletedTask;
+        }
 
         #endregion
 

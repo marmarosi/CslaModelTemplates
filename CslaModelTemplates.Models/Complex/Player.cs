@@ -122,7 +122,7 @@ namespace CslaModelTemplates.Models.Complex
         /// Updates an editable player from the data transfer object.
         /// </summary>
         /// <param name="data">The data transfer object.</param>
-        public override void Update(
+        public override async Task Update(
             object data
             )
         {
@@ -133,7 +133,7 @@ namespace CslaModelTemplates.Models.Complex
             PlayerCode = dto.PlayerCode;
             PlayerName = dto.PlayerName;
 
-            BusinessRules.CheckRules();
+            await base.Update(data);
         }
 
         #endregion

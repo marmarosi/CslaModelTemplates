@@ -66,7 +66,7 @@ namespace CslaModelTemplates.CslaExtensions.Models
                     RemoveItem(i);
                 else
                 {
-                    item.Update(dto);
+                    await item.Update(dto);
                     indeces.Remove(list.IndexOf(dto));
                 }
             }
@@ -79,12 +79,16 @@ namespace CslaModelTemplates.CslaExtensions.Models
                     as Task<C>));
         }
 
-        private object GetValue(
+        private long? GetValue(
             object something,
             string propertyName
             )
         {
-            return something.GetType().GetProperty(propertyName).GetValue(something);
+            //return something.GetType().GetProperty(propertyName).GetValue(something);
+            var type = something.GetType();
+            var pi = type.GetProperty(propertyName);
+            var value = pi.GetValue(something);
+            return value as long?;
         }
 
         #endregion
