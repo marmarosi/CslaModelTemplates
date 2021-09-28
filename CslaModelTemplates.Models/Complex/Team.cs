@@ -90,6 +90,26 @@ namespace CslaModelTemplates.Models.Complex
 
         #region Business Methods
 
+        /// <summary>
+        /// Updates an editable team from the data transfer object.
+        /// </summary>
+        /// <param name="data">The data transfer object.</param>
+        public override async Task Update(
+            object data
+            )
+        {
+            TeamDto dto = data as TeamDto;
+            using (BypassPropertyChecks)
+            {
+                //TeamKey = dto.TeamKey;
+                TeamCode = dto.TeamCode;
+                TeamName = dto.TeamName;
+                await Players.Update(dto.Players);
+                //Timestamp = dto.Timestamp;
+            }
+            await base.Update(data);
+        }
+
         #endregion
 
         #region Factory Methods
@@ -144,14 +164,7 @@ namespace CslaModelTemplates.Models.Complex
                     TeamKey = dto.TeamKey.Value
                 }) :
                 await DataPortal.CreateAsync<Team>();
-
-            //team.TeamKey = dto.TeamKey;
-            team.TeamCode = dto.TeamCode;
-            team.TeamName = dto.TeamName;
-            await team.Players.Update(dto.Players);
-            //team.Timestamp = dto.Timestamp;
-
-            team.BusinessRules.CheckRules();
+            await team.Update(dto);
             return team;
         }
 

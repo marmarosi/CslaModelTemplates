@@ -125,12 +125,13 @@ namespace CslaModelTemplates.Models.ComplexSet
             )
         {
             TeamSetPlayerDto dto = data as TeamSetPlayerDto;
-
-            //PlayerKey = dto.PlayerKey;
-            //TeamKey = dto.TeamKey;
-            PlayerCode = dto.PlayerCode;
-            PlayerName = dto.PlayerName;
-
+            using (BypassPropertyChecks)
+            {
+                //PlayerKey = dto.PlayerKey;
+                //TeamKey = dto.TeamKey;
+                PlayerCode = dto.PlayerCode;
+                PlayerName = dto.PlayerName;
+            }
             await base.Update(data);
         }
 

@@ -2,9 +2,9 @@ using Csla;
 using Csla.Core;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
+using CslaModelTemplates.Contracts.SimpleSet;
 using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.CslaExtensions.Validations;
-using CslaModelTemplates.Contracts.SimpleSet;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
@@ -100,16 +100,19 @@ namespace CslaModelTemplates.Models.SimpleSet
         /// Updates an editable team from the data transfer object.
         /// </summary>
         /// <param name="dto">The data transfer objects.</param>
-        internal void Update(
-            SimpleTeamSetItemDto dto
+        public override async Task Update(
+            object data
             )
         {
+            SimpleTeamSetItemDto dto = data as SimpleTeamSetItemDto;
+
             //TeamKey = dto.TeamKey;
             TeamCode = dto.TeamCode;
             TeamName = dto.TeamName;
             //Timestamp = dto.Timestamp;
 
             BusinessRules.CheckRules();
+            await Task.CompletedTask;
         }
 
         #endregion
@@ -132,7 +135,7 @@ namespace CslaModelTemplates.Models.SimpleSet
         {
             SimpleTeamSetItem team = await Task.Run(() => DataPortal.CreateChild<SimpleTeamSetItem>());
             team.SetParent(parent);
-            team.Update(dto);
+            await team.Update(dto);
             return team;
         }
 

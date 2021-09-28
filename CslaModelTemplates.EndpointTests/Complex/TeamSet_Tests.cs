@@ -70,8 +70,8 @@ namespace CslaModelTemplates.EndpointTests.Complex
                 OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
                 pristineList = okObjectResult.Value as List<TeamSetItemDto>;
 
-                    // Modify an item.
-                    pristineTeam3 = pristineList[2];
+                // Modify an item.
+                pristineTeam3 = pristineList[2];
                 pristineTeam3.TeamCode = "T-9301";
                 pristineTeam3.TeamName = "Test team number 9301";
 
@@ -79,8 +79,8 @@ namespace CslaModelTemplates.EndpointTests.Complex
                 pristinePlayer31.PlayerCode = "P-9301-1";
                 pristinePlayer31.PlayerName = "Test player #9301.1";
 
-                    // Create new item.
-                    pristineTeamNew = new TeamSetItemDto
+                // Create new item.
+                pristineTeamNew = new TeamSetItemDto
                 {
                     TeamKey = null,
                     TeamCode = "T-9302",
@@ -97,13 +97,13 @@ namespace CslaModelTemplates.EndpointTests.Complex
                 pristineTeamNew.Players.Add(pristinePlayerNew);
                 pristineList.Add(pristineTeamNew);
 
-                    // Delete an item.
-                    TeamSetItemDto pristineTeam4 = pristineList[3];
+                // Delete an item.
+                TeamSetItemDto pristineTeam4 = pristineList[3];
                 deletedTeamKey = pristineTeam4.TeamKey;
                 pristineList.Remove(pristineTeam4);
 
-                    // Act
-                    TeamSetRequest request = new TeamSetRequest
+                // Act
+                TeamSetRequest request = new TeamSetRequest
                 {
                     Criteria = criteria,
                     Dto = pristineList

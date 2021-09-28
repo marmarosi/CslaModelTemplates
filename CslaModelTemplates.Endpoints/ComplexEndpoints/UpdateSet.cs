@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -61,12 +62,12 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
             {
                 return await Call<IList<TeamSetItemDto>>.RetryOnDeadlock(async () =>
                 {
-                    TeamSet team = await TeamSet.FromDto(request.Criteria, request.Dto);
-                    if (team.IsSavable)
+                    TeamSet teams = await TeamSet.FromDto(request.Criteria, request.Dto);
+                    if (teams.IsSavable)
                     {
-                        team = await team.SaveAsync();
+                        teams = await teams.SaveAsync();
                     }
-                    return Ok(team.ToDto<TeamSetItemDto>());
+                    return Ok(teams.ToDto<TeamSetItemDto>());
                 });
             }
             catch (Exception ex)

@@ -1,10 +1,11 @@
 using Csla;
-using CslaModelTemplates.CslaExtensions.Models;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
 using CslaModelTemplates.Contracts.ComplexSet;
+using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.ComplexSet
@@ -34,27 +35,6 @@ namespace CslaModelTemplates.Models.ComplexSet
         /// Rebuilds an editable team collection from the data transfer objects.
         /// </summary>
         /// <param name="list">The list of data transfer objects.</param>
-        /// <returns>The rebuilt editable team collection.</returns>
-        //internal async Task Update(
-        //    List<TeamSetItemDto> list
-        //    )
-        //{
-        //    List<int> indeces = Enumerable.Range(0, list.Count).ToList();
-        //    for (int i = Items.Count - 1; i > -1; i--)
-        //    {
-        //        TeamSetItem item = Items[i];
-        //        TeamSetItemDto dto = list.Find(o => o.TeamKey == item.TeamKey);
-        //        if (dto == null)
-        //            RemoveItem(i);
-        //        else
-        //        {
-        //            await item.Update(dto);
-        //            indeces.Remove(list.IndexOf(dto));
-        //        }
-        //    }
-        //    foreach (int index in indeces)
-        //        Items.Add(await TeamSetItem.Create(this, list[index]));
-        //}
         internal async Task Update(
             List<TeamSetItemDto> list
             )

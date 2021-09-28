@@ -127,12 +127,13 @@ namespace CslaModelTemplates.Models.Complex
             )
         {
             PlayerDto dto = data as PlayerDto;
-
-            //PlayerKey = dto.PlayerKey;
-            //TeamKey = dto.TeamKey;
-            PlayerCode = dto.PlayerCode;
-            PlayerName = dto.PlayerName;
-
+            using (BypassPropertyChecks)
+            {
+                //PlayerKey = dto.PlayerKey;
+                //TeamKey = dto.TeamKey;
+                PlayerCode = dto.PlayerCode;
+                PlayerName = dto.PlayerName;
+            }
             await base.Update(data);
         }
 

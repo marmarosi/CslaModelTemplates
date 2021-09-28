@@ -94,7 +94,7 @@ namespace CslaModelTemplates.Models.ComplexSet
         /// <summary>
         /// Updates an editable team from the data transfer object.
         /// </summary>
-        /// <param name="dto">The data transfer objects.</param>
+        /// <param name="dto">The data transfer object.</param>
         public override async Task Update(
             object data
             )
@@ -107,7 +107,8 @@ namespace CslaModelTemplates.Models.ComplexSet
             await Players.Update(dto.Players);
             //Timestamp = dto.Timestamp;
 
-            await base.Update(data);
+            BusinessRules.CheckRules();
+            await Task.CompletedTask;
         }
 
         #endregion
