@@ -44,6 +44,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2AEBA4F0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.CslaExtensions", "CslaModelTemplates.CslaExtensions\CslaModelTemplates.CslaExtensions.csproj", "{59EF88E0-A4E5-4A37-B105-4F92CF717145}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaModelTemplates.BuildDemoDb", "CslaModelTemplates.BuildDemoDb\CslaModelTemplates.BuildDemoDb.csproj", "{E99BF7D6-9D6D-4A43-A9A0-32616739611C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +108,10 @@ Global
 		{59EF88E0-A4E5-4A37-B105-4F92CF717145}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59EF88E0-A4E5-4A37-B105-4F92CF717145}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59EF88E0-A4E5-4A37-B105-4F92CF717145}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E99BF7D6-9D6D-4A43-A9A0-32616739611C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E99BF7D6-9D6D-4A43-A9A0-32616739611C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E99BF7D6-9D6D-4A43-A9A0-32616739611C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E99BF7D6-9D6D-4A43-A9A0-32616739611C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +125,7 @@ Global
 		{F00B482C-E974-4CDB-83C1-B8D197DB4239} = {24C220F3-1FC2-4C7E-A81B-B1702A170DF6}
 		{9F79E610-80D3-4B8F-B60B-E7CBF1FEB17D} = {24C220F3-1FC2-4C7E-A81B-B1702A170DF6}
 		{7B19DB0A-E626-4175-BAD2-3C2F4427C90A} = {2AEBA4F0-EA52-43AE-AC46-D06DA3E98E08}
+		{E99BF7D6-9D6D-4A43-A9A0-32616739611C} = {2AEBA4F0-EA52-43AE-AC46-D06DA3E98E08}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD15353F-6B0B-4CBA-BAE0-54F2B4D75374}

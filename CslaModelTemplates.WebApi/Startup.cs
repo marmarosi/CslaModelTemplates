@@ -56,7 +56,7 @@ namespace CslaModelTemplates.WebApi
             )
         {
             app.ShowExceptionDetails(Environment);
-            app.RunSeeders(Environment);
+            //app.RunSeeders(Environment);
             app.UseSwaggerEndpoint(Environment);
             app.UseHttpsRedirection();
             app.UseRouting();
