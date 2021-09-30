@@ -49,9 +49,15 @@ namespace CslaModelTemplates.Contracts
             string hashid
             )
         {
-            var hashids = GetHashids(model);
-            var key = hashids.DecodeLong(hashid)[0];
-            return key == 0 ? null : (long?)key;
+            if (string.IsNullOrWhiteSpace(hashid))
+                return null;
+            else
+            {
+                var hashids = GetHashids(model);
+                var keys = hashids.DecodeLong(hashid);
+                var key = hashids.DecodeLong(hashid)[0];
+                return key == 0 ? null : (long?)key;
+            }
         }
     }
 }

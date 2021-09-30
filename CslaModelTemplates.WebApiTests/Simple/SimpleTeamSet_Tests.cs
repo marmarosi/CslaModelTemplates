@@ -51,7 +51,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
             // Act
             SimpleTeamSetItemDto pristine = null;
             SimpleTeamSetItemDto pristineNew = null;
-            long? deletedKey = null;
+            string deletedId = null;
             ActionResult<List<SimpleTeamSetItemDto>> actionResult =
                 await Call<List<SimpleTeamSetItemDto>>.RetryOnDeadlock(async () =>
             {
@@ -68,7 +68,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
                 // Create new item.
                 pristineNew = new SimpleTeamSetItemDto
                 {
-                    TeamKey = null,
+                    TeamId = null,
                     TeamCode = "T-9102",
                     TeamName = "Test team number 9102",
                     Timestamp = null
@@ -77,7 +77,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
 
                 // Delete an item.
                 SimpleTeamSetItemDto pristine3 = pristineList[3];
-                deletedKey = pristine3.TeamKey;
+                deletedId = pristine3.TeamId;
                 pristineList.Remove(pristine3);
 
                 return await sutU.UpdateTeamSet(criteria, pristineList);
@@ -93,7 +93,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
             // The updated team must have new values.
             SimpleTeamSetItemDto updated = updatedList[0];
 
-            Assert.Equal(pristine.TeamKey, updated.TeamKey);
+            Assert.Equal(pristine.TeamId, updated.TeamId);
             Assert.Equal(pristine.TeamCode, updated.TeamCode);
             Assert.Equal(pristine.TeamName, updated.TeamName);
             Assert.NotEqual(pristine.Timestamp, updated.Timestamp);
@@ -103,14 +103,14 @@ namespace CslaModelTemplates.WebApiTests.Simple
                 .FirstOrDefault(o => o.TeamCode == pristineNew.TeamCode);
             Assert.NotNull(created);
 
-            Assert.NotNull(created.TeamKey);
+            Assert.NotNull(created.TeamId);
             Assert.Equal(pristineNew.TeamCode, created.TeamCode);
             Assert.Equal(pristineNew.TeamName, created.TeamName);
             Assert.NotNull(created.Timestamp);
 
             // The deleted team must have gone.
             SimpleTeamSetItemDto deleted = updatedList
-                .FirstOrDefault(o => o.TeamKey == deletedKey);
+                .FirstOrDefault(o => o.TeamId == deletedId);
             Assert.Null(deleted);
         }
 

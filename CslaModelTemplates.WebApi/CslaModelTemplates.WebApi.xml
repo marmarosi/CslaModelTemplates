@@ -246,7 +246,7 @@
             </summary>
             <returns>The new team.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetTeam(CslaModelTemplates.Contracts.Simple.SimpleTeamCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetTeam(CslaModelTemplates.Contracts.Simple.SimpleTeamParams)">
             <summary>
             Gets the specified team to edit.
             </summary>
@@ -267,7 +267,7 @@
             <param name="dto">The data transer object of the team.</param>
             <returns>The updated team.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.DeleteTeam(CslaModelTemplates.Contracts.Simple.SimpleTeamCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.DeleteTeam(CslaModelTemplates.Contracts.Simple.SimpleTeamParams)">
             <summary>
             Deletes the specified team.
             </summary>

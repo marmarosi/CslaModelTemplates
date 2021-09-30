@@ -2,6 +2,7 @@ using Csla;
 using Csla.Core;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.SimpleSet;
 using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.CslaExtensions.Validations;
@@ -21,11 +22,17 @@ namespace CslaModelTemplates.Models.SimpleSet
     {
         #region Properties
 
-        public static readonly PropertyInfo<long?> TeamKeyProperty = RegisterProperty<long?>(c => c.TeamKey);
-        public long? TeamKey
+        private long? TeamKey
         {
-            get { return GetProperty(TeamKeyProperty); }
-            private set { LoadProperty(TeamKeyProperty, value); }
+            get { return KeyHash.Decode(ID.Team, TeamId); }
+            set { TeamId = KeyHash.Encode(ID.Team, value); }
+        }
+
+        public static readonly PropertyInfo<string> TeamIdProperty = RegisterProperty<string>(c => c.TeamId);
+        public string TeamId
+        {
+            get { return GetProperty(TeamIdProperty); }
+            set { SetProperty(TeamIdProperty, value); }
         }
 
         public static readonly PropertyInfo<string> TeamCodeProperty = RegisterProperty<string>(c => c.TeamCode);

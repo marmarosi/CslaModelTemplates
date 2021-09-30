@@ -21,7 +21,10 @@ namespace CslaModelTemplates.WebApiTests.Simple
             ActionResult<bool> actionResult;
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                RenameTeamDto dto = new RenameTeamDto { TeamKey = 37, TeamName = "Team Thirty Seven" };
+                RenameTeamDto dto = new RenameTeamDto {
+                    TeamId = "oZkzGJ6G794",
+                    TeamName = "Team Thirty Seven" 
+                };
                 actionResult = await sut.RenameTeamCommand(dto);
 
                 scope.Dispose();

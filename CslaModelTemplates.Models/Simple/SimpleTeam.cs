@@ -1,9 +1,10 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
+using CslaModelTemplates.Contracts;
+using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.CslaExtensions.Validations;
-using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
@@ -20,11 +21,17 @@ namespace CslaModelTemplates.Models.Simple
     {
         #region Properties
 
-        public static readonly PropertyInfo<long?> TeamKeyProperty = RegisterProperty<long?>(c => c.TeamKey);
-        public long? TeamKey
+        private long? TeamKey
         {
-            get { return GetProperty(TeamKeyProperty); }
-            private set { LoadProperty(TeamKeyProperty, value); }
+            get { return KeyHash.Decode(ID.Team, TeamId); }
+            set { TeamId = KeyHash.Encode(ID.Team, value); }
+        }
+
+        public static readonly PropertyInfo<string> TeamIdProperty = RegisterProperty<string>(c => c.TeamId);
+        public string TeamId
+        {
+            get { return GetProperty(TeamIdProperty); }
+            set { SetProperty(TeamIdProperty, value); }
         }
 
         public static readonly PropertyInfo<string> TeamCodeProperty = RegisterProperty<string>(c => c.TeamCode);
@@ -105,10 +112,10 @@ namespace CslaModelTemplates.Models.Simple
         /// <param name="criteria">The criteria of the team.</param>
         /// <returns>The requested editable team instance.</returns>
         public static async Task<SimpleTeam> Get(
-            SimpleTeamCriteria criteria
+            SimpleTeamParams criteria
             )
         {
-            return await DataPortal.FetchAsync<SimpleTeam>(criteria);
+            return await DataPortal.FetchAsync<SimpleTeam>(criteria.Decode(ID.Team));
         }
 
         /// <summary>
@@ -116,10 +123,10 @@ namespace CslaModelTemplates.Models.Simple
         /// </summary>
         /// <param name="criteria">The criteria of the team.</param>
         public static async void Delete(
-            SimpleTeamCriteria criteria
+            SimpleTeamParams criteria
             )
         {
-            await DataPortal.DeleteAsync<SimpleTeam>(criteria);
+            await DataPortal.DeleteAsync<SimpleTeam>(criteria.Decode(ID.Team));
         }
 
         /// <summary>
@@ -131,11 +138,9 @@ namespace CslaModelTemplates.Models.Simple
             SimpleTeamDto dto
             )
         {
-            SimpleTeam team = dto.TeamKey.HasValue ?
-                await DataPortal.FetchAsync<SimpleTeam>(new SimpleTeamCriteria()
-                {
-                    TeamKey = dto.TeamKey.Value
-                }) :
+            long? teamKey = KeyHash.Decode(ID.Team, dto.TeamId);
+            SimpleTeam team = teamKey.HasValue ?
+                await DataPortal.FetchAsync<SimpleTeam>(new SimpleTeamCriteria(teamKey.Value)) :
                 await DataPortal.CreateAsync<SimpleTeam>();
 
             //team.TeamKey = dto.TeamKey;
@@ -213,6 +218,7 @@ namespace CslaModelTemplates.Models.Simple
         [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_Update()
         {
+            string id = this.TeamId;
             // Update values in persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {

@@ -5,7 +5,6 @@ namespace CslaModelTemplates.Contracts.SimpleCommand
     /// </summary>
     public class RenameTeamData
     {
-        public long TeamKey { get; set; }
         public string TeamName { get; set; }
     }
 
@@ -14,6 +13,8 @@ namespace CslaModelTemplates.Contracts.SimpleCommand
     /// </summary>
     public class RenameTeamDao : RenameTeamData
     {
+        public long TeamKey { get; set; }
+
         public RenameTeamDao(
             long teamKey,
             string teamName
@@ -28,5 +29,7 @@ namespace CslaModelTemplates.Contracts.SimpleCommand
     /// Defines the data transfer object of the rename team command.
     /// </summary>
     public class RenameTeamDto : RenameTeamData
-    { }
+    {
+        public string TeamId { get; set; }
+    }
 }

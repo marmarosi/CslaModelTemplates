@@ -39,7 +39,7 @@ namespace CslaModelTemplates.Models.SimpleSet
             List<SimpleTeamSetItemDto> list
             )
         {
-            await Update(list, "TeamKey");
+            await Update(list, "TeamId");
         }
 
         #endregion

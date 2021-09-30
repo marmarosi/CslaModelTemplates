@@ -53,7 +53,7 @@ namespace CslaModelTemplates.EndpointTests.Simple
             {
                 pristineTeam = new SimpleTeamDto
                 {
-                    TeamKey = null,
+                    TeamId = null,
                     TeamCode = "T-9001",
                     TeamName = "Test team number 9001",
                     Timestamp = null
@@ -69,7 +69,7 @@ namespace CslaModelTemplates.EndpointTests.Simple
             Assert.NotNull(createdTeam);
 
             // The model must have new values.
-            Assert.NotNull(createdTeam.TeamKey);
+            Assert.NotNull(createdTeam.TeamId);
             Assert.Equal(pristineTeam.TeamCode, createdTeam.TeamCode);
             Assert.Equal(pristineTeam.TeamName, createdTeam.TeamName);
             Assert.NotNull(createdTeam.Timestamp);
@@ -88,7 +88,7 @@ namespace CslaModelTemplates.EndpointTests.Simple
             var sut = new Read(logger);
 
             // Act
-            SimpleTeamCriteria criteria = new SimpleTeamCriteria { TeamKey = 22 };
+            SimpleTeamParams criteria = new SimpleTeamParams { TeamId = "zXayGQW0bZv" };
             ActionResult<SimpleTeamDto> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
             // Assert
@@ -99,7 +99,7 @@ namespace CslaModelTemplates.EndpointTests.Simple
             Assert.NotNull(pristine);
 
             // The code and name must end with 22.
-            Assert.Equal(22, pristine.TeamKey);
+            Assert.Equal("zXayGQW0bZv", pristine.TeamId);
             Assert.Equal("T-0022", pristine.TeamCode);
             Assert.EndsWith("22", pristine.TeamName);
             Assert.NotNull(pristine.Timestamp);
@@ -123,7 +123,7 @@ namespace CslaModelTemplates.EndpointTests.Simple
             SimpleTeamDto pristine = null;
             var actionResult = await Call<SimpleTeamDto>.RetryOnDeadlock(async () =>
             {
-                SimpleTeamCriteria criteria = new SimpleTeamCriteria { TeamKey = 22 };
+                SimpleTeamParams criteria = new SimpleTeamParams { TeamId = "zXayGQW0bZv" };
                 ActionResult<SimpleTeamDto> actionResult = await sutR.HandleAsync(criteria, new CancellationToken());
                 OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
                 pristine = okObjectResult.Value as SimpleTeamDto;
@@ -142,7 +142,7 @@ namespace CslaModelTemplates.EndpointTests.Simple
             Assert.NotNull(updated);
 
             // The team must have new values.
-            Assert.Equal(pristine.TeamKey, updated.TeamKey);
+            Assert.Equal(pristine.TeamId, updated.TeamId);
             Assert.Equal(pristine.TeamCode, updated.TeamCode);
             Assert.Equal(pristine.TeamName, updated.TeamName);
             Assert.NotEqual(pristine.Timestamp, updated.Timestamp);
@@ -163,7 +163,7 @@ namespace CslaModelTemplates.EndpointTests.Simple
             // Act
             ActionResult actionResult = await Run.RetryOnDeadlock(async () =>
             {
-                SimpleTeamCriteria criteria = new SimpleTeamCriteria { TeamKey = 44 };
+                SimpleTeamParams criteria = new SimpleTeamParams { TeamId = "rWqG7KpG5Qo" };
                 return await sut.HandleAsync(criteria, new CancellationToken());
             });
 

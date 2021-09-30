@@ -1,12 +1,13 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.SimpleCommand;
+using CslaModelTemplates.CslaExtensions;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
 using System.Threading.Tasks;
-using CslaModelTemplates.CslaExtensions;
 
 namespace CslaModelTemplates.Models.SimpleCommand
 {
@@ -18,11 +19,17 @@ namespace CslaModelTemplates.Models.SimpleCommand
     {
         #region Properties
 
-        public static readonly PropertyInfo<long> TeamKeyProperty = RegisterProperty<long>(c => c.TeamKey);
-        public long TeamKey
+        private long? TeamKey
         {
-            get { return ReadProperty(TeamKeyProperty); }
-            private set { LoadProperty(TeamKeyProperty, value); }
+            get { return KeyHash.Decode(ID.Team, TeamId); }
+            set { TeamId = KeyHash.Encode(ID.Team, value); }
+        }
+
+        public static readonly PropertyInfo<string> TeamIdProperty = RegisterProperty<string>(c => c.TeamId);
+        public string TeamId
+        {
+            get { return ReadProperty(TeamIdProperty); }
+            set { LoadProperty(TeamIdProperty, value); }
         }
 
         public static readonly PropertyInfo<string> TeamNameProperty = RegisterProperty<string>(c => c.TeamName);
@@ -75,7 +82,7 @@ namespace CslaModelTemplates.Models.SimpleCommand
             )
         {
             RenameTeam command = new RenameTeam();
-            command.TeamKey = dto.TeamKey;
+            command.TeamId = dto.TeamId;
             command.TeamName = dto.TeamName;
             command.Result = false;
 
@@ -96,7 +103,7 @@ namespace CslaModelTemplates.Models.SimpleCommand
             {
                 IRenameTeamDal dal = ctx.GetProvider<IRenameTeamDal>();
 
-                RenameTeamDao dao = new RenameTeamDao(TeamKey, TeamName);
+                RenameTeamDao dao = new RenameTeamDao(TeamKey ?? 0, TeamName);
                 dal.Execute(dao);
 
                 // Set new data.

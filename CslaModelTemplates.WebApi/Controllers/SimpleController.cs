@@ -123,7 +123,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         [HttpGet("fetch")]
         [ProducesResponseType(typeof(SimpleTeamDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<SimpleTeamDto>> GetTeam(
-            [FromQuery] SimpleTeamCriteria criteria
+            [FromQuery] SimpleTeamParams criteria
             )
         {
             try
@@ -214,7 +214,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> DeleteTeam(
-            [FromQuery] SimpleTeamCriteria criteria
+            [FromQuery] SimpleTeamParams criteria
             )
         {
             try

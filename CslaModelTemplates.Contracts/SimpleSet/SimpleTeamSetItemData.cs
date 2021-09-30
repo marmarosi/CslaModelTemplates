@@ -7,7 +7,6 @@ namespace CslaModelTemplates.Contracts.SimpleSet
     /// </summary>
     public class SimpleTeamSetItemData
     {
-        public long? TeamKey { get; set; }
         public string TeamCode { get; set; }
         public string TeamName { get; set; }
         public DateTime? Timestamp { get; set; }
@@ -17,22 +16,15 @@ namespace CslaModelTemplates.Contracts.SimpleSet
     /// Defines the data access object of the editable team set item object.
     /// </summary>
     public class SimpleTeamSetItemDao : SimpleTeamSetItemData
-    { }
+    {
+        public long? TeamKey { get; set; }
+    }
 
     /// <summary>
     /// Defines the data transfer object of the editable team set item object.
     /// </summary>
     public class SimpleTeamSetItemDto : SimpleTeamSetItemData
     {
-        public SimpleTeamSetItemDao ToDao()
-        {
-            return new SimpleTeamSetItemDao
-            {
-                TeamKey = TeamKey,
-                TeamCode = TeamCode,
-                TeamName = TeamName,
-                Timestamp = Timestamp
-            };
-        }
+        public string TeamId { get; set; }
     }
 }

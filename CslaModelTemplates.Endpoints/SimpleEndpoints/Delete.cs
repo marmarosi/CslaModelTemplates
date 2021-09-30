@@ -16,7 +16,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
     /// </summary>
     [Route(Routes.Simple)]
     public class Delete : BaseAsyncEndpoint
-        .WithRequest<SimpleTeamCriteria>
+        .WithRequest<SimpleTeamParams>
         .WithoutResponse
     {
         internal ILogger logger { get; private set; }
@@ -48,7 +48,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
             Tags = new[] { "Simple Endpoints" })
         ]
         public override async Task<ActionResult> HandleAsync(
-            [FromQuery] SimpleTeamCriteria criteria,
+            [FromQuery] SimpleTeamParams criteria,
             CancellationToken cancellationToken
             )
         {

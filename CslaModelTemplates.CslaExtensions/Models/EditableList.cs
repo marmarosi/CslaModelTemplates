@@ -41,17 +41,68 @@ namespace CslaModelTemplates.CslaExtensions.Models
 
         #endregion
 
-        #region Update
+        #region Update (long?)
+
+        ///// <summary>
+        ///// Updates an editable collection from the data transfer objects.
+        ///// </summary>
+        ///// <typeparam name="D">The type of the data transfer objects.</typeparam>
+        ///// <param name="list">The list of data transfer objects.</param>
+        ///// <param name="keyName">The name of the key property.</param>
+        //public async Task Update<D>(
+        //    List<D> list,
+        //    string keyName
+        //    )
+        //    where D : class
+        //{
+        //    List<int> indeces = Enumerable.Range(0, list.Count).ToList();
+        //    for (int i = Items.Count - 1; i > -1; i--)
+        //    {
+        //        C item = Items[i];
+        //        long? keyValue = GetValue(item, keyName);
+        //        Predicate<D> match = (D o) => GetValue(o, keyName) == keyValue;
+        //        D dto = list.Find(match);
+
+        //        if (dto == null)
+        //            RemoveItem(i);
+        //        else
+        //        {
+        //            await item.Update(dto);
+        //            indeces.Remove(list.IndexOf(dto));
+        //        }
+        //    }
+        //    foreach (int index in indeces)
+        //        Items.Add(await (
+        //            typeof(EditableModel<C>)
+        //            .GetMethod("Create")
+        //            .MakeGenericMethod(typeof(D))
+        //            .Invoke(null, new object[] { this, list[index] })
+        //            as Task<C>));
+        //}
+
+        //private long? GetValue(
+        //    object something,
+        //    string propertyName
+        //    )
+        //{
+        //    return something.GetType()
+        //        .GetProperty(propertyName)
+        //        .GetValue(something) as long?;
+        //}
+
+        #endregion
+
+        #region Update (string)
 
         /// <summary>
         /// Updates an editable collection from the data transfer objects.
         /// </summary>
         /// <typeparam name="D">The type of the data transfer objects.</typeparam>
         /// <param name="list">The list of data transfer objects.</param>
-        /// <param name="keyName">The name of the key property.</param>
+        /// <param name="idName">The name of the key property.</param>
         public async Task Update<D>(
             List<D> list,
-            string keyName
+            string idName
             )
             where D : class
         {
@@ -59,8 +110,8 @@ namespace CslaModelTemplates.CslaExtensions.Models
             for (int i = Items.Count - 1; i > -1; i--)
             {
                 C item = Items[i];
-                long? keyValue = GetValue(item, keyName);
-                Predicate<D> match = (D o) => GetValue(o, keyName) == keyValue;
+                string idValue = GetValue(item, idName);
+                Predicate<D> match = (D o) => GetValue(o, idName) == idValue;
                 D dto = list.Find(match);
 
                 if (dto == null)
@@ -80,14 +131,14 @@ namespace CslaModelTemplates.CslaExtensions.Models
                     as Task<C>));
         }
 
-        private long? GetValue(
+        private string GetValue(
             object something,
             string propertyName
             )
         {
             return something.GetType()
                 .GetProperty(propertyName)
-                .GetValue(something) as long?;
+                .GetValue(something) as string;
         }
 
         #endregion
