@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="CSLA-Core" Version="4.11.2" />
+    <PackageReference Include="Hashids.net" Version="1.4.1" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
 

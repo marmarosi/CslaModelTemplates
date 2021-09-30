@@ -16,7 +16,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
     /// </summary>
     [Route(Routes.Simple)]
     public class View : BaseAsyncEndpoint
-        .WithRequest<SimpleTeamViewCriteria>
+        .WithRequest<SimpleTeamViewParams>
         .WithResponse<SimpleTeamViewDto>
     {
         internal ILogger logger { get; private set; }
@@ -50,7 +50,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
             Tags = new[] { "Simple Endpoints" })
         ]
         public override async Task<ActionResult<SimpleTeamViewDto>> HandleAsync(
-            [FromQuery] SimpleTeamViewCriteria criteria,
+            [FromQuery] SimpleTeamViewParams criteria,
             CancellationToken cancellationToken
             )
         {

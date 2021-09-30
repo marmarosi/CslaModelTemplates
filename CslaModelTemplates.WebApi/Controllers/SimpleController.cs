@@ -74,7 +74,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         [HttpGet("view")]
         [ProducesResponseType(typeof(SimpleTeamViewDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<SimpleTeamViewDto>> GetTeamView(
-            [FromQuery] SimpleTeamViewCriteria criteria
+            [FromQuery] SimpleTeamViewParams criteria
             )
         {
             try

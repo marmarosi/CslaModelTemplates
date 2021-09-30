@@ -5,7 +5,6 @@ namespace CslaModelTemplates.Contracts.SimpleList
     /// </summary>
     public class SimpleTeamListItemData
     {
-        public long? TeamKey { get; set; }
         public string TeamCode { get; set; }
         public string TeamName { get; set; }
     }
@@ -14,11 +13,15 @@ namespace CslaModelTemplates.Contracts.SimpleList
     /// Defines the data access object of the read-only team list item object.
     /// </summary>
     public class SimpleTeamListItemDao : SimpleTeamListItemData
-    { }
+    {
+        public long? TeamKey { get; set; }
+    }
 
     /// <summary>
     /// Defines the data transfer object of the read-only team list item object.
     /// </summary>
     public class SimpleTeamListItemDto : SimpleTeamListItemData
-    { }
+    {
+        public string TeamId { get; set; }
+    }
 }

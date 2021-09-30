@@ -233,7 +233,7 @@
             <param name="criteria">The criteria of the team list.</param>
             <returns>A list of teams.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetTeamView(CslaModelTemplates.Contracts.SimpleView.SimpleTeamViewCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.SimpleController.GetTeamView(CslaModelTemplates.Contracts.SimpleView.SimpleTeamViewParams)">
             <summary>
             Gets the specified team details to display.
             </summary>

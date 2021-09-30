@@ -1,4 +1,3 @@
-using Csla;
 using System;
 
 namespace CslaModelTemplates.Contracts.SimpleView
@@ -7,8 +6,27 @@ namespace CslaModelTemplates.Contracts.SimpleView
     /// Represents the criteria of the read-only team object.
     /// </summary>
     [Serializable]
-    public class SimpleTeamViewCriteria : CriteriaBase<SimpleTeamViewCriteria>
+    public class SimpleTeamViewParams
     {
+        public string TeamId { get; set; }
+
+        public SimpleTeamViewCriteria Decode(
+            string model
+            )
+        {
+            return new SimpleTeamViewCriteria
+            {
+                TeamKey = KeyHash.Decode(model, TeamId).Value
+            };
+        }
+    }
+
+    /// <summary>
+    /// Represents the criteria of the read-only team object.
+    /// </summary>
+    [Serializable]
+    public class SimpleTeamViewCriteria
+{
         public long TeamKey { get; set; }
     }
 }

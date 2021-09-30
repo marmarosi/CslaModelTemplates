@@ -18,7 +18,7 @@ namespace CslaModelTemplates.EndpointTests.Simple
             var sut = new View(logger);
 
             // Act
-            SimpleTeamViewCriteria criteria = new SimpleTeamViewCriteria { TeamKey = 31 };
+            SimpleTeamViewParams criteria = new SimpleTeamViewParams { TeamId = "d9A30RLG8pZ" };
             ActionResult<SimpleTeamViewDto> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
             // Assert

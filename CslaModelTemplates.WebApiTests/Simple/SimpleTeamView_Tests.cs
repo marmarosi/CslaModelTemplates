@@ -17,7 +17,7 @@ namespace CslaModelTemplates.WebApiTests.Simple
             var sut = new SimpleController(logger);
 
             // Act
-            SimpleTeamViewCriteria criteria = new SimpleTeamViewCriteria { TeamKey = 31 };
+            SimpleTeamViewParams criteria = new SimpleTeamViewParams { TeamId = "d9A30RLG8pZ" };
             ActionResult<SimpleTeamViewDto> actionResult = await sut.GetTeamView(criteria);
 
             // Assert
