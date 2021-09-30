@@ -9,6 +9,8 @@ using CodeDef = CslaModelTemplates.Contracts.SelectionWithCode;
 using CodeModel = CslaModelTemplates.Models.SelectionWithCode;
 using KeyDef = CslaModelTemplates.Contracts.SelectionWithKey;
 using KeyModel = CslaModelTemplates.Models.SelectionWithKey;
+using IdDef = CslaModelTemplates.Contracts.SelectionWithId;
+using IdModel = CslaModelTemplates.Models.SelectionWithId;
 
 namespace CslaModelTemplates.WebApi.Controllers
 {
@@ -50,6 +52,32 @@ namespace CslaModelTemplates.WebApi.Controllers
             {
                 KeyModel.TeamKeyChoice choice = await KeyModel.TeamKeyChoice.Get(criteria);
                 return Ok(choice.ToDto<KeyNameOptionDto>());
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region Choice with ID
+
+        /// <summary>
+        /// Gets the ID-name choice of the teams.
+        /// </summary>
+        /// <param name="criteria">The criteria of the team choice.</param>
+        /// <returns>The ID-name choice of the teams.</returns>
+        [HttpGet("with-id")]
+        [ProducesResponseType(typeof(List<IdNameOptionDto>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<IdNameOptionDto>>> GetTeamChoiceWithId(
+            [FromQuery] IdDef.TeamIdChoiceCriteria criteria
+            )
+        {
+            try
+            {
+                IdModel.TeamIdChoice choice = await IdModel.TeamIdChoice.Get(criteria);
+                return Ok(choice.ToDto<IdNameOptionDto>());
             }
             catch (Exception ex)
             {
