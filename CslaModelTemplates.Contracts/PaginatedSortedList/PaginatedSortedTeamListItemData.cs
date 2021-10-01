@@ -5,7 +5,6 @@ namespace CslaModelTemplates.Contracts.PaginatedSortedList
     /// </summary>
     public class PaginatedSortedTeamListItemData
     {
-        public long? TeamKey { get; set; }
         public string TeamCode { get; set; }
         public string TeamName { get; set; }
     }
@@ -14,11 +13,15 @@ namespace CslaModelTemplates.Contracts.PaginatedSortedList
     /// Defines the data access object of the read-only paginated sorted team list item object.
     /// </summary>
     public class PaginatedSortedTeamListItemDao : PaginatedSortedTeamListItemData
-    { }
+    {
+        public long? TeamKey { get; set; }
+    }
 
     /// <summary>
     /// Defines the data transfer object of the read-only paginated sorted team list item object.
     /// </summary>
     public class PaginatedSortedTeamListItemDto : PaginatedSortedTeamListItemData
-    { }
+    {
+        public string TeamId { get; set; }
+    }
 }
