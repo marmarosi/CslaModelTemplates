@@ -7,8 +7,6 @@ namespace CslaModelTemplates.Contracts.Tree
     /// </summary>
     public class FolderNodeData
     {
-        public long? FolderKey { get; set; }
-        public long? ParentKey { get; set; }
         public int? FolderOrder { get; set; }
         public string FolderName { get; set; }
         public int? Level { get; set; }
@@ -19,6 +17,8 @@ namespace CslaModelTemplates.Contracts.Tree
     /// </summary>
     public class FolderNodeDao : FolderNodeData
     {
+        public long? FolderKey { get; set; }
+        public long? ParentKey { get; set; }
         public List<FolderNodeDao> Children { get; set; }
     }
 
@@ -27,6 +27,8 @@ namespace CslaModelTemplates.Contracts.Tree
     /// </summary>
     public class FolderNodeDto : FolderNodeData
     {
+        public string FolderId { get; set; }
+        public string ParentId { get; set; }
         public List<FolderNodeDto> Children { get; set; }
     }
 }

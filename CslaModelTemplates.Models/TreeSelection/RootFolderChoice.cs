@@ -1,21 +1,21 @@
-using Csla;
+﻿using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Contracts;
-using CslaModelTemplates.Contracts.Tree;
+using CslaModelTemplates.Contracts.TreeSelection;
 using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Dal;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CslaModelTemplates.Models.Tree
+namespace CslaModelTemplates.Models.TreeSelection
 {
     /// <summary>
-    /// Represents a read-only folder tree.
+    /// Represents a read-only tree choice collection.
     /// </summary>
     [Serializable]
-    public class FolderTree : ReadOnlyList<FolderTree, FolderNode>
+    public class RootFolderChoice : ReadOnlyList<RootFolderChoice, IdNameOption>
     {
         #region Business Rules
 
@@ -23,7 +23,7 @@ namespace CslaModelTemplates.Models.Tree
         //{
         //    // Add authorization rules.
         //    BusinessRules.AddRule(
-        //        typeof(FolderTree),
+        //        typeof(TeamIdChoice),
         //        new IsInRole(AuthorizationActions.GetObject, "Manager")
         //        );
         //}
@@ -32,37 +32,37 @@ namespace CslaModelTemplates.Models.Tree
 
         #region Factory Methods
 
-        private FolderTree()
+        private RootFolderChoice()
         { /* require use of factory methods */ }
 
         /// <summary>
-        /// Gets the specified read-only folder tree.
+        /// Gets a choice of tree options.
         /// </summary>
-        /// <param name="criteria">The criteria of the read-only folder tree.</param>
-        /// <returns>The requested read-only folder tree.</returns>
-        public static async Task<FolderTree> Get(FolderTreeParams criteria)
+        /// <returns>The requested tree choice instance.</returns>
+        public static async Task<RootFolderChoice> Get()
         {
-            return await DataPortal.FetchAsync<FolderTree>(criteria.Decode(ID.Folder));
+            return await DataPortal.FetchAsync<RootFolderChoice>(new RootFolderChoiceCriteria());
         }
 
         #endregion
 
         #region Data Access
 
-        private void DataPortal_Fetch(FolderTreeCriteria criteria)
+        private void DataPortal_Fetch(
+            RootFolderChoiceCriteria criteria
+            )
         {
             var rlce = RaiseListChangedEvents;
             RaiseListChangedEvents = false;
             IsReadOnly = false;
 
-            // Load values from persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IFolderTreeDal dal = dm.GetProvider<IFolderTreeDal>();
-                List<FolderNodeDao> tree = dal.Fetch(criteria);
+                IRootFolderChoiceDal dal = dm.GetProvider<IRootFolderChoiceDal>();
+                List<IdNameOptionDao> choice = dal.Fetch(criteria);
 
-                foreach (FolderNodeDao dao in tree)
-                    Add(FolderNode.Fetch(dao));
+                foreach (IdNameOptionDao dao in choice)
+                    Add(IdNameOption.Get(dao, ID.Folder));
             }
             IsReadOnly = true;
             RaiseListChangedEvents = rlce;

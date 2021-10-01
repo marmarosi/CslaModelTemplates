@@ -17,7 +17,7 @@ namespace CslaModelTemplates.Contracts.Simple
         {
             return new SimpleTeamCriteria
             {
-                TeamKey = KeyHash.Decode(model, TeamId).Value
+                TeamKey = KeyHash.Decode(model, TeamId) ?? 0
             };
         }
     }

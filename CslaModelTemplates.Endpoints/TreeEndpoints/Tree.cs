@@ -15,8 +15,8 @@ namespace CslaModelTemplates.Endpoints.TreeEndpoints
     /// Gets the specified folder tree.
     /// </summary>
     [Route(Routes.Tree)]
-    public class TreeView : BaseAsyncEndpoint
-        .WithRequest<FolderTreeCriteria>
+    public class Tree : BaseAsyncEndpoint
+        .WithRequest<FolderTreeParams>
         .WithResponse<FolderNodeDto>
     {
         internal ILogger Logger { get; private set; }
@@ -25,8 +25,8 @@ namespace CslaModelTemplates.Endpoints.TreeEndpoints
         /// Creates a new instance of the endpoint.
         /// </summary>
         /// <param name="logger">The application logging service.</param>
-        public TreeView(
-            ILogger<TreeView> logger
+        public Tree(
+            ILogger<Tree> logger
             )
         {
             Logger = logger;
@@ -38,7 +38,7 @@ namespace CslaModelTemplates.Endpoints.TreeEndpoints
         /// <param name="criteria">The criteria of the folder tree.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The requested folder tree.</returns>
-        [HttpGet("view")]
+        [HttpGet("")]
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Gets the specified folder tree.",
@@ -50,7 +50,7 @@ namespace CslaModelTemplates.Endpoints.TreeEndpoints
             Tags = new[] { "Tree Endpoints" })
         ]
         public override async Task<ActionResult<FolderNodeDto>> HandleAsync(
-            [FromQuery] FolderTreeCriteria criteria,
+            [FromQuery] FolderTreeParams criteria,
             CancellationToken cancellationToken
             )
         {

@@ -313,12 +313,18 @@
             </summary>
             <param name="logger">The application logging service.</param>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.TreeController.GetFolderTree(CslaModelTemplates.Contracts.Tree.FolderTreeCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.TreeController.GetFolderTree(CslaModelTemplates.Contracts.Tree.FolderTreeParams)">
             <summary>
             Gets the specified folder tree.
             </summary>
             <param name="criteria">The criteria of the folder tree.</param>
             <returns>The requested folder tree.</returns>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Controllers.TreeController.GetRootFolderChoice">
+            <summary>
+            Gets the ID-name choice of the trees.
+            </summary>
+            <returns>The ID-name choice of the trees.</returns>
         </member>
         <member name="T:CslaModelTemplates.WebApi.Extensions.DalExtensions">
             <summary>

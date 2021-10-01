@@ -1,8 +1,9 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.CslaExtensions.Models;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.Tree;
+using CslaModelTemplates.CslaExtensions.Models;
 using System;
 
 namespace CslaModelTemplates.Models.Tree
@@ -15,18 +16,20 @@ namespace CslaModelTemplates.Models.Tree
     {
         #region Properties
 
-        public static readonly PropertyInfo<long?> FolderKeyProperty = RegisterProperty<long?>(c => c.FolderKey);
-        public long? FolderKey
+        public static readonly PropertyInfo<string> FolderIdProperty = RegisterProperty<string>(c => c.FolderId, RelationshipTypes.PrivateField);
+        private long? FolderKey = null;
+        public string FolderId
         {
-            get { return GetProperty(FolderKeyProperty); }
-            private set { LoadProperty(FolderKeyProperty, value); }
+            get { return GetProperty(FolderIdProperty, KeyHash.Encode(ID.Folder, FolderKey)); }
+            private set { FolderKey = KeyHash.Decode(ID.Folder, value); }
         }
 
-        public static readonly PropertyInfo<long?> ParentKeyProperty = RegisterProperty<long?>(c => c.ParentKey);
-        public long? ParentKey
+        public static readonly PropertyInfo<string> ParentIdProperty = RegisterProperty<string>(c => c.ParentId, RelationshipTypes.PrivateField);
+        private long? ParentKey = null;
+        public string ParentId
         {
-            get { return GetProperty(ParentKeyProperty); }
-            private set { LoadProperty(ParentKeyProperty, value); }
+            get { return GetProperty(ParentIdProperty, KeyHash.Encode(ID.Folder, ParentKey)); }
+            private set { ParentKey = KeyHash.Decode(ID.Folder, value); }
         }
 
         public static readonly PropertyInfo<string> FolderNameProperty = RegisterProperty<string>(c => c.FolderName);

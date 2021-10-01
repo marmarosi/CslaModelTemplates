@@ -14,10 +14,10 @@ namespace CslaModelTemplates.Dal.SqlServer.SelectionWithId
         #region Fetch
 
         /// <summary>
-        /// Gets the choice of the managers.
+        /// Gets the choice of the teams.
         /// </summary>
-        /// <param name="criteria">The criteria of the manager choice.</param>
-        /// <returns>The data transfer object of the requested manager choice.</returns>
+        /// <param name="criteria">The criteria of the team choice.</param>
+        /// <returns>The data transfer object of the requested team choice.</returns>
         public List<IdNameOptionDao> Fetch(
             TeamIdChoiceCriteria criteria
             )

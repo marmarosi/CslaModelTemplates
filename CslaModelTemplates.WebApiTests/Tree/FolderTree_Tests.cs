@@ -18,7 +18,7 @@ namespace CslaModelTemplates.WebApiTests.Tree
             var sut = new TreeController(logger);
 
             // Act
-            FolderTreeCriteria criteria = new FolderTreeCriteria { RootKey = 1 };
+            FolderTreeParams criteria = new FolderTreeParams { RootId = "7x95p9vYaZz" };
             ActionResult<FolderNodeDto> actionResult = await sut.GetFolderTree(criteria);
 
             // Assert

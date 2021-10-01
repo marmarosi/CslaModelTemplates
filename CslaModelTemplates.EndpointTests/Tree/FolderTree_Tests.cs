@@ -15,11 +15,11 @@ namespace CslaModelTemplates.EndpointTests.Tree
         {
             // Arrange
             SetupService setup = SetupService.GetInstance();
-            var logger = setup.GetLogger<TreeView>();
-            var sut = new TreeView(logger);
+            var logger = setup.GetLogger<Endpoints.TreeEndpoints.Tree>();
+            var sut = new Endpoints.TreeEndpoints.Tree(logger);
 
             // Act
-            FolderTreeCriteria criteria = new FolderTreeCriteria { RootKey = 1 };
+            FolderTreeParams criteria = new FolderTreeParams { RootId = "7x95p9vYaZz" };
             ActionResult<FolderNodeDto> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
             // Assert

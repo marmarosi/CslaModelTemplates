@@ -1,9 +1,12 @@
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.Tree;
 using CslaModelTemplates.Models.Tree;
+using CslaModelTemplates.Models.TreeSelection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CslaModelTemplates.WebApi.Controllers
@@ -39,13 +42,36 @@ namespace CslaModelTemplates.WebApi.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(FolderNodeDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<FolderNodeDto>> GetFolderTree(
-            [FromQuery] FolderTreeCriteria criteria
+            [FromQuery] FolderTreeParams criteria
             )
         {
             try
             {
                 FolderTree tree = await FolderTree.Get(criteria);
                 return Ok(tree.ToDto<FolderNodeDto>());
+            }
+            catch (Exception ex)
+            {
+                return HandleError(ex);
+            }
+        }
+
+        #endregion
+
+        #region Choice
+
+        /// <summary>
+        /// Gets the ID-name choice of the trees.
+        /// </summary>
+        /// <returns>The ID-name choice of the trees.</returns>
+        [HttpGet("choice")]
+        [ProducesResponseType(typeof(List<IdNameOptionDto>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<IdNameOptionDto>>> GetRootFolderChoice()
+        {
+            try
+            {
+                RootFolderChoice choice = await RootFolderChoice.Get();
+                return Ok(choice.ToDto<IdNameOptionDto>());
             }
             catch (Exception ex)
             {
