@@ -39,7 +39,7 @@ namespace CslaModelTemplates.Models.ComplexSet
             List<TeamSetPlayerDto> list
             )
         {
-            await Update(list, "PlayerKey");
+            await Update(list, "PlayerId");
         }
 
         #endregion

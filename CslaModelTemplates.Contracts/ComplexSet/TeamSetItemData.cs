@@ -8,7 +8,6 @@ namespace CslaModelTemplates.Contracts.ComplexSet
     /// </summary>
     public class TeamSetItemData
     {
-        public long? TeamKey { get; set; }
         public string TeamCode { get; set; }
         public string TeamName { get; set; }
         public DateTime? Timestamp { get; set; }
@@ -19,6 +18,7 @@ namespace CslaModelTemplates.Contracts.ComplexSet
     /// </summary>
     public class TeamSetItemDao : TeamSetItemData
     {
+        public long? TeamKey { get; set; }
         public List<TeamSetPlayerDao> Players { get; set; }
 
         public TeamSetItemDao()
@@ -32,6 +32,7 @@ namespace CslaModelTemplates.Contracts.ComplexSet
     /// </summary>
     public class TeamSetItemDto : TeamSetItemData
     {
+        public string TeamId { get; set; }
         public List<TeamSetPlayerDto> Players { get; set; }
 
         public TeamSetItemDto()
@@ -43,7 +44,7 @@ namespace CslaModelTemplates.Contracts.ComplexSet
         {
             return new TeamSetItemDao
             {
-                TeamKey = TeamKey,
+                TeamKey = KeyHash.Decode(ID.Team, TeamId),
                 TeamCode = TeamCode,
                 TeamName = TeamName,
                 Players = PlayersToDao(),

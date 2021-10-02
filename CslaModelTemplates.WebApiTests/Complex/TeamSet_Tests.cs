@@ -31,7 +31,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             List<TeamSetItemDto> pristineList = okObjectResult.Value as List<TeamSetItemDto>;
             Assert.NotNull(pristineList);
 
-            // List must contain 5 items.
+            // List must contain some items.
             Assert.Equal(5, pristineList.Count);
             foreach (TeamSetItemDto item in pristineList)
             {
@@ -56,7 +56,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             TeamSetPlayerDto pristinePlayer31 = null;
             TeamSetItemDto pristineTeamNew = null;
             TeamSetPlayerDto pristinePlayerNew = null;
-            long? deletedTeamKey = null;
+            string deletedTeamId = null;
             ActionResult<List<TeamSetItemDto>> actionResult = await Call<List<TeamSetItemDto>>.RetryOnDeadlock(async () =>
             {
                 TeamSetCriteria criteria = new TeamSetCriteria { TeamName = "7" };
@@ -76,15 +76,15 @@ namespace CslaModelTemplates.WebApiTests.Complex
                 // Create new item.
                 pristineTeamNew = new TeamSetItemDto
                 {
-                    TeamKey = null,
+                    TeamId = null,
                     TeamCode = "T-9302",
                     TeamName = "Test team number 9302",
                     Timestamp = null
                 };
                 pristinePlayerNew = new TeamSetPlayerDto
                 {
-                    PlayerKey = null,
-                    TeamKey = null,
+                    PlayerId = null,
+                    TeamId = null,
                     PlayerCode = "P-9302-X",
                     PlayerName = "Test player #9302.X"
                 };
@@ -93,7 +93,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
 
                 // Delete an item.
                 TeamSetItemDto pristineTeam4 = pristineList[3];
-                deletedTeamKey = pristineTeam4.TeamKey;
+                deletedTeamId = pristineTeam4.TeamId;
                 pristineList.Remove(pristineTeam4);
 
                 // Act
@@ -110,7 +110,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             // The updated team must have new values.
             TeamSetItemDto updatedTeam3 = updatedList[2];
 
-            Assert.Equal(pristineTeam3.TeamKey, updatedTeam3.TeamKey);
+            Assert.Equal(pristineTeam3.TeamId, updatedTeam3.TeamId);
             Assert.Equal(pristineTeam3.TeamCode, updatedTeam3.TeamCode);
             Assert.Equal(pristineTeam3.TeamName, updatedTeam3.TeamName);
             Assert.NotEqual(pristineTeam3.Timestamp, updatedTeam3.Timestamp);
@@ -127,7 +127,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
                 .FirstOrDefault(o => o.TeamCode == pristineTeamNew.TeamCode);
             Assert.NotNull(createdTeam);
 
-            Assert.NotNull(createdTeam.TeamKey);
+            Assert.NotNull(createdTeam.TeamId);
             Assert.Equal(pristineTeamNew.TeamCode, createdTeam.TeamCode);
             Assert.Equal(pristineTeamNew.TeamName, createdTeam.TeamName);
             Assert.NotNull(createdTeam.Timestamp);
@@ -141,7 +141,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
 
             // The deleted team must have gone.
             TeamSetItemDto deleted = updatedList
-                .FirstOrDefault(o => o.TeamKey == deletedTeamKey);
+                .FirstOrDefault(o => o.TeamId == deletedTeamId);
             Assert.Null(deleted);
         }
 

@@ -7,8 +7,6 @@ namespace CslaModelTemplates.Contracts.ComplexSet
     /// </summary>
     public class TeamSetPlayerData
     {
-        public long? PlayerKey { get; set; }
-        public long? TeamKey { get; set; }
         public string PlayerCode { get; set; }
         public string PlayerName { get; set; }
         [JsonIgnore]
@@ -19,19 +17,25 @@ namespace CslaModelTemplates.Contracts.ComplexSet
     /// Defines the data access object of the editable team set player object.
     /// </summary>
     public class TeamSetPlayerDao : TeamSetPlayerData
-    { }
+    {
+        public long? PlayerKey { get; set; }
+        public long? TeamKey { get; set; }
+    }
 
     /// <summary>
     /// Defines the data transfer object of the editable team set player object.
     /// </summary>
     public class TeamSetPlayerDto : TeamSetPlayerData
     {
+        public string? PlayerId { get; set; }
+        public string? TeamId { get; set; }
+
         public TeamSetPlayerDao ToDao()
         {
             return new TeamSetPlayerDao
             {
-                PlayerKey = PlayerKey,
-                TeamKey = TeamKey,
+                PlayerKey = KeyHash.Decode(ID.Player, PlayerId),
+                TeamKey = KeyHash.Decode(ID.Team, TeamId),
                 PlayerCode = PlayerCode,
                 PlayerName = PlayerName,
                 __teamCode = __teamCode
