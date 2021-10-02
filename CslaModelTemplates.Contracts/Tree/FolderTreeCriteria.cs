@@ -15,7 +15,7 @@ namespace CslaModelTemplates.Contracts.Tree
         {
             return new FolderTreeCriteria
             {
-                RootKey = KeyHash.Decode(ID.Team, RootId) ?? 0
+                RootKey = KeyHash.Decode(ID.Folder, RootId) ?? 0
             };
         }
     }

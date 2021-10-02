@@ -113,7 +113,7 @@ namespace CslaModelTemplates.Models.SimpleSet
         {
             SimpleTeamSetItemDto dto = data as SimpleTeamSetItemDto;
 
-            //TeamKey = dto.TeamKey;
+            //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
             TeamCode = dto.TeamCode;
             TeamName = dto.TeamName;
             //Timestamp = dto.Timestamp;

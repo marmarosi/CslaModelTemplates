@@ -33,7 +33,7 @@ namespace CslaModelTemplates.Models.Junction
         public string PersonId
         {
             get { return GetProperty(PersonIdProperty); }
-            private set { SetProperty(PersonIdProperty, value); }
+            private set { LoadProperty(PersonIdProperty, value); }
         }
 
         public static readonly PropertyInfo<string> PersonNameProperty = RegisterProperty<string>(c => c.PersonName);
@@ -110,15 +110,18 @@ namespace CslaModelTemplates.Models.Junction
         /// <summary>
         /// Updates an editable group-person from the data transfer object.
         /// </summary>
-        /// <param name="dto">The data transfer objects.</param>
-        internal void Update(
-            GroupPersonDto dto
+        /// <param name="data">The data transfer objects.</param>
+        public override async Task Update(
+            object data
             )
         {
-            PersonKey = KeyHash.Decode(ID.Person, dto.PersonId);
-            PersonName = dto.PersonName;
-
-            BusinessRules.CheckRules();
+            GroupPersonDto dto = data as GroupPersonDto;
+            using (BypassPropertyChecks)
+            {
+                PersonKey = KeyHash.Decode(ID.Person, dto.PersonId);
+                PersonName = dto.PersonName;
+            }
+            await base.Update(data);
         }
 
         #endregion
@@ -139,10 +142,7 @@ namespace CslaModelTemplates.Models.Junction
             GroupPersonDto dto
             )
         {
-            GroupPerson groupPerson = await Task.Run(() => DataPortal.CreateChild<GroupPerson>());
-            groupPerson.SetParent(parent);
-            groupPerson.Update(dto);
-            return groupPerson;
+            return await Create<GroupPersonDto>(parent, dto);
         }
 
         #endregion

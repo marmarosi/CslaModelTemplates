@@ -108,7 +108,7 @@ namespace CslaModelTemplates.Models.Complex
             TeamDto dto = data as TeamDto;
             using (BypassPropertyChecks)
             {
-                //TeamKey = dto.TeamKey;
+                //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
                 TeamCode = dto.TeamCode;
                 TeamName = dto.TeamName;
                 await Players.Update(dto.Players);

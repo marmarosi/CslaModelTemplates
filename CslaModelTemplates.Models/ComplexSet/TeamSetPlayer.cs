@@ -140,8 +140,8 @@ namespace CslaModelTemplates.Models.ComplexSet
             TeamSetPlayerDto dto = data as TeamSetPlayerDto;
             using (BypassPropertyChecks)
             {
-                //PlayerKey = dto.PlayerKey;
-                //TeamKey = dto.TeamKey;
+                //PlayerKey = KeyHash.Decode(ID.Player, dto.PlayerId);
+                //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
                 PlayerCode = dto.PlayerCode;
                 PlayerName = dto.PlayerName;
             }

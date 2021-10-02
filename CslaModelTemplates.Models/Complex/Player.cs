@@ -33,7 +33,7 @@ namespace CslaModelTemplates.Models.Complex
         public string PlayerId
         {
             get { return GetProperty(PlayerIdProperty); }
-            private set { SetProperty(PlayerIdProperty, value); }
+            private set { LoadProperty(PlayerIdProperty, value); }
         }
 
         private long? TeamKey
@@ -46,7 +46,7 @@ namespace CslaModelTemplates.Models.Complex
         public string TeamId
         {
             get { return GetProperty(TeamIdProperty); }
-            private set { SetProperty(TeamIdProperty, value); }
+            private set { LoadProperty(TeamIdProperty, value); }
         }
 
         public static readonly PropertyInfo<string> PlayerCodeProperty = RegisterProperty<string>(c => c.PlayerCode);
@@ -142,8 +142,8 @@ namespace CslaModelTemplates.Models.Complex
             PlayerDto dto = data as PlayerDto;
             using (BypassPropertyChecks)
             {
-                //PlayerKey = dto.PlayerKey;
-                //TeamKey = dto.TeamKey;
+                //PlayerKey = KeyHash.Decode(ID.Player, dto.PlayerId);
+                //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
                 PlayerCode = dto.PlayerCode;
                 PlayerName = dto.PlayerName;
             }

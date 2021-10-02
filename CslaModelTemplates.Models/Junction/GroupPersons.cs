@@ -40,24 +40,7 @@ namespace CslaModelTemplates.Models.Junction
             List<GroupPersonDto> list
             )
         {
-            //await Update(list, "PersonId");
-
-            List<int> indeces = Enumerable.Range(0, list.Count).ToList();
-            for (int i = Items.Count - 1; i > -1; i--)
-            {
-                GroupPerson item = Items[i];
-                //GroupPersonDto dto = list.Find(o => o.PersonKey == item.PersonKey);
-                GroupPersonDto dto = list.Find(o => o.PersonId == item.PersonId);
-                if (dto == null)
-                    RemoveItem(i);
-                else
-                {
-                    item.Update(dto);
-                    indeces.Remove(list.IndexOf(dto));
-                }
-            }
-            foreach (int index in indeces)
-                Items.Add(await GroupPerson.Create(this, list[index]));
+            await Update(list, "PersonId");
         }
 
         #endregion
