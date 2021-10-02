@@ -16,7 +16,7 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
     /// </summary>
     [Route(Routes.Junction)]
     public class View : BaseAsyncEndpoint
-        .WithRequest<GroupViewCriteria>
+        .WithRequest<GroupViewParams>
         .WithResponse<GroupViewDto>
     {
         internal ILogger logger { get; private set; }
@@ -50,7 +50,7 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
             Tags = new[] { "Junction Endpoints" })
         ]
         public override async Task<ActionResult<GroupViewDto>> HandleAsync(
-            [FromQuery] GroupViewCriteria criteria,
+            [FromQuery] GroupViewParams criteria,
             CancellationToken cancellationToken
             )
         {

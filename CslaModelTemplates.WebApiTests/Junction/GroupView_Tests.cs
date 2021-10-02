@@ -17,7 +17,7 @@ namespace CslaModelTemplates.WebApiTests.Junction
             var sut = new JunctionController(logger);
 
             // Act
-            GroupViewCriteria criteria = new GroupViewCriteria { GroupKey = 8 };
+            GroupViewParams criteria = new GroupViewParams { GroupId = "oQLOyK85x6g" };
             ActionResult<GroupViewDto> actionResult = await sut.GetGroupView(criteria);
 
             // Assert

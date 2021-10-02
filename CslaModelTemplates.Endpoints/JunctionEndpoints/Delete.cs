@@ -16,7 +16,7 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
     /// </summary>
     [Route(Routes.Junction)]
     public class Delete : BaseAsyncEndpoint
-        .WithRequest<GroupCriteria>
+        .WithRequest<GroupParams>
         .WithoutResponse
     {
         internal ILogger logger { get; private set; }
@@ -48,7 +48,7 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
             Tags = new[] { "Junction Endpoints" })
         ]
         public override async Task<ActionResult> HandleAsync(
-            [FromQuery] GroupCriteria criteria,
+            [FromQuery] GroupParams criteria,
             CancellationToken cancellationToken
             )
         {

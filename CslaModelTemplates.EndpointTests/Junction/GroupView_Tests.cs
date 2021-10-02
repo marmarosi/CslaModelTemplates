@@ -18,7 +18,7 @@ namespace CslaModelTemplates.EndpointTests.Junction
             var sut = new View(logger);
 
             // Act
-            GroupViewCriteria criteria = new GroupViewCriteria { GroupKey = 8 };
+            GroupViewParams criteria = new GroupViewParams { GroupId = "oQLOyK85x6g" };
             ActionResult<GroupViewDto> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
             // Assert

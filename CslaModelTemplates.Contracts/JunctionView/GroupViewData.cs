@@ -7,7 +7,6 @@ namespace CslaModelTemplates.Contracts.JunctionView
     /// </summary>
     public class GroupViewData
     {
-        public long? GroupKey { get; set; }
         public string GroupCode { get; set; }
         public string GroupName { get; set; }
     }
@@ -17,6 +16,7 @@ namespace CslaModelTemplates.Contracts.JunctionView
     /// </summary>
     public class GroupViewDao : GroupViewData
     {
+        public long? GroupKey { get; set; }
         public List<GroupPersonViewDao> Persons { get; set; }
     }
 
@@ -25,6 +25,7 @@ namespace CslaModelTemplates.Contracts.JunctionView
     /// </summary>
     public class GroupViewDto : GroupViewData
     {
+        public string GroupId { get; set; }
         public List<GroupPersonViewDto> Persons { get; set; }
     }
 }

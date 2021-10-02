@@ -118,7 +118,7 @@
             </summary>
             <param name="logger">The application logging service.</param>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.GetGroupView(CslaModelTemplates.Contracts.JunctionView.GroupViewCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.GetGroupView(CslaModelTemplates.Contracts.JunctionView.GroupViewParams)">
             <summary>
             Gets the specified group details to display.
             </summary>
@@ -131,7 +131,7 @@
             </summary>
             <returns>A new group.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.GetGroup(CslaModelTemplates.Contracts.Junction.GroupCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.GetGroup(CslaModelTemplates.Contracts.Junction.GroupParams)">
             <summary>
             Gets the specified group to edit.
             </summary>
@@ -152,7 +152,7 @@
             <param name="dto">The data transer object of the group.</param>
             <returns>The updated group.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.DeleteGroup(CslaModelTemplates.Contracts.Junction.GroupCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.JunctionController.DeleteGroup(CslaModelTemplates.Contracts.Junction.GroupParams)">
             <summary>
             Deletes the specified group.
             </summary>

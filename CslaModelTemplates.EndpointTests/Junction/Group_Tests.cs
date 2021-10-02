@@ -56,20 +56,22 @@ namespace CslaModelTemplates.EndpointTests.Junction
             {
                 pristineGroup = new GroupDto
                 {
-                    GroupKey = null,
+                    GroupId = null,
                     GroupCode = "T-9201",
                     GroupName = "Test group number 9201",
                     Timestamp = null
                 };
+                //string pid1 = KeyHash.Encode(ID.Person, 11);
+                //string pid2 = KeyHash.Encode(ID.Person, 17);
                 pristineMember1 = new GroupPersonDto
                 {
-                    PersonKey = 11,
+                    PersonId = "7adBbqg8nxV",
                     PersonName = "Person #11"
                 };
                 pristineGroup.Persons.Add(pristineMember1);
                 pristineMember2 = new GroupPersonDto
                 {
-                    PersonKey = 17,
+                    PersonId = "4aoj5R40G1e",
                     PersonName = "Person #17"
                 };
                 pristineGroup.Persons.Add(pristineMember2);
@@ -85,7 +87,7 @@ namespace CslaModelTemplates.EndpointTests.Junction
             Assert.NotNull(createdGroup);
 
             // The group must have new values.
-            Assert.NotNull(createdGroup.GroupKey);
+            Assert.NotNull(createdGroup.GroupId);
             Assert.Equal(pristineGroup.GroupCode, createdGroup.GroupCode);
             Assert.Equal(pristineGroup.GroupName, createdGroup.GroupName);
             Assert.NotNull(createdGroup.Timestamp);
@@ -94,11 +96,11 @@ namespace CslaModelTemplates.EndpointTests.Junction
             Assert.Equal(2, createdGroup.Persons.Count);
 
             GroupPersonDto createdMember1 = createdGroup.Persons[0];
-            Assert.Equal(pristineMember1.PersonKey, createdMember1.PersonKey);
+            Assert.Equal(pristineMember1.PersonId, createdMember1.PersonId);
             Assert.Equal(pristineMember1.PersonName, createdMember1.PersonName);
 
             GroupPersonDto createdMember2 = createdGroup.Persons[1];
-            Assert.Equal(pristineMember2.PersonKey, createdMember2.PersonKey);
+            Assert.Equal(pristineMember2.PersonId, createdMember2.PersonId);
             Assert.Equal(pristineMember2.PersonName, createdMember2.PersonName);
         }
 
@@ -115,7 +117,7 @@ namespace CslaModelTemplates.EndpointTests.Junction
             var sut = new Read(logger);
 
             // Act
-            GroupCriteria criteria = new GroupCriteria { GroupKey = 12 };
+            GroupParams criteria = new GroupParams { GroupId = "6KANyA658o9" };
             ActionResult<GroupDto> actionResult =
                 await sut.HandleAsync(criteria, new CancellationToken());
 
@@ -126,10 +128,10 @@ namespace CslaModelTemplates.EndpointTests.Junction
             GroupDto pristineGroup = okObjectResult.Value as GroupDto;
             Assert.NotNull(pristineGroup);
 
-            // The group code and name must end with 12.
-            Assert.Equal(12, pristineGroup.GroupKey);
-            Assert.Equal("G-12", pristineGroup.GroupCode);
-            Assert.EndsWith("12", pristineGroup.GroupName);
+            // The group code and name must end with 10.
+            Assert.Equal("6KANyA658o9", pristineGroup.GroupId);
+            Assert.Equal("G-10", pristineGroup.GroupCode);
+            Assert.EndsWith("10", pristineGroup.GroupName);
             Assert.NotNull(pristineGroup.Timestamp);
 
             // The person name must start with Person.
@@ -161,7 +163,7 @@ namespace CslaModelTemplates.EndpointTests.Junction
             GroupPersonDto pristineMemberNew = null;
             var actionResult = await Call<GroupDto>.RetryOnDeadlock(async () =>
             {
-                GroupCriteria criteria = new GroupCriteria { GroupKey = 12 };
+                GroupParams criteria = new GroupParams { GroupId = "aqL3y3P5dGm" };
                 ActionResult<GroupDto> actionResult = await sutR.HandleAsync(criteria, new CancellationToken());
                 OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
                 pristineGroup = okObjectResult.Value as GroupDto;
@@ -172,7 +174,7 @@ namespace CslaModelTemplates.EndpointTests.Junction
 
                 pristineMemberNew = new GroupPersonDto
                 {
-                    PersonKey = 1,
+                    PersonId = "a4P18mr5M62",
                     PersonName = "New member",
                 };
                 pristineGroup.Persons.Add(pristineMemberNew);
@@ -188,7 +190,7 @@ namespace CslaModelTemplates.EndpointTests.Junction
             Assert.NotNull(updatedGroup);
 
             // The group must have new values.
-            Assert.Equal(pristineGroup.GroupKey, updatedGroup.GroupKey);
+            Assert.Equal(pristineGroup.GroupId, updatedGroup.GroupId);
             Assert.Equal(pristineGroup.GroupCode, updatedGroup.GroupCode);
             Assert.Equal(pristineGroup.GroupName, updatedGroup.GroupName);
             Assert.NotEqual(pristineGroup.Timestamp, updatedGroup.Timestamp);
@@ -197,11 +199,11 @@ namespace CslaModelTemplates.EndpointTests.Junction
 
             // Persons must reflect the changes.
             GroupPersonDto updatedMember1 = updatedGroup.Persons[0];
-            Assert.Equal(pristineMember1.PersonKey, updatedMember1.PersonKey);
+            Assert.Equal(pristineMember1.PersonId, updatedMember1.PersonId);
             Assert.Equal(pristineMember1.PersonName, updatedMember1.PersonName);
 
             GroupPersonDto createdMemberNew = updatedGroup.Persons[pristineGroup.Persons.Count - 1];
-            Assert.Equal(pristineMemberNew.PersonKey, createdMemberNew.PersonKey);
+            Assert.Equal(pristineMemberNew.PersonId, createdMemberNew.PersonId);
             Assert.StartsWith("Person", createdMemberNew.PersonName);
         }
 
@@ -221,7 +223,7 @@ namespace CslaModelTemplates.EndpointTests.Junction
             //IActionResult actionResult;
             ActionResult actionResult = await Run.RetryOnDeadlock(async () =>
             {
-                GroupCriteria criteria = new GroupCriteria { GroupKey = 4 };
+                GroupParams criteria = new GroupParams { GroupId = "3Nr8nQenQjA" };
                 return await sut.HandleAsync(criteria, new CancellationToken());
             });
 

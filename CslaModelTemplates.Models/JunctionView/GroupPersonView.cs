@@ -1,8 +1,9 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.CslaExtensions.Models;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.JunctionView;
+using CslaModelTemplates.CslaExtensions.Models;
 using System;
 
 namespace CslaModelTemplates.Models.JunctionView
@@ -15,11 +16,12 @@ namespace CslaModelTemplates.Models.JunctionView
     {
         #region Properties
 
-        public static readonly PropertyInfo<long?> PersonKeyProperty = RegisterProperty<long?>(c => c.PersonKey);
-        public long? PersonKey
+        public static readonly PropertyInfo<string> PersonIdProperty = RegisterProperty<string>(c => c.PersonId, RelationshipTypes.PrivateField);
+        private long? PersonKey = null;
+        public string PersonId
         {
-            get { return GetProperty(PersonKeyProperty); }
-            private set { LoadProperty(PersonKeyProperty, value); }
+            get { return GetProperty(PersonIdProperty, KeyHash.Encode(ID.Person, PersonKey)); }
+            private set { PersonKey = KeyHash.Decode(ID.Person, value); }
         }
 
         public static readonly PropertyInfo<string> PersonNameProperty = RegisterProperty<string>(c => c.PersonName);

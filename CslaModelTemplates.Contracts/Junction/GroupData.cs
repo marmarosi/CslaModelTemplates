@@ -8,7 +8,6 @@ namespace CslaModelTemplates.Contracts.Junction
     /// </summary>
     public class GroupData
     {
-        public long? GroupKey { get; set; }
         public string GroupCode { get; set; }
         public string GroupName { get; set; }
         public DateTime? Timestamp { get; set; }
@@ -19,6 +18,7 @@ namespace CslaModelTemplates.Contracts.Junction
     /// </summary>
     public class GroupDao : GroupData
     {
+        public long? GroupKey { get; set; }
         public List<GroupPersonDao> Persons { get; set; }
 
         public GroupDao()
@@ -32,6 +32,7 @@ namespace CslaModelTemplates.Contracts.Junction
     /// </summary>
     public class GroupDto : GroupData
     {
+        public string GroupId { get; set; }
         public List<GroupPersonDto> Persons { get; set; }
 
         public GroupDto()

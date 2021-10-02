@@ -1,9 +1,10 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.Dal;
-using CslaModelTemplates.CslaExtensions.Models;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.JunctionView;
+using CslaModelTemplates.CslaExtensions.Models;
+using CslaModelTemplates.Dal;
 using System;
 using System.Threading.Tasks;
 
@@ -17,11 +18,12 @@ namespace CslaModelTemplates.Models.JunctionView
     {
         #region Properties
 
-        public static readonly PropertyInfo<long?> GroupKeyProperty = RegisterProperty<long?>(c => c.GroupKey);
-        public long? GroupKey
+        public static readonly PropertyInfo<string> GroupIdProperty = RegisterProperty<string>(c => c.GroupId, RelationshipTypes.PrivateField);
+        private long? GroupKey = null;
+        public string GroupId
         {
-            get { return GetProperty(GroupKeyProperty); }
-            private set { LoadProperty(GroupKeyProperty, value); }
+            get { return GetProperty(GroupIdProperty, KeyHash.Encode(ID.Group, GroupKey)); }
+            private set { GroupKey = KeyHash.Decode(ID.Group, value); }
         }
 
         public static readonly PropertyInfo<string> GroupCodeProperty = RegisterProperty<string>(c => c.GroupCode);
@@ -78,10 +80,10 @@ namespace CslaModelTemplates.Models.JunctionView
         /// <param name="criteria">The criteria of the read-only group.</param>
         /// <returns>The requested read-only group instance.</returns>
         public static async Task<GroupView> Get(
-            GroupViewCriteria criteria
+            GroupViewParams criteria
             )
         {
-            return await DataPortal.FetchAsync<GroupView>(criteria);
+            return await DataPortal.FetchAsync<GroupView>(criteria.Decode());
         }
 
         #endregion

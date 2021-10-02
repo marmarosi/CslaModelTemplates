@@ -5,7 +5,6 @@ namespace CslaModelTemplates.Contracts.Junction
     /// </summary>
     public class GroupPersonData
     {
-        public long? PersonKey { get; set; }
         public string PersonName { get; set; }
     }
 
@@ -14,6 +13,7 @@ namespace CslaModelTemplates.Contracts.Junction
     /// </summary>
     public class GroupPersonDao : GroupPersonData
     {
+        public long? PersonKey { get; set; }
         public long? GroupKey { get; set; }
     }
 
@@ -21,5 +21,7 @@ namespace CslaModelTemplates.Contracts.Junction
     /// Defines the data transfer object of the editable group-person object.
     /// </summary>
     public class GroupPersonDto : GroupPersonData
-    { }
+    {
+        public string PersonId { get; set; }
+    }
 }

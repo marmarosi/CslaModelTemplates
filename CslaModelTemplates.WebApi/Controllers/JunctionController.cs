@@ -41,7 +41,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         [HttpGet("view")]
         [ProducesResponseType(typeof(GroupViewDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<GroupViewDto>> GetGroupView(
-            [FromQuery] GroupViewCriteria criteria
+            [FromQuery] GroupViewParams criteria
             )
         {
             try
@@ -90,7 +90,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         [HttpGet("fetch")]
         [ProducesResponseType(typeof(GroupDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<GroupDto>> GetGroup(
-            [FromQuery] GroupCriteria criteria
+            [FromQuery] GroupParams criteria
             )
         {
             try
@@ -181,7 +181,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> DeleteGroup(
-            [FromQuery] GroupCriteria criteria
+            [FromQuery] GroupParams criteria
             )
         {
             try

@@ -5,7 +5,6 @@ namespace CslaModelTemplates.Contracts.JunctionView
     /// </summary>
     public class GroupPersonViewData
     {
-        public long? PersonKey { get; set; }
         public string PersonName { get; set; }
     }
 
@@ -13,11 +12,15 @@ namespace CslaModelTemplates.Contracts.JunctionView
     /// Defines the data access object of the read-only group-person object.
     /// </summary>
     public class GroupPersonViewDao : GroupPersonViewData
-    { }
+    {
+        public long? PersonKey { get; set; }
+    }
 
     /// <summary>
     /// Defines the data transfer object of the read-only group-person object.
     /// </summary>
     public class GroupPersonViewDto : GroupPersonViewData
-    { }
+    {
+        public string PersonId { get; set; }
+    }
 }

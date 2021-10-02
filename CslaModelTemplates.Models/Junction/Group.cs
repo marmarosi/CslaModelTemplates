@@ -1,9 +1,10 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
+using CslaModelTemplates.Contracts;
+using CslaModelTemplates.Contracts.Junction;
 using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.CslaExtensions.Validations;
-using CslaModelTemplates.Contracts.Junction;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
@@ -20,11 +21,17 @@ namespace CslaModelTemplates.Models.Junction
     {
         #region Properties
 
-        public static readonly PropertyInfo<long?> GroupKeyProperty = RegisterProperty<long?>(c => c.GroupKey);
-        public long? GroupKey
+        internal long? GroupKey
         {
-            get { return GetProperty(GroupKeyProperty); }
-            private set { LoadProperty(GroupKeyProperty, value); }
+            get { return KeyHash.Decode(ID.Group, GroupId); }
+            private set { GroupId = KeyHash.Encode(ID.Group, value); }
+        }
+
+        public static readonly PropertyInfo<string> GroupIdProperty = RegisterProperty<string>(c => c.GroupId);
+        public string GroupId
+        {
+            get { return GetProperty(GroupIdProperty); }
+            set { SetProperty(GroupIdProperty, value); }
         }
 
         public static readonly PropertyInfo<string> GroupCodeProperty = RegisterProperty<string>(c => c.GroupCode);
@@ -112,10 +119,10 @@ namespace CslaModelTemplates.Models.Junction
         /// <param name="criteria">The criteria of the group.</param>
         /// <returns>The requested editable group instance.</returns>
         public static async Task<Group> Get(
-            GroupCriteria criteria
+            GroupParams criteria
             )
         {
-            return await DataPortal.FetchAsync<Group>(criteria);
+            return await DataPortal.FetchAsync<Group>(criteria.Decode());
         }
 
         /// <summary>
@@ -123,10 +130,10 @@ namespace CslaModelTemplates.Models.Junction
         /// </summary>
         /// <param name="criteria">The criteria of the group.</param>
         public static async void Delete(
-            GroupCriteria criteria
+            GroupParams criteria
             )
         {
-            await DataPortal.DeleteAsync<Group>(criteria);
+            await DataPortal.DeleteAsync<Group>(criteria.Decode());
         }
 
         /// <summary>
@@ -138,11 +145,9 @@ namespace CslaModelTemplates.Models.Junction
             GroupDto dto
             )
         {
-            Group group = dto.GroupKey.HasValue ?
-                await DataPortal.FetchAsync<Group>(new GroupCriteria()
-                {
-                    GroupKey = dto.GroupKey.Value
-                }) :
+            long? groupKey = KeyHash.Decode(ID.Group, dto.GroupId);
+            Group group = groupKey.HasValue ?
+                await DataPortal.FetchAsync<Group>(new GroupCriteria(groupKey.Value)) :
                 await DataPortal.CreateAsync<Group>();
 
             //group.GroupKey = dto.GroupKey;

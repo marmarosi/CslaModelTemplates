@@ -2,9 +2,10 @@ using Csla;
 using Csla.Core;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
+using CslaModelTemplates.Contracts;
+using CslaModelTemplates.Contracts.Junction;
 using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.CslaExtensions.Validations;
-using CslaModelTemplates.Contracts.Junction;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
@@ -22,11 +23,17 @@ namespace CslaModelTemplates.Models.Junction
     {
         #region Properties
 
-        public static readonly PropertyInfo<long?> PersonKeyProperty = RegisterProperty<long?>(c => c.PersonKey);
-        public long? PersonKey
+        private long? PersonKey
         {
-            get { return GetProperty(PersonKeyProperty); }
-            private set { LoadProperty(PersonKeyProperty, value); }
+            get { return KeyHash.Decode(ID.Person, PersonId); }
+            set { PersonId = KeyHash.Encode(ID.Person, value); }
+        }
+
+        public static readonly PropertyInfo<string> PersonIdProperty = RegisterProperty<string>(c => c.PersonId);
+        public string PersonId
+        {
+            get { return GetProperty(PersonIdProperty); }
+            private set { SetProperty(PersonIdProperty, value); }
         }
 
         public static readonly PropertyInfo<string> PersonNameProperty = RegisterProperty<string>(c => c.PersonName);
@@ -48,7 +55,7 @@ namespace CslaModelTemplates.Models.Junction
 
             //// Add validation rules.
             //BusinessRules.AddRule(new Required(PersonNameProperty));
-            BusinessRules.AddRule(new UniquePersonKeys(PersonKeyProperty));
+            BusinessRules.AddRule(new UniquePersonIds(PersonIdProperty));
 
             //// Add authorization rules.
             //BusinessRules.AddRule(new IsInRole(
@@ -64,10 +71,10 @@ namespace CslaModelTemplates.Models.Junction
         //        );
         //}
 
-        private class UniquePersonKeys : BusinessRule
+        private class UniquePersonIds : BusinessRule
         {
             // Add additional parameters to your rule to the constructor.
-            public UniquePersonKeys(
+            public UniquePersonIds(
                 IPropertyInfo primaryProperty
                 )
               : base(primaryProperty)
@@ -90,9 +97,9 @@ namespace CslaModelTemplates.Models.Junction
                     return;
 
                 Group group = (Group)target.Parent.Parent;
-                var count = group.Persons.Count(gp => gp.PersonKey == target.PersonKey);
+                var count = group.Persons.Count(gp => gp.PersonId == target.PersonId);
                 if (count > 1)
-                    context.AddErrorResult(ValidationText.GroupPerson_PersonKey_NotUnique);
+                    context.AddErrorResult(ValidationText.GroupPerson_PersonId_NotUnique);
             }
         }
 
@@ -108,7 +115,7 @@ namespace CslaModelTemplates.Models.Junction
             GroupPersonDto dto
             )
         {
-            PersonKey = dto.PersonKey;
+            PersonKey = KeyHash.Decode(ID.Person, dto.PersonId);
             PersonName = dto.PersonName;
 
             BusinessRules.CheckRules();
