@@ -45,7 +45,7 @@
             <param name="criteria">The criteria of the team list.</param>
             <returns>A list of teams.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetTeamView(CslaModelTemplates.Contracts.ComplexView.TeamViewCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetTeamView(CslaModelTemplates.Contracts.ComplexView.TeamViewParams)">
             <summary>
             Gets the specified team details to display.
             </summary>
@@ -58,7 +58,7 @@
             </summary>
             <returns>The new team.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetTeam(CslaModelTemplates.Contracts.Complex.TeamCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.GetTeam(CslaModelTemplates.Contracts.Complex.TeamParams)">
             <summary>
             Gets the specified team to edit.
             </summary>
@@ -79,7 +79,7 @@
             <param name="dto">The data transer object of the team.</param>
             <returns>The updated team.</returns>
         </member>
-        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.DeleteTeam(CslaModelTemplates.Contracts.Complex.TeamCriteria)">
+        <member name="M:CslaModelTemplates.WebApi.Controllers.ComplexController.DeleteTeam(CslaModelTemplates.Contracts.Complex.TeamParams)">
             <summary>
             Deletes the specified team.
             </summary>

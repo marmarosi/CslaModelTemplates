@@ -5,7 +5,6 @@ namespace CslaModelTemplates.Contracts.ComplexList
     /// </summary>
     public class PlayerListItemData
     {
-        public long? PlayerKey { get; set; }
         public string PlayerCode { get; set; }
         public string PlayerName { get; set; }
     }
@@ -14,11 +13,15 @@ namespace CslaModelTemplates.Contracts.ComplexList
     /// Defines the data access object of the read-only player list item object.
     /// </summary>
     public class PlayerListItemDao : PlayerListItemData
-    { }
+    {
+        public long? PlayerKey { get; set; }
+    }
 
     /// <summary>
     /// Defines the data transfer object of the read-only player list item object.
     /// </summary>
     public class PlayerListItemDto : PlayerListItemData
-    { }
+    {
+        public string PlayerId { get; set; }
+    }
 }

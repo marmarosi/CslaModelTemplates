@@ -18,7 +18,7 @@ namespace CslaModelTemplates.EndpointTests.Complex
             var sut = new View(logger);
 
             // Act
-            TeamViewCriteria criteria = new TeamViewCriteria { TeamKey = 17 };
+            TeamViewParams criteria = new TeamViewParams { TeamId = "1r9oGj1x3lk" };
             ActionResult<TeamViewDto> actionResult = await sut.HandleAsync(criteria, new CancellationToken());
 
             // Assert

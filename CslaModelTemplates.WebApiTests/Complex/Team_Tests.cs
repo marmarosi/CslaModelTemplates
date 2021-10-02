@@ -55,23 +55,23 @@ namespace CslaModelTemplates.WebApiTests.Complex
             {
                 pristineTeam = new TeamDto
                 {
-                    TeamKey = null,
+                    TeamId = null,
                     TeamCode = "T-9201",
                     TeamName = "Test team number 9201",
                     Timestamp = null
                 };
                 pristinePlayer1 = new PlayerDto
                 {
-                    PlayerKey = null,
-                    TeamKey = null,
+                    PlayerId = null,
+                    TeamId = null,
                     PlayerCode = "P-9201-1",
                     PlayerName = "Test player #1"
                 };
                 pristineTeam.Players.Add(pristinePlayer1);
                 pristinePlayer2 = new PlayerDto
                 {
-                    PlayerKey = null,
-                    TeamKey = null,
+                    PlayerId = null,
+                    TeamId = null,
                     PlayerCode = "P-9201-2",
                     PlayerName = "Test player #2"
                 };
@@ -88,7 +88,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             Assert.NotNull(createdTeam);
 
             // The team must have new values.
-            Assert.NotNull(createdTeam.TeamKey);
+            Assert.NotNull(createdTeam.TeamId);
             Assert.Equal(pristineTeam.TeamCode, createdTeam.TeamCode);
             Assert.Equal(pristineTeam.TeamName, createdTeam.TeamName);
             Assert.NotNull(createdTeam.Timestamp);
@@ -97,14 +97,14 @@ namespace CslaModelTemplates.WebApiTests.Complex
             Assert.Equal(2, createdTeam.Players.Count);
 
             PlayerDto createdPlayer1 = createdTeam.Players[0];
-            Assert.NotNull(createdPlayer1.PlayerKey);
-            Assert.Equal(createdTeam.TeamKey, createdPlayer1.TeamKey);
+            Assert.NotNull(createdPlayer1.PlayerId);
+            Assert.Equal(createdTeam.TeamId, createdPlayer1.TeamId);
             Assert.Equal(pristinePlayer1.PlayerCode, createdPlayer1.PlayerCode);
             Assert.Equal(pristinePlayer1.PlayerName, createdPlayer1.PlayerName);
 
             PlayerDto createdPlayer2 = createdTeam.Players[1];
-            Assert.NotNull(createdPlayer2.PlayerKey);
-            Assert.Equal(createdTeam.TeamKey, createdPlayer2.TeamKey);
+            Assert.NotNull(createdPlayer2.PlayerId);
+            Assert.Equal(createdTeam.TeamId, createdPlayer2.TeamId);
             Assert.Equal(pristinePlayer2.PlayerCode, createdPlayer2.PlayerCode);
             Assert.Equal(pristinePlayer2.PlayerName, createdPlayer2.PlayerName);
         }
@@ -122,7 +122,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             var sut = new ComplexController(logger);
 
             // Act
-            TeamCriteria criteria = new TeamCriteria { TeamKey = 19 };
+            TeamParams criteria = new TeamParams { TeamId = "LBgyGEK0PN2" };
             ActionResult<TeamDto> actionResult = await sut.GetTeam(criteria);
 
             // Assert
@@ -132,20 +132,19 @@ namespace CslaModelTemplates.WebApiTests.Complex
             TeamDto pristineTeam = okObjectResult.Value as TeamDto;
             Assert.NotNull(pristineTeam);
 
-            // The team code and name must end with 19.
-            Assert.Equal(19, pristineTeam.TeamKey);
-            Assert.Equal("T-0019", pristineTeam.TeamCode);
-            Assert.EndsWith("19", pristineTeam.TeamName);
+            // The team code and name must end with 26.
+            Assert.Equal("LBgyGEK0PN2", pristineTeam.TeamId);
+            Assert.Equal("T-0026", pristineTeam.TeamCode);
+            Assert.EndsWith("26", pristineTeam.TeamName);
             Assert.NotNull(pristineTeam.Timestamp);
 
-            // The player codes and names must contain 19.
+            // The player codes and names must contain 26.
             Assert.True(pristineTeam.Players.Count > 0);
-            PlayerDto pristinePlayer1 = pristineTeam.Players[0];
             foreach (PlayerDto player in pristineTeam.Players)
             {
-                Assert.Equal(19, player.TeamKey);
-                Assert.Contains("19", player.PlayerCode);
-                Assert.Contains("19", player.PlayerName);
+                Assert.Equal("LBgyGEK0PN2", player.TeamId);
+                Assert.Contains("26", player.PlayerCode);
+                Assert.Contains("26", player.PlayerName);
             }
         }
 
@@ -168,7 +167,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             PlayerDto pristinePlayer1 = null;
             ActionResult<TeamDto> actionResult = await Call<TeamDto>.RetryOnDeadlock(async () =>
             {
-                TeamCriteria criteria = new TeamCriteria { TeamKey = 19 };
+                TeamParams criteria = new TeamParams { TeamId = "JZY3GdKxyOj" };
                 ActionResult<TeamDto> actionResult = await sutR.GetTeam(criteria);
                 OkObjectResult okObjectResult = actionResult.Result as OkObjectResult;
                 pristineTeam = okObjectResult.Value as TeamDto;
@@ -181,8 +180,8 @@ namespace CslaModelTemplates.WebApiTests.Complex
 
                 pristinePlayerNew = new PlayerDto
                 {
-                    PlayerKey = null,
-                    TeamKey = null,
+                    PlayerId = null,
+                    TeamId = null,
                     PlayerCode = "P-9202-X",
                     PlayerName = "Test player #9202.X"
                 };
@@ -198,7 +197,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             Assert.NotNull(updatedTeam);
 
             // The team must have new values.
-            Assert.Equal(pristineTeam.TeamKey, updatedTeam.TeamKey);
+            Assert.Equal(pristineTeam.TeamId, updatedTeam.TeamId);
             Assert.Equal(pristineTeam.TeamCode, updatedTeam.TeamCode);
             Assert.Equal(pristineTeam.TeamName, updatedTeam.TeamName);
             Assert.NotEqual(pristineTeam.Timestamp, updatedTeam.Timestamp);
@@ -230,7 +229,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             // Act
             ActionResult actionResult = await Run.RetryOnDeadlock(async () =>
             {
-                TeamCriteria criteria = new TeamCriteria { TeamKey = 8 };
+                TeamParams criteria = new TeamParams { TeamId = "qNwO0mkG3rB" };
                 return await sut.DeleteTeam(criteria);
             });
 

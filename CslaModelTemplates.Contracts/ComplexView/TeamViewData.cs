@@ -7,7 +7,6 @@ namespace CslaModelTemplates.Contracts.ComplexView
     /// </summary>
     public class TeamViewData
     {
-        public long? TeamKey { get; set; }
         public string TeamCode { get; set; }
         public string TeamName { get; set; }
     }
@@ -17,6 +16,7 @@ namespace CslaModelTemplates.Contracts.ComplexView
     /// </summary>
     public class TeamViewDao : TeamViewData
     {
+        public long? TeamKey { get; set; }
         public List<PlayerViewDao> Players { get; set; }
     }
 
@@ -25,6 +25,7 @@ namespace CslaModelTemplates.Contracts.ComplexView
     /// </summary>
     public class TeamViewDto : TeamViewData
     {
+        public string TeamId { get; set; }
         public List<PlayerViewDto> Players { get; set; }
     }
 }

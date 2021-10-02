@@ -1,9 +1,10 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
+using CslaModelTemplates.Contracts;
+using CslaModelTemplates.Contracts.Complex;
 using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.CslaExtensions.Validations;
-using CslaModelTemplates.Contracts.Complex;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
@@ -20,11 +21,17 @@ namespace CslaModelTemplates.Models.Complex
     {
         #region Properties
 
-        public static readonly PropertyInfo<long?> TeamKeyProperty = RegisterProperty<long?>(c => c.TeamKey);
-        public long? TeamKey
+        internal long? TeamKey
         {
-            get { return GetProperty(TeamKeyProperty); }
-            private set { LoadProperty(TeamKeyProperty, value); }
+            get { return KeyHash.Decode(ID.Team, TeamId); }
+            private set { TeamId = KeyHash.Encode(ID.Team, value); }
+        }
+
+        public static readonly PropertyInfo<string> TeamIdProperty = RegisterProperty<string>(c => c.TeamId);
+        public string TeamId
+        {
+            get { return GetProperty(TeamIdProperty); }
+            set { SetProperty(TeamIdProperty, value); }
         }
 
         public static readonly PropertyInfo<string> TeamCodeProperty = RegisterProperty<string>(c => c.TeamCode);
@@ -132,10 +139,10 @@ namespace CslaModelTemplates.Models.Complex
         /// <param name="criteria">The criteria of the team.</param>
         /// <returns>The requested editable team instance.</returns>
         public static async Task<Team> Get(
-            TeamCriteria criteria
+            TeamParams criteria
             )
         {
-            return await DataPortal.FetchAsync<Team>(criteria);
+            return await DataPortal.FetchAsync<Team>(criteria.Decode());
         }
 
         /// <summary>
@@ -143,10 +150,10 @@ namespace CslaModelTemplates.Models.Complex
         /// </summary>
         /// <param name="criteria">The criteria of the team.</param>
         public static async void Delete(
-            TeamCriteria criteria
+            TeamParams criteria
             )
         {
-            await DataPortal.DeleteAsync<Team>(criteria);
+            await DataPortal.DeleteAsync<Team>(criteria.Decode());
         }
 
         /// <summary>
@@ -158,11 +165,9 @@ namespace CslaModelTemplates.Models.Complex
             TeamDto dto
             )
         {
-            Team team = dto.TeamKey.HasValue ?
-                await DataPortal.FetchAsync<Team>(new TeamCriteria()
-                {
-                    TeamKey = dto.TeamKey.Value
-                }) :
+            long? teamKey = KeyHash.Decode(ID.Team, dto.TeamId);
+            Team team = teamKey.HasValue ?
+                await DataPortal.FetchAsync<Team>(new TeamCriteria(teamKey.Value)) :
                 await DataPortal.CreateAsync<Team>();
             await team.Update(dto);
             return team;

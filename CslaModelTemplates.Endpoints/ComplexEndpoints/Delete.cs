@@ -16,7 +16,7 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
     /// </summary>
     [Route(Routes.Complex)]
     public class Delete : BaseAsyncEndpoint
-        .WithRequest<TeamCriteria>
+        .WithRequest<TeamParams>
         .WithoutResponse
     {
         internal ILogger logger { get; private set; }
@@ -48,7 +48,7 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
             Tags = new[] { "Complex Endpoints" })
         ]
         public override async Task<ActionResult> HandleAsync(
-            [FromQuery] TeamCriteria criteria,
+            [FromQuery] TeamParams criteria,
             CancellationToken cancellationToken
             )
         {

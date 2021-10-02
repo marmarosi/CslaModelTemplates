@@ -1,7 +1,6 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.Tree;
 using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Dal;
@@ -42,7 +41,7 @@ namespace CslaModelTemplates.Models.Tree
         /// <returns>The requested read-only folder tree.</returns>
         public static async Task<FolderTree> Get(FolderTreeParams criteria)
         {
-            return await DataPortal.FetchAsync<FolderTree>(criteria.Decode(ID.Folder));
+            return await DataPortal.FetchAsync<FolderTree>(criteria.Decode());
         }
 
         #endregion

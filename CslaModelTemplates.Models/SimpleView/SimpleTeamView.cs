@@ -76,7 +76,7 @@ namespace CslaModelTemplates.Models.SimpleView
             SimpleTeamViewParams criteria
             )
         {
-            return await DataPortal.FetchAsync<SimpleTeamView>(criteria.Decode(ID.Team));
+            return await DataPortal.FetchAsync<SimpleTeamView>(criteria.Decode());
         }
 
         #endregion

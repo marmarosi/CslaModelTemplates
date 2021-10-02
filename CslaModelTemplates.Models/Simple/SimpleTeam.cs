@@ -31,7 +31,7 @@ namespace CslaModelTemplates.Models.Simple
         public string TeamId
         {
             get { return GetProperty(TeamIdProperty); }
-            set { SetProperty(TeamIdProperty, value); }
+            private set { SetProperty(TeamIdProperty, value); }
         }
 
         public static readonly PropertyInfo<string> TeamCodeProperty = RegisterProperty<string>(c => c.TeamCode);
@@ -115,7 +115,7 @@ namespace CslaModelTemplates.Models.Simple
             SimpleTeamParams criteria
             )
         {
-            return await DataPortal.FetchAsync<SimpleTeam>(criteria.Decode(ID.Team));
+            return await DataPortal.FetchAsync<SimpleTeam>(criteria.Decode());
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace CslaModelTemplates.Models.Simple
             SimpleTeamParams criteria
             )
         {
-            await DataPortal.DeleteAsync<SimpleTeam>(criteria.Decode(ID.Team));
+            await DataPortal.DeleteAsync<SimpleTeam>(criteria.Decode());
         }
 
         /// <summary>

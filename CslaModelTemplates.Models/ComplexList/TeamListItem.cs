@@ -1,8 +1,9 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.CslaExtensions.Models;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.ComplexList;
+using CslaModelTemplates.CslaExtensions.Models;
 using System;
 
 namespace CslaModelTemplates.Models.ComplexList
@@ -15,11 +16,12 @@ namespace CslaModelTemplates.Models.ComplexList
     {
         #region Properties
 
-        public static readonly PropertyInfo<long?> TeamKeyProperty = RegisterProperty<long?>(c => c.TeamKey);
-        public long? TeamKey
+        public static readonly PropertyInfo<string> TeamIdProperty = RegisterProperty<string>(c => c.TeamId, RelationshipTypes.PrivateField);
+        private long? TeamKey = null;
+        public string TeamId
         {
-            get { return GetProperty(TeamKeyProperty); }
-            private set { LoadProperty(TeamKeyProperty, value); }
+            get { return GetProperty(TeamIdProperty, KeyHash.Encode(ID.Team, TeamKey)); }
+            private set { TeamKey = KeyHash.Decode(ID.Team, value); }
         }
 
         public static readonly PropertyInfo<string> TeamCodeProperty = RegisterProperty<string>(c => c.TeamCode);

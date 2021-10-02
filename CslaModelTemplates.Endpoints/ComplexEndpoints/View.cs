@@ -16,7 +16,7 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
     /// </summary>
     [Route(Routes.Complex)]
     public class View : BaseAsyncEndpoint
-        .WithRequest<TeamViewCriteria>
+        .WithRequest<TeamViewParams>
         .WithResponse<TeamViewDto>
     {
         internal ILogger logger { get; private set; }
@@ -50,7 +50,7 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
             Tags = new[] { "Complex Endpoints" })
         ]
         public override async Task<ActionResult<TeamViewDto>> HandleAsync(
-            [FromQuery] TeamViewCriteria criteria,
+            [FromQuery] TeamViewParams criteria,
             CancellationToken cancellationToken
             )
         {

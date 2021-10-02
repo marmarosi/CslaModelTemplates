@@ -74,7 +74,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         [HttpGet("view")]
         [ProducesResponseType(typeof(TeamViewDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<TeamViewDto>> GetTeamView(
-            [FromQuery] TeamViewCriteria criteria
+            [FromQuery] TeamViewParams criteria
             )
         {
             try
@@ -123,7 +123,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         [HttpGet("fetch")]
         [ProducesResponseType(typeof(TeamDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<TeamDto>> GetTeam(
-            [FromQuery] TeamCriteria criteria
+            [FromQuery] TeamParams criteria
             )
         {
             try
@@ -214,7 +214,7 @@ namespace CslaModelTemplates.WebApi.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> DeleteTeam(
-            [FromQuery] TeamCriteria criteria
+            [FromQuery] TeamParams criteria
             )
         {
             try

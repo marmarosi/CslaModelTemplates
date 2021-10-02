@@ -7,6 +7,23 @@ namespace CslaModelTemplates.Contracts.Complex
     /// Represents the criteria of the editable team object.
     /// </summary>
     [Serializable]
+    public class TeamParams : CriteriaBase<TeamParams>
+    {
+        public string TeamId { get; set; }
+
+        public TeamCriteria Decode()
+        {
+            return new TeamCriteria
+            {
+                TeamKey = KeyHash.Decode(ID.Team, TeamId) ?? 0
+            };
+        }
+    }
+
+    /// <summary>
+    /// Represents the criteria of the editable team object.
+    /// </summary>
+    [Serializable]
     public class TeamCriteria : CriteriaBase<TeamCriteria>
     {
         public long TeamKey { get; set; }

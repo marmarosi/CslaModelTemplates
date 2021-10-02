@@ -1,9 +1,10 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.Dal;
-using CslaModelTemplates.CslaExtensions.Models;
+using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.ComplexView;
+using CslaModelTemplates.CslaExtensions.Models;
+using CslaModelTemplates.Dal;
 using System;
 using System.Threading.Tasks;
 
@@ -17,11 +18,12 @@ namespace CslaModelTemplates.Models.ComplexView
     {
         #region Properties
 
-        public static readonly PropertyInfo<long?> TeamKeyProperty = RegisterProperty<long?>(c => c.TeamKey);
-        public long? TeamKey
+        public static readonly PropertyInfo<string> TeamIdProperty = RegisterProperty<string>(c => c.TeamId, RelationshipTypes.PrivateField);
+        private long? TeamKey = null;
+        public string TeamId
         {
-            get { return GetProperty(TeamKeyProperty); }
-            private set { LoadProperty(TeamKeyProperty, value); }
+            get { return GetProperty(TeamIdProperty, KeyHash.Encode(ID.Team, TeamKey)); }
+            private set { TeamKey = KeyHash.Decode(ID.Team, value); }
         }
 
         public static readonly PropertyInfo<string> TeamCodeProperty = RegisterProperty<string>(c => c.TeamCode);
@@ -78,10 +80,10 @@ namespace CslaModelTemplates.Models.ComplexView
         /// <param name="criteria">The criteria of the read-only team.</param>
         /// <returns>The requested read-only team instance.</returns>
         public static async Task<TeamView> Get(
-            TeamViewCriteria criteria
+            TeamViewParams criteria
             )
         {
-            return await DataPortal.FetchAsync<TeamView>(criteria);
+            return await DataPortal.FetchAsync<TeamView>(criteria.Decode());
         }
 
         #endregion

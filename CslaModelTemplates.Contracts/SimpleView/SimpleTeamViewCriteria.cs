@@ -10,13 +10,11 @@ namespace CslaModelTemplates.Contracts.SimpleView
     {
         public string TeamId { get; set; }
 
-        public SimpleTeamViewCriteria Decode(
-            string model
-            )
+        public SimpleTeamViewCriteria Decode()
         {
             return new SimpleTeamViewCriteria
             {
-                TeamKey = KeyHash.Decode(model, TeamId) ?? 0
+                TeamKey = KeyHash.Decode(ID.Team, TeamId) ?? 0
             };
         }
     }

@@ -5,8 +5,6 @@ namespace CslaModelTemplates.Contracts.Complex
     /// </summary>
     public class PlayerData
     {
-        public long? PlayerKey { get; set; }
-        public long? TeamKey { get; set; }
         public string PlayerCode { get; set; }
         public string PlayerName { get; set; }
     }
@@ -15,23 +13,28 @@ namespace CslaModelTemplates.Contracts.Complex
     /// Defines the data access object of the editable player object.
     /// </summary>
     public class PlayerDao : PlayerData
-    { }
+    {
+        public long? PlayerKey { get; set; }
+        public long? TeamKey { get; set; }
+    }
 
     /// <summary>
     /// Defines the data transfer object of the editable player object.
     /// </summary>
     public class PlayerDto : PlayerData
     {
+        public string? PlayerId { get; set; }
+        public string? TeamId { get; set; }
+
         public PlayerDao ToDao()
         {
             return new PlayerDao
             {
-                PlayerKey = PlayerKey,
-                TeamKey = TeamKey,
+                PlayerKey = KeyHash.Decode(ID.Player, PlayerId),
+                TeamKey = KeyHash.Decode(ID.Team, TeamId),
                 PlayerCode = PlayerCode,
                 PlayerName = PlayerName
             };
         }
-
     }
 }

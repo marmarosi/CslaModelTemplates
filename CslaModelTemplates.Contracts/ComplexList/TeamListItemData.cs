@@ -7,7 +7,6 @@ namespace CslaModelTemplates.Contracts.ComplexList
     /// </summary>
     public class TeamListItemData
     {
-        public long? TeamKey { get; set; }
         public string TeamCode { get; set; }
         public string TeamName { get; set; }
     }
@@ -17,6 +16,7 @@ namespace CslaModelTemplates.Contracts.ComplexList
     /// </summary>
     public class TeamListItemDao : TeamListItemData
     {
+        public long? TeamKey { get; set; }
         public List<PlayerListItemDao> Players { get; set; }
     }
 
@@ -25,6 +25,7 @@ namespace CslaModelTemplates.Contracts.ComplexList
     /// </summary>
     public class TeamListItemDto : TeamListItemData
     {
+        public string TeamId { get; set; }
         public List<PlayerListItemDto> Players { get; set; }
     }
 }

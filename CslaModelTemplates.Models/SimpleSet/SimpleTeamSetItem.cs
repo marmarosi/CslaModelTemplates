@@ -32,7 +32,7 @@ namespace CslaModelTemplates.Models.SimpleSet
         public string TeamId
         {
             get { return GetProperty(TeamIdProperty); }
-            set { SetProperty(TeamIdProperty, value); }
+            private set { SetProperty(TeamIdProperty, value); }
         }
 
         public static readonly PropertyInfo<string> TeamCodeProperty = RegisterProperty<string>(c => c.TeamCode);

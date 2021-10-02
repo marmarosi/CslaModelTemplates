@@ -1,11 +1,10 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Contracts.Complex;
+using CslaModelTemplates.CslaExtensions.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CslaModelTemplates.Models.Complex
@@ -39,7 +38,7 @@ namespace CslaModelTemplates.Models.Complex
             List<PlayerDto> list
             )
         {
-            await Update(list, "PlayerKey");
+            await Update(list, "PlayerId");
         }
 
         #endregion

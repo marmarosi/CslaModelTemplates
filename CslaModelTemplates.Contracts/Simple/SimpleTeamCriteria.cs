@@ -11,13 +11,11 @@ namespace CslaModelTemplates.Contracts.Simple
     {
         public string TeamId { get; set; }
 
-        public SimpleTeamCriteria Decode(
-            string model
-            )
+        public SimpleTeamCriteria Decode()
         {
             return new SimpleTeamCriteria
             {
-                TeamKey = KeyHash.Decode(model, TeamId) ?? 0
+                TeamKey = KeyHash.Decode(ID.Team, TeamId) ?? 0
             };
         }
     }

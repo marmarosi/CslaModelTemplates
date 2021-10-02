@@ -17,7 +17,7 @@ namespace CslaModelTemplates.WebApiTests.Complex
             var sut = new ComplexController(logger);
 
             // Act
-            TeamViewCriteria criteria = new TeamViewCriteria { TeamKey = 17 };
+            TeamViewParams criteria = new TeamViewParams { TeamId = "1r9oGj1x3lk" };
             ActionResult<TeamViewDto> actionResult = await sut.GetTeamView(criteria);
 
             // Assert

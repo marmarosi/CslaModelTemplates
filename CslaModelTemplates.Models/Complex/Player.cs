@@ -2,9 +2,10 @@ using Csla;
 using Csla.Core;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
+using CslaModelTemplates.Contracts;
+using CslaModelTemplates.Contracts.Complex;
 using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.CslaExtensions.Validations;
-using CslaModelTemplates.Contracts.Complex;
 using CslaModelTemplates.Dal;
 using CslaModelTemplates.Resources;
 using System;
@@ -22,18 +23,30 @@ namespace CslaModelTemplates.Models.Complex
     {
         #region Properties
 
-        public static readonly PropertyInfo<long?> PlayerKeyProperty = RegisterProperty<long?>(c => c.PlayerKey);
-        public long? PlayerKey
+        private long? PlayerKey
         {
-            get { return GetProperty(PlayerKeyProperty); }
-            private set { LoadProperty(PlayerKeyProperty, value); }
+            get { return KeyHash.Decode(ID.Player, PlayerId); }
+            set { PlayerId = KeyHash.Encode(ID.Player, value); }
         }
 
-        public static readonly PropertyInfo<long?> TeamKeyProperty = RegisterProperty<long?>(c => c.TeamKey);
-        public long? TeamKey
+        public static readonly PropertyInfo<string> PlayerIdProperty = RegisterProperty<string>(c => c.PlayerId);
+        public string PlayerId
         {
-            get { return GetProperty(TeamKeyProperty); }
-            private set { LoadProperty(TeamKeyProperty, value); }
+            get { return GetProperty(PlayerIdProperty); }
+            private set { SetProperty(PlayerIdProperty, value); }
+        }
+
+        private long? TeamKey
+        {
+            get { return KeyHash.Decode(ID.Team, TeamId); }
+            set { TeamId = KeyHash.Encode(ID.Team, value); }
+        }
+
+        public static readonly PropertyInfo<string> TeamIdProperty = RegisterProperty<string>(c => c.TeamId);
+        public string TeamId
+        {
+            get { return GetProperty(TeamIdProperty); }
+            private set { SetProperty(TeamIdProperty, value); }
         }
 
         public static readonly PropertyInfo<string> PlayerCodeProperty = RegisterProperty<string>(c => c.PlayerCode);
@@ -73,14 +86,14 @@ namespace CslaModelTemplates.Models.Complex
             //    AuthorizationActions.WriteProperty, PlayerCodeProperty, "Manager"));
         }
 
-        //private static void AddObjectAuthorizationRules()
-        //{
-        //    // Add authorization rules.
-        //    BusinessRules.AddRule(
-        //        typeof(Player),
-        //        new IsInRole(AuthorizationActions.EditObject, "Manager")
-        //        );
-        //}
+        private static void AddObjectAuthorizationRules()
+        {
+            // Add authorization rules.
+            BusinessRules.AddRule(
+                typeof(Player),
+                new IsInRole(AuthorizationActions.EditObject, "Manager")
+                );
+        }
 
         private class UniquePlayerCodes : BusinessRule
         {

@@ -11,13 +11,11 @@ namespace CslaModelTemplates.Contracts.Tree
     {
         public string RootId { get; set; }
 
-        public FolderTreeCriteria Decode(
-            string model
-            )
+        public FolderTreeCriteria Decode()
         {
             return new FolderTreeCriteria
             {
-                RootKey = KeyHash.Decode(model, RootId) ?? 0
+                RootKey = KeyHash.Decode(ID.Team, RootId) ?? 0
             };
         }
     }
