@@ -1,5 +1,5 @@
-﻿using Ardalis.ApiEndpoints;
-using CslaModelTemplates.Contracts;
+using Ardalis.ApiEndpoints;
+using CslaModelTemplates.Dal.Contracts;
 using CslaModelTemplates.Models.TreeSelection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

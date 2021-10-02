@@ -1,7 +1,6 @@
-using CslaModelTemplates.Dal;
 using System.Collections.Generic;
 
-namespace CslaModelTemplates.Contracts
+namespace CslaModelTemplates.Dal.Contracts
 {
     /// <summary>
     /// Defines the data access functions of the read-only ID-name choice object.

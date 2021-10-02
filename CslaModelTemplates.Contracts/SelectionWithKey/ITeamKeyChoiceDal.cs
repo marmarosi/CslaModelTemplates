@@ -1,3 +1,4 @@
+using CslaModelTemplates.Dal.Contracts;
 using System.Collections.Generic;
 
 namespace CslaModelTemplates.Contracts.SelectionWithKey

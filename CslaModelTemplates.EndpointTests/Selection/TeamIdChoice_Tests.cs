@@ -1,5 +1,5 @@
-using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.SelectionWithId;
+using CslaModelTemplates.Dal.Contracts;
 using CslaModelTemplates.Endpoints.SelectionEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;

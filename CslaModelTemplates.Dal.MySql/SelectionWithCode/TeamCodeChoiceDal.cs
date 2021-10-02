@@ -1,4 +1,4 @@
-using CslaModelTemplates.Contracts;
+using CslaModelTemplates.Dal.Contracts;
 using CslaModelTemplates.Contracts.SelectionWithCode;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

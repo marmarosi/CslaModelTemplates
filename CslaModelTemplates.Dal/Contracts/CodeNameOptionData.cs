@@ -1,4 +1,4 @@
-namespace CslaModelTemplates.Contracts
+namespace CslaModelTemplates.Dal.Contracts
 {
     /// <summary>
     /// Defines the read-only code-name option data.

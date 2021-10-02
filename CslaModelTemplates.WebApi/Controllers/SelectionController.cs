@@ -1,4 +1,4 @@
-using CslaModelTemplates.Contracts;
+using CslaModelTemplates.Dal.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeDef = CslaModelTemplates.Contracts.SelectionWithCode;
 using CodeModel = CslaModelTemplates.Models.SelectionWithCode;
-using KeyDef = CslaModelTemplates.Contracts.SelectionWithKey;
-using KeyModel = CslaModelTemplates.Models.SelectionWithKey;
 using IdDef = CslaModelTemplates.Contracts.SelectionWithId;
 using IdModel = CslaModelTemplates.Models.SelectionWithId;
+using KeyDef = CslaModelTemplates.Contracts.SelectionWithKey;
+using KeyModel = CslaModelTemplates.Models.SelectionWithKey;
 
 namespace CslaModelTemplates.WebApi.Controllers
 {

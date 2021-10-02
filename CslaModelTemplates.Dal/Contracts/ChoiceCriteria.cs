@@ -1,7 +1,7 @@
 using Csla;
 using System;
 
-namespace CslaModelTemplates.Contracts
+namespace CslaModelTemplates.Dal.Contracts
 {
     /// <summary>
     /// Represents the criteria for choices.

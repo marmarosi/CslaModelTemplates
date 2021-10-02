@@ -1,10 +1,11 @@
-﻿using Csla;
+using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.TreeSelection;
 using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Dal;
+using CslaModelTemplates.Dal.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

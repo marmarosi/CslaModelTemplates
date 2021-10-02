@@ -5,6 +5,7 @@ using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.SelectionWithId;
 using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Dal;
+using CslaModelTemplates.Dal.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

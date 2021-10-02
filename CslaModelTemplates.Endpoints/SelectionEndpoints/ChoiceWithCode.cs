@@ -1,6 +1,6 @@
 using Ardalis.ApiEndpoints;
-using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.SelectionWithCode;
+using CslaModelTemplates.Dal.Contracts;
 using CslaModelTemplates.Models.SelectionWithCode;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

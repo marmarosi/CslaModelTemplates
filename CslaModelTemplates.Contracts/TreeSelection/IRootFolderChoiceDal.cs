@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using CslaModelTemplates.Dal.Contracts;
+using System.Collections.Generic;
 
 namespace CslaModelTemplates.Contracts.TreeSelection
 {

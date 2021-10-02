@@ -1,3 +1,4 @@
+using CslaModelTemplates.Dal.Contracts;
 using System;
 
 namespace CslaModelTemplates.Contracts.SelectionWithId

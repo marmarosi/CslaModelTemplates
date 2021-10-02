@@ -1,5 +1,5 @@
 using Csla;
-using CslaModelTemplates.Contracts;
+using CslaModelTemplates.Dal.Contracts;
 using System;
 
 namespace CslaModelTemplates.CslaExtensions.Models

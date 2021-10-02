@@ -2,6 +2,7 @@ using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaModelTemplates.Contracts;
+using CslaModelTemplates.Dal.Contracts;
 using System;
 
 namespace CslaModelTemplates.CslaExtensions.Models

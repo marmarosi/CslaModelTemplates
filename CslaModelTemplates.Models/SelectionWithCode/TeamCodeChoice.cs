@@ -1,13 +1,13 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Contracts.SelectionWithCode;
+using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Dal;
+using CslaModelTemplates.Dal.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CslaModelTemplates.Contracts;
 
 namespace CslaModelTemplates.Models.SelectionWithCode
 {
