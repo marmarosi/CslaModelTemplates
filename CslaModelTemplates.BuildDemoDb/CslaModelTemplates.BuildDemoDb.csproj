@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="..\Shared\SharedSettings.json" Link="SharedSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CslaModelTemplates.Dal.MySql\CslaModelTemplates.Dal.MySql.csproj" />
     <ProjectReference Include="..\CslaModelTemplates.Dal.Oracle\CslaModelTemplates.Dal.Oracle.csproj" />
     <ProjectReference Include="..\CslaModelTemplates.Dal.PostgreSql\CslaModelTemplates.Dal.PostgreSql.csproj" />

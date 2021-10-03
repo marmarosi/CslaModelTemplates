@@ -46,6 +46,7 @@ namespace CslaModelTemplates.WebApiTests
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("SharedSettings.json", true, true)
                 .AddJsonFile("appsettings.json", true, true) // use appsettings.json in current folder
                 .AddEnvironmentVariables();
 

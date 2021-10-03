@@ -44,7 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2AEBA4F0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.CslaExtensions", "CslaModelTemplates.CslaExtensions\CslaModelTemplates.CslaExtensions.csproj", "{59EF88E0-A4E5-4A37-B105-4F92CF717145}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaModelTemplates.BuildDemoDb", "CslaModelTemplates.BuildDemoDb\CslaModelTemplates.BuildDemoDb.csproj", "{E99BF7D6-9D6D-4A43-A9A0-32616739611C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CslaModelTemplates.BuildDemoDb", "CslaModelTemplates.BuildDemoDb\CslaModelTemplates.BuildDemoDb.csproj", "{E99BF7D6-9D6D-4A43-A9A0-32616739611C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

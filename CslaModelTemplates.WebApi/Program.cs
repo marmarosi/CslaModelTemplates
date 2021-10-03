@@ -1,3 +1,4 @@
+using CslaModelTemplates.WebApi.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -28,6 +29,7 @@ namespace CslaModelTemplates.WebApi
             string[] args
         ) =>
             Host.CreateDefaultBuilder(args)
+                .AddSharedSettings("../Shared/SharedSettings.json")
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

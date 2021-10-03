@@ -27,6 +27,19 @@
             <param name="exception">The exception thrown by the backend.</param>
             <returns>The error information to send to the frontend.</returns>
         </member>
+        <member name="T:CslaModelTemplates.WebApi.Configuration.WebHostBuilderSharedSettings">
+            <summary>
+            Provides method to add shared settings to configuration.
+            </summary>
+        </member>
+        <member name="M:CslaModelTemplates.WebApi.Configuration.WebHostBuilderSharedSettings.AddSharedSettings(Microsoft.Extensions.Hosting.IHostBuilder,System.String)">
+            <summary>
+            Adds shared settings to configuration.
+            </summary>
+            <param name="builder">The host builder.</param>
+            <param name="sharedFileName">The path of the shared file.</param>
+            <returns></returns>
+        </member>
         <member name="T:CslaModelTemplates.WebApi.Controllers.ComplexController">
             <summary>
             Contains the API endpoints for complex models.
