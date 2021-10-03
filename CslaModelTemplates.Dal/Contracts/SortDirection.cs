@@ -1,4 +1,4 @@
-namespace CslaModelTemplates.Contracts
+namespace CslaModelTemplates.Dal.Contracts
 {
     /// <summary>
     /// Specifies the direction in which to sort a list of items.

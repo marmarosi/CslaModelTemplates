@@ -1,6 +1,6 @@
 using Ardalis.ApiEndpoints;
-using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.PaginatedSortedList;
+using CslaModelTemplates.Dal.Contracts;
 using CslaModelTemplates.Models.PaginatedSortedList;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

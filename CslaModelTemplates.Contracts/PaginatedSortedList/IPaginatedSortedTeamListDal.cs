@@ -1,4 +1,5 @@
 using CslaModelTemplates.Dal;
+using CslaModelTemplates.Dal.Contracts;
 
 namespace CslaModelTemplates.Contracts.PaginatedSortedList
 {

@@ -1,6 +1,6 @@
 using Csla;
 using Csla.Core;
-using CslaModelTemplates.Contracts;
+using CslaModelTemplates.Dal.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

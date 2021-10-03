@@ -1,6 +1,6 @@
 using System;
 
-namespace CslaModelTemplates.Contracts
+namespace CslaModelTemplates.Dal.Contracts
 {
     /// <summary>
     /// Represents the base criteria of the read-only paginated sorted collections.

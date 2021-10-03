@@ -1,12 +1,12 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Contracts.PaginatedList;
+using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Dal;
+using CslaModelTemplates.Dal.Contracts;
 using System;
 using System.Threading.Tasks;
-using CslaModelTemplates.Contracts;
 
 namespace CslaModelTemplates.Models.PaginatedList
 {
@@ -40,7 +40,7 @@ namespace CslaModelTemplates.Models.PaginatedList
         //{
         //    // Add authorization rules.
         //    BusinessRules.AddRule(new IsInRole(
-        //        AuthorizationActions.ReadProperty, TeamNameProperty, "Manager"));
+        //        AuthorizationActions.ReadProperty, TotalCountProperty, "Manager"));
         //}
 
         //private static void AddObjectAuthorizationRules()

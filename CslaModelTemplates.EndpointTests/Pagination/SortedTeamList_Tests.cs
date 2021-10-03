@@ -1,5 +1,5 @@
-using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.SortedList;
+using CslaModelTemplates.Dal.Contracts;
 using CslaModelTemplates.Endpoints.PaginationEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;

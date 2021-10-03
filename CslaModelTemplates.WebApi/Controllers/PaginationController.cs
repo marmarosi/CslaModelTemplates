@@ -1,7 +1,7 @@
-using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.PaginatedList;
 using CslaModelTemplates.Contracts.PaginatedSortedList;
 using CslaModelTemplates.Contracts.SortedList;
+using CslaModelTemplates.Dal.Contracts;
 using CslaModelTemplates.Models.PaginatedList;
 using CslaModelTemplates.Models.PaginatedSortedList;
 using CslaModelTemplates.Models.SortedList;

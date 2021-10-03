@@ -1,5 +1,5 @@
-using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.PaginatedList;
+using CslaModelTemplates.Dal.Contracts;
 using CslaModelTemplates.Endpoints.PaginationEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;

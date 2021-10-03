@@ -1,10 +1,10 @@
 using Csla;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
-using CslaModelTemplates.Contracts;
 using CslaModelTemplates.Contracts.PaginatedSortedList;
 using CslaModelTemplates.CslaExtensions.Models;
 using CslaModelTemplates.Dal;
+using CslaModelTemplates.Dal.Contracts;
 using System;
 using System.Threading.Tasks;
 
@@ -18,11 +18,11 @@ namespace CslaModelTemplates.Models.PaginatedSortedList
     {
         #region Properties
 
-        public static readonly PropertyInfo<PaginatedSortedTeamListItems> PlayersProperty = RegisterProperty<PaginatedSortedTeamListItems>(c => c.Data);
+        public static readonly PropertyInfo<PaginatedSortedTeamListItems> DataProperty = RegisterProperty<PaginatedSortedTeamListItems>(c => c.Data);
         public PaginatedSortedTeamListItems Data
         {
-            get { return GetProperty(PlayersProperty); }
-            private set { LoadProperty(PlayersProperty, value); }
+            get { return GetProperty(DataProperty); }
+            private set { LoadProperty(DataProperty, value); }
         }
 
         public static readonly PropertyInfo<int> TotalCountProperty = RegisterProperty<int>(c => c.TotalCount);
@@ -40,7 +40,7 @@ namespace CslaModelTemplates.Models.PaginatedSortedList
         //{
         //    // Add authorization rules.
         //    BusinessRules.AddRule(new IsInRole(
-        //        AuthorizationActions.ReadProperty, Data, "Manager"));
+        //        AuthorizationActions.ReadProperty, DataProperty, "Manager"));
         //}
 
         //private static void AddObjectAuthorizationRules()

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CslaModelTemplates.Contracts
+namespace CslaModelTemplates.Dal.Contracts
 {
     /// <summary>
     /// Defines the properties of read-only paginated collections.
