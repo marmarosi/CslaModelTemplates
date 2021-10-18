@@ -1,4 +1,3 @@
-using Csla;
 using System;
 using System.Text.Json.Serialization;
 
@@ -8,7 +7,7 @@ namespace CslaModelTemplates.Contracts.ComplexSet
     /// Represents the criteria of the editable player object.
     /// </summary>
     [Serializable]
-    public class TeamSetPlayerCriteria : CriteriaBase<TeamSetPlayerCriteria>
+    public class TeamSetPlayerCriteria
     {
         public long PlayerKey { get; set; }
         [JsonIgnore]

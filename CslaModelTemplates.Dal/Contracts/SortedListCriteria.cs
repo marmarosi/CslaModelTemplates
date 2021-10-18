@@ -1,4 +1,3 @@
-using Csla;
 using System;
 
 namespace CslaModelTemplates.Dal.Contracts
@@ -7,7 +6,7 @@ namespace CslaModelTemplates.Dal.Contracts
     /// Represents the base criteria of the read-only sorted collections.
     /// </summary>
     [Serializable]
-    public class SortedListCriteria : CriteriaBase<SortedListCriteria>
+    public class SortedListCriteria
     {
         /// <summary>
         /// Specifies the properties to sort a list of items by.

@@ -1,4 +1,3 @@
-using Csla;
 using System;
 
 namespace CslaModelTemplates.Contracts.Simple
@@ -24,7 +23,7 @@ namespace CslaModelTemplates.Contracts.Simple
     /// Represents the criteria of the editable team object.
     /// </summary>
     [Serializable]
-    public class SimpleTeamCriteria : CriteriaBase<SimpleTeamCriteria>
+    public class SimpleTeamCriteria
     {
         public long TeamKey { get; set; }
 

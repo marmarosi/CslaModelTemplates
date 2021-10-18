@@ -1,4 +1,3 @@
-using Csla;
 using System;
 
 namespace CslaModelTemplates.Contracts.ComplexSet
@@ -7,7 +6,7 @@ namespace CslaModelTemplates.Contracts.ComplexSet
     /// Represents the criteria of the editable team set item object.
     /// </summary>
     [Serializable]
-    public class TeamSetItemCriteria : CriteriaBase<TeamSetItemCriteria>
+    public class TeamSetItemCriteria
     {
         public long TeamKey { get; set; }
 

@@ -1,4 +1,3 @@
-using Csla;
 using System;
 
 namespace CslaModelTemplates.Contracts.JunctionView
@@ -7,7 +6,7 @@ namespace CslaModelTemplates.Contracts.JunctionView
     /// Represents the criteria of the read-only group object.
     /// </summary>
     [Serializable]
-    public class GroupViewParams : CriteriaBase<GroupViewParams>
+    public class GroupViewParams
     {
         public string GroupId { get; set; }
 
@@ -24,7 +23,7 @@ namespace CslaModelTemplates.Contracts.JunctionView
     /// Represents the criteria of the read-only group object.
     /// </summary>
     [Serializable]
-    public class GroupViewCriteria : CriteriaBase<GroupViewCriteria>
+    public class GroupViewCriteria
     {
         public long GroupKey { get; set; }
     }

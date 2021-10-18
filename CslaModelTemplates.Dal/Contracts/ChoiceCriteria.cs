@@ -1,4 +1,3 @@
-using Csla;
 using System;
 
 namespace CslaModelTemplates.Dal.Contracts
@@ -7,6 +6,6 @@ namespace CslaModelTemplates.Dal.Contracts
     /// Represents the criteria for choices.
     /// </summary>
     [Serializable]
-    public class ChoiceCriteria : CriteriaBase<ChoiceCriteria>
+    public class ChoiceCriteria
     { }
 }

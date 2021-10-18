@@ -1,4 +1,3 @@
-using Csla;
 using System;
 
 namespace CslaModelTemplates.Contracts.SimpleList
@@ -7,7 +6,7 @@ namespace CslaModelTemplates.Contracts.SimpleList
     /// Represents the criteria of the read-only team collection.
     /// </summary>
     [Serializable]
-    public class SimpleTeamListCriteria : CriteriaBase<SimpleTeamListCriteria>
+    public class SimpleTeamListCriteria
     {
         public string TeamName { get; set; }
     }

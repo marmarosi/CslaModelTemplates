@@ -1,4 +1,3 @@
-using Csla;
 using System;
 
 namespace CslaModelTemplates.Contracts.Junction
@@ -7,7 +6,7 @@ namespace CslaModelTemplates.Contracts.Junction
     /// Represents the criteria of the editable group object.
     /// </summary>
     [Serializable]
-    public class GroupParams : CriteriaBase<GroupParams>
+    public class GroupParams
     {
         public string GroupId { get; set; }
 
@@ -24,7 +23,7 @@ namespace CslaModelTemplates.Contracts.Junction
     /// Represents the criteria of the editable group object.
     /// </summary>
     [Serializable]
-    public class GroupCriteria : CriteriaBase<GroupCriteria>
+    public class GroupCriteria
     {
         public long GroupKey { get; set; }
 

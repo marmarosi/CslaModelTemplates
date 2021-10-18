@@ -1,4 +1,3 @@
-using Csla;
 using System;
 
 namespace CslaModelTemplates.Dal.Contracts
@@ -7,7 +6,7 @@ namespace CslaModelTemplates.Dal.Contracts
     /// Represents the base criteria of the read-only paginated collections.
     /// </summary>
     [Serializable]
-    public class PaginatedListCriteria : CriteriaBase<PaginatedListCriteria>
+    public class PaginatedListCriteria
     {
         /// <summary>
         /// Specifies the index of a page.

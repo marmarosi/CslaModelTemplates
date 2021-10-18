@@ -1,4 +1,3 @@
-using Csla;
 using System;
 
 namespace CslaModelTemplates.Contracts.ComplexCommand
@@ -7,7 +6,7 @@ namespace CslaModelTemplates.Contracts.ComplexCommand
     /// Represents the criteria of the count teams by player count command.
     /// </summary>
     [Serializable]
-    public class CountTeamsCriteria : CriteriaBase<CountTeamsCriteria>
+    public class CountTeamsCriteria
     {
         public string TeamName { get; set; }
 

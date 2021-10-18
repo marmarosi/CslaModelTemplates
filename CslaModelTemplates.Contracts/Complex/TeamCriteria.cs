@@ -1,4 +1,3 @@
-using Csla;
 using System;
 
 namespace CslaModelTemplates.Contracts.Complex
@@ -7,7 +6,7 @@ namespace CslaModelTemplates.Contracts.Complex
     /// Represents the criteria of the editable team object.
     /// </summary>
     [Serializable]
-    public class TeamParams : CriteriaBase<TeamParams>
+    public class TeamParams
     {
         public string TeamId { get; set; }
 
@@ -24,7 +23,7 @@ namespace CslaModelTemplates.Contracts.Complex
     /// Represents the criteria of the editable team object.
     /// </summary>
     [Serializable]
-    public class TeamCriteria : CriteriaBase<TeamCriteria>
+    public class TeamCriteria
     {
         public long TeamKey { get; set; }
 

@@ -15,17 +15,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.13" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.13" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CslaModelTemplates.Dal.MySql\CslaModelTemplates.Dal.MySql.csproj" />
-    <ProjectReference Include="..\CslaModelTemplates.Dal.Oracle\CslaModelTemplates.Dal.Oracle.csproj" />
-    <ProjectReference Include="..\CslaModelTemplates.Dal.PostgreSql\CslaModelTemplates.Dal.PostgreSql.csproj" />
-    <ProjectReference Include="..\CslaModelTemplates.Dal.Sqlite\CslaModelTemplates.Dal.Sqlite.csproj" />
-    <ProjectReference Include="..\CslaModelTemplates.Dal.SqlServer\CslaModelTemplates.Dal.SqlServer.csproj" />
+    <ProjectReference Include="..\CslaModelTemplates.Dal.MySql\CslaModelTemplates.Dal.MySql.csproj">
+      <TreatAsUsed>true</TreatAsUsed>
+    </ProjectReference>
+    <ProjectReference Include="..\CslaModelTemplates.Dal.Oracle\CslaModelTemplates.Dal.Oracle.csproj">
+      <TreatAsUsed>true</TreatAsUsed>
+    </ProjectReference>
+    <ProjectReference Include="..\CslaModelTemplates.Dal.PostgreSql\CslaModelTemplates.Dal.PostgreSql.csproj">
+      <TreatAsUsed>true</TreatAsUsed>
+    </ProjectReference>
+    <ProjectReference Include="..\CslaModelTemplates.Dal.Sqlite\CslaModelTemplates.Dal.Sqlite.csproj">
+      <TreatAsUsed>true</TreatAsUsed>
+    </ProjectReference>
+    <ProjectReference Include="..\CslaModelTemplates.Dal.SqlServer\CslaModelTemplates.Dal.SqlServer.csproj">
+      <TreatAsUsed>true</TreatAsUsed>
+    </ProjectReference>
     <ProjectReference Include="..\CslaModelTemplates.Models\CslaModelTemplates.Models.csproj" />
     <ProjectReference Include="..\CslaModelTemplates.Resources\CslaModelTemplates.Resources.csproj" />
   </ItemGroup>

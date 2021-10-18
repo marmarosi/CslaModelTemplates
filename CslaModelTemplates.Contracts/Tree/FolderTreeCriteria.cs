@@ -1,4 +1,3 @@
-using Csla;
 using System;
 
 namespace CslaModelTemplates.Contracts.Tree
@@ -7,7 +6,7 @@ namespace CslaModelTemplates.Contracts.Tree
     /// Represents the criteria of the read-only folder tree object.
     /// </summary>
     [Serializable]
-    public class FolderTreeParams : CriteriaBase<FolderTreeParams>
+    public class FolderTreeParams
     {
         public string RootId { get; set; }
 
@@ -24,7 +23,7 @@ namespace CslaModelTemplates.Contracts.Tree
     /// Represents the criteria of the read-only folder tree object.
     /// </summary>
     [Serializable]
-    public class FolderTreeCriteria : CriteriaBase<FolderTreeCriteria>
+    public class FolderTreeCriteria
     {
         public long RootKey { get; set; }
     }

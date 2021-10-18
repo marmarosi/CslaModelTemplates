@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Oracle.EntityFrameworkCore" Version="3.19.80" />
-    <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
