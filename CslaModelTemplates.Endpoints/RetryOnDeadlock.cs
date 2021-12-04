@@ -9,8 +9,8 @@ namespace CslaModelTemplates.Endpoints
     internal static class RUN
     {
         internal const int MAX_RETRIES = 1;
-        internal const int MIN_DELAY_MS = 100;
-        internal const int MAX_DELAY_MS = 200;
+        internal const int MIN_DELAY_MS = 200;
+        internal const int MAX_DELAY_MS = 400;
     }
 
     /// <summary>

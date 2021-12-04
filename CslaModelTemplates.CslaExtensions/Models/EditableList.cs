@@ -32,7 +32,6 @@ namespace CslaModelTemplates.CslaExtensions.Models
             {
                 Dto child = item.GetType()
                     .GetMethod("ToDto")
-                    .MakeGenericMethod(typeof(Dto))
                     .Invoke(item, null) as Dto;
                 instance.Add(child);
             }
@@ -123,7 +122,6 @@ namespace CslaModelTemplates.CslaExtensions.Models
                 Items.Add(await (
                     typeof(EditableModel<C, Dto>)
                     .GetMethod("Create")
-                    .MakeGenericMethod(typeof(Dto))
                     .Invoke(null, new object[] { this, list[index] })
                     as Task<C>));
         }

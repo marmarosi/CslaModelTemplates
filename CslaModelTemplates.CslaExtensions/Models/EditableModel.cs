@@ -157,23 +157,19 @@ namespace CslaModelTemplates.CslaExtensions.Models
                 var cslaProperty = cslaProperties.Find(pi => pi.Name == dtoProperty.Name);
                 if (cslaProperty != null)
                 {
-                    if (cslaProperty.Type.GetInterface(nameof(IEditableList<Dto>)) != null)
+                    if (cslaProperty.Type.GetInterface(nameof(IEditableList<Dto>) + "`1") != null)
                     {
-                        Type childType = dtoProperty.PropertyType.GenericTypeArguments[0];
-                        IEditableList<Dto> cslaBase = GetProperty(cslaProperty) as IEditableList<Dto>;
+                        var cslaBase = GetProperty(cslaProperty);
                         object value = cslaProperty.Type
                             .GetMethod("ToDto")
-                            .MakeGenericMethod(childType)
                             .Invoke(cslaBase, null);
                         dtoProperty.SetValue(dto, value);
                     }
-                    else if (cslaProperty.Type.GetInterface(nameof(IEditableModel<Dto>)) != null)
+                    else if (cslaProperty.Type.GetInterface(nameof(IEditableModel<Dto>) + "`1") != null)
                     {
-                        Type childType = dtoProperty.PropertyType;
-                        IEditableModel<Dto> cslaBase = GetProperty(cslaProperty) as IEditableModel<Dto>;
+                        var cslaBase = GetProperty(cslaProperty);
                         object value = cslaProperty.Type
                             .GetMethod("ToDto")
-                            .MakeGenericMethod(childType)
                             .Invoke(cslaBase, null);
                         dtoProperty.SetValue(dto, value);
                     }
