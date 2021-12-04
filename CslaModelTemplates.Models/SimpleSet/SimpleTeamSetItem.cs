@@ -18,7 +18,7 @@ namespace CslaModelTemplates.Models.SimpleSet
     /// </summary>
     [Serializable]
     [ValidationResourceType(typeof(ValidationText), ObjectName = "SimpleTeamSetItem")]
-    public class SimpleTeamSetItem : EditableModel<SimpleTeamSetItem>
+    public class SimpleTeamSetItem : EditableModel<SimpleTeamSetItem, SimpleTeamSetItemDto>
     {
         #region Properties
 
@@ -108,18 +108,15 @@ namespace CslaModelTemplates.Models.SimpleSet
         /// </summary>
         /// <param name="dto">The data transfer objects.</param>
         public override async Task Update(
-            object data
+            SimpleTeamSetItemDto dto
             )
         {
-            SimpleTeamSetItemDto dto = data as SimpleTeamSetItemDto;
-
             //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
             TeamCode = dto.TeamCode;
             TeamName = dto.TeamName;
             //Timestamp = dto.Timestamp;
 
-            BusinessRules.CheckRules();
-            await Task.CompletedTask;
+            await base.Update(dto);
         }
 
         #endregion
@@ -135,15 +132,12 @@ namespace CslaModelTemplates.Models.SimpleSet
         /// <param name="parent">The parent collection.</param>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The new editable team instance.</returns>
-        internal static async Task<SimpleTeamSetItem> Create(
+        internal static new async Task<SimpleTeamSetItem> Create(
             IParent parent,
             SimpleTeamSetItemDto dto
             )
         {
-            SimpleTeamSetItem team = await Task.Run(() => DataPortal.CreateChild<SimpleTeamSetItem>());
-            team.SetParent(parent);
-            await team.Update(dto);
-            return team;
+            return await Create(parent, dto);
         }
 
         #endregion

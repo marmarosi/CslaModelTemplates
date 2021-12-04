@@ -17,7 +17,7 @@ namespace CslaModelTemplates.Models.Simple
     /// </summary>
     [Serializable]
     [ValidationResourceType(typeof(ValidationText), ObjectName = "SimpleTeam")]
-    public class SimpleTeam : EditableModel<SimpleTeam>
+    public class SimpleTeam : EditableModel<SimpleTeam, SimpleTeamDto>
     {
         #region Properties
 
@@ -95,17 +95,15 @@ namespace CslaModelTemplates.Models.Simple
         /// </summary>
         /// <param name="data">The data transfer object.</param>
         public override async Task Update(
-            object data
+            SimpleTeamDto dto
             )
         {
-            SimpleTeamDto dto = data as SimpleTeamDto;
-
             //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
             TeamCode = dto.TeamCode;
             TeamName = dto.TeamName;
             //Timestamp = dto.Timestamp;
 
-            await base.Update(data);
+            await base.Update(dto);
         }
 
         #endregion
@@ -230,7 +228,6 @@ namespace CslaModelTemplates.Models.Simple
         [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_Update()
         {
-            string id = this.TeamId;
             // Update values in persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {

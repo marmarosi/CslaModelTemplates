@@ -27,8 +27,8 @@ namespace CslaModelTemplates.Contracts.ComplexSet
     /// </summary>
     public class TeamSetPlayerDto : TeamSetPlayerData
     {
-        public string? PlayerId { get; set; }
-        public string? TeamId { get; set; }
+        public string PlayerId { get; set; }
+        public string TeamId { get; set; }
 
         public TeamSetPlayerDao ToDao()
         {

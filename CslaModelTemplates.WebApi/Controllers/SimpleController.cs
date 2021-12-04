@@ -103,7 +103,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 SimpleTeam team = await SimpleTeam.Create();
-                return Ok(team.ToDto<SimpleTeamDto>());
+                return Ok(team.ToDto());
             }
             catch (Exception ex)
             {
@@ -129,7 +129,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 SimpleTeam team = await SimpleTeam.Get(criteria);
-                return Ok(team.ToDto<SimpleTeamDto>());
+                return Ok(team.ToDto());
             }
             catch (Exception ex)
             {
@@ -161,7 +161,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                     {
                         team = await team.SaveAsync();
                     }
-                    return Created(Uri, team.ToDto<SimpleTeamDto>());
+                    return Created(Uri, team.ToDto());
                 });
             }
             catch (Exception ex)
@@ -194,7 +194,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                     {
                         team = await team.SaveAsync();
                     }
-                    return Ok(team.ToDto<SimpleTeamDto>());
+                    return Ok(team.ToDto());
                 });
             }
             catch (Exception ex)
@@ -275,7 +275,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 SimpleTeamSet set = await SimpleTeamSet.Get(criteria);
-                return Ok(set.ToDto<SimpleTeamSetItemDto>());
+                return Ok(set.ToDto());
             }
             catch (Exception ex)
             {
@@ -309,7 +309,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                     {
                         team = await team.SaveAsync();
                     }
-                    return Ok(team.ToDto<SimpleTeamSetItemDto>());
+                    return Ok(team.ToDto());
                 });
             }
             catch (Exception ex)

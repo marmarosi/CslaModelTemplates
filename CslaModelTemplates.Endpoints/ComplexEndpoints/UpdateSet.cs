@@ -21,7 +21,7 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
         .WithRequest<TeamSetRequest>
         .WithResponse<IList<TeamSetItemDto>>
     {
-        internal ILogger logger { get; private set; }
+        internal ILogger Logger { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the endpoint.
@@ -31,7 +31,7 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
             ILogger<UpdateSet> logger
             )
         {
-            this.logger = logger;
+            this.Logger = logger;
         }
 
         /// <summary>
@@ -67,12 +67,12 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
                     {
                         teams = await teams.SaveAsync();
                     }
-                    return Ok(teams.ToDto<TeamSetItemDto>());
+                    return Ok(teams.ToDto());
                 });
             }
             catch (Exception ex)
             {
-                return Helper.HandleError(this, logger, ex);
+                return Helper.HandleError(this, Logger, ex);
             }
         }
     }

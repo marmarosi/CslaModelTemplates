@@ -17,7 +17,7 @@ namespace CslaModelTemplates.Models.Junction
     /// </summary>
     [Serializable]
     [ValidationResourceType(typeof(ValidationText), ObjectName = "Group")]
-    public class Group : EditableModel<Group>
+    public class Group : EditableModel<Group, GroupDto>
     {
         #region Properties
 
@@ -100,20 +100,18 @@ namespace CslaModelTemplates.Models.Junction
         /// <summary>
         /// Updates an editable group from the data transfer object.
         /// </summary>
-        /// <param name="data">The data transfer object.</param>
+        /// <param name="dto">The data transfer object.</param>
         public override async Task Update(
-            object data
+            GroupDto dto
             )
         {
-            GroupDto dto = data as GroupDto;
-
             //GroupKey = KeyHash.Decode(ID.Group, dto.GroupKey);
             GroupCode = dto.GroupCode;
             GroupName = dto.GroupName;
             await Persons.Update(dto.Persons);
             //Timestamp = dto.Timestamp;
 
-            await base.Update(data);
+            await base.Update(dto);
         }
 
         #endregion

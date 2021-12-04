@@ -14,7 +14,7 @@ namespace CslaModelTemplates.Models.SimpleSet
     /// Represents an editable team collection.
     /// </summary>
     [Serializable]
-    public class SimpleTeamSet : EditableList<SimpleTeamSet, SimpleTeamSetItem>
+    public class SimpleTeamSet : EditableList<SimpleTeamSet, SimpleTeamSetItem, SimpleTeamSetItemDto>
     {
         #region Business Rules
 

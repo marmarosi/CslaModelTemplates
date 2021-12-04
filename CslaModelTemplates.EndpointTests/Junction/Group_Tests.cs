@@ -136,7 +136,6 @@ namespace CslaModelTemplates.EndpointTests.Junction
 
             // The person name must start with Person.
             Assert.True(pristineGroup.Persons.Count > 0);
-            GroupPersonDto pristineMember1 = pristineGroup.Persons[0];
             foreach (GroupPersonDto groupPerson in pristineGroup.Persons)
             {
                 Assert.StartsWith("Person", groupPerson.PersonName);

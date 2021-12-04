@@ -18,7 +18,7 @@ namespace CslaModelTemplates.Models.ComplexSet
     /// </summary>
     [Serializable]
     [ValidationResourceType(typeof(ValidationText), ObjectName = "TeamSetItem")]
-    public class TeamSetItem : EditableModel<TeamSetItem>
+    public class TeamSetItem : EditableModel<TeamSetItem, TeamSetItemDto>
     {
         #region Properties
 
@@ -103,19 +103,16 @@ namespace CslaModelTemplates.Models.ComplexSet
         /// </summary>
         /// <param name="dto">The data transfer object.</param>
         public override async Task Update(
-            object data
+            TeamSetItemDto dto
             )
         {
-            TeamSetItemDto dto = data as TeamSetItemDto;
-
             //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
             TeamCode = dto.TeamCode;
             TeamName = dto.TeamName;
             await Players.Update(dto.Players);
             //Timestamp = dto.Timestamp;
 
-            BusinessRules.CheckRules();
-            await Task.CompletedTask;
+            await base.Update(dto);
         }
 
         #endregion
@@ -143,12 +140,12 @@ namespace CslaModelTemplates.Models.ComplexSet
         /// <param name="parent">The parent collection.</param>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The new editable team instance.</returns>
-        internal static async Task<TeamSetItem> Create(
+        internal static new async Task<TeamSetItem> Create(
             IParent parent,
             TeamSetItemDto dto
             )
         {
-            return await Create<TeamSetItemDto>(parent, dto);
+            return await Create(parent, dto);
         }
 
         #endregion

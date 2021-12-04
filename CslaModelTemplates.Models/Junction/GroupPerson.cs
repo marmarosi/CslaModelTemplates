@@ -19,7 +19,7 @@ namespace CslaModelTemplates.Models.Junction
     /// </summary>
     [Serializable]
     [ValidationResourceType(typeof(ValidationText), ObjectName = "GroupPerson")]
-    public class GroupPerson : EditableModel<GroupPerson>
+    public class GroupPerson : EditableModel<GroupPerson, GroupPersonDto>
     {
         #region Properties
 
@@ -110,17 +110,15 @@ namespace CslaModelTemplates.Models.Junction
         /// <summary>
         /// Updates an editable group-person from the data transfer object.
         /// </summary>
-        /// <param name="data">The data transfer objects.</param>
+        /// <param name="dto">The data transfer objects.</param>
         public override async Task Update(
-            object data
+            GroupPersonDto dto
             )
         {
-            GroupPersonDto dto = data as GroupPersonDto;
-
             PersonKey = KeyHash.Decode(ID.Person, dto.PersonId);
             PersonName = dto.PersonName;
 
-            await base.Update(data);
+            await base.Update(dto);
         }
 
         #endregion
@@ -136,12 +134,12 @@ namespace CslaModelTemplates.Models.Junction
         /// <param name="parent">The parent collection.</param>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The new editable group-person instance.</returns>
-        internal static async Task<GroupPerson> Create(
+        internal static new async Task<GroupPerson> Create(
             IParent parent,
             GroupPersonDto dto
             )
         {
-            return await Create<GroupPersonDto>(parent, dto);
+            return await Create(parent, dto);
         }
 
         #endregion

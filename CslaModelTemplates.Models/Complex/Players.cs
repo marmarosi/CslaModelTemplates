@@ -13,7 +13,7 @@ namespace CslaModelTemplates.Models.Complex
     /// Represents an editable player collection.
     /// </summary>
     [Serializable]
-    public class Players : EditableList<Players, Player>
+    public class Players : EditableList<Players, Player, PlayerDto>
     {
         #region Business Rules
 

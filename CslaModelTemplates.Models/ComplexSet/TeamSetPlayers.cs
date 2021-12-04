@@ -14,7 +14,7 @@ namespace CslaModelTemplates.Models.ComplexSet
     /// Represents an editable player collection.
     /// </summary>
     [Serializable]
-    public class TeamSetPlayers : EditableList<TeamSetPlayers, TeamSetPlayer>
+    public class TeamSetPlayers : EditableList<TeamSetPlayers, TeamSetPlayer, TeamSetPlayerDto>
     {
         #region Business Rules
 

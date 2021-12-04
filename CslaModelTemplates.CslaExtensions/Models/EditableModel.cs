@@ -19,9 +19,11 @@ namespace CslaModelTemplates.CslaExtensions.Models
     /// JsonIgnore is not applied to hidden inherited properties.
     /// </remarks>
     /// <typeparam name="T">The type of the business object.</typeparam>
+    /// <typeparam name="Dto">The type of the data access object.</typeparam>
     [Serializable]
-    public abstract class EditableModel<T> : BusinessBase<T>, IEditableModel
+    public abstract class EditableModel<T, Dto> : BusinessBase<T>, IEditableModel<Dto>
         where T : BusinessBase<T>
+        where Dto : class
     {
         #region Properties
 
@@ -108,7 +110,7 @@ namespace CslaModelTemplates.CslaExtensions.Models
             {
                 if (propertyInfo.Type.GetInterface(nameof(IBusinessBase)) != null)
                 {
-                    IEditableModel child = (IEditableModel)GetProperty(propertyInfo);
+                    IEditableModel<Dto> child = (IEditableModel<Dto>)GetProperty(propertyInfo);
                     child.CollectMessages(
                         (BusinessBase)child,
                         prefix + propertyInfo.Name + ".",
@@ -121,7 +123,7 @@ namespace CslaModelTemplates.CslaExtensions.Models
                     var collection = (IList)property;
                     for (int i = 0; i < collection.Count; i++)
                     {
-                        IEditableModel child = (IEditableModel)collection[i];
+                        IEditableModel<Dto> child = (IEditableModel<Dto>)collection[i];
                         child.CollectMessages(
                             (BusinessBase)child,
                             prefix + propertyInfo.Name + "[" + i + "].",
@@ -139,12 +141,11 @@ namespace CslaModelTemplates.CslaExtensions.Models
         /// <summary>
         /// Converts the business object to data transfer object.
         /// </summary>
-        /// <typeparam name="D">The class of the data transfer object.</typeparam>
         /// <returns>The data transfer object.</returns>
-        public D ToDto<D>() where D : class
+        public Dto ToDto()
         {
-            Type type = typeof(D);
-            D dto = Activator.CreateInstance(type) as D;
+            Type type = typeof(Dto);
+            Dto dto = Activator.CreateInstance(type) as Dto;
 
             List<IPropertyInfo> cslaProperties = FieldManager.GetRegisteredProperties();
             List<PropertyInfo> dtoProperties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
@@ -156,20 +157,20 @@ namespace CslaModelTemplates.CslaExtensions.Models
                 var cslaProperty = cslaProperties.Find(pi => pi.Name == dtoProperty.Name);
                 if (cslaProperty != null)
                 {
-                    if (cslaProperty.Type.GetInterface(nameof(IEditableList)) != null)
+                    if (cslaProperty.Type.GetInterface(nameof(IEditableList<Dto>)) != null)
                     {
                         Type childType = dtoProperty.PropertyType.GenericTypeArguments[0];
-                        IEditableList cslaBase = GetProperty(cslaProperty) as IEditableList;
+                        IEditableList<Dto> cslaBase = GetProperty(cslaProperty) as IEditableList<Dto>;
                         object value = cslaProperty.Type
                             .GetMethod("ToDto")
                             .MakeGenericMethod(childType)
                             .Invoke(cslaBase, null);
                         dtoProperty.SetValue(dto, value);
                     }
-                    else if (cslaProperty.Type.GetInterface(nameof(IEditableModel)) != null)
+                    else if (cslaProperty.Type.GetInterface(nameof(IEditableModel<Dto>)) != null)
                     {
                         Type childType = dtoProperty.PropertyType;
-                        IEditableModel cslaBase = GetProperty(cslaProperty) as IEditableModel;
+                        IEditableModel<Dto> cslaBase = GetProperty(cslaProperty) as IEditableModel<Dto>;
                         object value = cslaProperty.Type
                             .GetMethod("ToDto")
                             .MakeGenericMethod(childType)
@@ -191,9 +192,9 @@ namespace CslaModelTemplates.CslaExtensions.Models
         /// <summary>
         /// Updates an editable model from the data transfer object.
         /// </summary>
-        /// <param name="data">The data transfer object.</param>
+        /// <param name="dto">The data transfer object.</param>
         public virtual async Task Update(
-            object data
+            Dto dto
             )
         {
             BusinessRules.CheckRules();
@@ -211,15 +212,14 @@ namespace CslaModelTemplates.CslaExtensions.Models
         /// <param name="parent">The parent collection.</param>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The new editable model instance.</returns>
-        public static async Task<T> Create<D>(
+        public static async Task<T> Create(
             IParent parent,
-            D dto
+            Dto dto
             )
-            where D : class
         {
             T item = await Task.Run(() => DataPortal.CreateChild<T>());
-            (item as EditableModel<T>).SetParent(parent);
-            await (item as EditableModel<T>).Update(dto);
+            (item as EditableModel<T, Dto>).SetParent(parent);
+            await (item as EditableModel<T, Dto>).Update(dto);
             return item;
         }
 

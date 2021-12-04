@@ -17,7 +17,7 @@ namespace CslaModelTemplates.Models.Complex
     /// </summary>
     [Serializable]
     [ValidationResourceType(typeof(ValidationText), ObjectName = "Team")]
-    public class Team : EditableModel<Team>
+    public class Team : EditableModel<Team, TeamDto>
     {
         #region Properties
 
@@ -100,20 +100,18 @@ namespace CslaModelTemplates.Models.Complex
         /// <summary>
         /// Updates an editable team from the data transfer object.
         /// </summary>
-        /// <param name="data">The data transfer object.</param>
+        /// <param name="dto">The data transfer object.</param>
         public override async Task Update(
-            object data
+            TeamDto dto
             )
         {
-            TeamDto dto = data as TeamDto;
-
             //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
             TeamCode = dto.TeamCode;
             TeamName = dto.TeamName;
             await Players.Update(dto.Players);
             //Timestamp = dto.Timestamp;
 
-            await base.Update(data);
+            await base.Update(dto);
         }
 
         #endregion

@@ -70,7 +70,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 Group group = await Group.Create();
-                return Ok(group.ToDto<GroupDto>());
+                return Ok(group.ToDto());
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 Group group = await Group.Get(criteria);
-                return Ok(group.ToDto<GroupDto>());
+                return Ok(group.ToDto());
             }
             catch (Exception ex)
             {
@@ -128,7 +128,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                     {
                         group = await group.SaveAsync();
                     }
-                    return Created(Uri, group.ToDto<GroupDto>());
+                    return Created(Uri, group.ToDto());
                 });
             }
             catch (Exception ex)
@@ -161,7 +161,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                     {
                         group = await group.SaveAsync();
                     }
-                    return Ok(group.ToDto<GroupDto>());
+                    return Ok(group.ToDto());
                 });
             }
             catch (Exception ex)

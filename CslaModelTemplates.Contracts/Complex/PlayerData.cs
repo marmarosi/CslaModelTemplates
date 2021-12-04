@@ -23,8 +23,8 @@ namespace CslaModelTemplates.Contracts.Complex
     /// </summary>
     public class PlayerDto : PlayerData
     {
-        public string? PlayerId { get; set; }
-        public string? TeamId { get; set; }
+        public string PlayerId { get; set; }
+        public string TeamId { get; set; }
 
         public PlayerDao ToDao()
         {

@@ -103,7 +103,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 Team team = await Team.Create();
-                return Ok(team.ToDto<TeamDto>());
+                return Ok(team.ToDto());
             }
             catch (Exception ex)
             {
@@ -129,7 +129,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 Team team = await Team.Get(criteria);
-                return Ok(team.ToDto<TeamDto>());
+                return Ok(team.ToDto());
             }
             catch (Exception ex)
             {
@@ -161,7 +161,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                     {
                         team = await team.SaveAsync();
                     }
-                    return Created(Uri, team.ToDto<TeamDto>());
+                    return Created(Uri, team.ToDto());
                 });
             }
             catch (Exception ex)
@@ -194,7 +194,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                     {
                         team = await team.SaveAsync();
                     }
-                    return Ok(team.ToDto<TeamDto>());
+                    return Ok(team.ToDto());
                 });
             }
             catch (Exception ex)
@@ -275,7 +275,7 @@ namespace CslaModelTemplates.WebApi.Controllers
             try
             {
                 TeamSet set = await TeamSet.Get(criteria);
-                return Ok(set.ToDto<TeamSetItemDto>());
+                return Ok(set.ToDto());
             }
             catch (Exception ex)
             {
@@ -309,7 +309,7 @@ namespace CslaModelTemplates.WebApi.Controllers
                     {
                         set = await set.SaveAsync();
                     }
-                    return Ok(set.ToDto<TeamSetItemDto>());
+                    return Ok(set.ToDto());
                 });
             }
             catch (Exception ex)

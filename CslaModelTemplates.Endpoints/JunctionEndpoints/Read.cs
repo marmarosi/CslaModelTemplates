@@ -19,7 +19,7 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
         .WithRequest<GroupParams>
         .WithResponse<GroupDto>
     {
-        internal ILogger logger { get; private set; }
+        internal ILogger Logger { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the endpoint.
@@ -29,7 +29,7 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
             ILogger<Read> logger
             )
         {
-            this.logger = logger;
+            this.Logger = logger;
         }
 
         /// <summary>
@@ -57,11 +57,11 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
             try
             {
                 Group group = await Group.Get(criteria);
-                return Ok(group.ToDto<GroupDto>());
+                return Ok(group.ToDto());
             }
             catch (Exception ex)
             {
-                return Helper.HandleError(this, logger, ex);
+                return Helper.HandleError(this, Logger, ex);
             }
         }
     }

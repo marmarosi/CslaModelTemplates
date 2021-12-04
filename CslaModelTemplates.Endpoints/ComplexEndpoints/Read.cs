@@ -19,7 +19,7 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
         .WithRequest<TeamParams>
         .WithResponse<TeamDto>
     {
-        internal ILogger logger { get; private set; }
+        internal ILogger Logger { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the endpoint.
@@ -29,7 +29,7 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
             ILogger<Read> logger
             )
         {
-            this.logger = logger;
+            this.Logger = logger;
         }
 
         /// <summary>
@@ -57,11 +57,11 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
             try
             {
                 Team team = await Team.Get(criteria);
-                return Ok(team.ToDto<TeamDto>());
+                return Ok(team.ToDto());
             }
             catch (Exception ex)
             {
-                return Helper.HandleError(this, logger, ex);
+                return Helper.HandleError(this, Logger, ex);
             }
         }
     }

@@ -20,7 +20,7 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
         .WithRequest<TeamSetCriteria>
         .WithResponse<IList<TeamSetItemDto>>
     {
-        internal ILogger logger { get; private set; }
+        internal ILogger Logger { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the endpoint.
@@ -30,7 +30,7 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
             ILogger<ReadSet> logger
             )
         {
-            this.logger = logger;
+            this.Logger = logger;
         }
 
         /// <summary>
@@ -58,11 +58,11 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
             try
             {
                 TeamSet set = await TeamSet.Get(criteria);
-                return Ok(set.ToDto<TeamSetItemDto>());
+                return Ok(set.ToDto());
             }
             catch (Exception ex)
             {
-                return Helper.HandleError(this, logger, ex);
+                return Helper.HandleError(this, Logger, ex);
             }
         }
     }

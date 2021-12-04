@@ -20,7 +20,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         .WithRequest<SimpleTeamSetRequest>
         .WithResponse<IList<SimpleTeamSetItemDto>>
     {
-        internal ILogger logger { get; private set; }
+        internal ILogger Logger { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the endpoint.
@@ -30,7 +30,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
             ILogger<UpdateSet> logger
             )
         {
-            this.logger = logger;
+            this.Logger = logger;
         }
 
         /// <summary>
@@ -66,12 +66,12 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
                     {
                         teams = await teams.SaveAsync();
                     }
-                    return Ok(teams.ToDto<SimpleTeamSetItemDto>());
+                    return Ok(teams.ToDto());
                 });
             }
             catch (Exception ex)
             {
-                return Helper.HandleError(this, logger, ex);
+                return Helper.HandleError(this, Logger, ex);
             }
         }
     }

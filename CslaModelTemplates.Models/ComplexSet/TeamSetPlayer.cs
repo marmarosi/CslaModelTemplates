@@ -19,7 +19,7 @@ namespace CslaModelTemplates.Models.ComplexSet
     /// </summary>
     [Serializable]
     [ValidationResourceType(typeof(ValidationText), ObjectName = "Player")]
-    public class TeamSetPlayer : EditableModel<TeamSetPlayer>
+    public class TeamSetPlayer : EditableModel<TeamSetPlayer, TeamSetPlayerDto>
     {
         #region Properties
 
@@ -134,18 +134,15 @@ namespace CslaModelTemplates.Models.ComplexSet
         /// </summary>
         /// <param name="dto">The data transfer objects.</param>
         public override async Task Update(
-            object data
+            TeamSetPlayerDto dto
             )
         {
-            TeamSetPlayerDto dto = data as TeamSetPlayerDto;
-            using (BypassPropertyChecks)
-            {
-                //PlayerKey = KeyHash.Decode(ID.Player, dto.PlayerId);
-                //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
-                PlayerCode = dto.PlayerCode;
-                PlayerName = dto.PlayerName;
-            }
-            await base.Update(data);
+            //PlayerKey = KeyHash.Decode(ID.Player, dto.PlayerId);
+            //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
+            PlayerCode = dto.PlayerCode;
+            PlayerName = dto.PlayerName;
+
+            await base.Update(dto);
         }
 
         #endregion
@@ -161,12 +158,12 @@ namespace CslaModelTemplates.Models.ComplexSet
         /// <param name="parent">The parent collection.</param>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The new editable player instance.</returns>
-        internal static async Task<TeamSetPlayer> Create(
+        internal static new async Task<TeamSetPlayer> Create(
             IParent parent,
             TeamSetPlayerDto dto
             )
         {
-            return await Create<TeamSetPlayerDto>(parent, dto);
+            return await Create(parent, dto);
         }
 
         #endregion
@@ -261,9 +258,11 @@ namespace CslaModelTemplates.Models.ComplexSet
                 //Items.Clear();
                 //FieldManager.UpdateChildren(this);
 
-                TeamSetPlayerCriteria criteria = new TeamSetPlayerCriteria(PlayerKey.Value);
-                criteria.__teamCode = ((TeamSetItem)Parent.Parent).TeamCode;
-                criteria.__playerCode = PlayerCode;
+                TeamSetPlayerCriteria criteria = new TeamSetPlayerCriteria(PlayerKey.Value)
+                {
+                    __teamCode = ((TeamSetItem)Parent.Parent).TeamCode,
+                    __playerCode = PlayerCode
+                };
                 dal.Delete(criteria);
             }
         }

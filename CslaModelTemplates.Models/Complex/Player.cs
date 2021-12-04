@@ -19,7 +19,7 @@ namespace CslaModelTemplates.Models.Complex
     /// </summary>
     [Serializable]
     [ValidationResourceType(typeof(ValidationText), ObjectName = "Player")]
-    public class Player : EditableModel<Player>
+    public class Player : EditableModel<Player, PlayerDto>
     {
         #region Properties
 
@@ -134,19 +134,17 @@ namespace CslaModelTemplates.Models.Complex
         /// <summary>
         /// Updates an editable player from the data transfer object.
         /// </summary>
-        /// <param name="data">The data transfer object.</param>
+        /// <param name="dto">The data transfer object.</param>
         public override async Task Update(
-            object data
+            PlayerDto dto
             )
         {
-            PlayerDto dto = data as PlayerDto;
-
             //PlayerKey = KeyHash.Decode(ID.Player, dto.PlayerId);
             //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
             PlayerCode = dto.PlayerCode;
             PlayerName = dto.PlayerName;
 
-            await base.Update(data);
+            await base.Update(dto);
         }
 
         #endregion
@@ -162,12 +160,12 @@ namespace CslaModelTemplates.Models.Complex
         /// <param name="parent">The parent collection.</param>
         /// <param name="dto">The data transfer object.</param>
         /// <returns>The new editable player instance.</returns>
-        protected static async Task<Player> Create(
+        protected static new async Task<Player> Create(
             IParent parent,
             PlayerDto dto
             )
         {
-            return await Create<PlayerDto>(parent, dto);
+            return await Create(parent, dto);
         }
 
         #endregion

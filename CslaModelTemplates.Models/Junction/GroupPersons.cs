@@ -14,7 +14,7 @@ namespace CslaModelTemplates.Models.Junction
     /// Represents an editable group-person collection.
     /// </summary>
     [Serializable]
-    public class GroupPersons : EditableList<GroupPersons, GroupPerson>
+    public class GroupPersons : EditableList<GroupPersons, GroupPerson, GroupPersonDto>
     {
         #region Business Rules
 
