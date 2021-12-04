@@ -116,11 +116,10 @@ namespace CslaModelTemplates.Models.Junction
             )
         {
             GroupPersonDto dto = data as GroupPersonDto;
-            using (BypassPropertyChecks)
-            {
-                PersonKey = KeyHash.Decode(ID.Person, dto.PersonId);
-                PersonName = dto.PersonName;
-            }
+
+            PersonKey = KeyHash.Decode(ID.Person, dto.PersonId);
+            PersonName = dto.PersonName;
+
             await base.Update(data);
         }
 

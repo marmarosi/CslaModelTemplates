@@ -90,6 +90,24 @@ namespace CslaModelTemplates.Models.Simple
 
         #region Business Methods
 
+        /// <summary>
+        /// Updates an editable team from the data transfer object.
+        /// </summary>
+        /// <param name="data">The data transfer object.</param>
+        public override async Task Update(
+            object data
+            )
+        {
+            SimpleTeamDto dto = data as SimpleTeamDto;
+
+            //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
+            TeamCode = dto.TeamCode;
+            TeamName = dto.TeamName;
+            //Timestamp = dto.Timestamp;
+
+            await base.Update(data);
+        }
+
         #endregion
 
         #region Factory Methods
@@ -142,13 +160,7 @@ namespace CslaModelTemplates.Models.Simple
             SimpleTeam team = teamKey.HasValue ?
                 await DataPortal.FetchAsync<SimpleTeam>(new SimpleTeamCriteria(teamKey.Value)) :
                 await DataPortal.CreateAsync<SimpleTeam>();
-
-            //team.TeamKey = dto.TeamKey;
-            team.TeamCode = dto.TeamCode;
-            team.TeamName = dto.TeamName;
-            //team.Timestamp = dto.Timestamp;
-
-            team.BusinessRules.CheckRules();
+            await team.Update(dto);
             return team;
         }
 

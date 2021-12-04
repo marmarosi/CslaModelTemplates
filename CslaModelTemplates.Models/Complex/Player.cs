@@ -140,13 +140,12 @@ namespace CslaModelTemplates.Models.Complex
             )
         {
             PlayerDto dto = data as PlayerDto;
-            using (BypassPropertyChecks)
-            {
-                //PlayerKey = KeyHash.Decode(ID.Player, dto.PlayerId);
-                //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
-                PlayerCode = dto.PlayerCode;
-                PlayerName = dto.PlayerName;
-            }
+
+            //PlayerKey = KeyHash.Decode(ID.Player, dto.PlayerId);
+            //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
+            PlayerCode = dto.PlayerCode;
+            PlayerName = dto.PlayerName;
+
             await base.Update(data);
         }
 

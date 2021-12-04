@@ -106,14 +106,13 @@ namespace CslaModelTemplates.Models.Complex
             )
         {
             TeamDto dto = data as TeamDto;
-            using (BypassPropertyChecks)
-            {
-                //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
-                TeamCode = dto.TeamCode;
-                TeamName = dto.TeamName;
-                await Players.Update(dto.Players);
-                //Timestamp = dto.Timestamp;
-            }
+
+            //TeamKey = KeyHash.Decode(ID.Team, dto.TeamId);
+            TeamCode = dto.TeamCode;
+            TeamName = dto.TeamName;
+            await Players.Update(dto.Players);
+            //Timestamp = dto.Timestamp;
+
             await base.Update(data);
         }
 
@@ -245,15 +244,18 @@ namespace CslaModelTemplates.Models.Complex
             // Update values in persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                ITeamDal dal = dm.GetProvider<ITeamDal>();
-
-                using (BypassPropertyChecks)
+                if (IsSelfDirty)
                 {
-                    TeamDao dao = CreateDao();
-                    dal.Update(dao);
+                    ITeamDal dal = dm.GetProvider<ITeamDal>();
 
-                    // Set new data.
-                    Timestamp = dao.Timestamp;
+                    using (BypassPropertyChecks)
+                    {
+                        TeamDao dao = CreateDao();
+                        dal.Update(dao);
+
+                        // Set new data.
+                        Timestamp = dao.Timestamp;
+                    }
                 }
                 FieldManager.UpdateChildren(this);
             }

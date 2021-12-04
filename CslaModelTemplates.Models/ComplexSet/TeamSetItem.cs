@@ -215,15 +215,18 @@ namespace CslaModelTemplates.Models.ComplexSet
             // Update values in persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                ITeamSetItemDal dal = dm.GetProvider<ITeamSetItemDal>();
-
-                using (BypassPropertyChecks)
+                if (IsSelfDirty)
                 {
-                    TeamSetItemDao dao = CreateDao();
-                    dal.Update(dao);
+                    ITeamSetItemDal dal = dm.GetProvider<ITeamSetItemDal>();
 
-                    // Set new data.
-                    Timestamp = dao.Timestamp;
+                    using (BypassPropertyChecks)
+                    {
+                        TeamSetItemDao dao = CreateDao();
+                        dal.Update(dao);
+
+                        // Set new data.
+                        Timestamp = dao.Timestamp;
+                    }
                 }
                 FieldManager.UpdateChildren(this);
             }

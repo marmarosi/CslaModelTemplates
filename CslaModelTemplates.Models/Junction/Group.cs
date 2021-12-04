@@ -97,6 +97,25 @@ namespace CslaModelTemplates.Models.Junction
 
         #region Business Methods
 
+        /// <summary>
+        /// Updates an editable group from the data transfer object.
+        /// </summary>
+        /// <param name="data">The data transfer object.</param>
+        public override async Task Update(
+            object data
+            )
+        {
+            GroupDto dto = data as GroupDto;
+
+            //GroupKey = KeyHash.Decode(ID.Group, dto.GroupKey);
+            GroupCode = dto.GroupCode;
+            GroupName = dto.GroupName;
+            await Persons.Update(dto.Persons);
+            //Timestamp = dto.Timestamp;
+
+            await base.Update(data);
+        }
+
         #endregion
 
         #region Factory Methods
@@ -149,14 +168,7 @@ namespace CslaModelTemplates.Models.Junction
             Group group = groupKey.HasValue ?
                 await DataPortal.FetchAsync<Group>(new GroupCriteria(groupKey.Value)) :
                 await DataPortal.CreateAsync<Group>();
-
-            //group.GroupKey = dto.GroupKey;
-            group.GroupCode = dto.GroupCode;
-            group.GroupName = dto.GroupName;
-            await group.Persons.Update(dto.Persons);
-            //group.Timestamp = dto.Timestamp;
-
-            group.BusinessRules.CheckRules();
+            await group.Update(dto);
             return group;
         }
 
@@ -232,15 +244,18 @@ namespace CslaModelTemplates.Models.Junction
             // Update values in persistent storage.
             using (IDalManager dm = DalFactory.GetManager())
             {
-                IGroupDal dal = dm.GetProvider<IGroupDal>();
-
-                using (BypassPropertyChecks)
+                if (IsSelfDirty)
                 {
-                    GroupDao dao = CreateDao();
-                    dal.Update(dao);
+                    IGroupDal dal = dm.GetProvider<IGroupDal>();
 
-                    // Set new data.
-                    Timestamp = dao.Timestamp;
+                    using (BypassPropertyChecks)
+                    {
+                        GroupDao dao = CreateDao();
+                        dal.Update(dao);
+
+                        // Set new data.
+                        Timestamp = dao.Timestamp;
+                    }
                 }
                 FieldManager.UpdateChildren(this);
             }
