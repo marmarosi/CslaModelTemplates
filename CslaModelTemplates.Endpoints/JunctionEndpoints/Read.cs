@@ -42,9 +42,10 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Gets the specified group to edit.",
-            Description = "Gets the specified group to edit. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;GroupKey: number" +
-                "<br>}<br>" +
+            Description = "Gets the specified group to edit.<br>" +
+                "Criteria:<br>{<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;groupId: string<br>" +
+                "}<br>" +
                 "Result: GroupDto",
             OperationId = "Group.Read",
             Tags = new[] { "Junction Endpoints" })

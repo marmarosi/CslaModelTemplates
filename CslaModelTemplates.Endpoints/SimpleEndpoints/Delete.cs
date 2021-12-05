@@ -1,6 +1,7 @@
 using Ardalis.ApiEndpoints;
 using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.Models.Simple;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
@@ -39,12 +40,14 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         /// <param name="cancellationToken">The cancellation token.</param>
         [HttpDelete]
         [Produces(MediaTypeNames.Application.Json)]
+        [SwaggerResponse(StatusCodes.Status204NoContent)]
         [SwaggerOperation(
             Summary = "Deletes the specified team.",
-            Description = "Deletes the specified team. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: number" +
-                "<br>}",
-            OperationId = "SimpleTeam.Delete",
+            Description = "Deletes the specified team.<br>" +
+                "Criteria:<br>{<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;teamId: string<br>" +
+                "}",
+            OperationId = "SimpleTeam.Delete", 
             Tags = new[] { "Simple Endpoints" })
         ]
         public override async Task<ActionResult> HandleAsync(

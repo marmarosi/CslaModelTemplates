@@ -43,9 +43,10 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Gets a list of teams.",
-            Description = "Gets a list of teams. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamName: string" +
-                "<br>}<br>" +
+            Description = "Gets a list of teams.<br>" +
+                "Criteria:<br>{<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;teamName: string<br>" +
+                "}<br>" +
                 "Result: TeamListItemDto[]",
             OperationId = "Team.List",
             Tags = new[] { "Complex Endpoints" })

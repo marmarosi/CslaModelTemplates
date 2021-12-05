@@ -44,9 +44,10 @@ namespace CslaModelTemplates.Endpoints.SelectionEndpoints
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Gets the code-name choice of the teams.",
-            Description = "Gets the code-name choice of the teams. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamName: string" +
-                "<br>}<br>" +
+            Description = "Gets the code-name choice of the teams.<br>" +
+                "Criteria:<br>{<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;teamName: string<br>" +
+                "}<br>" +
                 "Result: CodeNameOptionDto[]",
             OperationId = "ChoiceWithCode.List",
             Tags = new[] { "Selection Endpoints" })

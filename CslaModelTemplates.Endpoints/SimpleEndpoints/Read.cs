@@ -42,9 +42,10 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Gets the specified team to edit.",
-            Description = "Gets the specified team details to edit. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: number" +
-                "<br>}<br>" +
+            Description = "Gets the specified team details to edit.<br>" +
+                "Criteria:<br>{<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;teamId: string<br>" +
+                "}<br>" +
                 "Result: SimpleTeamDto",
             OperationId = "SimpleTeam.Read",
             Tags = new[] { "Simple Endpoints" })

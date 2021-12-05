@@ -43,13 +43,14 @@ namespace CslaModelTemplates.Endpoints.PaginationEndpoints
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Gets the specified page of sorted teams.",
-            Description = "Gets the specified page of sorted teams. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamName: string" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;SortBy: string" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;SortDirection: ascending | descending" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;PageIndex: number" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;PageSize: number" +
-                "<br>}<br>" +
+            Description = "Gets the specified page of sorted teams.<br>" +
+                "Criteria:<br>{<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;teamName: string,<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;sortBy: string,<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;sortDirection: ascending | descending,<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;pageIndex: number,<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;pageSize: number<br>" +
+                "}<br>" +
                 "Result: PaginatedSortedTeamListItemDto[]",
             OperationId = "PaginatedSortedTeam.List",
             Tags = new[] { "Pagination Endpoints" })

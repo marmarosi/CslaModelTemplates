@@ -1,6 +1,7 @@
 using Ardalis.ApiEndpoints;
 using CslaModelTemplates.Contracts.Junction;
 using CslaModelTemplates.Models.Junction;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
@@ -40,6 +41,7 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
         /// <returns>The created group.</returns>
         [HttpPost]
         [Produces(MediaTypeNames.Application.Json)]
+        [SwaggerResponse(StatusCodes.Status201Created)]
         [SwaggerOperation(
             Summary = "Creates a new group.",
             Description = "Creates a new group.<br>" +

@@ -1,6 +1,7 @@
 using Ardalis.ApiEndpoints;
 using CslaModelTemplates.Contracts.Junction;
 using CslaModelTemplates.Models.Junction;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
@@ -39,11 +40,13 @@ namespace CslaModelTemplates.Endpoints.JunctionEndpoints
         /// <param name="cancellationToken">The cancellation token.</param>
         [HttpDelete]
         [Produces(MediaTypeNames.Application.Json)]
+        [SwaggerResponse(StatusCodes.Status204NoContent)]
         [SwaggerOperation(
             Summary = "Deletes the specified group.",
-            Description = "Deletes the specified group. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;GroupKey: number" +
-                "<br>}",
+            Description = "Deletes the specified group.<br>" +
+                "Criteria:<br>{<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;groupId: string<br>" +
+                "}",
             OperationId = "Group.Delete",
             Tags = new[] { "Junction Endpoints" })
         ]

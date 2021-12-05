@@ -1,6 +1,7 @@
 using Ardalis.ApiEndpoints;
 using CslaModelTemplates.Contracts.Complex;
 using CslaModelTemplates.Models.Complex;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
@@ -39,11 +40,13 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
         /// <param name="cancellationToken">The cancellation token.</param>
         [HttpDelete]
         [Produces(MediaTypeNames.Application.Json)]
+        [SwaggerResponse(StatusCodes.Status204NoContent)]
         [SwaggerOperation(
             Summary = "Deletes the specified team.",
-            Description = "Deletes the specified team. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamKey: number" +
-                "<br>}",
+            Description = "Deletes the specified team.<br>" +
+                "Criteria:<br>{<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;teamId: string<br>" +
+                "}",
             OperationId = "Team.Delete",
             Tags = new[] { "Complex Endpoints" })
         ]

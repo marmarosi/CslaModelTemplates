@@ -1,6 +1,7 @@
 using Ardalis.ApiEndpoints;
 using CslaModelTemplates.Contracts.Simple;
 using CslaModelTemplates.Models.Simple;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
@@ -40,6 +41,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         /// <returns>The created team.</returns>
         [HttpPost]
         [Produces(MediaTypeNames.Application.Json)]
+        [SwaggerResponse(StatusCodes.Status201Created)]
         [SwaggerOperation(
             Summary = "Creates a new team.",
             Description = "Creates a new team.<br>" +

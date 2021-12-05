@@ -42,8 +42,9 @@ namespace CslaModelTemplates.Endpoints.TreeEndpoints
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Gets the specified folder tree.",
-            Description = "Gets the specified folder tree. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;RootKey: number" +
+            Description = "Gets the specified folder tree.<br>" +
+                "Criteria:<br>{<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;rootKey: number<br>" +
                 "<br>}<br>" +
                 "Result: FolderNodeDto",
             OperationId = "FolderTree.View",

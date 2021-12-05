@@ -41,7 +41,7 @@ namespace CslaModelTemplates.Endpoints.SimpleEndpoints
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Gets a new team to edit.",
-            Description = "Gets a new team to edit.<br><br>" +
+            Description = "Gets a new team to edit.<br>" +
                 "Result: SimpleTeamDto",
             OperationId = "SimpleTeam.New",
             Tags = new[] { "Simple Endpoints" })

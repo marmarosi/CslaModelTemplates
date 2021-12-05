@@ -42,9 +42,10 @@ namespace CslaModelTemplates.Endpoints.ComplexEndpoints
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Counts the teams grouped by the number of their items.",
-            Description = "Counts the teams grouped by the number of their items. Criteria:<br>{" +
-                "<br>&nbsp;&nbsp;&nbsp;&nbsp;TeamName: string" +
-                "<br>}<br>" +
+            Description = "Counts the teams grouped by the number of their items.<br>" +
+                "Criteria:<br>{<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;teamName: string<br>" +
+                "}<br>" +
                 "Result: CountTeamsListItemDto",
             OperationId = "SimpleTeam.Rename",
             Tags = new[] { "Complex Endpoints" })

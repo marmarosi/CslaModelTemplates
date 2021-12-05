@@ -42,8 +42,7 @@ namespace CslaModelTemplates.Endpoints.TreeEndpoints
         [Produces(MediaTypeNames.Application.Json)]
         [SwaggerOperation(
             Summary = "Gets the ID-name choice of the trees.",
-            Description = "Gets the ID-name choice of the teams." +
-                "<br><br>" +
+            Description = "Gets the ID-name choice of the teams.<br>" +
                 "Result: IdNameOptionDto[]",
             OperationId = "FolderTree.Choice",
             Tags = new[] { "Tree Endpoints" })
