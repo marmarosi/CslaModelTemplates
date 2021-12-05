@@ -8,9 +8,9 @@ Category | Models
 ---|---
 [Simple Models](#simple-models) | [SimpleList](#simplelist), [SimpleView](#simpleview), [Simple](#simple), [SimpleSet](#simpleset), [SimpleCommand](#simplecommand)
 [Pagination](#pagination) | [SortedList](#sortedlist), [PaginatedList](#paginatedlist), [PaginatedSortedList](#paginatedsortedlist)
-[Selection](#selection) | [SelectionWithKey](#selectionwithkey), [SelectionWithCode](#selectionwithcode)
+[Selection](#selection) | [ChoiceWithKey](#choicewithkey), [ChoiceWithId](#choicewithid), [ChoiceWithCode](#choicewithcode)
 [Complex Models](#complex-models) | [ComplexList](#complexlist), [ComplexView](#complexview), [Complex](#complex), [ComplexSet](#complexset), [ComplexCommand](#complexcommand)
-[Tree Model](#tree-model) | [Tree](#tree)
+[Tree Model](#tree-model) | [Tree](#tree), [TreeChoice](#treechoice)
 [Junction Models](#junction-models) | [JunctionView](#junctionview), [Junction](#junction)
 
 ## Simple Models
@@ -145,7 +145,7 @@ The selection templates provides more simplified versions of the simple list
 that can be used e.g. in drop-down lists. The items of the selection list
 have properties for a value and a description only.
 
-### SelectionWithKey
+### ChoiceWithKey
 
 The template implements the selection list with a value property named Key
 whose data type is number.
@@ -157,9 +157,23 @@ KeyNameOption | read-only child object
 
 Endpoint:
 
-- [ ] GET ​/api​/selection​/with-key --- *Gets the key-name choice of the teams.**
+- [ ] GET ​/api​/selection​/with-key --- *Gets the key-name choice of the teams.*
 
-### SelectionWithCode
+### ChoiceWithId
+
+The template implements the selection list with a value property name Id
+whose data type is string.
+
+Component | Description
+--------- | -----------
+TeamIdChoice | read-only root collection
+IdNameOption | read-only child object
+
+Endpoint:
+
+- [ ] GET ​/api​/selection​/with-id --- *Gets the id-name choice of the teams.*
+
+### ChoiceWithCode
 
 The template implements the selection list with a value property name Code
 whose data type is string.
@@ -171,7 +185,7 @@ CodeNameOption | read-only child object
 
 Endpoint:
 
-- [ ] GET ​/api​/selection​/with-code --- *Gets the code-name choice of the teams.**
+- [ ] GET ​/api​/selection​/with-code --- *Gets the code-name choice of the teams.*
 
 ## Complex Models
 
@@ -279,7 +293,21 @@ FolderNode | read-only child object
 
 Endpoint:
 
-- [ ] GET ​/api​/tree​/view --- *Gets the specified folder tree.*
+- [ ] GET ​/api​/tree​ --- *Gets the specified folder tree.*
+
+### TreeChoice
+
+The template implements the tree selection list with a value property name Id
+whose data type is string.
+
+Component | Description
+--------- | -----------
+RootFolderChoice | read-only root collection
+IdNameOption | read-only child object
+
+Endpoint:
+
+- [ ] GET ​/api​/tree​/choice --- *Gets the id-name choice of the root folders.*
 
 ## Junction Models
 
@@ -319,6 +347,6 @@ Endpoints:
 
 - [ ] GET ​/api​/junction​/new --- *Gets a new group to edit.*
 - [ ] POST ​/api​/junction --- *Creates a new group.*
-- [ ] GET ​/api​/junction​/read --- *Gets the specified group to edit.*
+- [ ] GET ​/api​/junction​/view --- *Gets the specified group details to display.*
 - [ ] PUT ​/api​/junction --- *Updates the specified group.*
 - [ ] DELETE ​/api​/junction --- *Deletes the specified group.*

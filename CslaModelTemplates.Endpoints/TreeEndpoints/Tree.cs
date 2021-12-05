@@ -44,7 +44,7 @@ namespace CslaModelTemplates.Endpoints.TreeEndpoints
             Summary = "Gets the specified folder tree.",
             Description = "Gets the specified folder tree.<br>" +
                 "Criteria:<br>{<br>" +
-                "&nbsp;&nbsp;&nbsp;&nbsp;rootKey: number<br>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;rootId: string<br>" +
                 "<br>}<br>" +
                 "Result: FolderNodeDto",
             OperationId = "FolderTree.View",
